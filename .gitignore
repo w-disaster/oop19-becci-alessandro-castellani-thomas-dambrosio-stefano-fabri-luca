@@ -1,4 +1,7 @@
 /bin/
 /config/
 /gradle/wrapper/
-
+.classpath
+.project
+.gradle/
+.settings/
