@@ -1,1 +1,4 @@
 /bin/
+/config/
+/gradle/wrapper/
+
