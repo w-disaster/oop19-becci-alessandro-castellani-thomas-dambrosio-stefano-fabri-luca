@@ -10,10 +10,7 @@ public interface StandardPlayer {
 	 *
 	 */
 	public enum Direction{
-		LEFT,
-		RIGHT,
-		TOP,
-		DOWN
+		LEFT, RIGHT, TOP, DOWN
 	}
 	
 	/**
@@ -22,8 +19,7 @@ public interface StandardPlayer {
 	 *
 	 */
 	public enum Type{
-		NORMAL,
-		JUMP
+		NORMAL, JUMP
 	}
 	
 	/**
@@ -56,6 +52,11 @@ public interface StandardPlayer {
 	 * @return true if this player wins.
 	 */
 	boolean isWinner();
+	
+	/**
+	 * sets the X position of the finish line 
+	 */
+	//void setXFinishLine(Integer x);
 	
 	/**
 	 * this method at the click of the current player, communicates to the view all possible
