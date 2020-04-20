@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import viewmenu.SceneBuilder;
+import viewmenu.SceneBuilderImpl;
 
 /**
  * This class represent the Main class of the JavaFX-based application.
@@ -16,11 +18,10 @@ public final class Main extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-        final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/main.fxml"));
-        final Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+    	SceneBuilder sceneBuild = new SceneBuilderImpl(SCENE_WIDTH, SCENE_HEIGHT, "layouts/main.fxml");
         // Stage configuration
-        stage.setTitle("JavaFX - Complete Example");
-        stage.setScene(scene);
+        stage.setTitle("Quoridor2D - Menu");
+        stage.setScene(sceneBuild.getScene());
         stage.show();
     }
 
