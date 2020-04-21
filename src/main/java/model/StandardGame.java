@@ -1,22 +1,43 @@
 package model;
 
+import java.util.List;
+
 public interface StandardGame<X extends StandardPlayer> {
 
 	/**
 	 * 
-	 * @return the current player position in the grid
+	 * @return the current player.
 	 */
-	Pair<Integer, Integer> getCurrentPlayer();
+	X getCurrentPlayer();
 	
 	/**
 	 * 
-	 * @return the two (all) players positions in the grid
+	 * @return game players
 	 */
-	Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> getPlayersPositions();
+	Pair<X, X> getPlayers();
 	
 	/**
-	 * this method changes the turn
+	 * 
+	 * @return list of the players of the previous rounds
 	 */
+	List<Pair<X, X>> getPreviousPlayers();
+	
+	/**
+	 * sets player the current player.
+	 * @param player
+	 */
+	void setCurrentPlayer(X player);
+	
+	/**
+	 * sets the current round players.
+	 * @param players
+	 */
+	void setPlayers(Pair<X, X> players);
+	
+	/* Controller?
 	void changeTurn();
+	
+	void changeRound();
+	*/
 	
 }

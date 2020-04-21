@@ -45,7 +45,7 @@ public interface StandardPlayer {
 	 * 
 	 * @return the current position of the player.
 	 */
-	Pair<Integer, Integer> getCurrentPosition();
+	Pair<Integer, Integer> getPosition();
 	
 	/**
 	 * 

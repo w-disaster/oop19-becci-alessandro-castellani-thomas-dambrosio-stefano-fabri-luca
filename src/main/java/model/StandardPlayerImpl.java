@@ -24,16 +24,16 @@ public class StandardPlayerImpl implements StandardPlayer{
 		final int offset = type.equals(Type.NORMAL) ? 1 : 2;
 		switch(direction) {
 		case LEFT:
-			this.position = new Pair<>(this.getCurrentPosition().getX() - offset, this.getCurrentPosition().getY());
+			this.position = new Pair<>(this.getPosition().getX() - offset, this.getPosition().getY());
 			break;
 		case RIGHT:
-			this.position = new Pair<>(this.getCurrentPosition().getX() + offset, this.getCurrentPosition().getY());
+			this.position = new Pair<>(this.getPosition().getX() + offset, this.getPosition().getY());
 			break;
 		case TOP:
-			this.position = new Pair<>(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() - offset);
+			this.position = new Pair<>(this.getPosition().getX(), this.getPosition().getY() - offset);
 			break;
 		case DOWN:
-			this.position = new Pair<>(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() + offset);
+			this.position = new Pair<>(this.getPosition().getX(), this.getPosition().getY() + offset);
 			break;
 		}
 	}
@@ -49,22 +49,27 @@ public class StandardPlayerImpl implements StandardPlayer{
 	}
 
 	@Override
-	public Pair<Integer, Integer> getCurrentPosition() {
+	public Pair<Integer, Integer> getPosition() {
 		return this.position;
+	}
+	
+	private Integer getXFinishLine() {
+		return this.XfinishLine;
 	}
 	
 	@Override
 	public boolean isWinner() {
-		return this.position.getX().equals(POSITION_BOUNDARY);
-	}
-
-	@Override
-	public void setPossibleMoves(List<Pair<Integer, Integer>> positions) {
-		// TODO Auto-generated method stub
+		return this.position.getX().equals(this.getXFinishLine());
 	}
 
 	private void setXFinishLine(Integer x) {
 		this.XfinishLine = x;
 	}
+	
+	@Override
+	public void setPossibleMoves(List<Pair<Integer, Integer>> positions) {
+		// TODO Auto-generated method stub
+	}
+	
 	
 }
