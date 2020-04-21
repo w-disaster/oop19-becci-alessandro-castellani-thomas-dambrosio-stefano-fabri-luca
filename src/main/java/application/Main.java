@@ -13,8 +13,8 @@ import viewmenu.SceneBuilderImpl;
  */
 public final class Main extends Application {
 
-    private static final int SCENE_WIDTH = 500;
-    private static final int SCENE_HEIGHT = 300;
+    private static final int SCENE_WIDTH = 600;
+    private static final int SCENE_HEIGHT = 400;
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -22,6 +22,8 @@ public final class Main extends Application {
         // Stage configuration
         stage.setTitle("Quoridor2D - Menu");
         stage.setScene(sceneBuild.getScene());
+        stage.setMinWidth(SCENE_WIDTH);
+        stage.setMinHeight(SCENE_HEIGHT);
         stage.show();
     }
 
