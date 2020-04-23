@@ -2,9 +2,35 @@ package model;
 
 public interface StandardGameFactory {
 
-	StandardGame getSGbyName(String nickname1, String nickame2);
+	/**
+	 * 
+	 * @param nickname1
+	 * @param nickame2
+	 * @return StandardGame with players in default positions with respectively nicknames.
+	 */
+	StandardGame getSGbyName(final String nickname1, final String nickame2);
 	
-	StandardGame getSGbyPlayers(Pair<StandardPlayer, StandardPlayer> players);
+	/**
+	 * 
+	 * @param players
+	 * @return StandardGame with given players
+	 */
+	StandardGame getSGbyPlayers(final Pair<StandardPlayer, StandardPlayer> players);
 	
-	StandardGame getSGbyDimension(final int dimension, String nickname1, String nickname2);
+	/**
+	 * 
+	 * @param dimension
+	 * @param nickname1
+	 * @param nickname2
+	 * @return StandardPlayer with given board dimension and nicknames
+	 */
+	StandardGame getSGbyDimensionNicknames(final int boardDimension, final String nickname1, final String nickname2);
+	
+	/**
+	 * 
+	 * @param dimension
+	 * @param players
+	 * @return StandardGame with given board dimension and players.
+	 */
+	StandardGame getSGByDimensionPlayers(final int BoardDimension, final Pair<StandardPlayer, StandardPlayer> players);
 }

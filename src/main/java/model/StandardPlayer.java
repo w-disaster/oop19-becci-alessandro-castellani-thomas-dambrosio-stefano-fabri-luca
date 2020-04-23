@@ -5,24 +5,6 @@ import java.util.List;
 public interface StandardPlayer {
 	
 	/**
-	 * enum describing all possible move direction.
-	 * @author luca
-	 *
-	 */
-	public enum Direction{
-		LEFT, RIGHT, TOP, DOWN
-	}
-	
-	/**
-	 * enum describing possible move types.
-	 * @author luca
-	 *
-	 */
-	public enum Type{
-		NORMAL, JUMP
-	}
-	
-	/**
 	 * 
 	 * @return the name of the player.
 	 */
@@ -32,7 +14,7 @@ public interface StandardPlayer {
 	 * 
 	 * @return number of the remaining available barriers.
 	 */
-	Integer getRemainingBarriers();
+	int getRemainingBarriers();
 	
 	/**
 	 * 
@@ -52,9 +34,15 @@ public interface StandardPlayer {
 	boolean isWinner();
 	
 	/**
+	 * 
+	 * @return the x coordinate of the finish line
+	 */
+	int getXFinishLine();
+	
+	/**
 	 * sets the X position of the finish line 
 	 */
-	//void setXFinishLine(Integer x);
+	void setXFinishLine(Integer x);
 	
 	/**
 	 * this method at the click of the current player, communicates to the view all possible

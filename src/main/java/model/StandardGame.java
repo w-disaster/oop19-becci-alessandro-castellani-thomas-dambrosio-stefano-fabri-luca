@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 public interface StandardGame {
 
 	/**
@@ -15,18 +13,6 @@ public interface StandardGame {
 	 * @return game players
 	 */
 	Pair<StandardPlayer, StandardPlayer> getPlayers();
-	
-	/**
-	 * 
-	 * @return the board dimension
-	 */
-	int getDimension();
-	
-	/**
-	 * 
-	 * @return list of the players of the previous rounds
-	 */
-	List<Pair<StandardPlayer, StandardPlayer>> getPreviousRoundsPlayers();
 	
 	/**
 	 * sets player the current player.
