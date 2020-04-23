@@ -2,42 +2,42 @@ package model;
 
 import java.util.List;
 
-public interface StandardGame<X extends StandardPlayer> {
+public interface StandardGame {
 
 	/**
 	 * 
 	 * @return the current player.
 	 */
-	X getCurrentPlayer();
+	StandardPlayer getCurrentPlayer();
 	
 	/**
 	 * 
 	 * @return game players
 	 */
-	Pair<X, X> getPlayers();
+	Pair<StandardPlayer, StandardPlayer> getPlayers();
+	
+	/**
+	 * 
+	 * @return the board dimension
+	 */
+	int getDimension();
 	
 	/**
 	 * 
 	 * @return list of the players of the previous rounds
 	 */
-	List<Pair<X, X>> getPreviousPlayers();
+	List<Pair<StandardPlayer, StandardPlayer>> getPreviousRoundsPlayers();
 	
 	/**
 	 * sets player the current player.
 	 * @param player
 	 */
-	void setCurrentPlayer(X player);
+	void setCurrentPlayer(StandardPlayer player);
 	
 	/**
 	 * sets the current round players.
 	 * @param players
 	 */
-	void setPlayers(Pair<X, X> players);
-	
-	/* Controller?
-	void changeTurn();
-	
-	void changeRound();
-	*/
+	void setPlayers(Pair<StandardPlayer, StandardPlayer> players);
 	
 }

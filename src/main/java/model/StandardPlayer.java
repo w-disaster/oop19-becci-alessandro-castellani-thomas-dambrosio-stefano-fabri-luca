@@ -23,13 +23,6 @@ public interface StandardPlayer {
 	}
 	
 	/**
-	 * moves the player from the current position.
-	 * @param direction
-	 * @param type
-	 */
-	void move(Direction direction, Type type);
-	
-	/**
 	 * 
 	 * @return the name of the player.
 	 */
@@ -48,6 +41,11 @@ public interface StandardPlayer {
 	Pair<Integer, Integer> getPosition();
 	
 	/**
+	 * decreases the available barriers number.
+	 */
+	void placeBarrier();
+	
+	/**
 	 * 
 	 * @return true if this player wins.
 	 */
@@ -64,5 +62,6 @@ public interface StandardPlayer {
 	 * @param positions 
 	 */
 	void setPossibleMoves(List<Pair<Integer, Integer>> positions);
+	
 	
 }

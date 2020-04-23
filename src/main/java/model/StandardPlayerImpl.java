@@ -4,7 +4,6 @@ import java.util.List;
 
 public class StandardPlayerImpl implements StandardPlayer{
 	
-	public static final int POSITION_BOUNDARY = 8;
 	public static final int BARRIERS_NUMBER = 10;
 	private String nickname;
 	private Pair<Integer, Integer> position;
@@ -16,7 +15,7 @@ public class StandardPlayerImpl implements StandardPlayer{
 		this.nickname = nickname;
 		this.position = position;
 		this.remainingBarriers = BARRIERS_NUMBER;
-		this.setXFinishLine(POSITION_BOUNDARY - this.position.getX());
+		this.setXFinishLine(StandardGameImpl.POSITIONBOUNDARY - this.position.getX());
 	}
 
 	@Override
@@ -58,6 +57,11 @@ public class StandardPlayerImpl implements StandardPlayer{
 	}
 	
 	@Override
+	public void placeBarrier() {
+		this.remainingBarriers = this.remainingBarriers - 1;
+	}
+	
+	@Override
 	public boolean isWinner() {
 		return this.position.getX().equals(this.getXFinishLine());
 	}
@@ -70,6 +74,5 @@ public class StandardPlayerImpl implements StandardPlayer{
 	public void setPossibleMoves(List<Pair<Integer, Integer>> positions) {
 		// TODO Auto-generated method stub
 	}
-	
-	
+
 }

@@ -2,18 +2,16 @@ package model;
 
 import java.util.List;
 
-public class StandardGameImpl implements StandardGame<StandardPlayer>{
-
-	public static final Integer GRIDBOUNDARY = 9; //qua o in StandardPlayer ? 
-	private List<Pair<StandardPlayer, StandardPlayer>> previousPlayers;
+public class StandardGameImpl implements StandardGame{
+	
+	public static final int DEFAULT_DIMENSION = 9;
+	private List<Pair<StandardPlayer, StandardPlayer>> previousRoundsPlayers;
 	private StandardPlayer currentPlayer;
 	private Pair<StandardPlayer, StandardPlayer> players;
+	private final int dimension;
 	
-	public StandardGameImpl(String nickname1, String nickname2) {
-		super();
-		this.setPlayers(new Pair<StandardPlayer, StandardPlayer>(new StandardPlayerImpl(nickname1, new Pair<>(0, GRIDBOUNDARY/2)), 
-				new StandardPlayerImpl(nickname2, new Pair<>(GRIDBOUNDARY, GRIDBOUNDARY/2))));
-		this.setCurrentPlayer(this.players.getX());
+	public StandardGameImpl() {
+		this.dimension = DEFAULT_DIMENSION;
 	}
 
 	@Override
@@ -27,10 +25,16 @@ public class StandardGameImpl implements StandardGame<StandardPlayer>{
 	}
 	
 	@Override
-	public List<Pair<StandardPlayer, StandardPlayer>> getPreviousPlayers() {
-		return this.previousPlayers;
+	public List<Pair<StandardPlayer, StandardPlayer>> getPreviousRoundsPlayers() {
+		return this.previousRoundsPlayers;
 	}
 	
+	@Override
+	public int getDimension() {
+		return this.dimension;
+	}
+	
+	@Override
 	public void setCurrentPlayer(StandardPlayer player) {
 		this.currentPlayer = player;
 	}
@@ -39,5 +43,7 @@ public class StandardGameImpl implements StandardGame<StandardPlayer>{
 	public void setPlayers(Pair<StandardPlayer, StandardPlayer> players) {
 		this.players = players;
 	}
+
+	
 
 }
