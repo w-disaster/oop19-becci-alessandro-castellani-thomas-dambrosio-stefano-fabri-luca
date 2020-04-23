@@ -1,0 +1,26 @@
+
+.root{
+	-fx-background: #2B2D42;
+	Amaranth: #D90429;
+	Raisin: #1A1B28;
+}
+
+.bigLabel{
+	-fx-font-family: 'Serif';
+	-fx-font-size: 70;
+	-fx-font-weight: bold;
+	-fx-text-fill: Amaranth;
+}
+
+.button{
+	-fx-font-family: 'Arial';
+	-fx-font-size: 25;
+	-fx-text-fill: white;
+	-fx-background-color: Raisin;
+}
+
+
+
+
+
+
