@@ -12,20 +12,20 @@ import viewmenu.SceneBuilderImpl;
  * This class represent the Main class of the JavaFX-based application.
  */
 public final class Main extends Application {
-
-    private static final int SCENE_WIDTH = 1280;
-    private static final int SCENE_HEIGHT = 720;
+	
+	//if your screen is 1920x1080, scaling by 2.0 mean that the application will be in 1280x720
+    private static final double SCALING_RATE = 2.0;
 
     @Override
     public void start(final Stage stage) throws Exception {
-     	SceneBuilder sceneBuild = new SceneBuilderImpl(SCENE_WIDTH, SCENE_HEIGHT, "layouts/MainMenu.fxml");
+     	SceneBuilder sceneBuild = new SceneBuilderImpl(SCALING_RATE, "layouts/MainMenu.fxml");
 
         // Stage configuration
 
         stage.setTitle("Quoridor2D - Menu");
         stage.setScene(sceneBuild.getScene());
-        stage.setMinWidth(SCENE_WIDTH);
-        stage.setMinHeight(SCENE_HEIGHT);
+        //stage.setMinWidth(SCENE_WIDTH);
+        //stage.setMinHeight(SCENE_HEIGHT);
         stage.show();
     }
 
