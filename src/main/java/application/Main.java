@@ -19,7 +19,7 @@ public final class Main extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-     	SceneBuilder sceneBuild = new SceneBuilderImpl(SCALING_RATE, "layouts/MainMenu.fxml");
+     	SceneBuilder sceneBuild = new SceneBuilderImpl(SCALING_RATE, "layouts/menu/MainMenu.fxml");
 
         // Stage configuration
 
