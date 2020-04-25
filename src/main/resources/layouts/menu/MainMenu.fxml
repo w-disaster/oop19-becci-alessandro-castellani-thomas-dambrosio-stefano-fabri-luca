@@ -17,7 +17,7 @@
    <bottom>
       <StackPane prefHeight="115.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#exitOnClickHandler" text="EXIT">
+            <Button mnemonicParsing="false" onAction="#exitButtonPressHandler" text="EXIT">
                <StackPane.margin>
                   <Insets bottom="50.0" right="15.0" />
                </StackPane.margin></Button>
@@ -27,16 +27,16 @@
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="NEW GAME">
+            <Button mnemonicParsing="false" onAction="#newGameButtonPressHandler" text="NEW GAME">
                <StackPane.margin>
                   <Insets right="360.0" />
                </StackPane.margin></Button>
-            <Button mnemonicParsing="false" text="LOAD GAME">
+            <Button mnemonicParsing="false" onAction="#loadGameButtonPressHandler" text="LOAD GAME">
                <StackPane.margin>
                   <Insets right="15.0" />
                </StackPane.margin>
             </Button>
-            <Button mnemonicParsing="false" text="LEADERBOARD">
+            <Button mnemonicParsing="false" onAction="#leaderboardButtonPressHandler" text="LEADERBOARD">
                <StackPane.margin>
                   <Insets left="360.0" />
                </StackPane.margin>
