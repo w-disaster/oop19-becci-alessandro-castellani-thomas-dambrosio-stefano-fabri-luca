@@ -33,8 +33,10 @@ public class SceneBuilderImpl implements SceneBuilder{
 	public Scene getScene() throws IOException {
 		System.out.println("setted resolution to " + width + "x" + height);
 		build();
-		return this.scene;
+		return scene;
 	}
+
+	
 	
 
 }
