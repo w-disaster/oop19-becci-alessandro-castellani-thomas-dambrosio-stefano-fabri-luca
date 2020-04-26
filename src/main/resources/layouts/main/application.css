@@ -1,0 +1,76 @@
+.root {
+	-fx-base: #1A1B28;
+	
+	-fx-background: #2B2D42;
+	
+	-fx-control-inner-background: #1A1B28;
+	
+	-fx-font-family: Roboto;
+	-fx-font-size: 16px;
+	-fx-text-base-color: white;
+    -fx-text-background-color: white;
+    -fx-text-inner-color: white;
+    -fx-selection-bar-text: black;
+    
+    -fx-hover-base: ladder(
+    -fx-base,
+        derive(-fx-base,20%) 20%,
+        derive(-fx-base,30%) 35%,
+        derive(-fx-base,40%) 50%
+     );
+	
+
+}
+
+.BorderPane {
+	-fx-background-color: -fx-background;
+}
+
+.TextField {
+	-fx-control-inner-background: -fx-base;
+}
+
+.GridPane {
+	-fx-background-color: -fx-base;
+	-fx-border-color: white;
+	
+}
+
+.GridAnchorPane {
+	-fx-border-color: white;
+}
+
+.WallUp {
+	-fx-border-color: #D90429 white white white;
+	-fx-border-width: 5 1 1 1;
+}
+
+.WallDown {
+	-fx-border-color: white white #D90429 white;
+	-fx-border-width: 1 1 5 1;
+}
+
+.WallRight {
+	-fx-border-color: white #D90429 white white;
+	-fx-border-width: 1 5 1 1;
+}
+
+.WallLeft {
+	-fx-border-color: white white white #D90429;
+	-fx-border-width: 1 1 1 5;
+}
+
+.GridAnchorPane:hover {
+	-fx-background-color: -fx-background;
+}
+
+.MenuBar {
+	-fx-background-color: -fx-base;
+}
+
+.Label {
+	-fx-padding: 10;
+	-fx-background-color: white;
+	-fx-background-radius: 10;
+	-fx-text-background-color: black;
+}

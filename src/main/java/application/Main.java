@@ -14,8 +14,8 @@ import viewmenu.SceneBuilderImpl;
  */
 public final class Main extends Application {
 	
-	//if your screen is 1920x1080, scaling by 2.0 mean that the application will be 1280x720
-    private static final double SCALING_RATE = 2.0;
+	//if your screen is 1920x1080, scaling by 1.5 mean that the application will be 1280x720
+    private static final double SCALING_RATE = 1.5;
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -29,6 +29,7 @@ public final class Main extends Application {
         stage.show();
         stage.setMinWidth(stage.getWidth());
         stage.setMinHeight(stage.getHeight());
+        
     }
 
     /**
