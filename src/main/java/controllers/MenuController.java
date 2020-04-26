@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,8 +13,6 @@ import viewmenu.SceneBuilderImpl;
 
 public class MenuController {
 
-	 private static final double SCALING_RATE = 1.5;
-
 	@FXML
     public void exitButtonPressHandler() {
         System.exit(0);
@@ -21,7 +20,7 @@ public class MenuController {
 
 	 @FXML
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
-		 SceneBuilder sceneBuild = new SceneBuilderImpl(SCALING_RATE, "layouts/main/scene.fxml");
+		 SceneBuilder sceneBuild = new SceneBuilderImpl(Main.SCALING_RATE, "layouts/main/scene.fxml");
 		 
 		 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		 stage.setTitle("Quoridor2D - Game");
