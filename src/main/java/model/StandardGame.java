@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public interface StandardGame {
 
 	/**
@@ -12,7 +14,13 @@ public interface StandardGame {
 	 * 
 	 * @return game players
 	 */
-	Pair<StandardPlayer, StandardPlayer> getPlayers();
+	List<StandardPlayer> getPlayers();
+	
+	/**
+	 * 
+	 * @return board dimension
+	 */
+	int getBoardDimension();
 	
 	/**
 	 * sets player the current player.
@@ -24,6 +32,6 @@ public interface StandardGame {
 	 * sets the current round players.
 	 * @param players
 	 */
-	void setPlayers(Pair<StandardPlayer, StandardPlayer> players);
+	void setPlayers(List<StandardPlayer> players);
 	
 }

@@ -32,5 +32,5 @@ public interface StandardGameFactory {
 	 * @param players
 	 * @return StandardGame with given board dimension and players.
 	 */
-	StandardGame getSGByDimensionPlayers(final int BoardDimension, final Pair<StandardPlayer, StandardPlayer> players);
+	StandardGame getSGByDimensionPlayers(final int boardDimension, final Pair<StandardPlayer, StandardPlayer> players);
 }

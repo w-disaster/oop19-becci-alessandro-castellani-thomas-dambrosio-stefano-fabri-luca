@@ -21,7 +21,7 @@ public class StandardGameFactoryImpl implements StandardGameFactory{
 	}
 
 	@Override
-	public StandardGame getSGByDimensionPlayers(int BoardDimension, Pair<StandardPlayer, StandardPlayer> players) {
+	public StandardGame getSGByDimensionPlayers(int boardDimension, Pair<StandardPlayer, StandardPlayer> players) {
 		// TODO Auto-generated method stub
 		return null;
 	}

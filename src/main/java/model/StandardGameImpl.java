@@ -1,18 +1,27 @@
 package model;
 
+import java.util.List;
+
 public class StandardGameImpl implements StandardGame{
 	
+	public static final int STANDARD_DIMENSION = 9;
 	private StandardPlayer currentPlayer;
-	private Pair<StandardPlayer, StandardPlayer> players;
-
+	private List<StandardPlayer> players;
+	private int boardDimension;
+	
 	@Override
 	public StandardPlayer getCurrentPlayer() {
 		return this.currentPlayer;
 	}
 
 	@Override
-	public Pair<StandardPlayer, StandardPlayer> getPlayers() {
+	public List<StandardPlayer> getPlayers() {
 		return this.players;
+	}
+	
+	@Override
+	public int getBoardDimension() {
+		return this.boardDimension;
 	}
 	
 	@Override
@@ -21,7 +30,7 @@ public class StandardGameImpl implements StandardGame{
 	}
 
 	@Override
-	public void setPlayers(Pair<StandardPlayer, StandardPlayer> players) {
+	public void setPlayers(List<StandardPlayer> players) {
 		this.players = players;
 	}
 

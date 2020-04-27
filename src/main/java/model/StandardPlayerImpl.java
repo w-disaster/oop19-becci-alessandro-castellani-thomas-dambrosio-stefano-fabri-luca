@@ -1,54 +1,52 @@
 package model;
 
-import java.util.List;
+import java.util.Optional;
 
 public class StandardPlayerImpl implements StandardPlayer{
 	
-	public static final int BARRIERS_NUMBER = 10;
+	public static final int DEFAULT_BARRIERS_NUMBER = 10;
 	private String nickname;
-	private Pair<Integer, Integer> position;
-	private int remainingBarriers;
-	private int XfinishLine;
+	private Coordinate coordinate;
+	private int availableBarriers;
+	private Integer finishLine;
 	
-
+	public StandardPlayerImpl(String nickname, Coordinate coordinate, Optional<Integer> availableBarriers, Integer finishLine) {
+		this.nickname = nickname;
+		this.coordinate = coordinate;
+		this.availableBarriers = availableBarriers.isEmpty() ? DEFAULT_BARRIERS_NUMBER : availableBarriers.get(); 
+		this.finishLine = finishLine;
+	}
+	
 	@Override
 	public String getNickname() {
 		return this.nickname;
 	}
 
 	@Override
-	public int getRemainingBarriers() {
-		return this.remainingBarriers;
+	public int getAvailableBarriers() {
+		return this.availableBarriers;
 	}
 
 	@Override
-	public Pair<Integer, Integer> getPosition() {
-		return this.position;
+	public Coordinate getCoordinate() {
+		return this.coordinate;
 	}
 	
 	@Override
 	public void placeBarrier() {
-		this.remainingBarriers = this.remainingBarriers - 1;
+		this.availableBarriers = this.availableBarriers - 1;
 	}
 	
 	@Override
 	public boolean isWinner() {
-		return this.position.getX().equals(this.getXFinishLine());
+		return this.coordinate.getX().equals(this.getFinishLine());
 	}
 	
-	@Override
-	public int getXFinishLine() {
-		return this.XfinishLine;
+	private Integer getFinishLine() {
+		return this.finishLine;
 	}
 	
-	@Override
-	public void setXFinishLine(Integer x) {
-		this.XfinishLine = x;
+	private void setFinishLine(Integer finishLine) {
+		this.finishLine = finishLine;
 	}
-	
-	@Override
-	public void setPossibleMoves(List<Pair<Integer, Integer>> positions) {
-		// TODO Auto-generated method stub
-	}
-
 }
