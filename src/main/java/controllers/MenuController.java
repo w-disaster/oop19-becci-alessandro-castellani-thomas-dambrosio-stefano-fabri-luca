@@ -10,9 +10,11 @@ import javafx.stage.Stage;
 import jdk.jshell.spi.ExecutionControl.*;
 import viewmenu.SceneBuilder;
 import viewmenu.SceneBuilderImpl;
+import viewmenu.SceneChanger;
+import viewmenu.SceneChangerImpl;
 
 public class MenuController {
-
+	
 	@FXML
     public void exitButtonPressHandler() {
         System.exit(0);
@@ -20,15 +22,8 @@ public class MenuController {
 
 	 @FXML
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
-		 SceneBuilder sceneBuild = new SceneBuilderImpl(Main.SCALING_RATE, "layouts/main/scene.fxml");
-		 
-		 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		 stage.setTitle("Quoridor2D - Game");
-	     stage.setScene(sceneBuild.getScene());
-	     stage.sizeToScene();
-	     stage.show();
-	     stage.setMinWidth(stage.getWidth());
-	     stage.setMinHeight(stage.getHeight());
+		 SceneChanger sceneChange = new SceneChangerImpl(event);
+		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D - Game");
 	 }
 	 
 	 @FXML
