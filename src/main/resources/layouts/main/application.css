@@ -60,7 +60,7 @@
 	-fx-border-width: 1 1 1 5;
 }
 
-.GridAnchorPane:hover {
+.GridAnchorPane:hover, .WallLeft:hover, .WallRight:hover, .WallDown:hover, .WallUp:hover {
 	-fx-background-color: -fx-background;
 }
 

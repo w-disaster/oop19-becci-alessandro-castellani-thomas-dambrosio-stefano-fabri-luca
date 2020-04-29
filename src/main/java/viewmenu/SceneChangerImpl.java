@@ -12,13 +12,13 @@ public class SceneChangerImpl implements SceneChanger{
 	private Stage stage;
 	
 	public SceneChangerImpl(final ActionEvent event) {
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage = Main.STAGE;
 	}
 	
 	@Override
 	public void change(final String pathToFXML, final String title) throws IOException {
 		SceneBuilder sceneBuild = new SceneBuilderImpl(Main.SCALING_RATE, pathToFXML);
-		stage.setTitle("Quoridor2D - Game");
+		stage.setTitle(title);
 		stage.setScene(sceneBuild.getScene());
 	    stage.sizeToScene();
 	    stage.show();

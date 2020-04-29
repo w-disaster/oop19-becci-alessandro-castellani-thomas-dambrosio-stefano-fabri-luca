@@ -16,6 +16,8 @@ public final class Main extends Application {
 	
 	//if your screen is 1920x1080, scaling by 1.5 mean that the application will be 1280x720
     public static final double SCALING_RATE = 1.5;
+    
+    public static Stage STAGE;
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -29,8 +31,12 @@ public final class Main extends Application {
         stage.show();
         stage.setMinWidth(stage.getWidth());
         stage.setMinHeight(stage.getHeight());
+        Main.STAGE = stage;
         
     }
+    
+    
+    
 
     /**
      * 
