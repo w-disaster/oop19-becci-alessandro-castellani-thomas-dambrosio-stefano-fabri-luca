@@ -36,8 +36,6 @@ public final class Main extends Application {
     }
     
     
-    
-
     /**
      * 
      * @param args unused

@@ -24,15 +24,20 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 /**
- * The Controller related to the main.fxml GUI.
+ * The Controller related to the scene.fxml GUI.
  *
  */
 public final class UIController {
+	
 	@FXML 
-	private MenuItem RetToMainMenu;
+	private MenuItem retToMainMenu;
     
+	@FXML
+	private MenuItem exit;
+	
     @FXML
     private ImageView redPlayer;
+    
     
     @FXML
     public void handleDragDetection(MouseEvent event) {
@@ -52,10 +57,16 @@ public final class UIController {
      */ 
     @FXML
     public void ReturnToMainMenu(ActionEvent event) throws IOException{
-
     	SceneChanger sceneChange = new SceneChangerImpl(event);
     	sceneChange.change("layouts/menu/MainMenu.fxml", "Game");
 		 
-
     }
+    
+    /**
+     * A method that handles the exit of the application.
+     */
+     @FXML
+     public void ExitToDesktop(ActionEvent event) {
+    	 System.exit(0);
+     }
 }

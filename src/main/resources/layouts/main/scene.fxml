@@ -211,8 +211,8 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Quit">
               <items>
-                <MenuItem fx:id="RetToMainMenu" mnemonicParsing="false" onAction="#ReturnToMainMenu" text="Return to Main Menu" />
-                  <MenuItem mnemonicParsing="false" text="Exit to desktop" />
+                <MenuItem fx:id="retToMainMenu" mnemonicParsing="false" onAction="#ReturnToMainMenu" text="Return to Main Menu" />
+                  <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#ExitToDesktop" text="Exit to desktop" />
               </items>
             </Menu>
         </menus>
