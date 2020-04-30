@@ -10,7 +10,6 @@ public class BarrierPlacerImpl implements BarrierPlacer {
 
 	@Override
 	public void placeBarrier(Pair<Integer, Integer> position, BarrierType type) {
-		// TODO Auto-generated method stub
 		
 	}
 
