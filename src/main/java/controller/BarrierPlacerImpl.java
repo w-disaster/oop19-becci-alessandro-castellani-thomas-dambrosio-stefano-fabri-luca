@@ -10,7 +10,7 @@ public class BarrierPlacerImpl implements BarrierPlacer {
 
 	@Override
 	public void placeBarrier(Pair<Integer, Integer> position, BarrierType type) {
-		
+		//need implementation
 	}
 
 }
