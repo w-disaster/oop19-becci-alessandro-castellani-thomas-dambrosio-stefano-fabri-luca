@@ -1,6 +1,5 @@
-package model;
 
-import java.util.List;
+package model;
 
 public interface StandardPlayer {
 	

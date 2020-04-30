@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-public class StandardGameImpl implements StandardGame{
+public class StandardGameImpl implements StandardGame {
 	
 	public static final int STANDARD_DIMENSION = 9;
 	private StandardPlayer currentPlayer;
@@ -33,5 +33,5 @@ public class StandardGameImpl implements StandardGame{
 	public void setPlayers(List<StandardPlayer> players) {
 		this.players = players;
 	}
-
+	
 }
