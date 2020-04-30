@@ -7,15 +7,17 @@ import model.Barriers.BarrierType;
 
 public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 
+	private StandardGame game = new StandardGameImpl();
 	private BarrierPlacer placer = new BarrierPlacerImpl();
 	private PlayerMover mover = new PlayerMoverImpl();
 	
 	public StandardGameControllerImpl(String nicknamePlayer1, String nicknamePlayer2) {
-		List<StandardPlayerImpl> playerList = new ArrayList<>();
+		List<StandardPlayerImpl> playersList = new ArrayList<>();
 		StandardPlayer player1 = new StandardPlayerImpl(nicknamePlayer1, new Pair<>(0,4), 10);
 		StandardPlayer player2 = new StandardPlayerImpl(nicknamePlayer2, new Pair<>(8,4), 10);
-		playerList.add(player1);
-		playerList.add(player2);
+		playersList.add(player1);
+		playersList.add(player2);
+		this.game.setPlayers(playersList);
 	}
 	
 	@Override
