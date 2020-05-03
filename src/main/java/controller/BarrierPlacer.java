@@ -1,10 +1,16 @@
 package controller;
 
 import model.*;
-import model.Barriers.BarrierType;
+import model.Barrier.BarrierType;
+
+/**
+ * this class allow to place barriers on the board
+ * 
+ * @author Thomas
+ */
 
 public interface BarrierPlacer {
 
-	public void placeBarrier(Pair<Integer,Integer> position, BarrierType type);
+	public void placeBarrier(Coordinate position, BarrierType type);
 	
 }

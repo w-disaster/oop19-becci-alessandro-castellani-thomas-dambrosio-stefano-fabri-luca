@@ -3,10 +3,15 @@ package controller;
 import java.util.*;
 
 import model.*;
-import model.Barriers.BarrierType;
+import model.Barrier.BarrierType;
 
+/**
+ * controller for standard games
+ * 
+ * @author Thomas
+ */
 public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
-
+	
 	private StandardGame game = new StandardGameImpl();
 	private BarrierPlacer placer = new BarrierPlacerImpl();
 	private PlayerMover mover = new PlayerMoverImpl();
@@ -21,12 +26,12 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	}
 	
 	@Override
-	public void movePlayer(Pair<Integer, Integer> position) {
+	public void movePlayer(Coordinate position) {
 		this.mover.movePlayer(position);
 	}
 
 	@Override
-	public void placeBarrier(Pair<Integer, Integer> position, BarrierType type) {
+	public void placeBarrier(Coordinate position, BarrierType type) {
 		this.placer.placeBarrier(position, type);
 	}
 }
