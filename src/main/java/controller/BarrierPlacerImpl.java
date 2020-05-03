@@ -3,7 +3,7 @@ package controller;
 import model.*;
 import model.Barrier.BarrierType;
 
-public class BarrierPlacerImpl implements BarrierPlacer {
+public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 
 	private StandardGame game = new StandardGameImpl();
 

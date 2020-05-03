@@ -3,7 +3,7 @@ package controller;
 import model.*;
 import model.Barrier.BarrierType;
 
-public class PlayerMoverImpl implements PlayerMover {
+public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 
 	private StandardGame game = new StandardGameImpl();
 	private GameBarriers barriers = new GameBarriersImpl();
@@ -18,7 +18,7 @@ public class PlayerMoverImpl implements PlayerMover {
 			if (this.game.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
 				System.out.println("Game Over! " + this.game.getCurrentPlayer() + " won!");
 			}
-			this.changeTurn();
+			//change turn
 		}
 	}
 	
@@ -30,7 +30,7 @@ public class PlayerMoverImpl implements PlayerMover {
 	}
 	
 	private boolean noWall() {
-		//i need to check in which direction the player wants to move in order to check if there's a wall
+		//i need to find in which direction the player wants to move in order to check if there's a wall
 		if (this.newPosition.getX().equals(this.playerPosition.getX() + 1)) {
 			if (this.barriers.contains(new BarrierImpl(this.playerPosition, BarrierType.VERTICAL))) {
 				return false;
@@ -52,9 +52,5 @@ public class PlayerMoverImpl implements PlayerMover {
 			}
 		}
 		return true;
-	}
-	
-	private void changeTurn() {
-		
 	}
 }
