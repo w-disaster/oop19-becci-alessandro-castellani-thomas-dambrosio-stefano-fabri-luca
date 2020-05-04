@@ -12,18 +12,18 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 	
 	@Override
 	public void movePlayer(Coordinate newPosition) {
-		this.newPosition = newPosition; //so i don't need to pass at all private methods a parameter
-		if (this.adjacent(this.playerPosition, this.newPosition) && this.noWall()) {
+		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
+		if (this.adjacent() && this.noWall()) {
 			this.playerPosition = newPosition;
 			if (this.game.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
 				System.out.println("Game Over! " + this.game.getCurrentPlayer() + " won!");
 			}
-			//change turn
+			this.changeTurn();
 		}
 	}
 	
-	private boolean adjacent(Coordinate currentp, Coordinate newp) {
-		if (Math.abs(currentp.getX() - newp.getX()) + Math.abs(currentp.getY() - newp.getY()) == 1) {
+	private boolean adjacent() {
+		if (Math.abs(this.playerPosition.getX() - this.newPosition.getX()) + Math.abs(this.playerPosition.getY() - this.newPosition.getY()) == 1) {
 			return true;
 		}
 		return false;
