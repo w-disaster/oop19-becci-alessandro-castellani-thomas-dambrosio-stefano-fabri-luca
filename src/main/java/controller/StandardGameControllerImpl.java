@@ -13,8 +13,9 @@ import model.Barrier.BarrierType;
 public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	private StandardGame game = new StandardGameImpl();
-	private BarrierPlacer placer = new BarrierPlacerImpl();
-	private PlayerMover mover = new PlayerMoverImpl();
+	private GameBarriers barriers = new GameBarriersImpl();
+	private BarrierPlacer placer;
+	private PlayerMover mover;
 	
 	public StandardGameControllerImpl(String nicknamePlayer1, String nicknamePlayer2) {
 		List<StandardPlayer> playersList = new ArrayList<>();
@@ -23,6 +24,9 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		playersList.add(player1);
 		playersList.add(player2);
 		this.game.setPlayers(playersList);
+		this.game.setCurrentPlayer(player1);
+		this.placer = new BarrierPlacerImpl(this.game, this.barriers);
+		this.mover = new PlayerMoverImpl(this.game, this.barriers);
 	}
 	
 	@Override
@@ -33,5 +37,14 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	@Override
 	public void placeBarrier(Coordinate position, BarrierType type) {
 		this.placer.placeBarrier(position, type);
+	}
+	
+	/**
+	 * using it only for testing
+	 * 
+	 * @return the current game
+	 */
+	public StandardGame getGame() {
+		return this.game;
 	}
 }

@@ -5,10 +5,16 @@ import model.Barrier.BarrierType;
 
 public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 
-	private StandardGame game = new StandardGameImpl();
-	private GameBarriers barriers = new GameBarriersImpl();
-	private Coordinate playerPosition = this.game.getCurrentPlayer().getCoordinate();
+	private StandardGame game;
+	private GameBarriers barriers;
+	private Coordinate playerPosition;
 	private Coordinate newPosition;
+	
+	public PlayerMoverImpl(StandardGame game, GameBarriers barriers) {
+		super(game);
+		this.barriers = barriers;
+		this.playerPosition = this.game.getCurrentPlayer().getCoordinate();
+	}
 	
 	@Override
 	public void movePlayer(Coordinate newPosition) {
@@ -20,6 +26,7 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 			}
 			this.changeTurn();
 		}
+		System.out.println("Bad move! Still your turn!");
 	}
 	
 	private boolean adjacent() {

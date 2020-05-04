@@ -6,16 +6,24 @@ import model.*;
 
 public class MoveImpl implements Move {
 
-	private StandardGame game = new StandardGameImpl();
-	private List<StandardPlayer> turns = this.game.getPlayers();
+	private StandardGame game;
+	private List<StandardPlayer> turns;
+	private Iterator<StandardPlayer> iter;
+	
+	public MoveImpl(StandardGame game) {
+		this.game = game;
+		this.turns = this.game.getPlayers();
+		this.iter = this.turns.iterator();
+	}
 	
 	@Override
 	public void changeTurn() {
-		this.turns.remove(0); //remove the current player turn
-		if (this.turns.isEmpty()) { //new circle of turns when one is finished
+		if (this.iter.hasNext()) {
+			this.game.setCurrentPlayer(this.iter.next());
+		} else {
 			this.turns = this.game.getPlayers();
+			this.iter = this.turns.iterator();
 		}
-		this.game.setCurrentPlayer(this.turns.get(0));
 	}
 
 }

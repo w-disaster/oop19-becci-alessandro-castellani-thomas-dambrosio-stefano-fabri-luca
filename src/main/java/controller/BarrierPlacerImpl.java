@@ -5,11 +5,16 @@ import model.Barrier.BarrierType;
 
 public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 
-	private StandardGame game = new StandardGameImpl();
-	private GameBarriers barriers = new GameBarriersImpl();
+	private StandardGame game;
+	private GameBarriers barriers;
 	private Coordinate newBarrierPosition;
 	private BarrierType newBarrierType;
 
+	public BarrierPlacerImpl(StandardGame game, GameBarriers barriers) {
+		super(game);
+		this.barriers = barriers;
+	}
+	
 	@Override
 	public void placeBarrier(Coordinate position, BarrierType type) {
 		this.newBarrierPosition = position;
@@ -17,7 +22,9 @@ public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 		if (this.isEmptyPosition() && this.enoughBarriers() && this.noStall()) {
 			//decrementare barriere
 			this.barriers.add(new BarrierImpl(position, type));
+			this.changeTurn();
 		}
+		System.out.println("Bad move! Still your turn!");
 	}
 
 	private boolean isEmptyPosition() {
