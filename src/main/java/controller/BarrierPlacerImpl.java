@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.*;
 import model.*;
 import model.Barrier.BarrierType;
 
@@ -10,8 +11,9 @@ public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 	private Coordinate newBarrierPosition;
 	private BarrierType newBarrierType;
 
-	public BarrierPlacerImpl(StandardGame game, GameBarriers barriers) {
-		super(game);
+	public BarrierPlacerImpl(StandardGame game, GameBarriers barriers, List<StandardPlayer> turns) {
+		super(game, turns);
+		this.game = game;
 		this.barriers = barriers;
 	}
 	
@@ -20,11 +22,12 @@ public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 		this.newBarrierPosition = position;
 		this.newBarrierType = type;
 		if (this.isEmptyPosition() && this.enoughBarriers() && this.noStall()) {
-			//decrementare barriere
+			//bisogna decrementare barriere
 			this.barriers.add(new BarrierImpl(position, type));
 			this.changeTurn();
+		} else {
+			System.out.println("Bad move! Still your turn!");
 		}
-		System.out.println("Bad move! Still your turn!");
 	}
 
 	private boolean isEmptyPosition() {

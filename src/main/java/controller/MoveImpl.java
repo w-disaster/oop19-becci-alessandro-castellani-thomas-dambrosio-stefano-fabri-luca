@@ -10,10 +10,11 @@ public class MoveImpl implements Move {
 	private List<StandardPlayer> turns;
 	private Iterator<StandardPlayer> iter;
 	
-	public MoveImpl(StandardGame game) {
+	public MoveImpl(StandardGame game, List<StandardPlayer> turns) {
 		this.game = game;
-		this.turns = this.game.getPlayers();
+		this.turns = turns;
 		this.iter = this.turns.iterator();
+		this.game.setCurrentPlayer(this.iter.next());
 	}
 	
 	@Override
@@ -21,8 +22,8 @@ public class MoveImpl implements Move {
 		if (this.iter.hasNext()) {
 			this.game.setCurrentPlayer(this.iter.next());
 		} else {
-			this.turns = this.game.getPlayers();
 			this.iter = this.turns.iterator();
+			this.game.setCurrentPlayer(this.iter.next());
 		}
 	}
 

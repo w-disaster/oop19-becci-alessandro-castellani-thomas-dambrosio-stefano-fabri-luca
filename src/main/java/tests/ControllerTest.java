@@ -9,20 +9,17 @@ import static org.junit.Assert.*;
 public class ControllerTest {
 	
 	@Test
-    public void testMovePlayer() {
+    public void testBasicMovePlayer() {
 		StandardGameControllerImpl controller = new StandardGameControllerImpl("player1", "player2");
         assertEquals(controller.getGame().getCurrentPlayer().getNickname(), "player1");
-        controller.movePlayer(new Coordinate(0,2));
+        controller.movePlayer(new Coordinate(2,0));
         assertEquals(controller.getGame().getCurrentPlayer().getNickname(), "player1");
-        controller.movePlayer(new Coordinate(0,3));
-        assertEquals(controller.getGame().getCurrentPlayer().getCoordinate(), new Coordinate(0,3));
+        controller.movePlayer(new Coordinate(3,0));
         assertEquals(controller.getGame().getCurrentPlayer().getNickname(), "player2");
-        assertEquals(controller.getGame().getCurrentPlayer().getCoordinate(), new Coordinate(8,4));
-        controller.movePlayer(new Coordinate(7,4));
+        controller.movePlayer(new Coordinate(4,7));
         assertEquals(controller.getGame().getCurrentPlayer().getNickname(), "player1");
-        controller.movePlayer(new Coordinate(1,4));
+        controller.movePlayer(new Coordinate(4,1));
         assertEquals(controller.getGame().getCurrentPlayer().getNickname(), "player1");
-        assertTrue(true);
 	}
 	
 }

@@ -19,14 +19,14 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	public StandardGameControllerImpl(String nicknamePlayer1, String nicknamePlayer2) {
 		List<StandardPlayer> playersList = new ArrayList<>();
-		StandardPlayer player1 = new StandardPlayerImpl(nicknamePlayer1, new Coordinate(0,4), Optional.of(10), 8);
-		StandardPlayer player2 = new StandardPlayerImpl(nicknamePlayer2, new Coordinate(8,4), Optional.of(10), 0);
+		StandardPlayer player1 = new StandardPlayerImpl(nicknamePlayer1, new Coordinate(4,0), Optional.of(10), 8);
+		StandardPlayer player2 = new StandardPlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
 		playersList.add(player1);
 		playersList.add(player2);
 		this.game.setPlayers(playersList);
-		this.game.setCurrentPlayer(player1);
-		this.placer = new BarrierPlacerImpl(this.game, this.barriers);
-		this.mover = new PlayerMoverImpl(this.game, this.barriers);
+		List<StandardPlayer> turns = this.game.getPlayers();
+		this.placer = new BarrierPlacerImpl(this.game, this.barriers, turns);
+		this.mover = new PlayerMoverImpl(this.game, this.barriers, turns);
 	}
 	
 	@Override
