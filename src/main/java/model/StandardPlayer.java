@@ -16,20 +16,26 @@ public interface StandardPlayer {
 	int getAvailableBarriers();
 	
 	/**
-	 * 
-	 * @return the current position of the player.
-	 */
-	Coordinate getCoordinate();
-	
-	/**
 	 * decreases the available barriers number.
 	 */
-	void placeBarrier();
+	void setAvailableBarriers(int availableBarriers);
 	
 	/**
 	 * 
 	 * @return true if this player wins.
 	 */
 	boolean isWinner();
+	
+	/**
+	 * 
+	 * @return current position Coordinate
+	 */
+	Coordinate getCoordinate();
+	
+	/**
+	 * sets coordinate as current position
+	 * @param coordinate
+	 */
+	void setCoordinate(Coordinate coordinate);
 	
 }

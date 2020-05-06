@@ -26,27 +26,29 @@ public class StandardPlayerImpl implements StandardPlayer{
 	public int getAvailableBarriers() {
 		return this.availableBarriers;
 	}
-
-	@Override
-	public Coordinate getCoordinate() {
-		return this.coordinate;
-	}
 	
 	@Override
-	public void placeBarrier() {
-		this.availableBarriers = this.availableBarriers - 1;
+	public void setAvailableBarriers(int availableBarriers) {
+		this.availableBarriers = availableBarriers;
 	}
 	
 	@Override
 	public boolean isWinner() {
 		return this.coordinate.getX().equals(this.getFinishLine());
 	}
-	
+
+	@Override
+	public Coordinate getCoordinate() {
+		return this.coordinate;
+	}
+		
+	@Override
+	public void setCoordinate(Coordinate coordinate) {
+		this.coordinate = coordinate;
+	}
+
 	private Integer getFinishLine() {
-		return this.finishLine;
+		return finishLine;
 	}
-	
-	private void setFinishLine(Integer finishLine) {
-		this.finishLine = finishLine;
-	}
+
 }
