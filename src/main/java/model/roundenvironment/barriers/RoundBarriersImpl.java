@@ -1,19 +1,19 @@
-package model;
+package model.roundenvironment.barriers;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GameBarriersImpl implements GameBarriers {
+public class RoundBarriersImpl implements RoundBarriers {
 
 	private List<Barrier> barriers;
 	
-	public GameBarriersImpl() {
+	public RoundBarriersImpl() {
 		super();
 		this.barriers = new ArrayList<>();
 	}
 
-	public GameBarriersImpl(List<Barrier> barriers) {
+	public RoundBarriersImpl(List<Barrier> barriers) {
 		super();
 		this.barriers = barriers;
 	}

@@ -1,17 +1,23 @@
 package controller;
 
 import java.util.*;
+
 import model.*;
-import model.Barrier.BarrierType;
+import model.roundenvironment.barriers.BarrierImpl;
+import model.roundenvironment.barriers.RoundBarriers;
+import model.roundenvironment.barriers.Barrier.BarrierType;
+import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.players.Player;
+import model.roundenvironment.players.RoundPlayers;
 
 public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 
-	private StandardGame game;
-	private GameBarriers barriers;
+	private RoundPlayers game;
+	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(StandardGame game, GameBarriers barriers, List<StandardPlayer> turns) {
+	public PlayerMoverImpl(RoundPlayers game, RoundBarriers barriers, List<Player> turns) {
 		super(game, turns);
 		this.game = game;
 		this.barriers = barriers;

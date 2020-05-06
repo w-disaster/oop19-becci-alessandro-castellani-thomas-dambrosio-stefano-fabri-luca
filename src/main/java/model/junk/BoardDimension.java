@@ -1,4 +1,4 @@
-package model;
+package model.junk;
 
 public interface BoardDimension {
 	

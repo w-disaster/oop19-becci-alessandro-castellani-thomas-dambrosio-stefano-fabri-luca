@@ -1,7 +1,9 @@
 
-package model;
+package model.roundenvironment.players;
 
-public interface StandardPlayer {
+import model.roundenvironment.coordinate.Coordinate;
+
+public interface Player {
 	
 	/**
 	 * 

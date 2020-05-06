@@ -1,8 +1,10 @@
-package model;
+package model.roundenvironment.players;
 
 import java.util.Optional;
 
-public class StandardPlayerImpl implements StandardPlayer{
+import model.roundenvironment.coordinate.Coordinate;
+
+public class PlayerImpl implements Player{
 	
 	public static final int DEFAULT_BARRIERS_NUMBER = 10;
 	private String nickname;
@@ -10,7 +12,7 @@ public class StandardPlayerImpl implements StandardPlayer{
 	private int availableBarriers;
 	private Integer finishLine;
 	
-	public StandardPlayerImpl(String nickname, Coordinate coordinate, Optional<Integer> availableBarriers, Integer finishLine) {
+	public PlayerImpl(String nickname, Coordinate coordinate, Optional<Integer> availableBarriers, Integer finishLine) {
 		this.nickname = nickname;
 		this.coordinate = coordinate;
 		this.availableBarriers = availableBarriers.isEmpty() ? DEFAULT_BARRIERS_NUMBER : availableBarriers.get(); 

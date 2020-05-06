@@ -1,4 +1,4 @@
-package model;
+package model.junk;
 
 public class BoardDimensionImpl implements BoardDimension{
 

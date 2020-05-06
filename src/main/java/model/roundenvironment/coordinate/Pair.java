@@ -1,4 +1,4 @@
-package model;
+package model.roundenvironment.coordinate;
 
 public class Pair<X,Y> {
 	

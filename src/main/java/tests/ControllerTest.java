@@ -4,6 +4,8 @@ import java.util.*;
 import org.junit.*;
 import controller.StandardGameControllerImpl;
 import model.*;
+import model.roundenvironment.coordinate.Coordinate;
+
 import static org.junit.Assert.*;
 
 public class ControllerTest {

@@ -1,21 +1,21 @@
-package model;
+package model.roundenvironment.players;
 
 import java.util.List;
 
-public class StandardGameImpl implements StandardGame {
+public class RoundPlayersImpl implements RoundPlayers {
 	
 	public static final int STANDARD_DIMENSION = 9;
-	private StandardPlayer currentPlayer;
-	private List<StandardPlayer> players;
+	private Player currentPlayer;
+	private List<Player> players;
 	private int boardDimension;
 	
 	@Override
-	public StandardPlayer getCurrentPlayer() {
+	public Player getCurrentPlayer() {
 		return this.currentPlayer;
 	}
 
 	@Override
-	public List<StandardPlayer> getPlayers() {
+	public List<Player> getPlayers() {
 		return this.players;
 	}
 	
@@ -25,12 +25,12 @@ public class StandardGameImpl implements StandardGame {
 	}
 	
 	@Override
-	public void setCurrentPlayer(StandardPlayer player) {
+	public void setCurrentPlayer(Player player) {
 		this.currentPlayer = player;
 	}
 
 	@Override
-	public void setPlayers(List<StandardPlayer> players) {
+	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
 	

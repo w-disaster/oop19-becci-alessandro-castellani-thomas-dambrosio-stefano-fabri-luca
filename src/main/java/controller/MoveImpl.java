@@ -3,14 +3,16 @@ package controller;
 import java.util.*;
 
 import model.*;
+import model.roundenvironment.players.Player;
+import model.roundenvironment.players.RoundPlayers;
 
 public class MoveImpl implements Move {
 
-	private StandardGame game;
-	private List<StandardPlayer> turns;
-	private Iterator<StandardPlayer> iter;
+	private RoundPlayers game;
+	private List<Player> turns;
+	private Iterator<Player> iter;
 	
-	public MoveImpl(StandardGame game, List<StandardPlayer> turns) {
+	public MoveImpl(RoundPlayers game, List<Player> turns) {
 		this.game = game;
 		this.turns = turns;
 		this.iter = this.turns.iterator();

@@ -1,4 +1,6 @@
-package model;
+package model.roundenvironment.barriers;
+
+import model.roundenvironment.coordinate.Coordinate;
 
 public class BarrierImpl implements Barrier {
 

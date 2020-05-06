@@ -3,7 +3,14 @@ package controller;
 import java.util.*;
 
 import model.*;
-import model.Barrier.BarrierType;
+import model.roundenvironment.barriers.RoundBarriers;
+import model.roundenvironment.barriers.RoundBarriersImpl;
+import model.roundenvironment.barriers.Barrier.BarrierType;
+import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.players.Player;
+import model.roundenvironment.players.PlayerImpl;
+import model.roundenvironment.players.RoundPlayers;
+import model.roundenvironment.players.RoundPlayersImpl;
 
 /**
  * controller for standard games
@@ -12,19 +19,19 @@ import model.Barrier.BarrierType;
  */
 public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
-	private StandardGame game = new StandardGameImpl();
-	private GameBarriers barriers = new GameBarriersImpl();
+	private RoundPlayers game = new RoundPlayersImpl();
+	private RoundBarriers barriers = new RoundBarriersImpl();
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 	
 	public StandardGameControllerImpl(String nicknamePlayer1, String nicknamePlayer2) {
-		List<StandardPlayer> playersList = new ArrayList<>();
-		StandardPlayer player1 = new StandardPlayerImpl(nicknamePlayer1, new Coordinate(4,0), Optional.of(10), 8);
-		StandardPlayer player2 = new StandardPlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
+		List<Player> playersList = new ArrayList<>();
+		Player player1 = new PlayerImpl(nicknamePlayer1, new Coordinate(4,0), Optional.of(10), 8);
+		Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
 		playersList.add(player1);
 		playersList.add(player2);
 		this.game.setPlayers(playersList);
-		List<StandardPlayer> turns = this.game.getPlayers();
+		List<Player> turns = this.game.getPlayers();
 		this.placer = new BarrierPlacerImpl(this.game, this.barriers, turns);
 		this.mover = new PlayerMoverImpl(this.game, this.barriers, turns);
 	}
@@ -44,7 +51,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	 * 
 	 * @return the current game
 	 */
-	public StandardGame getGame() {
+	public RoundPlayers getGame() {
 		return this.game;
 	}
 }

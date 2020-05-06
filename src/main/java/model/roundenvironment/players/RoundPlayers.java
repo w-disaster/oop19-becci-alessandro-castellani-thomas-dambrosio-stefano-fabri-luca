@@ -1,20 +1,20 @@
-package model;
+package model.roundenvironment.players;
 
 import java.util.List;
 
-public interface StandardGame {
+public interface RoundPlayers {
 
 	/**
 	 * 
 	 * @return the current player.
 	 */
-	StandardPlayer getCurrentPlayer();
+	Player getCurrentPlayer();
 	
 	/**
 	 * 
 	 * @return game players
 	 */
-	List<StandardPlayer> getPlayers();
+	List<Player> getPlayers();
 	
 	/**
 	 * 
@@ -26,12 +26,12 @@ public interface StandardGame {
 	 * sets player the current player.
 	 * @param player
 	 */
-	void setCurrentPlayer(StandardPlayer player);
+	void setCurrentPlayer(final Player player);
 	
 	/**
 	 * sets the current round players.
 	 * @param players
 	 */
-	void setPlayers(List<StandardPlayer> players);
+	void setPlayers(final List<Player> players);
 	
 }
