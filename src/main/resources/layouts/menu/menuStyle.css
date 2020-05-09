@@ -5,16 +5,20 @@
 	Raisin: #1A1B28;
 }
 
+.topHbox{
+	-fx-background-color: Raisin;
+}
+
 .bigLabel{
 	-fx-font-family: 'Serif';
-	-fx-font-size: 65;
+	-fx-font-size: 85;
 	-fx-font-weight: bold;
 	-fx-text-fill: Amaranth;
 }
 
 .button{
 	-fx-font-family: 'monospace';
-	-fx-font-size: 22;
+	-fx-font-size: 30;
 	-fx-text-fill: white;
 	-fx-background-color: Raisin;
 }

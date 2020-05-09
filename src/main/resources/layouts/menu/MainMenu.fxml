@@ -1,47 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="360" minWidth="640" styleClass="root" stylesheets="@menuStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" stylesheets="@menuStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuController">
+   <left>
+      <HBox prefHeight="628.0" prefWidth="839.0" spacing="50.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="200.0" top="100.0" />
+         </padding>
+         <children>
+            <VBox prefHeight="526.0" prefWidth="258.0" spacing="70.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#newGameButtonPressHandler" text="NEW GAME" />
+                  <Button mnemonicParsing="false" onAction="#loadGameButtonPressHandler" text="LOAD GAME" />
+               </children>
+            </VBox>
+            <VBox prefHeight="466.0" prefWidth="261.0" spacing="70.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#leaderboardButtonPressHandler" stylesheets="@menuStyle.css" text="LEADERBOARD" />
+                  <Button mnemonicParsing="false" onAction="#exitButtonPressHandler" text="EXIT" />
+               </children></VBox>
+         </children>
+      </HBox>
+   </left>
    <top>
-      <Label styleClass="bigLabel" stylesheets="@menuStyle.css" text="QUORIDOR" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets top="20.0" />
-         </BorderPane.margin>
-      </Label>
+      <VBox prefHeight="141.0" prefWidth="1366.0" styleClass="topHbox" stylesheets="@menuStyle.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label styleClass="bigLabel" stylesheets="@menuStyle.css" text="QUORIDOR" />
+         </children>
+         <padding>
+            <Insets left="182.0" top="40.0" />
+         </padding>
+      </VBox>
    </top>
-   <bottom>
-      <StackPane prefHeight="115.0" prefWidth="640.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#exitButtonPressHandler" text="EXIT">
-               <StackPane.margin>
-                  <Insets bottom="50.0" right="15.0" />
-               </StackPane.margin></Button>
-         </children>
-      </StackPane>
-   </bottom>
-   <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#newGameButtonPressHandler" text="NEW GAME">
-               <StackPane.margin>
-                  <Insets right="360.0" />
-               </StackPane.margin></Button>
-            <Button mnemonicParsing="false" onAction="#loadGameButtonPressHandler" text="LOAD GAME">
-               <StackPane.margin>
-                  <Insets right="15.0" />
-               </StackPane.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#leaderboardButtonPressHandler" text="LEADERBOARD">
-               <StackPane.margin>
-                  <Insets left="360.0" />
-               </StackPane.margin>
-            </Button>
-         </children>
-      </StackPane>
-   </center>
 </BorderPane>
