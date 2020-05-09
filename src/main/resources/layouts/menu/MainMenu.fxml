@@ -14,19 +14,19 @@
    <left>
       <HBox prefHeight="628.0" prefWidth="839.0" spacing="50.0" BorderPane.alignment="CENTER">
          <padding>
-            <Insets left="200.0" top="100.0" />
+            <Insets left="200.0" top="150.0" />
          </padding>
          <children>
-            <VBox prefHeight="526.0" prefWidth="258.0" spacing="70.0">
+            <VBox prefHeight="526.0" prefWidth="258.0" spacing="200.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#newGameButtonPressHandler" text="NEW GAME" />
                   <Button mnemonicParsing="false" onAction="#loadGameButtonPressHandler" text="LOAD GAME" />
                </children>
             </VBox>
-            <VBox prefHeight="466.0" prefWidth="261.0" spacing="70.0">
+            <VBox prefHeight="466.0" prefWidth="261.0" spacing="200.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#leaderboardButtonPressHandler" stylesheets="@menuStyle.css" text="LEADERBOARD" />
-                  <Button mnemonicParsing="false" onAction="#exitButtonPressHandler" text="EXIT" />
+                  <Button mnemonicParsing="false" onAction="#exitButtonPressHandler" text="EXIT GAME" />
                </children></VBox>
          </children>
       </HBox>
