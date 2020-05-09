@@ -62,7 +62,7 @@
    </left>
    <center>
       <GridPane fx:id="grid" prefHeight="400.0" prefWidth="620.0" styleClass="GridPane" stylesheets="@application.css" BorderPane.alignment="CENTER">
-        <columnConstraints>
+      	<columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

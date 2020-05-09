@@ -17,9 +17,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import viewmenu.SceneBuilder;
@@ -47,12 +50,14 @@ public final class UIController{
     @FXML private MenuItem exit;
     
     public void initialize() {
+    	System.out.println("Initializing...");
     	int numCols = 9;
-	    int numRows = 9;
+    	int numRows = 9;
 
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
 	            addPane(i, j);
+	            System.out.println("pane added" + i + j);
 	        }}
 	    }
 
@@ -61,6 +66,8 @@ public final class UIController{
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked cell [%d, %d]%n", colIndex, rowIndex);
         });
+        pane.getStylesheets().add("layouts/main/applicatoin.css");
+        pane.getStyleClass().add("GridBorderPane");
         grid.add(pane, colIndex, rowIndex);
     }
 

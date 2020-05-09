@@ -36,7 +36,7 @@
 	
 }
 
-.GridAnchorPane {
+.GridBorderPane {
 	-fx-border-color: white;
 }
 
@@ -60,7 +60,7 @@
 	-fx-border-width: 1 1 1 5;
 }
 
-.GridAnchorPane:hover, .WallLeft:hover, .WallRight:hover, .WallDown:hover, .WallUp:hover {
+.GridBorderPane:hover, .WallLeft:hover, .WallRight:hover, .WallDown:hover, .WallUp:hover {
 	-fx-background-color: -fx-background;
 }
 
