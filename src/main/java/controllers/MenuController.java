@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.lang.ModuleLayer.Controller;
 
 import application.Main;
 import javafx.event.ActionEvent;
@@ -24,6 +25,9 @@ public class MenuController {
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
 		 SceneChanger sceneChange = new SceneChangerImpl(event);
 		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D - Game");
+		 UIController controller = new UIController();
+		 controller.initialize();
+		 
 	 }
 	 
 	 @FXML
