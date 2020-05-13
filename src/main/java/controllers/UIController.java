@@ -60,6 +60,7 @@ public final class UIController{
 	            System.out.println("pane added" + i + j);
 	        }}
 	    }
+    
 
     private void addPane(int colIndex, int rowIndex) {
         Pane pane = new BorderPane();
