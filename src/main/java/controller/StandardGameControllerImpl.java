@@ -5,6 +5,7 @@ import java.util.*;
 import model.*;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
+import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier.BarrierType;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
@@ -19,8 +20,8 @@ import model.roundenvironment.players.RoundPlayersImpl;
  */
 public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
-	private RoundPlayers game = new RoundPlayersImpl();
-	private RoundBarriers barriers = new RoundBarriersImpl();
+	private Model<RoundEnvironment> model = new ModelImpl<>();
+	private RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 	
@@ -30,10 +31,10 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
 		playersList.add(player1);
 		playersList.add(player2);
-		this.game.setPlayers(playersList);
-		List<Player> turns = this.game.getPlayers();
-		this.placer = new BarrierPlacerImpl(this.game, this.barriers, turns);
-		this.mover = new PlayerMoverImpl(this.game, this.barriers, turns);
+		this.players.setPlayers(playersList);
+		List<Player> turns = this.players.getPlayers();
+		this.placer = new BarrierPlacerImpl(this.model, turns);
+		this.mover = new PlayerMoverImpl(this.model, turns);
 	}
 	
 	@Override
@@ -49,9 +50,9 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	/**
 	 * using it only for testing
 	 * 
-	 * @return the current game
+	 * @return the current model
 	 */
-	public RoundPlayers getGame() {
-		return this.game;
+	public Model<RoundEnvironment> getGame() {
+		return this.model;
 	}
 }

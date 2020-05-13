@@ -3,6 +3,7 @@ package controller;
 import java.util.*;
 
 import model.*;
+import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.Barrier.BarrierType;
@@ -12,15 +13,17 @@ import model.roundenvironment.players.RoundPlayers;
 
 public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 
-	private RoundPlayers game;
+	private Model<RoundEnvironment> model;
+	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate newBarrierPosition;
 	private BarrierType newBarrierType;
 
-	public BarrierPlacerImpl(RoundPlayers game, RoundBarriers barriers, List<Player> turns) {
-		super(game, turns);
-		this.game = game;
-		this.barriers = barriers;
+	public BarrierPlacerImpl(Model<RoundEnvironment> model, List<Player> turns) {
+		super(model, turns);
+		this.model = model;
+		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
 	}
 	
 	@Override
@@ -41,7 +44,7 @@ public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 	}
 	
 	private boolean enoughBarriers() {
-		return this.game.getCurrentPlayer().getAvailableBarriers() > 0 ? true : false;
+		return this.players.getCurrentPlayer().getAvailableBarriers() > 0 ? true : false;
 	}
 	
 	private boolean noStall() {

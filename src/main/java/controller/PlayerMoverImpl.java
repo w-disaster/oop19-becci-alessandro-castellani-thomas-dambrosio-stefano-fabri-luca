@@ -5,6 +5,7 @@ import java.util.*;
 import model.*;
 import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
+import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier.BarrierType;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
@@ -12,16 +13,18 @@ import model.roundenvironment.players.RoundPlayers;
 
 public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 
-	private RoundPlayers game;
+	private Model<RoundEnvironment> model;
+	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(RoundPlayers game, RoundBarriers barriers, List<Player> turns) {
-		super(game, turns);
-		this.game = game;
-		this.barriers = barriers;
-		this.playerPosition = this.game.getCurrentPlayer().getCoordinate();
+	public PlayerMoverImpl(Model<RoundEnvironment> model, List<Player> turns) {
+		super(model, turns);
+		this.model = model;
+		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
+		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 	}
 	
 	@Override
@@ -30,11 +33,11 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 		if (this.adjacent() && this.noWall()) {
 			this.playerPosition = newPosition;
 			//need to set newPosition in game
-			if (this.game.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
-				System.out.println("Game Over! " + this.game.getCurrentPlayer() + " won!");
+			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
+				System.out.println("Game Over! " + this.players.getCurrentPlayer() + " won!");
 			}
 			this.changeTurn();
-			this.playerPosition = this.game.getCurrentPlayer().getCoordinate();
+			this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		} else {
 			System.out.println("Bad move! Still your turn!");
 		}
