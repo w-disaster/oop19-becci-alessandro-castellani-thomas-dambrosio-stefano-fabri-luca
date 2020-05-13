@@ -30,6 +30,14 @@
 	-fx-control-inner-background: -fx-base;
 }
 
+.RedPlayer {
+	-fx-fill: red;
+}
+
+.BluePlayer {
+	-fx-fill: blue;
+}
+
 .GridPane {
 	-fx-background-color: -fx-base;
 	-fx-border-color: white;

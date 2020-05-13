@@ -1,11 +1,13 @@
 package controllers;
 
 import application.Main;
+
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -38,10 +41,6 @@ import java.util.stream.Collectors;
  *
  */
 public final class UIController{
-
-    @FXML private Circle redPlayer;
-    
-    @FXML private Circle bluePlayer;
     
     @FXML private GridPane grid;
     
@@ -58,18 +57,30 @@ public final class UIController{
 	        for (int j = 0; j < numRows; j++) {
 	            addPane(i, j);
 	            System.out.println("pane added" + i + j);
-	        }}
+	        }
 	    }
+	}
     
-
     private void addPane(int colIndex, int rowIndex) {
-        Pane pane = new BorderPane();
+        Pane pane = new StackPane();
+        pane.setPrefSize(50, 50);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked cell [%d, %d]%n", colIndex, rowIndex);
+            move(colIndex, rowIndex);
         });
-        pane.getStylesheets().add("layouts/main/applicatoin.css");
         pane.getStyleClass().add("GridBorderPane");
         grid.add(pane, colIndex, rowIndex);
+        if (colIndex == 4 && rowIndex == 8) {
+        	System.out.print(pane.getWidth());
+        	Circle redPlayer = new Circle(25);
+        	redPlayer.getStyleClass().add("RedPlayer");
+        	pane.getChildren().add(redPlayer);
+        	StackPane.setAlignment(redPlayer, Pos.CENTER);
+        }
+    }
+    
+    public void move(int colIndex, int rowIndex) {
+    	
     }
 
     
