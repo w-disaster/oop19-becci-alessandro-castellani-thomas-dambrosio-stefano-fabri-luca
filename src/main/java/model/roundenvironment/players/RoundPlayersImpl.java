@@ -4,11 +4,14 @@ import java.util.List;
 
 public class RoundPlayersImpl implements RoundPlayers {
 	
-	public static final int STANDARD_DIMENSION = 9;
 	private Player currentPlayer;
 	private List<Player> players;
-	private int boardDimension;
 	
+	public RoundPlayersImpl(List<Player> players) {
+		super();
+		this.players = players;
+	}
+
 	@Override
 	public Player getCurrentPlayer() {
 		return this.currentPlayer;
@@ -17,11 +20,6 @@ public class RoundPlayersImpl implements RoundPlayers {
 	@Override
 	public List<Player> getPlayers() {
 		return this.players;
-	}
-	
-	@Override
-	public int getBoardDimension() {
-		return this.boardDimension;
 	}
 	
 	@Override

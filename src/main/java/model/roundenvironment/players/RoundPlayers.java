@@ -17,12 +17,6 @@ public interface RoundPlayers {
 	List<Player> getPlayers();
 	
 	/**
-	 * 
-	 * @return board dimension
-	 */
-	int getBoardDimension();
-	
-	/**
 	 * sets player the current player.
 	 * @param player
 	 */

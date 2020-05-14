@@ -3,13 +3,13 @@ import model.roundenvironment.barriers.*;
 import model.roundenvironment.players.*;
 
 
-public interface RoundEnvironment {
+public interface RoundEnvironment extends BarrierEnvironment{
 	
 	/**
 	 * 
 	 * @return current round barriers
 	 */
-	RoundBarriers getRoundBarriers();
+	//RoundBarriers getRoundBarriers();
 	
 	/**
 	 * 
