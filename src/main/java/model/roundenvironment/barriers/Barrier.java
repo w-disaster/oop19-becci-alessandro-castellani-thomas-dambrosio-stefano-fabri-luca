@@ -5,23 +5,23 @@ import model.roundenvironment.coordinate.Coordinate;
 public interface Barrier {
 
 	/**
-	 * type of the barriers
+	 * orientarion of the barrier
 	 * @author luca
 	 *
 	 */
-	public enum BarrierType {
+	public enum Orientation {
 		HORIZONTAL, VERTICAL
 	}
 
 	/**
 	 * 
-	 * @return the type of the barrier
+	 * @return the orientation of the barrier
 	 */
-	BarrierType getType();
+	Orientation getOrientation();
 	
 	/**
 	 * 
-	 * @return barrier coordinate
+	 * @return coordinate that represents the head of the barrier
 	 */
 	Coordinate getCoordinate();
 }

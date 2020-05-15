@@ -1,8 +1,12 @@
-
 package model.roundenvironment.players;
 
 import model.roundenvironment.coordinate.Coordinate;
 
+/**
+ * This interface models a player of the game
+ * @author luca
+ *
+ */
 public interface Player {
 	
 	/**

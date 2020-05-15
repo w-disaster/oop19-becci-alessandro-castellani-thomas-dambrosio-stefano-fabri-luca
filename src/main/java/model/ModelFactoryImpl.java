@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import model.roundenvironment.BarrierEnvironment;
 
-public class ModelFactoryImpl<X extends BarrierEnvironment> implements ModelFactory<X>{
+public class ModelFactoryImpl implements ModelFactory{
 
 	@Override
-	public ModelImpl<X> build(List<X> roundEnvironments) {
+	public <X> ModelImpl<X> build(List<X> roundEnvironments) {
 		return new ModelImpl<>(roundEnvironments, Optional.empty());
 	}
 	

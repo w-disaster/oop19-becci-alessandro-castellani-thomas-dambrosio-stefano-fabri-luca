@@ -1,19 +1,17 @@
 package model.roundenvironment;
-import model.roundenvironment.barriers.*;
-import model.roundenvironment.players.*;
 
+import model.roundenvironment.players.RoundPlayers;
 
-public interface RoundEnvironment extends BarrierEnvironment{
+/**
+ * This inteface models the round environment for the standard or custom game that not contains power ups.
+ * @author luca
+ *
+ */
+public interface RoundEnvironment extends BarrierEnvironment { 
 	
 	/**
 	 * 
-	 * @return current round barriers
-	 */
-	//RoundBarriers getRoundBarriers();
-	
-	/**
-	 * 
-	 * @return current round players
+	 * @return the players of the current round
 	 */
 	RoundPlayers getRoundPlayers();
 

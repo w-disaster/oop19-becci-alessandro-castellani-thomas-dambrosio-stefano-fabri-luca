@@ -16,6 +16,8 @@ public class ModelTest {
 		Model<RoundEnvironment> model = new ModelFactoryImpl<RoundEnvironment>()
 				.build(Stream.iterate(new RoundEnvironmentImpl(new RoundBarriersImpl(), new RoundPlayersImpl(new ArrayList<Player>())), i -> i)
 						.limit(ModelImpl.NUMBER_ROUNDS).collect(Collectors.toList()));
+		
+		//model.setCurrentRoundEnvironment(model.getGameRoundsEnvironments().get((model.getGameRoundsEnvironments().indexOf(model.getCurrentRoundEnvironment()) + 1)));
 	}
 	
 }

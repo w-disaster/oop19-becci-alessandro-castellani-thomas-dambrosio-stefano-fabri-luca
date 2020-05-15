@@ -11,15 +11,13 @@ import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.PlayerState;
 
-public class ModelImpl<X extends BarrierEnvironment> implements Model<X>{
+public class ModelImpl<X> implements Model<X> {
 
 	public static final int BOARD_DIMENSION = 9;
-	public static final int NUMBER_ROUNDS = 3;
 	private Integer boardDimension;
 	private X currentRoundEnvironment;
 	private List<X> gameRoundsEnvironments;
 	private Map<X, List<Pair<PlayerState, Player>>> ranking;
-	//private Integer numberRounds;
 	
 	public ModelImpl(List<X> gameRoundsEnvironments, Optional<Integer> boardDimension) {
 		super();
@@ -33,7 +31,7 @@ public class ModelImpl<X extends BarrierEnvironment> implements Model<X>{
 	}
 	
 	@Override
-	public void setCurrentRoundEnvironment(final X roundEnvironment) {
+	public void setCurrentRoundEnvironment(X roundEnvironment) {
 		this.currentRoundEnvironment = roundEnvironment;
 	}
 	

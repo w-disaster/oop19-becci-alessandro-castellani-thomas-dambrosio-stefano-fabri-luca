@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"model","c":"Model","l":"getBoardDimension()"},{"p":"model","c":"Model","l":"getCurrentRoundEnvironment()"},{"p":"model","c":"Model","l":"getGameRoundsEnvironments()"},{"p":"model","c":"Model","l":"getNumberRounds()"},{"p":"model","c":"Model","l":"getRanking()"},{"p":"model","c":"Model","l":"setCurrentRoundEnvironment(X)"}]

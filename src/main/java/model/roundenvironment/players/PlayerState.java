@@ -1,7 +1,7 @@
 package model.roundenvironment.players;
 
 /**
- * enum describing the state of a player at the end of a round
+ * enum that describes the state of a player at the end of a round
  * @author luca
  *
  */
