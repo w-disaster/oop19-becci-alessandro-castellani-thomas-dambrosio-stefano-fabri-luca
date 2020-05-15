@@ -76,9 +76,16 @@
 	-fx-background-color: -fx-base;
 }
 
-.Label {
+.Label{
+	-fx-padding: 10;
+	-fx-background-color: -fx-base;
+	-fx-background-radius: 10;
+	-fx-text-fill: white;
+}
+
+.SelectedLabel {
 	-fx-padding: 10;
 	-fx-background-color: white;
 	-fx-background-radius: 10;
-	-fx-text-background-color: black;
+	-fx-text-fill: black;
 }

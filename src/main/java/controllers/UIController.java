@@ -47,6 +47,9 @@ public final class UIController{
     
     @FXML private GridPane grid;
     
+    @FXML private Label label1;
+    @FXML private Label label2;
+    
     @FXML private MenuItem retToMainMenu;
     
     @FXML private MenuItem exit;
@@ -68,6 +71,8 @@ public final class UIController{
     	redPlayer.getStyleClass().add("RedPlayer");
     	bluePlayer = new Circle(25);
     	bluePlayer.getStyleClass().add("BluePlayer");
+    	label1.getStyleClass().add("SelectedLabel");
+    	label2.getStyleClass().add("Label");
   
 
 	    for (int i = 0 ; i < numCols ; i++) {
@@ -105,9 +110,17 @@ public final class UIController{
     	if(turn%2 == 0) {
     		gridMap.get(position).getChildren().add(redPlayer);
     		StackPane.setAlignment(redPlayer, Pos.CENTER);
+    		label2.getStyleClass().clear();
+    		label2.getStyleClass().add("SelectedLabel");
+    		label1.getStyleClass().clear();
+    		label1.getStyleClass().add("Label");
     	} else {
     		gridMap.get(position).getChildren().add(bluePlayer);
     		StackPane.setAlignment(bluePlayer, Pos.CENTER);
+    		label1.getStyleClass().clear();
+    		label1.getStyleClass().add("SelectedLabel");   		
+    		label2.getStyleClass().clear();
+    		label2.getStyleClass().add("Label");
     	}
     	turn++;
     }
