@@ -28,12 +28,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import model.roundenvironment.coordinate.Coordinate;
 import viewmenu.SceneBuilder;
 import viewmenu.SceneBuilderImpl;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -48,10 +51,24 @@ public final class UIController{
     
     @FXML private MenuItem exit;
     
+	Circle redPlayer;
+	Circle bluePlayer;
+	
+	Map<Coordinate, Pane> gridMap;
+	int turn = 0;
+    
     public void initialize() {
     	System.out.println("Initializing...");
     	int numCols = 9;
     	int numRows = 9;
+    	
+    	gridMap = new HashMap<Coordinate, Pane>();
+    	
+    	redPlayer = new Circle(25);
+    	redPlayer.getStyleClass().add("RedPlayer");
+    	bluePlayer = new Circle(25);
+    	bluePlayer.getStyleClass().add("BluePlayer");
+  
 
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
@@ -63,24 +80,36 @@ public final class UIController{
     
     private void addPane(int colIndex, int rowIndex) {
         Pane pane = new StackPane();
-        pane.setPrefSize(50, 50);
+        //pane.setPrefSize(50, 50);
+        Coordinate position = new Coordinate(colIndex, rowIndex);
         pane.setOnMouseClicked(e -> {
-            System.out.printf("Mouse clicked cell [%d, %d]%n", colIndex, rowIndex);
-            move(colIndex, rowIndex);
+            System.out.printf("Mouse clicked cell " + position.toString() + "\n");
+            move(position);
         });
         pane.getStyleClass().add("GridBorderPane");
-        grid.add(pane, colIndex, rowIndex);
+        grid.add(pane, position.getX(), position.getY());
+        gridMap.put(position, pane);
         if (colIndex == 4 && rowIndex == 8) {
         	System.out.print(pane.getWidth());
-        	Circle redPlayer = new Circle(25);
-        	redPlayer.getStyleClass().add("RedPlayer");
         	pane.getChildren().add(redPlayer);
         	StackPane.setAlignment(redPlayer, Pos.CENTER);
         }
+        if (colIndex == 4 && rowIndex == 0) {
+        	System.out.print(pane.getWidth());
+        	pane.getChildren().add(bluePlayer);
+        	StackPane.setAlignment(bluePlayer, Pos.CENTER);
+        }
     }
     
-    public void move(int colIndex, int rowIndex) {
-    	
+    public void move(Coordinate position) {
+    	if(turn%2 == 0) {
+    		gridMap.get(position).getChildren().add(redPlayer);
+    		StackPane.setAlignment(redPlayer, Pos.CENTER);
+    	} else {
+    		gridMap.get(position).getChildren().add(bluePlayer);
+    		StackPane.setAlignment(bluePlayer, Pos.CENTER);
+    	}
+    	turn++;
     }
 
     
