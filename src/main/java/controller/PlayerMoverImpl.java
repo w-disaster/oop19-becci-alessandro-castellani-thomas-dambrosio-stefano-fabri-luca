@@ -32,7 +32,7 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
 		if (this.adjacent() && this.noWall()) {
 			this.playerPosition = newPosition;
-			//need to set newPosition in game
+			this.players.getCurrentPlayer().setCoordinate(this.playerPosition);
 			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
 				System.out.println("Game Over! " + this.players.getCurrentPlayer() + " won!");
 			}

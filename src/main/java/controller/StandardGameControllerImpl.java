@@ -1,11 +1,11 @@
 package controller;
 
 import java.util.*;
-
 import model.*;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.RoundEnvironment;
+import model.roundenvironment.RoundEnvironmentImpl;
 import model.roundenvironment.barriers.Barrier.BarrierType;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
@@ -20,8 +20,7 @@ import model.roundenvironment.players.RoundPlayersImpl;
  */
 public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
-	private Model<RoundEnvironment> model = new ModelImpl<>();
-	private RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+	private Model<RoundEnvironment> model;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 	
@@ -31,8 +30,16 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
 		playersList.add(player1);
 		playersList.add(player2);
-		this.players.setPlayers(playersList);
-		List<Player> turns = this.players.getPlayers();
+		List<RoundEnvironment> listEnvironment = new ArrayList<>();
+		for (int i = 0; i < 3; i++) {
+			RoundBarriers barriers = new RoundBarriersImpl();
+			RoundPlayers players = new RoundPlayersImpl(playersList);
+			RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
+			listEnvironment.add(environment);
+		}
+		this.model = new ModelImpl<>(listEnvironment, Optional.empty());
+		this.model.setCurrentRoundEnvironment(listEnvironment.get(0));
+		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
 		this.placer = new BarrierPlacerImpl(this.model, turns);
 		this.mover = new PlayerMoverImpl(this.model, turns);
 	}
@@ -52,7 +59,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	 * 
 	 * @return the current model
 	 */
-	public Model<RoundEnvironment> getGame() {
+	public Model<RoundEnvironment> getModel() {
 		return this.model;
 	}
 }

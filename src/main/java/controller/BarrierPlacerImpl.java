@@ -31,7 +31,7 @@ public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 		this.newBarrierPosition = position;
 		this.newBarrierType = type;
 		if (this.isEmptyPosition() && this.enoughBarriers() && this.noStall()) {
-			//bisogna decrementare barriere
+			this.players.getCurrentPlayer().setAvailableBarriers(this.players.getCurrentPlayer().getAvailableBarriers() - 1);
 			this.barriers.add(new BarrierImpl(position, type));
 			this.changeTurn();
 		} else {
