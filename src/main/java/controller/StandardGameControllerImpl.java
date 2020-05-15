@@ -6,7 +6,7 @@ import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundEnvironmentImpl;
-import model.roundenvironment.barriers.Barrier.BarrierType;
+import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.PlayerImpl;
@@ -49,8 +49,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	}
 
 	@Override
-	public void placeBarrier(Coordinate position, BarrierType type) {
-		this.placer.placeBarrier(position, type);
+	public void placeBarrier(Coordinate position, Orientation orientation) {
+		this.placer.placeBarrier(position, orientation);
 	}
 	
 	/**

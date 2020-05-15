@@ -1,7 +1,7 @@
 package controller;
 
 import model.*;
-import model.roundenvironment.barriers.Barrier.BarrierType;
+import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 
 /**
@@ -12,6 +12,6 @@ import model.roundenvironment.coordinate.Coordinate;
 
 public interface BarrierPlacer {
 
-	public void placeBarrier(Coordinate position, BarrierType type);
+	public void placeBarrier(Coordinate position, Orientation orientation);
 	
 }

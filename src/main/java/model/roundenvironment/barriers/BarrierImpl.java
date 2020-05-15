@@ -5,16 +5,16 @@ import model.roundenvironment.coordinate.Coordinate;
 public class BarrierImpl implements Barrier {
 
 	private Coordinate coordinate;
-	private BarrierType type;
+	private Orientation type;
 	
-	public BarrierImpl(Coordinate coordinate, BarrierType type) {
+	public BarrierImpl(Coordinate coordinate, Orientation type) {
 		super();
 		this.coordinate = coordinate;
 		this.type = type;
 	}
 
 	@Override
-	public BarrierType getType() {
+	public Orientation getOrientation() {
 		return this.type;
 	}
 
