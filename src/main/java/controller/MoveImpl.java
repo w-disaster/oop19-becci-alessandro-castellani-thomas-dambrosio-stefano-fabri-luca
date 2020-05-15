@@ -11,24 +11,26 @@ public class MoveImpl implements Move {
 	private Model<RoundEnvironment> model;
 	private RoundPlayers players;
 	private List<Player> turns;
-	private Iterator<Player> iter;
+	private Iterator<Player> iterTurns;
 	
 	public MoveImpl(Model<RoundEnvironment> model, List<Player> turns) {
 		this.model = model;
 		this.turns = turns;
-		this.iter = this.turns.iterator();
+		this.iterTurns = this.turns.iterator();
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
-		this.players.setCurrentPlayer(this.iter.next());
+		this.players.setCurrentPlayer(this.iterTurns.next());
 	}
 	
 	@Override
 	public void changeTurn() {
-		if (this.iter.hasNext()) {
-			this.players.setCurrentPlayer(this.iter.next());
+		if (this.iterTurns.hasNext()) {
+			this.players.setCurrentPlayer(this.iterTurns.next());
 		} else {
-			this.iter = this.turns.iterator();
-			this.players.setCurrentPlayer(this.iter.next());
+			this.iterTurns = this.turns.iterator();
+			this.players.setCurrentPlayer(this.iterTurns.next());
 		}
 	}
 
+	
+	
 }

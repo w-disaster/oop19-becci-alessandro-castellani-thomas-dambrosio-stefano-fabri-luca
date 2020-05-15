@@ -18,10 +18,15 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
+	private List<RoundEnvironment> rounds;
+	private Iterator<RoundEnvironment> iterRounds;
 	
-	public PlayerMoverImpl(Model<RoundEnvironment> model, List<Player> turns) {
+	public PlayerMoverImpl(Model<RoundEnvironment> model, List<Player> turns, List<RoundEnvironment> listEnvironment) {
 		super(model, turns);
 		this.model = model;
+		this.rounds = listEnvironment;
+		this.iterRounds = this.rounds.iterator();
+		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setto il round corrente
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
@@ -35,6 +40,7 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 			this.players.getCurrentPlayer().setCoordinate(this.playerPosition);
 			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
 				System.out.println("Game Over! " + this.players.getCurrentPlayer() + " won!");
+				this.changeRound();
 			}
 			this.changeTurn();
 			this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
@@ -73,5 +79,13 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 			}
 		}
 		return true;
+	}
+	
+	private void changeRound() {
+		if (this.iterRounds.hasNext()) {
+			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
+		} else {
+			System.out.println("All rounds finished, game end");
+		}
 	}
 }

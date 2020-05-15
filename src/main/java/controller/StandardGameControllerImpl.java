@@ -38,10 +38,9 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 			listEnvironment.add(environment);
 		}
 		this.model = new ModelImpl<>(listEnvironment, Optional.empty());
-		this.model.setCurrentRoundEnvironment(listEnvironment.get(0));
 		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
+		this.mover = new PlayerMoverImpl(this.model, turns, listEnvironment);
 		this.placer = new BarrierPlacerImpl(this.model, turns);
-		this.mover = new PlayerMoverImpl(this.model, turns);
 	}
 	
 	@Override
