@@ -15,7 +15,7 @@ import viewmenu.SceneBuilderImpl;
 public final class Main extends Application {
 	
 	//if your screen is 1920x1080, scaling by 1.5 mean that the application will be 1280x720
-    public static final double SCALING_RATE = 1.5;
+    public static final double SCALING_RATE = 1.3;
     
     public static Stage STAGE;
 
