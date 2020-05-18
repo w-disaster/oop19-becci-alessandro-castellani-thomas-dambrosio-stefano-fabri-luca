@@ -57,12 +57,12 @@ public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
 	private boolean checkPosition() {
 		//barriers are long 2 positions so they can't be placed where x or y are 'boardDimension'
 		if (this.newBarrierPosition.getX().equals(this.model.getBoardDimension() - 1)) {
-			return true;
+			return false;
 		}
-		if ( this.newBarrierPosition.getY().equals(this.model.getBoardDimension() - 1)) {
-			return true;
+		if (this.newBarrierPosition.getY().equals(this.model.getBoardDimension() - 1)) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	private boolean noStall() {

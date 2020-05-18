@@ -1,6 +1,5 @@
 package controller;
 
-import model.*;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 

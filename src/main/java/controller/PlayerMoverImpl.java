@@ -18,15 +18,12 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
-	private List<RoundEnvironment> rounds;
 	private Iterator<RoundEnvironment> iterRounds;
 	
-	public PlayerMoverImpl(Model<RoundEnvironment> model, List<Player> turns, List<RoundEnvironment> listEnvironment) {
+	public PlayerMoverImpl(Model<RoundEnvironment> model, List<Player> turns, Iterator<RoundEnvironment> iterRounds) {
 		super(model, turns);
 		this.model = model;
-		this.rounds = listEnvironment;
-		this.iterRounds = this.rounds.iterator();
-		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setto il round corrente
+		this.iterRounds = iterRounds;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();

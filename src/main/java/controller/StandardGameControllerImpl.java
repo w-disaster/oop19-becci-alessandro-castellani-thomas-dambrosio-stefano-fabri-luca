@@ -21,6 +21,8 @@ import model.roundenvironment.players.RoundPlayersImpl;
 public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	private Model<RoundEnvironment> model;
+	private List<RoundEnvironment> listEnvironment;
+	private Iterator<RoundEnvironment> iterRounds;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 	
@@ -30,16 +32,18 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
 		playersList.add(player1);
 		playersList.add(player2);
-		List<RoundEnvironment> listEnvironment = new ArrayList<>();
+		this.listEnvironment = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
 			RoundBarriers barriers = new RoundBarriersImpl();
 			RoundPlayers players = new RoundPlayersImpl(playersList);
 			RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
-			listEnvironment.add(environment);
+			this.listEnvironment.add(environment);
 		}
-		this.model = new ModelImpl<>(listEnvironment, Optional.empty());
+		this.model = new ModelImpl<>(this.listEnvironment, Optional.empty());
+		this.iterRounds = this.listEnvironment.iterator();
+		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setto il round corrente
 		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
-		this.mover = new PlayerMoverImpl(this.model, turns, listEnvironment);
+		this.mover = new PlayerMoverImpl(this.model, turns, this.iterRounds);
 		this.placer = new BarrierPlacerImpl(this.model, turns);
 	}
 	
