@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 
 import model.*;
 import model.roundenvironment.barriers.BarrierImpl;
@@ -11,14 +12,15 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 
-public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
+public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 
 	private Model<RoundEnvironment> model;
+	private Iterator<RoundEnvironment> iterRounds;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
-	private Iterator<RoundEnvironment> iterRounds;
+	private List<Player> roundWinner;
 	
 	public PlayerMoverImpl(Model<RoundEnvironment> model, List<Player> turns, Iterator<RoundEnvironment> iterRounds) {
 		super(model, turns);
@@ -26,6 +28,7 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 		this.iterRounds = iterRounds;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
+		this.roundWinner = new ArrayList<>();
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 	}
 	
@@ -36,7 +39,8 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 			this.playerPosition = newPosition;
 			this.players.getCurrentPlayer().setCoordinate(this.playerPosition);
 			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
-				System.out.println("Game Over! " + this.players.getCurrentPlayer() + " won!");
+				System.out.println(this.players.getCurrentPlayer().getNickname() + " won the round!");
+				this.roundWinner.add(this.players.getCurrentPlayer()); //add the winner of the round
 				this.changeRound();
 			}
 			this.changeTurn();
@@ -80,9 +84,22 @@ public class PlayerMoverImpl extends MoveImpl implements PlayerMover {
 	
 	private void changeRound() {
 		if (this.iterRounds.hasNext()) {
+			//i need to check if a player have already won so i don't pass to the next round
+			int nWins = Collections.frequency(this.roundWinner, this.players.getCurrentPlayer());
+			if (nWins > 1) {
+				System.out.println("Game Over!" + this.players.getCurrentPlayer().getNickname() + " won!");
+				return;
+			}
 			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
 		} else {
 			System.out.println("All rounds finished, game end");
+			//now i check who won more rounds and set him winner of the game
+			Player p = this.roundWinner.stream().peek(Player::getNickname)
+												.reduce(BinaryOperator.maxBy(
+									                    Comparator.comparingInt(o -> Collections.frequency(this.roundWinner, o))))
+									            .orElse(null);
+			System.out.println("Game Over!" + p.getNickname() + " won!");
+			//setto p come winner
 		}
 	}
 }

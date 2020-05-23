@@ -15,7 +15,8 @@ public class ControllerTest {
 	
 	@Test
     public void testMovePlayer() {
-		StandardGameControllerImpl controller = new StandardGameControllerImpl("player1", "player2");
+		StandardGameControllerImpl controller = new StandardGameControllerImpl();
+		controller.newStandardGame("player1", "player2");
 		Model<RoundEnvironment> model = controller.getModel();
 		RoundPlayers players = model.getCurrentRoundEnvironment().getRoundPlayers();
         assertEquals(players.getCurrentPlayer().getNickname(), "player1");
@@ -31,7 +32,8 @@ public class ControllerTest {
 	
 	@Test
     public void testBarrierPlacer() {
-		StandardGameControllerImpl controller = new StandardGameControllerImpl("player1", "player2");
+		StandardGameControllerImpl controller = new StandardGameControllerImpl();
+		controller.newStandardGame("player1", "player2");
 		Model<RoundEnvironment> model = controller.getModel();
 		RoundPlayers players = model.getCurrentRoundEnvironment().getRoundPlayers();
         assertEquals(players.getCurrentPlayer().getNickname(), "player1");

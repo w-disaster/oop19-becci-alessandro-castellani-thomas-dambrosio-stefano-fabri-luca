@@ -11,7 +11,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 
-public class BarrierPlacerImpl extends MoveImpl implements BarrierPlacer {
+public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer {
 
 	private Model<RoundEnvironment> model;
 	private RoundPlayers players;

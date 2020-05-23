@@ -25,8 +25,10 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	private Iterator<RoundEnvironment> iterRounds;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
+	private boolean gameRunning = false;
 	
-	public StandardGameControllerImpl(String nicknamePlayer1, String nicknamePlayer2) {
+	public void newStandardGame(String nicknamePlayer1, String nicknamePlayer2) {
+		this.gameRunning = true;
 		List<Player> playersList = new ArrayList<>();
 		Player player1 = new PlayerImpl(nicknamePlayer1, new Coordinate(4,0), Optional.of(10), 8);
 		Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
@@ -49,12 +51,20 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	@Override
 	public void movePlayer(Coordinate position) {
-		this.mover.movePlayer(position);
+		if (this.gameRunning) {
+			this.mover.movePlayer(position);
+		} else {
+			System.out.println("Game not started!");
+		}
 	}
 
 	@Override
 	public void placeBarrier(Coordinate position, Orientation orientation) {
-		this.placer.placeBarrier(position, orientation);
+		if (this.gameRunning) {
+			this.placer.placeBarrier(position, orientation);
+		} else {
+			System.out.println("Game not started!");
+		}
 	}
 	
 	/**
