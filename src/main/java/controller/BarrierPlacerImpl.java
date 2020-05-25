@@ -2,6 +2,7 @@ package controller;
 
 import java.util.*;
 
+import controllers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.BarrierImpl;
@@ -14,14 +15,16 @@ import model.roundenvironment.players.RoundPlayers;
 public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer {
 
 	private Model<RoundEnvironment> model;
+	private UIController view;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate newBarrierPosition;
 	private Orientation newBarrierOrientation;
 
-	public BarrierPlacerImpl(Model<RoundEnvironment> model, List<Player> turns) {
+	public BarrierPlacerImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns) {
 		super(model, turns);
 		this.model = model;
+		this.view = view;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
 	}

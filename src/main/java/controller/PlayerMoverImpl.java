@@ -3,6 +3,7 @@ package controller;
 import java.util.*;
 import java.util.function.BinaryOperator;
 
+import controllers.UIController;
 import model.*;
 import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
@@ -15,6 +16,7 @@ import model.roundenvironment.players.RoundPlayers;
 public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 
 	private Model<RoundEnvironment> model;
+	private UIController view;
 	private Iterator<RoundEnvironment> iterRounds;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
@@ -22,9 +24,10 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private Coordinate newPosition;
 	private List<Player> roundWinner;
 	
-	public PlayerMoverImpl(Model<RoundEnvironment> model, List<Player> turns, Iterator<RoundEnvironment> iterRounds) {
+	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds) {
 		super(model, turns);
 		this.model = model;
+		this.view = view;
 		this.iterRounds = iterRounds;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
@@ -99,7 +102,8 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 									                    Comparator.comparingInt(o -> Collections.frequency(this.roundWinner, o))))
 									            .orElse(null);
 			System.out.println("Game Over!" + p.getNickname() + " won!");
-			//setto p come winner
+			//setto p come winner finale
 		}
 	}
+	
 }

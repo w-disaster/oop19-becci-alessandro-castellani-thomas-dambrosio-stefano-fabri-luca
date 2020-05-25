@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.*;
+
+import controllers.UIController;
 import model.*;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
@@ -21,11 +23,17 @@ import model.roundenvironment.players.RoundPlayersImpl;
 public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	private Model<RoundEnvironment> model;
+	private UIController view;
 	private List<RoundEnvironment> listEnvironment;
 	private Iterator<RoundEnvironment> iterRounds;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 	private boolean gameRunning = false;
+	
+	public StandardGameControllerImpl() {
+		this.view = new UIController();
+		this.view.initialize();
+	}
 	
 	public void newStandardGame(String nicknamePlayer1, String nicknamePlayer2) {
 		this.gameRunning = true;
@@ -45,8 +53,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		this.iterRounds = this.listEnvironment.iterator();
 		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setto il round corrente
 		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
-		this.mover = new PlayerMoverImpl(this.model, turns, this.iterRounds);
-		this.placer = new BarrierPlacerImpl(this.model, turns);
+		this.mover = new PlayerMoverImpl(this.model, this.view, turns, this.iterRounds);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, turns);
 	}
 	
 	@Override
