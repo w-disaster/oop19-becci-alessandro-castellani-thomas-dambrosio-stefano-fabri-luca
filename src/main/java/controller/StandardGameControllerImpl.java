@@ -30,12 +30,9 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	private PlayerMover mover;
 	private boolean gameRunning = false;
 	
-	public StandardGameControllerImpl() {
-		this.view = new UIController();
-		this.view.initialize();
-	}
-	
 	public void newStandardGame(String nicknamePlayer1, String nicknamePlayer2) {
+		this.view = new UIController(this);
+		this.view.initialize();
 		this.gameRunning = true;
 		List<Player> playersList = new ArrayList<>();
 		Player player1 = new PlayerImpl(nicknamePlayer1, new Coordinate(4,0), Optional.of(10), 8);
