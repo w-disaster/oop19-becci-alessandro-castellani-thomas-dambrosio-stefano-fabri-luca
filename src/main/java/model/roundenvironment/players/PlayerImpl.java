@@ -36,7 +36,7 @@ public class PlayerImpl implements Player{
 	
 	@Override
 	public boolean isWinner() {
-		return this.coordinate.getX().equals(this.getFinishLine());
+		return this.coordinate.getY().equals(this.getFinishLine());
 	}
 
 	@Override
