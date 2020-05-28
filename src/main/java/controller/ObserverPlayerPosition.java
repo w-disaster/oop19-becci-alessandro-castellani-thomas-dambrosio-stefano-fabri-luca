@@ -12,8 +12,8 @@ public class ObserverPlayerPosition implements Observer {
 	}
 	
 	@Override
-	public void update(Object position) {
-		this.view.move((Coordinate) position);
+	public void update(Object position, String player) {
+		//this.view.move((Coordinate) position, player);
 	}
 
 }

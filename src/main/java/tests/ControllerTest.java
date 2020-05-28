@@ -3,6 +3,7 @@ package tests;
 import java.util.*;
 import org.junit.*;
 import controller.StandardGameControllerImpl;
+import controllers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
@@ -15,7 +16,8 @@ public class ControllerTest {
 	
 	@Test
     public void testMovePlayer() {
-		StandardGameControllerImpl controller = new StandardGameControllerImpl();
+		UIController view = new UIController();
+		StandardGameControllerImpl controller = new StandardGameControllerImpl(view);
 		controller.newStandardGame("player1", "player2");
 		Model<RoundEnvironment> model = controller.getModel();
 		RoundPlayers players = model.getCurrentRoundEnvironment().getRoundPlayers();
@@ -32,7 +34,8 @@ public class ControllerTest {
 	
 	@Test
     public void testBarrierPlacer() {
-		StandardGameControllerImpl controller = new StandardGameControllerImpl();
+		UIController view = new UIController();
+		StandardGameControllerImpl controller = new StandardGameControllerImpl(view);
 		controller.newStandardGame("player1", "player2");
 		Model<RoundEnvironment> model = controller.getModel();
 		RoundPlayers players = model.getCurrentRoundEnvironment().getRoundPlayers();
