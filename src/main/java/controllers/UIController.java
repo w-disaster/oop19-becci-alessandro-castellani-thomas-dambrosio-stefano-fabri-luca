@@ -1,7 +1,7 @@
 package controllers;
 
 import application.Main;
-
+import controller.StandardGameControllerImpl;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -57,11 +57,16 @@ public final class UIController{
 	Circle redPlayer;
 	Circle bluePlayer;
 	
+	StandardGameControllerImpl controller;
+	
 	Map<Coordinate, Pane> gridMap;
 	int turn = 0;
     
-    public void initialize() {
+    public void initialize(StandardGameControllerImpl controller) {
     	System.out.println("Initializing...");
+    	
+    	this.controller = controller;
+    	
     	int numCols = 9;
     	int numRows = 9;
     	
