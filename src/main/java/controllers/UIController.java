@@ -64,6 +64,7 @@ public final class UIController{
 	
 	Map<Coordinate, Pane> gridMap;
 	int turn = 0;
+	
 
 	public void initialize() {
     	System.out.println("Initializing...");
