@@ -62,11 +62,13 @@ public final class UIController{
 	Map<Coordinate, Pane> gridMap;
 	int turn = 0;
     
-    public void initialize(StandardGameControllerImpl controller) {
+    public UIController(StandardGameControllerImpl standardGameControllerImpl) {
+    	this.controller = standardGameControllerImpl;
+	}
+
+	public void initialize(StandardGameControllerImpl controller) {
     	System.out.println("Initializing...");
-    	
-    	this.controller = controller;
-    	
+
     	int numCols = 9;
     	int numRows = 9;
     	
