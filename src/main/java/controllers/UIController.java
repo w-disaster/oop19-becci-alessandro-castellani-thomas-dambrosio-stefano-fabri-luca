@@ -69,6 +69,7 @@ public final class UIController{
     	System.out.println("Initializing...");
     	    	
     	this.controller = new StandardGameControllerImpl(this);
+    	controller.newStandardGame(player1, player2);
 
     	int numCols = 9;
     	int numRows = 9;
@@ -97,7 +98,7 @@ public final class UIController{
         Coordinate position = new Coordinate(colIndex, rowIndex);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked cell " + position.toString() + "\n");
-            move(position);
+            controller.movePlayer(position);
         });
         pane.getStyleClass().add("GridBorderPane");
         grid.add(pane, position.getX(), position.getY());
@@ -116,19 +117,20 @@ public final class UIController{
     
     public void move(Coordinate position) {
     	if(turn%2 == 0) {
-    		gridMap.get(position).getChildren().add(redPlayer);
-    		StackPane.setAlignment(redPlayer, Pos.CENTER);
-    		label2.getStyleClass().clear();
-    		label2.getStyleClass().add("SelectedLabel");
-    		label1.getStyleClass().clear();
-    		label1.getStyleClass().add("Label");
-    	} else {
     		gridMap.get(position).getChildren().add(bluePlayer);
     		StackPane.setAlignment(bluePlayer, Pos.CENTER);
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("SelectedLabel");   		
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("Label");
+
+    	} else {
+    		gridMap.get(position).getChildren().add(redPlayer);
+    		StackPane.setAlignment(redPlayer, Pos.CENTER);
+    		label2.getStyleClass().clear();
+    		label2.getStyleClass().add("SelectedLabel");
+    		label1.getStyleClass().clear();
+    		label1.getStyleClass().add("Label");
     	}
     	turn++;
     }
