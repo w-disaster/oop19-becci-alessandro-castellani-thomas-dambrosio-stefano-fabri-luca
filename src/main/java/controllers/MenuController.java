@@ -28,9 +28,9 @@ public class MenuController {
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
 		 SceneChanger sceneChange = new SceneChangerImpl(event);
 		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D - Game");
-		 //UIController controller = new UIController();
-		 controller = new StandardGameControllerImpl();
-		 controller.newStandardGame("player1", "player2");
+		 UIController controller = new UIController();
+		 //controller = new StandardGameControllerImpl();
+		 //controller.newStandardGame("player1", "player2");
 	 }
 	 
 	 @FXML

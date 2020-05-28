@@ -59,15 +59,16 @@ public final class UIController{
 	
 	StandardGameControllerImpl controller;
 	
+	String player1;
+	String player2;
+	
 	Map<Coordinate, Pane> gridMap;
 	int turn = 0;
-    
-    public UIController(StandardGameControllerImpl standardGameControllerImpl) {
-    	this.controller = standardGameControllerImpl;
-	}
 
-	public void initialize(StandardGameControllerImpl controller) {
+	public void initialize() {
     	System.out.println("Initializing...");
+    	    	
+    	this.controller = new StandardGameControllerImpl(this);
 
     	int numCols = 9;
     	int numRows = 9;
