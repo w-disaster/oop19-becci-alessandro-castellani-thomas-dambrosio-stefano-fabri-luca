@@ -6,7 +6,7 @@ import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 
-public abstract class GenericMoveImpl {
+public class GenericMoveImpl {
 
 	private Model<RoundEnvironment> model;
 	private RoundPlayers players;

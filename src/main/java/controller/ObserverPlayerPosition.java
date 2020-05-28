@@ -1,10 +1,19 @@
 package controller;
 
+import controllers.UIController;
+import model.roundenvironment.coordinate.Coordinate;
+
 public class ObserverPlayerPosition implements Observer {
 
+	private UIController view;
+	
+	public ObserverPlayerPosition(UIController view) {
+		this.view = view;
+	}
+	
 	@Override
-	public void update() {
-		
+	public void update(Object position) {
+		this.view.move((Coordinate) position);
 	}
 
 }

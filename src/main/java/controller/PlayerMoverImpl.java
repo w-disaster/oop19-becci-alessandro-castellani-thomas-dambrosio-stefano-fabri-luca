@@ -17,6 +17,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 
 	private Model<RoundEnvironment> model;
 	private UIController view;
+	private Observer observerPlayer;
 	private Iterator<RoundEnvironment> iterRounds;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
@@ -29,6 +30,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		this.model = model;
 		this.view = view;
 		this.iterRounds = iterRounds;
+		this.observerPlayer = new ObserverPlayerPosition(this.view);
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
 		this.roundWinner = new ArrayList<>();
@@ -38,9 +40,10 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	@Override
 	public void movePlayer(Coordinate newPosition) {
 		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
-		if (this.adjacent() && this.noWall()) {
+		if (this.adjacent() && this.noWall()) { //aggiungere che la posizione sia vuota
 			this.playerPosition = newPosition;
 			this.players.getCurrentPlayer().setCoordinate(this.playerPosition);
+			this.observerPlayer.update(this.playerPosition); //update view
 			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
 				System.out.println(this.players.getCurrentPlayer().getNickname() + " won the round!");
 				this.roundWinner.add(this.players.getCurrentPlayer()); //add the winner of the round
@@ -89,7 +92,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		if (this.iterRounds.hasNext()) {
 			//i need to check if a player have already won so i don't pass to the next round
 			int nWins = Collections.frequency(this.roundWinner, this.players.getCurrentPlayer());
-			if (nWins > 1) {
+			if (nWins > 1) { //sostituire 1 con size/2
 				System.out.println("Game Over!" + this.players.getCurrentPlayer().getNickname() + " won!");
 				return;
 			}
