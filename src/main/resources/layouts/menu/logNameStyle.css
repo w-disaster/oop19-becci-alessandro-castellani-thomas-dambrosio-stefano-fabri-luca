@@ -1,0 +1,26 @@
+.root{
+	-fx-background: #2B2D42;
+	Amaranth: #D90429;
+	Raisin: #1A1B28;
+}
+
+.topLabel{
+	-fx-font-family: 'Serif';
+	-fx-font-size: 45;
+	-fx-font-weight: bold;
+	-fx-text-fill: Raisin;
+	-fx-wrap-text: true;
+}
+
+.button{
+	-fx-font-family: 'monospace';
+	-fx-font-size: 30;
+	-fx-text-fill: white;
+	-fx-background-color: Raisin;
+}
+
+.textArea{
+	-fx-font-family: 'monospace';
+	-fx-text-fill: Raisin;
+	-fx-font-size: 25;
+}
