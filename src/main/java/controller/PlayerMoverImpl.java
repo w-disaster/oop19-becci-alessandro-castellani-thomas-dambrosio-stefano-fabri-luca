@@ -40,7 +40,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	@Override
 	public void movePlayer(Coordinate newPosition) {
 		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
-		if (this.adjacent() && this.noWall()) { //aggiungere che la posizione sia vuota
+		if (this.adjacent() && this.noWall() && this.emptyPosition()) {
 			System.out.println("Moving to position " + newPosition);
 			this.playerPosition = newPosition;
 			this.players.getCurrentPlayer().setCoordinate(this.playerPosition);
@@ -89,13 +89,23 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		return true;
 	}
 	
+	private boolean emptyPosition() {
+		//new position must be empty
+		for (Player p : this.players.getPlayers()) {
+			if (!p.equals(this.players.getCurrentPlayer()) && p.getCoordinate().equals(this.newPosition)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	private void changeRound() {
 		if (this.iterRounds.hasNext()) {
 			//i need to check if a player have already won so i don't pass to the next round
 			int nWins = Collections.frequency(this.roundWinner, this.players.getCurrentPlayer());
-			if (nWins > 1) { //sostituire 1 con size/2
+			if (nWins > this.model.getGameRoundsEnvironments().size()/2) { //if the current player won half of the rounds he won the game
 				System.out.println("Game Over!" + this.players.getCurrentPlayer().getNickname() + " won!");
-				return;
+				return; //dovrei chiamare la funzione che torna al menù
 			}
 			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
 		} else {
@@ -106,7 +116,8 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 									                    Comparator.comparingInt(o -> Collections.frequency(this.roundWinner, o))))
 									            .orElse(null);
 			System.out.println("Game Over!" + p.getNickname() + " won!");
-			//setto p come winner finale
+			//setto p come winner finale (da aggiungere nel ranking di ale)
+			//chiamare la funzione che torna al menù
 		}
 	}
 	
