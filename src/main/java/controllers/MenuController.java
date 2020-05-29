@@ -9,6 +9,7 @@ import viewmenu.SceneChangerImpl;
 
 public class MenuController {
 	
+	private SceneChanger sceneChange;
 	
 	@FXML
     public void exitButtonPressHandler() {
@@ -17,9 +18,8 @@ public class MenuController {
 
 	 @FXML
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
-		 SceneChanger sceneChange = new SceneChangerImpl(event);
-		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D - Game");
-		 UIController controller = new UIController();
+		 sceneChange = new SceneChangerImpl(event);
+		 sceneChange.change("layouts/menu/LogNames.fxml", "Login Page");
 	 }
 	 
 	 @FXML
