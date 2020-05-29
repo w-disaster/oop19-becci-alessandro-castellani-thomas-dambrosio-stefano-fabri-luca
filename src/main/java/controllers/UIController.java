@@ -54,20 +54,21 @@ public final class UIController{
     
     @FXML private MenuItem exit;
     
-	Circle redPlayer;
-	Circle bluePlayer;
+	private Circle redPlayer;
+	private Circle bluePlayer;
 	
-	StandardGameControllerImpl controller;
+	private StandardGameControllerImpl controller;
 	
-	String player1;
-	String player2;
+	private String player1;
+	private String player2;
 	
-	Map<Coordinate, Pane> gridMap;
-	int turn = 0;
+	private Map<Coordinate, Pane> gridMap;
 	
 	public UIController() {
 		this.controller = new StandardGameControllerImpl(this);
-		controller.newStandardGame(player1, player2);		
+		this.player1 = "Player 1";
+		this.player2 = "Player 2";
+		this.controller.newStandardGame(this.player1, this.player2);
 	}
 	
 	public void initialize() {
@@ -85,7 +86,6 @@ public final class UIController{
     	label1.getStyleClass().add("SelectedLabel");
     	label2.getStyleClass().add("Label");
   
-
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
 	            addPane(i, j);
@@ -116,13 +116,16 @@ public final class UIController{
         }
     }
     
-    public void setPlayer(String player1, String player2) {
+    public void startGame(String player1, String player2) {
+    	System.out.println("Game started");
     	this.player1 = player1;
     	this.player2 = player2;
     }
     
     public void move(Coordinate position, String player) {
-    	if(player.equals(player1)) {
+    	System.out.println(this.player1);
+    	if(player.equals(this.player1)) {
+    		System.out.println(player1);
     		gridMap.get(position).getChildren().add(bluePlayer);
     		StackPane.setAlignment(bluePlayer, Pos.CENTER);
     		label1.getStyleClass().clear();
