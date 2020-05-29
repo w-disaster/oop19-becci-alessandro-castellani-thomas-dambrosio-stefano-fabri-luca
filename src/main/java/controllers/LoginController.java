@@ -28,5 +28,6 @@ public class LoginController {
 		sceneChange = new SceneChangerImpl(event);
 		sceneChange.change("layouts/main/scene.fxml", "Quoridor2D - Game");
 		UIController controller = new UIController();
+		controller.setPlayer(nickname1, nickname2);
 	}
 }
