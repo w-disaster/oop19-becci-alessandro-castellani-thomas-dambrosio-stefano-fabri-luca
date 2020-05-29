@@ -65,13 +65,15 @@ public final class UIController{
 	Map<Coordinate, Pane> gridMap;
 	int turn = 0;
 	
+	public UIController() {
+		this.controller = new StandardGameControllerImpl(this);
+		controller.newStandardGame(player1, player2);		
+	}
+	
 
 	public void initialize() {
     	System.out.println("Initializing...");
     	    	
-    	this.controller = new StandardGameControllerImpl(this);
-    	controller.newStandardGame(player1, player2);
-
     	int numCols = 9;
     	int numRows = 9;
     	
@@ -95,7 +97,6 @@ public final class UIController{
     
     private void addPane(int colIndex, int rowIndex) {
         Pane pane = new StackPane();
-        //pane.setPrefSize(50, 50);
         Coordinate position = new Coordinate(colIndex, rowIndex);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked cell " + position.toString() + "\n");
