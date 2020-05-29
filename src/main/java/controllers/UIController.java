@@ -70,7 +70,6 @@ public final class UIController{
 		controller.newStandardGame(player1, player2);		
 	}
 	
-
 	public void initialize() {
     	System.out.println("Initializing...");
     	    	
@@ -117,15 +116,19 @@ public final class UIController{
         }
     }
     
-    public void move(Coordinate position) {
-    	if(turn%2 == 0) {
+    public void setPlayer(String player1, String player2) {
+    	this.player1 = player1;
+    	this.player2 = player2;
+    }
+    
+    public void move(Coordinate position, String player) {
+    	if(player.equals(player1)) {
     		gridMap.get(position).getChildren().add(bluePlayer);
     		StackPane.setAlignment(bluePlayer, Pos.CENTER);
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("SelectedLabel");   		
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("Label");
-
     	} else {
     		gridMap.get(position).getChildren().add(redPlayer);
     		StackPane.setAlignment(redPlayer, Pos.CENTER);
@@ -134,7 +137,6 @@ public final class UIController{
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("Label");
     	}
-    	turn++;
     }
 
     
