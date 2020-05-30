@@ -19,7 +19,7 @@ public class MenuController {
 	 @FXML
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
 		 sceneChange = new SceneChangerImpl(event);
-		 sceneChange.change("layouts/menu/LogNames.fxml", "Login Page");
+		 sceneChange.change("layouts/main/scene.fxml", "Game");
 	 }
 	 
 	 @FXML

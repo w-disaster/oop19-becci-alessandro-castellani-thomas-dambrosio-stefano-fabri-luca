@@ -89,3 +89,7 @@
 	-fx-background-radius: 10;
 	-fx-text-fill: black;
 }
+
+.Dialog {
+	-fx-background-color: -fx-base;
+}
