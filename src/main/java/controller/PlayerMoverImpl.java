@@ -40,7 +40,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	@Override
 	public void movePlayer(Coordinate newPosition) {
 		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
-		if (this.adjacent() && this.noWall() && this.emptyPosition()) {
+		if (this.adjacent() && this.noWall() && this.isEmptyPosition()) {
 			System.out.println("Moving to position " + newPosition);
 			this.playerPosition = newPosition;
 			this.players.getCurrentPlayer().setCoordinate(this.playerPosition);
@@ -89,7 +89,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		return true;
 	}
 	
-	private boolean emptyPosition() {
+	private boolean isEmptyPosition() {
 		//new position must be empty
 		for (Player p : this.players.getPlayers()) {
 			if (!p.equals(this.players.getCurrentPlayer()) && p.getCoordinate().equals(this.newPosition)) {

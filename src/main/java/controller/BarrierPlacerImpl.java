@@ -49,24 +49,25 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 		}
 	}
 
+	//this method also prevents placing of barriers over other barriers
 	private boolean isEmptyPosition() {
 		//barriers are memorized singularly so i need double checks to see if there's an empty position 
-		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.HORIZONTAL))) {
+		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.HORIZONTAL))) { //se sono nel lato a destra (orizz) posso mettere la verticale
 			if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX() - 1, this.newBarrierPosition.getY()), Orientation.HORIZONTAL))) {
-				return false;
+				if (this.newBarrierOrientation.equals(Orientation.HORIZONTAL)) { //here i can place a vertical barrier
+					return false;
+				}
 			}
-		}
-		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.HORIZONTAL))) {
 			if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX() + 1, this.newBarrierPosition.getY()), Orientation.HORIZONTAL))) {
 				return false;
 			}
 		}
 		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.VERTICAL))) {
 			if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX(), this.newBarrierPosition.getY() - 1), Orientation.VERTICAL))) {
-				return false;
+				if (this.newBarrierOrientation.equals(Orientation.VERTICAL)) { //here i can place an horizontal barrier
+					return false;
+				}
 			}
-		}
-		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.VERTICAL))) {
 			if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX(), this.newBarrierPosition.getY() + 1), Orientation.VERTICAL))) {
 				return false;
 			}
