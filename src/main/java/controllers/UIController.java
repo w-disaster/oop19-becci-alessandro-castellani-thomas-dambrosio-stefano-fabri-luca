@@ -11,6 +11,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -141,6 +143,9 @@ public final class UIController{
 	            System.out.println("pane added" + i + j);
 	        }
 	    }
+	    
+	    //Starts the game
+	    this.controller.newStandardGame(this.player1.get(), this.player2.get());
 	}
     
     private void addPane(int colIndex, int rowIndex) {
@@ -154,34 +159,26 @@ public final class UIController{
         grid.add(pane, position.getX(), position.getY());
         gridMap.put(position, pane);
         if (colIndex == 4 && rowIndex == 8) {
-        	System.out.print(pane.getWidth());
         	pane.getChildren().add(redPlayer);
         	StackPane.setAlignment(redPlayer, Pos.CENTER);
         }
         if (colIndex == 4 && rowIndex == 0) {
-        	System.out.print(pane.getWidth());
         	pane.getChildren().add(bluePlayer);
         	StackPane.setAlignment(bluePlayer, Pos.CENTER);
-        }
-        
-        this.controller.newStandardGame(this.player1.get(), this.player2.get());
-        
+        }      
+    }
+    
+    public void setupGrid(Coordinate initPos) {
+    	//todo
     }
     
     public void startGame(String player1, String player2) {
     	System.out.println("Game started");
     	this.player1 = Optional.of(player1);
     	this.player2 = Optional.of(player2);
-    	if (this.player1.isPresent()) {
-    		System.out.println(this.player1.get());
-    	} else {
-    		System.out.println("not found");
-    		
-    	}
     }
     
     public void move(Coordinate position, String player) {
-    	System.out.println(this.player1);
     	if(player.equals(this.player1.get())) {
     		System.out.println(player1);
     		gridMap.get(position).getChildren().add(bluePlayer);
@@ -199,14 +196,31 @@ public final class UIController{
     		label2.getStyleClass().add("Label");
     	}
     }
-
     
+    public void endGame(String winner) {
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("We have a winner!");
+    	alert.setHeaderText(winner + " won the game!");
+    	alert.setContentText("Do you want to return to the main menu?");
+
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK){
+    	    try {
+				this.returnToMainMenu();
+			} catch (IOException e) {
+				System.exit(0);
+			}
+    	} else {
+    	    System.exit(0);
+    	}
+    }
+
     /**
      * A method that handles the return to the main menu.
      */ 
     @FXML
-    public void returnToMainMenu(ActionEvent event) throws IOException{
-    	SceneChanger sceneChange = new SceneChangerImpl(event);
+    public void returnToMainMenu() throws IOException{
+    	SceneChanger sceneChange = new SceneChangerImpl();
     	sceneChange.change("layouts/menu/MainMenu.fxml", "Game");
     }
     

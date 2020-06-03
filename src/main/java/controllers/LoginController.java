@@ -25,7 +25,7 @@ public class LoginController {
 		nickname2 = textField2.getText();
 		textField1.deleteText(0, textField1.getLength());
 		textField2.deleteText(0, textField2.getLength());
-		sceneChange = new SceneChangerImpl(event);
+		sceneChange = new SceneChangerImpl();
 		sceneChange.change("layouts/main/scene.fxml", "Quoridor2D - Game");
 		UIController controller = new UIController();
 		controller.startGame(nickname1, nickname2);

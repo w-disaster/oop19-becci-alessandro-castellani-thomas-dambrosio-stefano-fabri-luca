@@ -11,7 +11,7 @@ public class SceneChangerImpl implements SceneChanger{
 	
 	private Stage stage;
 	
-	public SceneChangerImpl(final ActionEvent event) {
+	public SceneChangerImpl() {
 		stage = Main.STAGE;
 	}
 	
