@@ -144,6 +144,11 @@ public final class UIController{
 	        }
 	    }
 	    
+	    //da rimuovere
+	    Coordinate prova = new Coordinate(4,8);
+	    Coordinate prova1 = new Coordinate(4,0);
+	    setupGrid(prova, prova1);
+	    
 	    //Starts the game
 	    this.controller.newStandardGame(this.player1.get(), this.player2.get());
 	}
@@ -157,19 +162,14 @@ public final class UIController{
         });
         pane.getStyleClass().add("GridBorderPane");
         grid.add(pane, position.getX(), position.getY());
-        gridMap.put(position, pane);
-        if (colIndex == 4 && rowIndex == 8) {
-        	pane.getChildren().add(redPlayer);
-        	StackPane.setAlignment(redPlayer, Pos.CENTER);
-        }
-        if (colIndex == 4 && rowIndex == 0) {
-        	pane.getChildren().add(bluePlayer);
-        	StackPane.setAlignment(bluePlayer, Pos.CENTER);
-        }      
+        gridMap.put(position, pane);     
     }
     
-    public void setupGrid(Coordinate initPos) {
-    	//todo
+    public void setupGrid(Coordinate player1pos, Coordinate player2pos) {
+    	gridMap.get(player1pos).getChildren().add(redPlayer);
+    	StackPane.setAlignment(redPlayer, Pos.CENTER);
+    	gridMap.get(player2pos).getChildren().add(bluePlayer);
+    	StackPane.setAlignment(bluePlayer, Pos.CENTER);
     }
     
     public void startGame(String player1, String player2) {
