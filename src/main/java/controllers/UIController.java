@@ -1,6 +1,7 @@
 package controllers;
 
 import application.Main;
+
 import controller.StandardGameControllerImpl;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -36,6 +37,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import model.roundenvironment.coordinate.Coordinate;
@@ -51,6 +53,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 /**
  * The Controller related to the scene.fxml GUI.
  *
@@ -65,6 +68,11 @@ public final class UIController{
     @FXML private MenuItem retToMainMenu;
     
     @FXML private MenuItem exit;
+    
+    @FXML private Rectangle player1vertical;
+    @FXML private Rectangle player1horizontal;
+    @FXML private Rectangle player2vertical;
+    @FXML private Rectangle player2horizontal;
     
     private Circle bluePlayer;
 	private Circle redPlayer;
@@ -192,6 +200,14 @@ public final class UIController{
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("Label");
     	}
+    }
+    
+    public void startDraggingBarrier() {
+    	System.out.println("dragging");
+    }
+    
+    public void stopDraggingBarrier(ActionEvent event) {
+    	System.out.println("stopped");
     }
     
     public void endRound(String winner) {
