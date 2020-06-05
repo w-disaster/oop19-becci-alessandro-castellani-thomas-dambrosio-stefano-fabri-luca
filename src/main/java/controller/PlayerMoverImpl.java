@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.function.BinaryOperator;
 
@@ -93,6 +94,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		//new position must be empty
 		for (Player p : this.players.getPlayers()) {
 			if (!p.equals(this.players.getCurrentPlayer()) && p.getCoordinate().equals(this.newPosition)) {
+				System.out.println("Can't get on a player!!");
 				return false;
 			}
 		}
@@ -105,11 +107,18 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 			int nWins = Collections.frequency(this.roundWinner, this.players.getCurrentPlayer());
 			if (nWins > this.model.getGameRoundsEnvironments().size()/2) { //if the current player won half of the rounds he won the game
 				System.out.println("Game Over!" + this.players.getCurrentPlayer().getNickname() + " won!");
-				return; //dovrei chiamare la funzione che torna al menù
+				//setto p come winner finale (da aggiungere nel ranking di ale)
+				this.view.endGame(this.players.getCurrentPlayer().getNickname());
+				try {
+					this.view.returnToMainMenu();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
+			this.view.setupGrid(this.players.getPlayers().get(0).getCoordinate(), this.players.getPlayers().get(1).getCoordinate()); //reset grid
 		} else {
-			System.out.println("All rounds finished, game end");
+			System.out.println("All rounds finished, game over");
 			//now i check who won more rounds and set him winner of the game
 			Player p = this.roundWinner.stream().peek(Player::getNickname)
 												.reduce(BinaryOperator.maxBy(
@@ -117,7 +126,12 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 									            .orElse(null);
 			System.out.println("Game Over!" + p.getNickname() + " won!");
 			//setto p come winner finale (da aggiungere nel ranking di ale)
-			//chiamare la funzione che torna al menù
+			this.view.endGame(p.getNickname());
+			try {
+				this.view.returnToMainMenu();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

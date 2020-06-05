@@ -41,6 +41,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
 		playersList.add(player1);
 		playersList.add(player2);
+		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate());
 		this.listEnvironment = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
 			RoundBarriers barriers = new RoundBarriersImpl();
@@ -50,7 +51,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		}
 		this.model = new ModelImpl<>(this.listEnvironment, Optional.empty());
 		this.iterRounds = this.listEnvironment.iterator();
-		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setto il round corrente
+		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
 		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
 		this.mover = new PlayerMoverImpl(this.model, this.view, turns, this.iterRounds);
 		this.placer = new BarrierPlacerImpl(this.model, this.view, turns);
