@@ -42,6 +42,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	public void movePlayer(Coordinate newPosition) {
 		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
 		if (this.adjacent() && this.noWall() && this.isEmptyPosition()) {
+			System.out.println("My position: " + this.players.getCurrentPlayer().getCoordinate());
 			System.out.println("Moving to position " + newPosition);
 			this.playerPosition = newPosition;
 			this.players.getCurrentPlayer().setCoordinate(this.playerPosition);

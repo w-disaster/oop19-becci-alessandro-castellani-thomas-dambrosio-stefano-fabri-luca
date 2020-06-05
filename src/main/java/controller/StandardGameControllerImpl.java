@@ -36,19 +36,19 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 
 	public void newStandardGame(String nicknamePlayer1, String nicknamePlayer2) {
 		this.gameRunning = true;
-		List<Player> playersList = new ArrayList<>();
-		Player player1 = new PlayerImpl(nicknamePlayer1, new Coordinate(4,0), Optional.of(10), 8);
-		Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
-		playersList.add(player1);
-		playersList.add(player2);
-		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate());
 		this.listEnvironment = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
+			List<Player> playersList = new ArrayList<>();
+			Player player1 = new PlayerImpl(nicknamePlayer1, new Coordinate(4,0), Optional.of(10), 8);
+			Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
+			playersList.add(player1);
+			playersList.add(player2);
 			RoundBarriers barriers = new RoundBarriersImpl();
 			RoundPlayers players = new RoundPlayersImpl(playersList);
 			RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
 			this.listEnvironment.add(environment);
 		}
+		this.view.setupGrid(new Coordinate(4,0), new Coordinate(4,8));
 		this.model = new ModelImpl<>(this.listEnvironment, Optional.empty());
 		this.iterRounds = this.listEnvironment.iterator();
 		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
@@ -73,6 +73,12 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		} else {
 			System.out.println("Game not started!");
 		}
+	}
+	
+	public void nextRound() {
+		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
+		this.mover = new PlayerMoverImpl(this.model, this.view, turns, this.iterRounds);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, turns);
 	}
 	
 	/**

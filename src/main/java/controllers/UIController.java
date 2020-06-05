@@ -226,9 +226,9 @@ public final class UIController{
     	alert.setContentText("");
     	
     	
-    	
     	Optional<ButtonType> result = alert.showAndWait();
 
+    	this.controller.nextRound();
     }
     
     public void endGame(String winner) {
