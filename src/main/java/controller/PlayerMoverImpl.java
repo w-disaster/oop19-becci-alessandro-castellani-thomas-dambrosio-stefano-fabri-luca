@@ -109,12 +109,8 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				System.out.println("Game Over!" + this.players.getCurrentPlayer().getNickname() + " won!");
 				//setto p come winner finale (da aggiungere nel ranking di ale)
 				this.view.endGame(this.players.getCurrentPlayer().getNickname());
-				try {
-					this.view.returnToMainMenu();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
+			this.view.endRound(this.players.getCurrentPlayer().getNickname());
 			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
 			this.view.setupGrid(this.players.getPlayers().get(0).getCoordinate(), this.players.getPlayers().get(1).getCoordinate()); //reset grid
 		} else {
@@ -127,11 +123,6 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 			System.out.println("Game Over!" + p.getNickname() + " won!");
 			//setto p come winner finale (da aggiungere nel ranking di ale)
 			this.view.endGame(p.getNickname());
-			try {
-				this.view.returnToMainMenu();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 	
