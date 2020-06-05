@@ -65,8 +65,8 @@ public final class UIController{
     
     @FXML private MenuItem exit;
     
+    private Circle bluePlayer;
 	private Circle redPlayer;
-	private Circle bluePlayer;
 	
 	private StandardGameControllerImpl controller;
 	
@@ -128,10 +128,10 @@ public final class UIController{
     	
     	gridMap = new HashMap<Coordinate, Pane>();
     	
-    	redPlayer = new Circle(25);
-    	redPlayer.getStyleClass().add("RedPlayer");
     	bluePlayer = new Circle(25);
     	bluePlayer.getStyleClass().add("BluePlayer");
+    	redPlayer = new Circle(25);
+    	redPlayer.getStyleClass().add("RedPlayer");
     	label1.setText(player1.get());
     	label2.setText(player2.get());
     	label1.getStyleClass().add("SelectedLabel");
@@ -166,10 +166,10 @@ public final class UIController{
     }
     
     public void setupGrid(Coordinate player1pos, Coordinate player2pos) {
-    	gridMap.get(player1pos).getChildren().add(redPlayer);
-    	StackPane.setAlignment(redPlayer, Pos.CENTER);
-    	gridMap.get(player2pos).getChildren().add(bluePlayer);
+    	gridMap.get(player1pos).getChildren().add(bluePlayer);
     	StackPane.setAlignment(bluePlayer, Pos.CENTER);
+    	gridMap.get(player2pos).getChildren().add(redPlayer);
+    	StackPane.setAlignment(redPlayer, Pos.CENTER);
     }
     
     public void startGame(String player1, String player2) {
@@ -195,6 +195,16 @@ public final class UIController{
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("Label");
     	}
+    }
+    
+    public void endRound(String winner) {
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("We have a winner!");
+    	alert.setHeaderText(winner + " won the round!");
+    	alert.setContentText("");
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+
     }
     
     public void endGame(String winner) {
