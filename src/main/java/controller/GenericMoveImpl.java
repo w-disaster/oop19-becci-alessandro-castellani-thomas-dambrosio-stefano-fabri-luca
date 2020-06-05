@@ -30,7 +30,8 @@ public class GenericMoveImpl {
 		}
 	}
 
-	public void restartTurns() {
+	public void restartTurns(List<Player> turns) {
+		this.turns = turns;
 		this.iterTurns = this.turns.iterator();
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.players.setCurrentPlayer(this.iterTurns.next());

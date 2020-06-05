@@ -105,15 +105,16 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private void changeRound() {
 		if (this.iterRounds.hasNext()) {
 			//i need to check if a player have already won so i don't pass to the next round
-			int nWins = Collections.frequency(this.roundWinner, this.players.getCurrentPlayer());
+			Player currentPlayer = this.players.getCurrentPlayer();
+			int nWins = Collections.frequency(this.roundWinner, currentPlayer);
 			if (nWins > this.model.getGameRoundsEnvironments().size()/2) { //if the current player won half of the rounds he won the game
-				System.out.println("Game Over!" + this.players.getCurrentPlayer().getNickname() + " won!");
+				System.out.println("Game Over!" + currentPlayer.getNickname() + " won!");
 				//setto p come winner finale (da aggiungere nel ranking di ale)
-				this.view.endGame(this.players.getCurrentPlayer().getNickname());
+				this.view.endGame(currentPlayer.getNickname());
 			}
-			this.view.endRound(this.players.getCurrentPlayer().getNickname());
 			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
-			this.view.setupGrid(this.players.getPlayers().get(0).getCoordinate(), this.players.getPlayers().get(1).getCoordinate()); //reset grid
+			this.view.endRound(currentPlayer.getNickname());
+			
 		} else {
 			System.out.println("All rounds finished, game over");
 			//now i check who won more rounds and set him winner of the game
@@ -126,5 +127,4 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 			this.view.endGame(p.getNickname());
 		}
 	}
-	
 }
