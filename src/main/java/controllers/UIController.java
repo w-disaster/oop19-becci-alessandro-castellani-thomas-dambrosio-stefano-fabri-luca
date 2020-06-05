@@ -47,6 +47,7 @@ import viewmenu.SceneChangerImpl;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -144,11 +145,6 @@ public final class UIController{
 	        }
 	    }
 	    
-	    //da rimuovere
-	    Coordinate prova = new Coordinate(4,8);
-	    Coordinate prova1 = new Coordinate(4,0);
-	    setupGrid(prova, prova1);
-	    
 	    //Starts the game
 	    this.controller.newStandardGame(this.player1.get(), this.player2.get());
 	}
@@ -166,6 +162,8 @@ public final class UIController{
     }
     
     public void setupGrid(Coordinate player1pos, Coordinate player2pos) {
+    	System.out.println(player1pos);
+    	System.out.println(player2pos);
     	gridMap.get(player1pos).getChildren().add(bluePlayer);
     	StackPane.setAlignment(bluePlayer, Pos.CENTER);
     	gridMap.get(player2pos).getChildren().add(redPlayer);
@@ -180,7 +178,6 @@ public final class UIController{
     
     public void move(Coordinate position, String player) {
     	if(player.equals(this.player1.get())) {
-    		System.out.println(player1);
     		gridMap.get(position).getChildren().add(bluePlayer);
     		StackPane.setAlignment(bluePlayer, Pos.CENTER);
     		label2.getStyleClass().clear();
@@ -198,10 +195,21 @@ public final class UIController{
     }
     
     public void endRound(String winner) {
+    	for(Entry<Coordinate, Pane> p : this.gridMap.entrySet()) {
+    		if (p.getValue().getChildren().contains(bluePlayer)) {
+    			p.getValue().getChildren().remove(bluePlayer);
+    		}
+    		if (p.getValue().getChildren().contains(redPlayer)) {
+    			p.getValue().getChildren().remove(redPlayer);
+    		}
+    	}
+    	
     	Alert alert = new Alert(AlertType.CONFIRMATION);
     	alert.setTitle("We have a winner!");
     	alert.setHeaderText(winner + " won the round!");
     	alert.setContentText("");
+    	
+    	
     	
     	Optional<ButtonType> result = alert.showAndWait();
 
