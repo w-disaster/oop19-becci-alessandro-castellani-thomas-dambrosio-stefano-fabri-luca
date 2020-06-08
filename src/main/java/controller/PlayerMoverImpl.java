@@ -19,15 +19,17 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private Model<RoundEnvironment> model;
 	private UIController view;
 	private Observer observerPlayer;
+	private List<Player> roundWinner;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds) {
-		super(model, view, turns, iterRounds);
+	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
+		super(model, view, turns, iterRounds, roundWinner);
 		this.model = model;
 		this.view = view;
+		this.roundWinner = roundWinner;
 		this.observerPlayer = new ObserverPlayerPosition(this.view);
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
@@ -96,9 +98,5 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 			}
 		}
 		return true;
-	}
-	
-	public void newRound(List<Player> turns) {
-		this.resetTurns(turns);
 	}
 }

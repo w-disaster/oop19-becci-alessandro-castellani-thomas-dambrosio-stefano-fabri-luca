@@ -19,13 +19,13 @@ public class GenericMoveImpl {
 	private Iterator<RoundEnvironment> iterRounds;
 	private List<Player> roundWinner;
 	
-	public GenericMoveImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds) {
+	public GenericMoveImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
 		this.model = model;
 		this.view = view;
 		this.turns = turns;
 		this.iterRounds = iterRounds;
 		this.iterTurns = this.turns.iterator();
-		this.roundWinner = new ArrayList<>();
+		this.roundWinner = roundWinner;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.players.setCurrentPlayer(this.iterTurns.next());
 	}
@@ -42,15 +42,17 @@ public class GenericMoveImpl {
 	protected void changeRound() {
 		if (this.iterRounds.hasNext()) {
 			//i need to check if a player have already won so i don't pass to the next round
-			Player currentPlayer = this.players.getCurrentPlayer();
-			int nWins = Collections.frequency(this.roundWinner, currentPlayer);
+			String currentPlayer = this.players.getCurrentPlayer().getNickname();
+			long nWins = this.roundWinner.stream().peek(Player::getNickname)
+													.filter(p -> p.getNickname().compareTo(currentPlayer) == 0)
+													.count();
 			if (nWins > this.model.getGameRoundsEnvironments().size()/2) { //if the current player won half of the rounds he won the game
-				System.out.println("Game Over!" + currentPlayer.getNickname() + " won!");
+				System.out.println("Game Over!" + currentPlayer + " won!");
 				//setto p come winner finale (da aggiungere nel ranking di ale)
-				this.view.endGame(currentPlayer.getNickname());
+				this.view.endGame(currentPlayer);
 			}
 			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
-			this.view.endRound(currentPlayer.getNickname());
+			this.view.endRound(currentPlayer);
 			
 		} else {
 			System.out.println("All rounds finished, game over");
@@ -67,10 +69,5 @@ public class GenericMoveImpl {
 	
 	protected void addWinner(Player player) {
 		this.roundWinner.add(player);
-	}
-	
-	protected void resetTurns(List<Player> turns) {
-		this.turns = turns;
-		this.iterTurns = this.turns.iterator();
 	}
 }

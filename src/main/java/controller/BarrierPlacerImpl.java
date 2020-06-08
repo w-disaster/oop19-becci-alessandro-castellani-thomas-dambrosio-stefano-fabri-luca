@@ -22,8 +22,8 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	private Coordinate newBarrierPosition;
 	private Orientation newBarrierOrientation;
 
-	public BarrierPlacerImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds) {
-		super(model, view, turns, iterRounds);
+	public BarrierPlacerImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
+		super(model, view, turns, iterRounds, roundWinner);
 		this.model = model;
 		this.view = view;
 		this.observerBarrier = new ObserverBarrierPosition(this.view);
@@ -94,9 +94,5 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	
 	private boolean noStall() {
 		return true; //need implementation
-	}
-	
-	public void newRound(List<Player> turns) {
-		this.resetTurns(turns);
 	}
 }

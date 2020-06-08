@@ -26,6 +26,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	private UIController view;
 	private List<RoundEnvironment> listEnvironment;
 	private Iterator<RoundEnvironment> iterRounds;
+	private List<Player> roundWinner;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 	private boolean gameRunning = false;
@@ -51,10 +52,11 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		this.view.setupGrid(new Coordinate(4,0), new Coordinate(4,8));
 		this.model = new ModelImpl<>(this.listEnvironment, Optional.empty());
 		this.iterRounds = this.listEnvironment.iterator();
+		this.roundWinner = new ArrayList<>();
 		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
 		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
-		this.mover = new PlayerMoverImpl(this.model, this.view, turns, this.iterRounds);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, turns, this.iterRounds);
+		this.mover = new PlayerMoverImpl(this.model, this.view, turns, this.iterRounds, this.roundWinner);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, turns, this.iterRounds, this.roundWinner);
 	}
 	
 	@Override
@@ -77,8 +79,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	public void nextRound() {
 		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
-		this.mover = new PlayerMoverImpl(this.model, this.view, players.getPlayers(), this.iterRounds);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, players.getPlayers(), this.iterRounds);
+		this.mover = new PlayerMoverImpl(this.model, this.view, players.getPlayers(), this.iterRounds, this.roundWinner);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, players.getPlayers(), this.iterRounds, this.roundWinner);
 		this.view.setupGrid(players.getPlayers().get(0).getCoordinate(), players.getPlayers().get(1).getCoordinate()); //reset grid
 	}
 	
