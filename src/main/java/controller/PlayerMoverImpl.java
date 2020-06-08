@@ -19,22 +19,18 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private Model<RoundEnvironment> model;
 	private UIController view;
 	private Observer observerPlayer;
-	private Iterator<RoundEnvironment> iterRounds;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
-	private List<Player> roundWinner;
 	
 	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds) {
-		super(model, turns);
+		super(model, view, turns, iterRounds);
 		this.model = model;
 		this.view = view;
-		this.iterRounds = iterRounds;
 		this.observerPlayer = new ObserverPlayerPosition(this.view);
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
-		this.roundWinner = new ArrayList<>();
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 	}
 	
@@ -42,14 +38,14 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	public void movePlayer(Coordinate newPosition) {
 		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
 		if (this.adjacent() && this.noWall() && this.isEmptyPosition()) {
-			System.out.println("My position: " + this.players.getCurrentPlayer().getCoordinate());
+			System.out.println(this.players.getCurrentPlayer().getNickname() + " position is: " + this.players.getCurrentPlayer().getCoordinate());
 			System.out.println("Moving to position " + newPosition);
 			this.playerPosition = newPosition;
 			this.players.getCurrentPlayer().setCoordinate(this.playerPosition);
 			this.observerPlayer.update(this.playerPosition, this.players.getCurrentPlayer().getNickname()); //update view
 			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
 				System.out.println(this.players.getCurrentPlayer().getNickname() + " won the round!");
-				this.roundWinner.add(this.players.getCurrentPlayer()); //add the winner of the round
+				this.addWinner((this.players.getCurrentPlayer())); //add the winner of the round
 				this.changeRound();
 			}
 			this.changeTurn();
@@ -102,29 +98,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		return true;
 	}
 	
-	private void changeRound() {
-		if (this.iterRounds.hasNext()) {
-			//i need to check if a player have already won so i don't pass to the next round
-			Player currentPlayer = this.players.getCurrentPlayer();
-			int nWins = Collections.frequency(this.roundWinner, currentPlayer);
-			if (nWins > this.model.getGameRoundsEnvironments().size()/2) { //if the current player won half of the rounds he won the game
-				System.out.println("Game Over!" + currentPlayer.getNickname() + " won!");
-				//setto p come winner finale (da aggiungere nel ranking di ale)
-				this.view.endGame(currentPlayer.getNickname());
-			}
-			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
-			this.view.endRound(currentPlayer.getNickname());
-			
-		} else {
-			System.out.println("All rounds finished, game over");
-			//now i check who won more rounds and set him winner of the game
-			Player p = this.roundWinner.stream().peek(Player::getNickname)
-												.reduce(BinaryOperator.maxBy(
-									                    Comparator.comparingInt(o -> Collections.frequency(this.roundWinner, o))))
-									            .orElse(null);
-			System.out.println("Game Over!" + p.getNickname() + " won!");
-			//setto p come winner finale (da aggiungere nel ranking di ale)
-			this.view.endGame(p.getNickname());
-		}
+	public void newRound(List<Player> turns) {
+		this.resetTurns(turns);
 	}
 }

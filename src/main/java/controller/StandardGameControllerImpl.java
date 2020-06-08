@@ -54,7 +54,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
 		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
 		this.mover = new PlayerMoverImpl(this.model, this.view, turns, this.iterRounds);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, turns);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, turns, this.iterRounds);
 	}
 	
 	@Override
@@ -74,12 +74,11 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 			System.out.println("Game not started!");
 		}
 	}
-	//LA COSA RIMASTA ERA CHIAMARE QUI DA MOVER E PLACER IL RESTARTTURNS
+	
 	public void nextRound() {
-		List<Player> turns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
 		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
-		this.mover = new PlayerMoverImpl(this.model, this.view, turns, this.iterRounds);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, turns);
+		this.mover = new PlayerMoverImpl(this.model, this.view, players.getPlayers(), this.iterRounds);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, players.getPlayers(), this.iterRounds);
 		this.view.setupGrid(players.getPlayers().get(0).getCoordinate(), players.getPlayers().get(1).getCoordinate()); //reset grid
 	}
 	
