@@ -37,7 +37,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>.configureEach {
     // Enables JUnit 5 Jupiter module
     useJUnitPlatform()
 }
