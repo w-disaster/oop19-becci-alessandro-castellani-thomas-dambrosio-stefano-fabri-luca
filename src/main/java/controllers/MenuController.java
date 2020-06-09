@@ -4,6 +4,8 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import jdk.jshell.spi.ExecutionControl.*;
+import savings.SaveData;
+import savings.SaveLeaderBoard;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
@@ -28,8 +30,9 @@ public class MenuController {
 	 }
 	 
 	 @FXML
-	 public void leaderboardButtonPressHandler() throws NotImplementedException {
-		 throw new NotImplementedException("Not Implemented Yet");
+	 public void leaderboardButtonPressHandler() throws IOException{
+		 //ONLY FOR TESTING 
+		 SaveLeaderBoard save = new SaveLeaderBoard();
 	 }
 	 
 }
