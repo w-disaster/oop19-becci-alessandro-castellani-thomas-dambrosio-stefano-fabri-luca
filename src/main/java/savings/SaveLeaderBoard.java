@@ -2,11 +2,9 @@ package savings;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 public class SaveLeaderBoard {
 
-	private ObjectOutputStream out;
 	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
 	private File dir;
 	private File leaderBoard;
@@ -17,8 +15,9 @@ public class SaveLeaderBoard {
 		leaderBoard.createNewFile();
 	}
 	
-	private void updateLeaderBoard() {
+	public void updateLeaderBoard(final String winner) {
 		System.out.println("this should update the leaderBoard with new information");
+		//updates the file in LeaderBoard
 	}
 	/**
 	 * TODO
@@ -26,12 +25,10 @@ public class SaveLeaderBoard {
 	 */
 	public SaveLeaderBoard() throws IOException {
 		dir = new File(pathDir);
-		if(dir.exists()) {
-			updateLeaderBoard();
-		}
-		else {
+		if(!dir.exists()) {
 			System.out.println("creating file and directory");
 			createDirAndFile();
 		}
-	}
+	} 
+
 }
