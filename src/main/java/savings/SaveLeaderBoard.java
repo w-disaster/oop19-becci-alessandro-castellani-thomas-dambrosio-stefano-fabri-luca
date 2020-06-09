@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 public class SaveLeaderBoard {
 
 	private ObjectOutputStream out;
-	private final String pathDir = System.getProperty("user.home") + File.separator + "quoridor2D" ;
+	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
 	private File dir;
 	private File leaderBoard;
 	
