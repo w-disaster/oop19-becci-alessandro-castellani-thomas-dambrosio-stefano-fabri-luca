@@ -32,6 +32,7 @@ public class MenuController {
 	 public void leaderboardButtonPressHandler() throws IOException{
 		 //ONLY FOR TESTING 
 		 SaveLeaderBoard save = new SaveLeaderBoard();
+		 save.updateLeaderBoard("gangshit");
 	 }
 	 
 }
