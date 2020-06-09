@@ -3,11 +3,21 @@ package model.roundenvironment;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.players.RoundPlayers;
 
+/**
+ * Class of a standard round environment
+ * @author luca
+ *
+ */
 public class RoundEnvironmentImpl implements RoundEnvironment {
 
 	private RoundBarriers roundBarriers;
 	private RoundPlayers roundPlayers;
 	
+	/**
+	 * Round environment from existing barriers and players
+	 * @param roundBarriers
+	 * @param roundPlayers
+	 */
 	public RoundEnvironmentImpl(RoundBarriers roundBarriers, RoundPlayers roundPlayers) {
 		super();
 		this.roundBarriers = roundBarriers;
