@@ -1,21 +1,39 @@
 package model.roundenvironment.coordinate;
 
-public class Pair<X,Y> {
+/**
+ * Class concern to a pair of two objects.
+ * @author luca
+ *
+ * @param <X>
+ * @param <Y>
+ */
+public class Pair<X, Y> {
 	
-	private final X x;
-	private final Y y;
+	private X x;
+	private Y y;
 	
 	public Pair(X x, Y y) {
 		super();
 		this.x = x;
 		this.y = y;
 	}
+	
 	public X getX() {
-		return x;
+		return this.x;
 	}
+	
 	public Y getY() {
-		return y;
+		return this.y;
 	}
+	
+	public void setX(X x) {
+		this.x = x;
+	}
+	
+	public void setY(Y y) {
+		this.y = y;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -24,6 +42,7 @@ public class Pair<X,Y> {
 		result = prime * result + ((y == null) ? 0 : y.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -45,11 +64,10 @@ public class Pair<X,Y> {
 			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
 		return "[" + x + ";" + y + "]";
 	}
 	
-	
-
 }

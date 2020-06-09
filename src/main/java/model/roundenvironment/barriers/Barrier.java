@@ -2,6 +2,11 @@ package model.roundenvironment.barriers;
 
 import model.roundenvironment.coordinate.Coordinate;
 
+/**
+ * This interface describes the single barrier entity.
+ * @author luca
+ *
+ */
 public interface Barrier {
 
 	/**

@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 
 public class SaveLeaderBoard {
 
+	private ObjectOutputStream out;
 	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
 	private File dir;
 	private File leaderBoard;
@@ -16,9 +17,8 @@ public class SaveLeaderBoard {
 		leaderBoard.createNewFile();
 	}
 	
-	public void updateLeaderBoard(final String winner) {
+	private void updateLeaderBoard() {
 		System.out.println("this should update the leaderBoard with new information");
-		//updates the file in LeaderBoard
 	}
 	/**
 	 * TODO
@@ -26,7 +26,10 @@ public class SaveLeaderBoard {
 	 */
 	public SaveLeaderBoard() throws IOException {
 		dir = new File(pathDir);
-		if(!dir.exists()) {
+		if(dir.exists()) {
+			updateLeaderBoard();
+		}
+		else {
 			System.out.println("creating file and directory");
 			createDirAndFile();
 		}
