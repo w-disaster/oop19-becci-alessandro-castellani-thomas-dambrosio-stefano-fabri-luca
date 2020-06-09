@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import model.roundenvironment.BarrierEnvironment;
 
-public class ModelFactoryImpl implements ModelFactory {
+public class ModelFactoryImpl implements ModelFactory{
 
 	@Override
 	public <X> ModelImpl<X> build(List<X> roundEnvironments) {

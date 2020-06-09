@@ -3,7 +3,7 @@ package model.roundenvironment.players;
 import java.util.List;
 
 /**
- * This interface models the players of a round and keeps track of the current one.
+ * This interface models the players and manages the turns (setting the one that must play) 
  * @author luca
  *
  */

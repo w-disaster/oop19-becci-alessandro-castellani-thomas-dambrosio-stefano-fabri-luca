@@ -4,25 +4,14 @@ import java.util.Optional;
 
 import model.roundenvironment.coordinate.Coordinate;
 
-/**
- * Class that models a standard game player
- * @author luca
- *
- */
 public class PlayerImpl implements Player{
 	
+	public static final int DEFAULT_BARRIERS_NUMBER = 10;
 	private String nickname;
 	private Coordinate coordinate;
 	private int availableBarriers;
 	private Integer finishLine;
 	
-	/**
-	 * game player
-	 * @param nickname
-	 * @param coordinate
-	 * @param availableBarriers
-	 * @param finishLine
-	 */
 	public PlayerImpl(String nickname, Coordinate coordinate, Optional<Integer> availableBarriers, Integer finishLine) {
 		this.nickname = nickname;
 		this.coordinate = coordinate;

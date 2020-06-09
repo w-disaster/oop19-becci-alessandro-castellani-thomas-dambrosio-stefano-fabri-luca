@@ -10,11 +10,6 @@ import model.roundenvironment.coordinate.Coordinate;
 public interface Player {
 	
 	/**
-	 * Default barriers number 
-	 */
-	public static final int DEFAULT_BARRIERS_NUMBER = 10;
-	
-	/**
 	 * 
 	 * @return the name of the player.
 	 */

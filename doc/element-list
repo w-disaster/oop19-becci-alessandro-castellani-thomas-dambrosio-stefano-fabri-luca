@@ -1,1 +1,10 @@
+application
+controller
+controllers
+model
 model.roundenvironment
+model.roundenvironment.barriers
+model.roundenvironment.coordinate
+model.roundenvironment.players
+tests
+viewmenu

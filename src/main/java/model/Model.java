@@ -18,18 +18,8 @@ import model.roundenvironment.players.*;
 public interface Model<X> {
 	
 	/**
-	 * Standard board dimension (9x9)
-	 */
-	public static final int BOARD_DIMENSION = 9;
-	
-	/**
-	 * Standard game's number of rounds 
-	 */
-	public static final int NUMBER_OF_ROUNDS = 3;
-	
-	/**
-	 * 
-	 * @return current Round Environment
+	 * return current turn environment
+	 * @return
 	 */
 	X getCurrentRoundEnvironment();
 	
