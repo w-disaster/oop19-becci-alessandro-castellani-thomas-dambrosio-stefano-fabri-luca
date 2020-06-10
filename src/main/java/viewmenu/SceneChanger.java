@@ -9,5 +9,14 @@ public interface SceneChanger {
 	 * @throws IOException 
 	 */
 	public void change(final String pathToFXML, final String title) throws IOException;
+
+	/**
+	 * Changes the scene in the stage with the given one , setting a maximum resize for the scene created
+	 * @param maxResizeScaling
+	 * @param pathToFXML
+	 * @param title
+	 * @throws IOException 
+	 */
+	public void change(double maxResizeScaling, String pathToFXML, String title) throws IOException;
 	
 }
