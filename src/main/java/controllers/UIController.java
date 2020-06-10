@@ -171,10 +171,10 @@ public final class UIController{
             } else {
             	if(this.selectedBarrier.get().equals(0)) {
             		controller.placeBarrier(position, Orientation.VERTICAL);
-            		System.out.printf("Barrier placement request: " + position.toString() + Orientation.VERTICAL + "\n");
+            		System.out.printf("Barrier placement request: " + position.toString() + "Orientation: " + Orientation.VERTICAL + "\n");
             	} else {
             		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
-            		System.out.printf("Barrier placement request: " + position.toString() + Orientation.HORIZONTAL + "\n");
+            		System.out.printf("Barrier placement request: " + position.toString() + "Orientation: " + Orientation.HORIZONTAL + "\n");
             	}
             	this.selectedBarrier = Optional.empty();
             }
@@ -219,8 +219,8 @@ public final class UIController{
     }
     
     //da vedere se funziona
-    public void barrierPlacement(ActionEvent event) {
-    	System.out.print(event.getSource().toString());
+    public void barrierPlacement(MouseEvent event) {
+    //	System.out.print(event.getSource().toString());
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
     		this.selectedBarrier = Optional.of(0);
     	} else {
