@@ -8,11 +8,13 @@ import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
+import savings.SaveLeaderBoard;
 
 public class GenericMoveImpl {
 
 	private Model<RoundEnvironment> model;
 	private UIController view;
+	private SaveLeaderBoard leaderboard;
 	private RoundPlayers players;
 	private List<Player> turns;
 	private Iterator<Player> iterTurns;
@@ -22,6 +24,7 @@ public class GenericMoveImpl {
 	public GenericMoveImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
 		this.model = model;
 		this.view = view;
+		this.leaderboard = new SaveLeaderBoard();
 		this.turns = turns;
 		this.iterRounds = iterRounds;
 		this.iterTurns = this.turns.iterator();
@@ -48,7 +51,7 @@ public class GenericMoveImpl {
 													.count();
 			if (nWins > this.model.getGameRoundsEnvironments().size()/2) { //if the current player won half of the rounds he won the game
 				System.out.println("Game Over!" + currentPlayer + " won!");
-				//setto p come winner finale (da aggiungere nel ranking di ale)
+				this.leaderboard.updateLeaderBoard(currentPlayer);
 				this.view.endGame(currentPlayer);
 			}
 			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
@@ -62,7 +65,7 @@ public class GenericMoveImpl {
 									                    Comparator.comparingInt(o -> Collections.frequency(this.roundWinner, o))))
 									            .orElse(null);
 			System.out.println("Game Over!" + p.getNickname() + " won!");
-			//setto p come winner finale (da aggiungere nel ranking di ale)
+			this.leaderboard.updateLeaderBoard(p.getNickname());
 			this.view.endGame(p.getNickname());
 		}
 	}
