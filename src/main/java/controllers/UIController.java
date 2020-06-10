@@ -40,6 +40,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import viewmenu.SceneBuilder;
 import viewmenu.SceneBuilderImpl;
@@ -82,6 +83,9 @@ public final class UIController{
 	private Optional<String> player1;
 	private Optional<String> player2;
 	
+	//0 for vertical, 1 for horizontal
+	private Optional<Integer> selectedBarrier;
+	
 	private Map<Coordinate, Pane> gridMap;
 	
 	public UIController() {
@@ -95,28 +99,28 @@ public final class UIController{
     	Dialog<Pair<String, String>> dialog = new Dialog<>();
     	dialog.setHeaderText("Choose your nicknames");
 
-    	// Set the icon (must be included in the project).
+    	// Set the icon 
     	//dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
 
     	ButtonType startButton = new ButtonType("Start", ButtonData.OK_DONE);
     	dialog.getDialogPane().getButtonTypes().addAll(startButton, ButtonType.CANCEL);
     	
-    	GridPane grid = new GridPane();
-    	grid.setHgap(10);
-    	grid.setVgap(10);
-    	grid.setPadding(new Insets(20, 150, 10, 10));
+    	GridPane dialogGrid = new GridPane();
+    	dialogGrid.setHgap(10);
+    	dialogGrid.setVgap(10);
+    	dialogGrid.setPadding(new Insets(20, 150, 10, 10));
 
     	TextField player1name = new TextField();
     	player1name.setPromptText("Player 1");
     	TextField player2name = new TextField();
     	player2name.setPromptText("Player 2");
     	
-    	grid.add(new Label("Nickname for player 1:"), 0, 0);
-    	grid.add(player1name, 1, 0);
-    	grid.add(new Label("Nickname for player 2:"), 0, 1);
-    	grid.add(player2name, 1, 1);
+    	dialogGrid.add(new Label("Nickname for player 1:"), 0, 0);
+    	dialogGrid.add(player1name, 1, 0);
+    	dialogGrid.add(new Label("Nickname for player 2:"), 0, 1);
+    	dialogGrid.add(player2name, 1, 1);
 
-    	dialog.getDialogPane().setContent(grid);
+    	dialog.getDialogPane().setContent(dialogGrid);
 
     	dialog.setResultConverter(dialogButton -> {
     	    if (dialogButton == startButton) {
@@ -162,11 +166,24 @@ public final class UIController{
         Coordinate position = new Coordinate(colIndex, rowIndex);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked cell " + position.toString() + "\n");
-            controller.movePlayer(position);
+            if(this.selectedBarrier.isEmpty()) {
+            	controller.movePlayer(position);
+            } else {
+            	//probabilmente qua tira eccezione
+            	if(this.selectedBarrier.get().equals(0)) {
+            		controller.placeBarrier(position, Orientation.VERTICAL);
+            		System.out.printf("Barrier placement request: " + position.toString() + Orientation.VERTICAL + "\n");
+            	} else {
+            		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
+            		System.out.printf("Barrier placement request: " + position.toString() + Orientation.HORIZONTAL + "\n");
+            	}
+            	this.selectedBarrier = Optional.empty();
+            }
         });
         pane.getStyleClass().add("GridBorderPane");
         grid.add(pane, position.getX(), position.getY());
         gridMap.put(position, pane);     
+        this.selectedBarrier = Optional.empty();
     }
     
     public void setupGrid(Coordinate player1pos, Coordinate player2pos) {
@@ -202,12 +219,15 @@ public final class UIController{
     	}
     }
     
-    public void startDraggingBarrier() {
-    	System.out.println("dragging");
-    }
-    
-    public void stopDraggingBarrier(ActionEvent event) {
-    	System.out.println("stopped");
+    //da vedere se funziona
+    public void barrierPlacement(ActionEvent event) {
+    	System.out.print(event.getSource().toString());
+    	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
+    		this.selectedBarrier = Optional.of(0);
+    	} else {
+    		this.selectedBarrier = Optional.of(1);
+    	}
+    	
     }
     
     public void endRound(String winner) {
@@ -226,9 +246,9 @@ public final class UIController{
     	alert.setContentText("");
     	
     	
+    	
     	Optional<ButtonType> result = alert.showAndWait();
 
-    	this.controller.nextRound();
     }
     
     public void endGame(String winner) {
