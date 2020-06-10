@@ -41,9 +41,13 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 			if (type.equals(Orientation.HORIZONTAL)) {
 				this.barriers.add(new BarrierImpl(position, type));
 				this.barriers.add(new BarrierImpl(new Coordinate(position.getX() + 1, position.getY()), type));
+				this.observerBarrier.update(new BarrierImpl(position, type), this.players.getCurrentPlayer().getNickname());
+				this.observerBarrier.update(new BarrierImpl(new Coordinate(position.getX() + 1, position.getY()), type), this.players.getCurrentPlayer().getNickname());
 			} else {
 				this.barriers.add(new BarrierImpl(position, type));
 				this.barriers.add(new BarrierImpl(new Coordinate(position.getX(), position.getY() + 1), type));
+				this.observerBarrier.update(new BarrierImpl(position, type), this.players.getCurrentPlayer().getNickname());
+				this.observerBarrier.update(new BarrierImpl(new Coordinate(position.getX(), position.getY() + 1), type), this.players.getCurrentPlayer().getNickname());
 			}
 			this.changeTurn();
 		} else {

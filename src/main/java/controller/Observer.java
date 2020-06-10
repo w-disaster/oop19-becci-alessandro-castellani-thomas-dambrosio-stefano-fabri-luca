@@ -7,5 +7,5 @@ package controller;
  */
 public interface Observer {
 
-	void update(Object action, String player);
+	void update(Object object, String player);
 }

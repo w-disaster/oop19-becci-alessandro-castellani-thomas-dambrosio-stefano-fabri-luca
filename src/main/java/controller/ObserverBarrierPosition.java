@@ -13,7 +13,7 @@ private UIController view;
 	
 	@Override
 	public void update(Object barrier, String player) {
-		//this.view.move((Barrier) barrier, player);
+		this.view.drawBarrier((Barrier) barrier, player);
 	}
 
 }
