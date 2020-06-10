@@ -40,6 +40,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import viewmenu.SceneBuilder;
@@ -172,6 +173,7 @@ public final class UIController{
             	if(this.selectedBarrier.get().equals(0)) {
             		controller.placeBarrier(position, Orientation.VERTICAL);
             		System.out.printf("Barrier placement request: " + position.toString() + "Orientation: " + Orientation.VERTICAL + "\n");
+            		
             	} else {
             		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
             		System.out.printf("Barrier placement request: " + position.toString() + "Orientation: " + Orientation.HORIZONTAL + "\n");
@@ -220,13 +222,16 @@ public final class UIController{
     
     //da vedere se funziona
     public void barrierPlacement(MouseEvent event) {
-    //	System.out.print(event.getSource().toString());
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
     		this.selectedBarrier = Optional.of(0);
     	} else {
     		this.selectedBarrier = Optional.of(1);
     	}
     	
+    }
+    
+    public void drawBarrier(Barrier barrier, String player) {
+    	this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("WallDown");
     }
     
     public void endRound(String winner) {
@@ -245,6 +250,8 @@ public final class UIController{
     	alert.setContentText("");
     	
     	Optional<ButtonType> result = alert.showAndWait();
+    	
+    	this.controller.nextRound();
 
     }
     
