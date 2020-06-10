@@ -25,13 +25,12 @@ public class SceneBuilderImpl implements SceneBuilder{
 	 * @param pathToFXML
 	 * @throws IOException
 	 */
-	public SceneBuilderImpl(final double maxResizeScaling, final String pathToFXML) throws IOException {
+	public SceneBuilderImpl(final double maxResizeScaling, final String pathToFXML) {
 		this.pathToFXML = pathToFXML;
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		width = screenSize.getWidth() / Main.SCALING_RATE;
 		height = screenSize.getHeight() / Main.SCALING_RATE;
 		maxResizable = new Pair<>(screenSize.getWidth() / (Main.SCALING_RATE-maxResizeScaling), screenSize.getHeight() / (Main.SCALING_RATE-maxResizeScaling));
-		
 	}
 	/**
 	 * This constructor doesn't creates a maximum size, it just creates the Scene
@@ -45,13 +44,18 @@ public class SceneBuilderImpl implements SceneBuilder{
 		maxResizable = null;
 	}
 
-	private void build() throws IOException {
-		final Parent root = FXMLLoader.load(ClassLoader.getSystemResource(pathToFXML));
-		scene = new Scene(root, width, height);
+	private void build(){
+		try{
+			final Parent root = FXMLLoader.load(ClassLoader.getSystemResource(pathToFXML));
+			scene = new Scene(root, width, height);
+		} catch (Exception e) {
+			System.out.println("problems loading fxml");
+		}
+		
 	}
 	
 	@Override
-	public Scene getScene() throws IOException {
+	public Scene getScene(){
 		System.out.println("setted resolution to " + width + "x" + height);
 		build();
 		return scene;

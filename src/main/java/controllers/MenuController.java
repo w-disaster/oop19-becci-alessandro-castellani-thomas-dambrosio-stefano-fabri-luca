@@ -19,7 +19,6 @@ public class MenuController {
 
 	 @FXML
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
-		System.out.println("yy");
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/main/scene.fxml", "Game");
 	 }
@@ -30,10 +29,9 @@ public class MenuController {
 	 }
 	 
 	 @FXML
-	 public void leaderboardButtonPressHandler() throws IOException{
-		 //ONLY FOR TESTING 
-		 SaveLeaderBoard save = new SaveLeaderBoard();
-		 save.updateLeaderBoard("gangshit");
+	 public void leaderboardButtonPressHandler() {
+		 sceneChange = new SceneChangerImpl();
+		 sceneChange.change("layouts/leaderboard/LeaderBoard.fxml", "Leaderboard");
 	 }
 	 
 }
