@@ -20,12 +20,16 @@ public class SaveLeaderBoard {
 	 * If the directory or the files doesn't exist, they're created
 	 * @throws IOException
 	 */
-	private void createDirAndFile() throws IOException {
+	private void createDirAndFile() {
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
+		try {
 		if(!leaderBoard.exists()) {
 			leaderBoard.createNewFile();
+		}
+		} catch(Exception e) {
+			System.out.println("problems creating file");
 		}
 	}
 	
@@ -34,22 +38,27 @@ public class SaveLeaderBoard {
 	 * @return True if it present, False if it isn't
 	 * @throws IOException 
 	 */
-	private Boolean nameIsPresent() throws IOException {
-		Boolean present = false;
-		// Construct BufferedReader from FileReader
-		BufferedReader br = new BufferedReader(new FileReader(leaderBoard));
-		String line = null;
-		while ((line = br.readLine()) != null) {
-			if(line.split("//")[0].equals(winner)) {
-				present = true;
-				numVictories = line.split("//")[1];
+	private Boolean nameIsPresent() {
+		Boolean exist = false;
+		try{
+			// Construct BufferedReader from FileReader
+			BufferedReader br = new BufferedReader(new FileReader(leaderBoard));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				if(line.split("//")[0].equals(winner)) {
+					exist = true;
+					numVictories = line.split("//")[1];
+				}
 			}
+			br.close();
+		} catch(Exception e) {
+			System.out.println("problems in reading file");
 		}
-		br.close();
-		return present;
+		
+		return exist;
 	}
 	
-	private void updateNameVictories() throws IOException {
+	private void updateNameVictories() {
 		try {
 	        // StringBuffer takes the line to modify, it is like a String, but immutable
 			StringBuffer inputBuffer = new StringBuffer();
@@ -76,34 +85,49 @@ public class SaveLeaderBoard {
 	    }
 	}
 	
-	private void writeNewName() throws IOException {
+	private void writeNewName() {
 		//setting to true for append mode
-		FileWriter fout = new FileWriter(pathFile, true);
-		fout.write(winner + "//" + Integer.toString(1) + System.lineSeparator());
-		fout.close();
+		try{
+			FileWriter fout = new FileWriter(pathFile, true);
+			fout.write(winner + "//" + Integer.toString(1) + System.lineSeparator());
+			fout.close();
+		}catch (Exception e) {
+			System.out.println("problems in reading file");
+		}
+		
 	}
 	
-	public void updateLeaderBoard(final String winner) throws IOException {
+	public void updateLeaderBoard(final String winner) {
 		//updates the file in LeaderBoard
 		this.winner = winner;
-		if(nameIsPresent()) {
+		try{
+			if(nameIsPresent()) {
 			//System.out.println("name is present");
 			updateNameVictories();
-		}
-		else {
+			}
+			else {
 			//System.out.println("we have to write the file with victory number 1");
 			writeNewName();
+			}
+		}catch(Exception e) {
+			System.out.println("problems in reading files");
 		}
+		
 	}
 
 	/**
 	 * TODO
 	 * @throws IOException 
 	 */
-	public SaveLeaderBoard() throws IOException {
-		dir = new File(pathDir);
-		leaderBoard = new File(pathFile);
-		createDirAndFile();
+	public SaveLeaderBoard() {
+		try{
+			dir = new File(pathDir);
+			leaderBoard = new File(pathFile);
+			createDirAndFile();
+		}catch(Exception e) {
+			System.out.println("problem in creating file");
+		}
+		
 	} 
 
 }
