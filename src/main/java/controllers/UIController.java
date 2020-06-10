@@ -231,7 +231,20 @@ public final class UIController{
     }
     
     public void drawBarrier(Barrier barrier, String player) {
-    	this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("WallDown");
+    	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
+    		if (player.equals(this.player1.get())) {
+    			this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("BlueWallDown");
+    		} else {
+    			this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("RedWallDown");
+    			
+    		}
+    	} else {
+    		if (player.equals(this.player1.get())) {
+    			this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("BlueWallRight");
+    		} else {
+    			this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("RedWallRight");
+    		}
+    	}	
     }
     
     public void endRound(String winner) {
