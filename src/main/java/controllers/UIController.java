@@ -169,7 +169,6 @@ public final class UIController{
             if(this.selectedBarrier.isEmpty()) {
             	controller.movePlayer(position);
             } else {
-            	//probabilmente qua tira eccezione
             	if(this.selectedBarrier.get().equals(0)) {
             		controller.placeBarrier(position, Orientation.VERTICAL);
             		System.out.printf("Barrier placement request: " + position.toString() + Orientation.VERTICAL + "\n");
@@ -244,8 +243,6 @@ public final class UIController{
     	alert.setTitle("We have a winner!");
     	alert.setHeaderText(winner + " won the round!");
     	alert.setContentText("");
-    	
-    	
     	
     	Optional<ButtonType> result = alert.showAndWait();
 

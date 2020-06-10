@@ -44,8 +44,8 @@
                <children>
                   <Label text="Vertical" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <Label text="Horizontal" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Rectangle fx:id="player2vertical" arcHeight="5.0" arcWidth="5.0" fill="RED" height="59.0" stroke="WHITE" strokeType="INSIDE" width="17.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <Rectangle fx:id="player2horizontal" arcHeight="5.0" arcWidth="5.0" fill="RED" height="18.0" stroke="WHITE" strokeType="INSIDE" width="89.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Rectangle fx:id="player2vertical" arcHeight="5.0" arcWidth="5.0" fill="RED" height="59.0" onMouseClicked="#barrierPlacement" stroke="WHITE" strokeType="INSIDE" width="17.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Rectangle fx:id="player2horizontal" arcHeight="5.0" arcWidth="5.0" fill="RED" height="18.0" onMouseClicked="#barrierPlacement" stroke="WHITE" strokeType="INSIDE" width="89.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <Label text="Barriers left:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <Label text="10" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
@@ -88,8 +88,8 @@
                <children>
                   <Label text="Vertical" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <Label text="Horizontal" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Rectangle fx:id="player1vertical" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="59.0" onDragDetected="#startDraggingBarrier" stroke="WHITE" strokeType="INSIDE" width="17.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <Rectangle fx:id="player1horizontal" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="18.0" stroke="WHITE" strokeType="INSIDE" width="89.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Rectangle fx:id="player1vertical" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="59.0" onMouseClicked="#barrierPlacement" stroke="WHITE" strokeType="INSIDE" width="17.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Rectangle fx:id="player1horizontal" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="18.0" onMouseClicked="#barrierPlacement" stroke="WHITE" strokeType="INSIDE" width="89.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <Label text="Barriers left:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <Label text="10" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
