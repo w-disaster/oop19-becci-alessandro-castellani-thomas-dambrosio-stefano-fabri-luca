@@ -20,6 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
@@ -35,6 +36,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -66,6 +68,8 @@ public final class UIController{
     
     @FXML private Label label1;
     @FXML private Label label2;
+    @FXML private TextArea textArea1;
+    @FXML private TextArea textArea2;
     
     @FXML private MenuItem retToMainMenu;
     
@@ -87,7 +91,9 @@ public final class UIController{
 	//0 for vertical, 1 for horizontal
 	private Optional<Integer> selectedBarrier;
 	
-	private Map<Coordinate, Pane> gridMap;
+	private int selectedLabel;
+	
+	private Map<Coordinate, BorderPane> gridMap;
 	
 	public UIController() {
 		this.controller = new StandardGameControllerImpl(this);
@@ -140,7 +146,7 @@ public final class UIController{
     	int numCols = 9;
     	int numRows = 9;
     	
-    	gridMap = new HashMap<Coordinate, Pane>();
+    	gridMap = new HashMap<Coordinate, BorderPane>();
     	
     	bluePlayer = new Circle(25);
     	bluePlayer.getStyleClass().add("BluePlayer");
@@ -150,6 +156,8 @@ public final class UIController{
     	label2.setText(player2.get());
     	label1.getStyleClass().add("SelectedLabel");
     	label2.getStyleClass().add("Label");
+    	//togliere
+    	this.selectedLabel = 0;
   
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
@@ -163,7 +171,7 @@ public final class UIController{
 	}
     
     private void addPane(int colIndex, int rowIndex) {
-        Pane pane = new StackPane();
+        BorderPane pane = new BorderPane();
         Coordinate position = new Coordinate(colIndex, rowIndex);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked cell " + position.toString() + "\n");
@@ -172,11 +180,11 @@ public final class UIController{
             } else {
             	if(this.selectedBarrier.get().equals(0)) {
             		controller.placeBarrier(position, Orientation.VERTICAL);
-            		System.out.printf("Barrier placement request: " + position.toString() + "Orientation: " + Orientation.VERTICAL + "\n");
+            		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
             		
             	} else {
             		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
-            		System.out.printf("Barrier placement request: " + position.toString() + "Orientation: " + Orientation.HORIZONTAL + "\n");
+            		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.HORIZONTAL + "\n");
             	}
             	this.selectedBarrier = Optional.empty();
             }
@@ -184,16 +192,15 @@ public final class UIController{
         pane.getStyleClass().add("GridBorderPane");
         grid.add(pane, position.getX(), position.getY());
         gridMap.put(position, pane);     
+        
         this.selectedBarrier = Optional.empty();
     }
     
     public void setupGrid(Coordinate player1pos, Coordinate player2pos) {
     	System.out.println(player1pos);
     	System.out.println(player2pos);
-    	gridMap.get(player1pos).getChildren().add(bluePlayer);
-    	StackPane.setAlignment(bluePlayer, Pos.CENTER);
-    	gridMap.get(player2pos).getChildren().add(redPlayer);
-    	StackPane.setAlignment(redPlayer, Pos.CENTER);
+    	gridMap.get(player1pos).setCenter(bluePlayer);
+    	gridMap.get(player2pos).setCenter(redPlayer);
     }
     
     public void startGame(String player1, String player2) {
@@ -205,50 +212,70 @@ public final class UIController{
     public void move(Coordinate position, String player) {
     	if(player.equals(this.player1.get())) {
     		gridMap.get(position).getChildren().add(bluePlayer);
-    		StackPane.setAlignment(bluePlayer, Pos.CENTER);
+    		BorderPane.setAlignment(redPlayer, Pos.CENTER);
+    		this.changeSelectedLabel();
+    	} else {
+    		gridMap.get(position).getChildren().add(redPlayer);
+    		BorderPane.setAlignment(redPlayer, Pos.CENTER);
+    		this.changeSelectedLabel();
+    	}
+    }
+    
+    public void barrierPlacement(MouseEvent event) {
+    	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
+    		this.selectedBarrier = Optional.of(0);
+    		this.drawText(0);
+    	} else {
+    		this.selectedBarrier = Optional.of(1);
+    		this.drawText(1);
+    	}
+    }
+    
+    public void drawBarrier(Barrier barrier, String player) {
+    	BorderPane selected = this.gridMap.get(barrier.getCoordinate());
+    	Rectangle verticalBarrier = new Rectangle(10, selected.getHeight());
+    	Rectangle horizontalBarrier = new Rectangle(selected.getWidth(), 10);
+    	//r.setFill(Color.BLUE);
+    	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
+    		if (player.equals(this.player1.get())) {
+    			horizontalBarrier.setFill(Color.BLUE);
+    			selected.setBottom(horizontalBarrier);
+    		} else {
+    			horizontalBarrier.setFill(Color.RED);
+    			selected.setBottom(horizontalBarrier);	
+    		}
+    	} else {
+    		if (player.equals(this.player1.get())) {
+    			verticalBarrier.setFill(Color.BLUE);
+    			selected.setRight(verticalBarrier);
+    		} else {
+    			verticalBarrier.setFill(Color.RED);
+    			selected.setRight(verticalBarrier);
+    		}
+    	}	
+    	this.changeSelectedLabel();
+    }
+    
+    private void changeSelectedLabel() {
+    	System.out.println("TEST");
+    	if (this.selectedLabel == 0) {
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("SelectedLabel");
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("Label");
-    	} else {
-    		gridMap.get(position).getChildren().add(redPlayer);
-    		StackPane.setAlignment(redPlayer, Pos.CENTER);
+    		this.selectedLabel = 1;
+    	} else if (this.selectedLabel == 1) {
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("SelectedLabel");   		
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("Label");
-    	}
-    }
-    
-    //da vedere se funziona
-    public void barrierPlacement(MouseEvent event) {
-    	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
-    		this.selectedBarrier = Optional.of(0);
-    	} else {
-    		this.selectedBarrier = Optional.of(1);
+			this.selectedLabel = 0;
     	}
     	
     }
     
-    public void drawBarrier(Barrier barrier, String player) {
-    	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
-    		if (player.equals(this.player1.get())) {
-    			this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("BlueWallDown");
-    		} else {
-    			this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("RedWallDown");
-    			
-    		}
-    	} else {
-    		if (player.equals(this.player1.get())) {
-    			this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("BlueWallRight");
-    		} else {
-    			this.gridMap.get(barrier.getCoordinate()).getStyleClass().add("RedWallRight");
-    		}
-    	}	
-    }
-    
     public void endRound(String winner) {
-    	for(Entry<Coordinate, Pane> p : this.gridMap.entrySet()) {
+    	for(Entry<Coordinate, BorderPane> p : this.gridMap.entrySet()) {
     		if (p.getValue().getChildren().contains(bluePlayer)) {
     			p.getValue().getChildren().remove(bluePlayer);
     		}
@@ -265,7 +292,6 @@ public final class UIController{
     	Optional<ButtonType> result = alert.showAndWait();
     	
     	this.controller.nextRound();
-
     }
     
     public void endGame(String winner) {
@@ -284,6 +310,18 @@ public final class UIController{
     	} else {
     	    System.exit(0);
     	}
+    }
+    
+    private void drawText(int player) {
+    	String barrierTutorial = "Per posizionare la barriera, clicca la casella dove vuoi posizionarla: \n"
+    			+ "- La barriera verticale sara` posizionata a destra e nella cassela in basso\n"
+    			+ "- La barriera orizzontale sara` piazzata in basso e nella casella a destra";
+    	if (player == 0) {
+    		this.textArea1.setText(barrierTutorial);
+    	} else {
+    		this.textArea2.setText(barrierTutorial);  		
+    	}
+    			
     }
 
     /**
