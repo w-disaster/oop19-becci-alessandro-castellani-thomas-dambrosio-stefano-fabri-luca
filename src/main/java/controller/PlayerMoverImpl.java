@@ -21,8 +21,8 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, Iterator<Player> iterTurns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
-		super(model, view, iterTurns, iterRounds, roundWinner);
+	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
+		super(model, view, iterRounds, roundWinner);
 		this.model = model;
 		this.view = view;
 		this.observerPlayer = new ObserverPlayerPosition(this.view);
@@ -45,7 +45,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				this.addWinner((this.players.getCurrentPlayer())); //add the winner of the round
 				this.changeRound();
 			}
-			this.changeTurn();
+			this.changeTurn(this.players.getCurrentPlayer());
 			this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		} else {
 			System.out.println("Bad move! Still your turn!");

@@ -22,8 +22,8 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	private Coordinate newBarrierPosition;
 	private Orientation newBarrierOrientation;
 
-	public BarrierPlacerImpl(Model<RoundEnvironment> model, UIController view, Iterator<Player> iterTurns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
-		super(model, view, iterTurns, iterRounds, roundWinner);
+	public BarrierPlacerImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
+		super(model, view, iterRounds, roundWinner);
 		this.model = model;
 		this.view = view;
 		this.observerBarrier = new ObserverBarrierPosition(this.view);
@@ -49,7 +49,7 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 				this.observerBarrier.update(new BarrierImpl(position, type), this.players.getCurrentPlayer().getNickname());
 				this.observerBarrier.update(new BarrierImpl(new Coordinate(position.getX(), position.getY() + 1), type), this.players.getCurrentPlayer().getNickname());
 			}
-			this.changeTurn();
+			this.changeTurn(this.players.getCurrentPlayer());
 		} else {
 			System.out.println("Bad move! Still your turn!");
 		}

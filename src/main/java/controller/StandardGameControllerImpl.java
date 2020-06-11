@@ -54,9 +54,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		this.iterRounds = this.listEnvironment.iterator();
 		this.roundWinner = new ArrayList<>();
 		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
-		Iterator<Player> iterTurns = this.model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().iterator();
-		this.mover = new PlayerMoverImpl(this.model, this.view, iterTurns, this.iterRounds, this.roundWinner);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, iterTurns, this.iterRounds, this.roundWinner);
+		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds, this.roundWinner);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, this.iterRounds, this.roundWinner);
 	}
 	
 	@Override
@@ -79,8 +78,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	public void nextRound() {
 		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
-		this.mover = new PlayerMoverImpl(this.model, this.view, players.getPlayers().iterator(), this.iterRounds, this.roundWinner);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, players.getPlayers().iterator(), this.iterRounds, this.roundWinner);
+		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds, this.roundWinner);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, this.iterRounds, this.roundWinner);
 		this.view.setupGrid(players.getPlayers().get(0).getCoordinate(), players.getPlayers().get(1).getCoordinate()); //reset grid
 	}
 	

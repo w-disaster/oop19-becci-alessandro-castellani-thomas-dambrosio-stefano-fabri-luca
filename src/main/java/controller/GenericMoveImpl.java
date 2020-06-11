@@ -17,28 +17,26 @@ public class GenericMoveImpl {
 	private SaveLeaderBoard leaderboard;
 	private RoundPlayers players;
 	private List<Player> turns;
-	private Iterator<Player> iterTurns;
 	private Iterator<RoundEnvironment> iterRounds;
 	private List<Player> roundWinner;
 	
-	public GenericMoveImpl(Model<RoundEnvironment> model, UIController view, Iterator<Player> iterTurns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
+	public GenericMoveImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
 		this.model = model;
 		this.view = view;
 		this.leaderboard = new SaveLeaderBoard();
 		this.iterRounds = iterRounds;
-		this.iterTurns = iterTurns;
 		this.roundWinner = roundWinner;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.turns = this.players.getPlayers();
-		this.players.setCurrentPlayer(this.iterTurns.next());
+		this.players.setCurrentPlayer(this.turns.get(0));
 	}
 	
-	protected void changeTurn() {
-		if (this.iterTurns.hasNext()) {
-			this.players.setCurrentPlayer(this.iterTurns.next());
+	protected void changeTurn(Player player) {
+		int index = this.turns.indexOf(player);
+		if (index != this.turns.size() - 1) {
+			this.players.setCurrentPlayer(this.turns.get(index + 1));
 		} else {
-			this.iterTurns = this.turns.iterator();
-			this.players.setCurrentPlayer(this.iterTurns.next());
+			this.players.setCurrentPlayer(this.turns.get(0));
 		}
 	}
 	
