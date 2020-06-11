@@ -17,7 +17,6 @@ public class SceneBuilderImpl implements SceneBuilder{
 	private final double width;
 	private final double height;
 	private final String pathToFXML;
-	private final Pair<Double, Double> maxResizable;
 	
 	/**
 	 * This construct a scene and creates a maximum Size over the scene can't be resized without losing layouts in a significant way
@@ -30,7 +29,6 @@ public class SceneBuilderImpl implements SceneBuilder{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		width = screenSize.getWidth() / Main.SCALING_RATE;
 		height = screenSize.getHeight() / Main.SCALING_RATE;
-		maxResizable = new Pair<>(screenSize.getWidth() / (Main.SCALING_RATE-maxResizeScaling), screenSize.getHeight() / (Main.SCALING_RATE-maxResizeScaling));
 	}
 	/**
 	 * This constructor doesn't creates a maximum size, it just creates the Scene
@@ -41,7 +39,6 @@ public class SceneBuilderImpl implements SceneBuilder{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		width = screenSize.getWidth() / Main.SCALING_RATE;
 		height = screenSize.getHeight() / Main.SCALING_RATE;
-		maxResizable = null;
 	}
 
 	private void build(){
@@ -61,11 +58,6 @@ public class SceneBuilderImpl implements SceneBuilder{
 		return scene;
 	}
 	
-	public Pair<Double, Double> getMaxResizable(){
-		//System.out.println(maxResizable.getKey());
-		//System.out.println(maxResizable.getValue());
-		return maxResizable;
-	}
 
 	
 	

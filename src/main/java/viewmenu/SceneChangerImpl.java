@@ -1,10 +1,8 @@
 package viewmenu;
 
-import java.io.IOException;
+
 
 import application.Main;
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.stage.Stage;
 
 public class SceneChangerImpl implements SceneChanger{

@@ -1,6 +1,7 @@
 package controllers;
 
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,7 +11,11 @@ import javafx.scene.control.Pagination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
@@ -18,36 +23,67 @@ public class LeaderboardControl {
 	
 	private SceneChanger sceneChange = new SceneChangerImpl();
 	@FXML private BorderPane borderPane;
+	@FXML private Pagination pag;
 	
 	@FXML private void backToMenu() {
 		sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
 	}
 	
 	private Node createNewPage(int pageIndex) {
-		HBox h = new HBox();
-		Label label = new Label("NAME");
-		h.setAlignment(Pos.TOP_LEFT);
-		h.setPadding(new Insets(20,0,0,300));
-		h.getChildren().add(label);
-		return h;
+		HBox hRoot = new HBox();
+		Region spacerRoot = new Region();
+		Region spacerRoot2 = new Region();
+		
+		VBox v = new VBox();
+		v.setPrefWidth(250);
+		
+		HBox titles = new HBox();
+		Label title1 = new Label("NAME");
+		Region spacerTitles = new Region();
+		Label title2 = new Label("SCORE");
+		
+		spacerTitles.setPrefSize(100, 100);
+		spacerTitles.setStyle("-fx-border-color: purple;");
+		title1.setStyle("-fx-border-color:yellow;");
+		title2.setStyle("-fx-border-color:yellow;");
+		title1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		title2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		title1.setAlignment(Pos.CENTER);
+		title2.setAlignment(Pos.CENTER);
+		titles.getChildren().add(title1);
+		titles.getChildren().add(spacerTitles);
+		titles.getChildren().add(title2);
+		HBox.setHgrow(title1, Priority.ALWAYS);
+		HBox.setHgrow(spacerTitles, Priority.ALWAYS);
+		HBox.setHgrow(title2, Priority.ALWAYS);
+		
+		v.getChildren().add(titles);
+		v.setStyle("-fx-border-color: green;");
+		
+		hRoot.getChildren().add(spacerRoot);
+		hRoot.getChildren().add(v);
+		hRoot.getChildren().add(spacerRoot2);
+		HBox.setHgrow(spacerRoot, Priority.ALWAYS);
+		HBox.setHgrow(v, Priority.ALWAYS);
+		HBox.setHgrow(spacerRoot2, Priority.ALWAYS);
+		return hRoot;
 	}
 	
 	public void initialize() {
-		Pagination pag = new Pagination(5);
-		AnchorPane anchor = new AnchorPane();
-	    AnchorPane.setTopAnchor(pag, 10.0);
-	    AnchorPane.setRightAnchor(pag, 10.0);
-	    AnchorPane.setBottomAnchor(pag, 10.0);
-	    AnchorPane.setLeftAnchor(pag, 10.0);
-	    anchor.getChildren().addAll(pag);
-	    borderPane.setCenter(anchor);
-		pag.setPageFactory((pageIndex) -> {
-			    return createNewPage(pageIndex);
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				pag.setPageFactory(new Callback<Integer, Node>(){
+					@Override
+					public Node call(Integer param) {
+						return createNewPage(param);
+					}
+				});
+			}
+			
 		});
-		pag.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		//pag.setPrefSize(.getWidth(), vBox.getHeight());
 		pag.setStyle("-fx-border-color:red;");
-		System.out.println(anchor.getHeight());
 	}
 
 	
