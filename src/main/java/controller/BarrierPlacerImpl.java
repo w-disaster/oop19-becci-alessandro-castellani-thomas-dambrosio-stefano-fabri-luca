@@ -61,22 +61,32 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.HORIZONTAL))) { //se sono nel lato a destra (orizz) posso mettere la verticale
 			if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX() - 1, this.newBarrierPosition.getY()), Orientation.HORIZONTAL))) {
 				if (this.newBarrierOrientation.equals(Orientation.HORIZONTAL)) { //here i can place a vertical barrier
+					System.out.println("Not empty!!");
 					return false;
+				} else {
+					return true;
 				}
 			}
-			if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX() + 1, this.newBarrierPosition.getY()), Orientation.HORIZONTAL))) {
+			System.out.println("Not empty!!");
+			return false;
+		}
+		if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX() + 1, this.newBarrierPosition.getY()), Orientation.HORIZONTAL))) {
+			if (this.newBarrierOrientation.equals(Orientation.HORIZONTAL)) { //here i can place a vertical barrier
+				System.out.println("Not empty!!");
 				return false;
 			}
 		}
 		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.VERTICAL))) {
 			if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX(), this.newBarrierPosition.getY() - 1), Orientation.VERTICAL))) {
-				if (this.newBarrierOrientation.equals(Orientation.VERTICAL)) { //here i can place an horizontal barrier
+				if (this.newBarrierOrientation.equals(Orientation.VERTICAL)) { //here i can place a horizontal barrier
+					System.out.println("Not empty!!");
 					return false;
+				} else {
+					return true;
 				}
 			}
-			if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX(), this.newBarrierPosition.getY() + 1), Orientation.VERTICAL))) {
-				return false;
-			}
+			System.out.println("Not empty!!");
+			return false;
 		}
 		return true;
 	}
@@ -88,9 +98,11 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	private boolean checkPosition() {
 		//barriers are long 2 positions so they can't be placed where x or y are 'boardDimension'
 		if (this.newBarrierPosition.getX().equals(this.model.getBoardDimension() - 1)) {
+			System.out.println("Can't place on the edge!!");
 			return false;
 		}
 		if (this.newBarrierPosition.getY().equals(this.model.getBoardDimension() - 1)) {
+			System.out.println("Can't place on the edge!!");
 			return false;
 		}
 		return true;

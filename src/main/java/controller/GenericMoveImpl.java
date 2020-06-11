@@ -54,7 +54,6 @@ public class GenericMoveImpl {
 			}
 			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
 			this.view.endRound(currentPlayer);
-			
 		} else {
 			System.out.println("All rounds finished, game over");
 			//now i check who won more rounds and set him winner of the game
