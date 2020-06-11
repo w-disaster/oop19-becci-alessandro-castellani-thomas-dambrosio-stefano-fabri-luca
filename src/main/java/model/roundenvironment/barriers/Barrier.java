@@ -29,5 +29,6 @@ public interface Barrier {
 	 * @return coordinate that represents the head of the barrier
 	 */
 	Coordinate getCoordinate();
+	
 }
 
