@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jdk.jshell.spi.ExecutionControl.*;
-import savings.SaveLeaderBoard;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
@@ -33,7 +32,7 @@ public class MenuController {
 			@Override
 			public void run() {
 				stage = (Stage) rootPane.getScene().getWindow();
-				stage.widthProperty().addListener(new ChangeListener<>() {
+				stage.widthProperty().addListener(new ChangeListener<Number>() {
 					@Override
 					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
 							Number newValue) {
