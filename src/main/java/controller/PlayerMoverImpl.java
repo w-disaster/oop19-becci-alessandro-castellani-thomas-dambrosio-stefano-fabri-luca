@@ -1,9 +1,6 @@
 package controller;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.function.BinaryOperator;
-
 import controllers.UIController;
 import model.*;
 import model.roundenvironment.barriers.BarrierImpl;
@@ -19,25 +16,23 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private Model<RoundEnvironment> model;
 	private UIController view;
 	private Observer observerPlayer;
-	private List<Player> roundWinner;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
-		super(model, view, turns, iterRounds, roundWinner);
+	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, Iterator<Player> iterTurns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
+		super(model, view, iterTurns, iterRounds, roundWinner);
 		this.model = model;
 		this.view = view;
-		this.roundWinner = roundWinner;
 		this.observerPlayer = new ObserverPlayerPosition(this.view);
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();
-		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 	}
 	
 	@Override
 	public void movePlayer(Coordinate newPosition) {
+		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
 		if (this.adjacent() && this.noWall() && this.isEmptyPosition()) {
 			System.out.println(this.players.getCurrentPlayer().getNickname() + " position is: " + this.players.getCurrentPlayer().getCoordinate());

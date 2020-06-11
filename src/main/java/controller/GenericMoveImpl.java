@@ -21,15 +21,15 @@ public class GenericMoveImpl {
 	private Iterator<RoundEnvironment> iterRounds;
 	private List<Player> roundWinner;
 	
-	public GenericMoveImpl(Model<RoundEnvironment> model, UIController view, List<Player> turns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
+	public GenericMoveImpl(Model<RoundEnvironment> model, UIController view, Iterator<Player> iterTurns, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
 		this.model = model;
 		this.view = view;
 		this.leaderboard = new SaveLeaderBoard();
-		this.turns = turns;
 		this.iterRounds = iterRounds;
 		this.iterTurns = this.turns.iterator();
 		this.roundWinner = roundWinner;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+		this.turns = this.players.getPlayers();
 		this.players.setCurrentPlayer(this.iterTurns.next());
 	}
 	
