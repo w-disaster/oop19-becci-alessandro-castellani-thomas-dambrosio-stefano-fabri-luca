@@ -12,6 +12,7 @@ public class MenuController {
 	
 	private SceneChanger sceneChange;
 	
+	
 	@FXML
     public void exitButtonPressHandler() {
         System.exit(0);

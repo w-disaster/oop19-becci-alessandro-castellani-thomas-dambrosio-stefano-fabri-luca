@@ -20,7 +20,7 @@ public class LeaderboardControl {
 	@FXML private BorderPane borderPane;
 	
 	@FXML private void backToMenu() {
-		sceneChange.change(0.3, "layouts/menu/MainMenu.fxml", "Menu");
+		sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
 	}
 	
 	private Node createNewPage(int pageIndex) {

@@ -22,7 +22,7 @@ public final class Main extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-     	SceneBuilder sceneBuild = new SceneBuilderImpl(0.3,"layouts/menu/MainMenu.fxml");
+     	SceneBuilder sceneBuild = new SceneBuilderImpl("layouts/menu/MainMenu.fxml");
 
         // Stage configuration
 
@@ -32,8 +32,6 @@ public final class Main extends Application {
         stage.show();
         stage.setMinWidth(stage.getWidth());
         stage.setMinHeight(stage.getHeight());
-        stage.setMaxHeight(sceneBuild.getMaxResizable().getValue());
-        stage.setMaxWidth(sceneBuild.getMaxResizable().getKey());
         Main.STAGE = stage;
         
     }

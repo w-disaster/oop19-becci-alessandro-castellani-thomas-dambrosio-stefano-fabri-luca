@@ -10,13 +10,5 @@ public interface SceneChanger {
 	 */
 	public void change(final String pathToFXML, final String title);
 
-	/**
-	 * Changes the scene in the stage with the given one , setting a maximum resize for the scene created
-	 * @param maxResizeScaling
-	 * @param pathToFXML
-	 * @param title
-	 * @throws IOException 
-	 */
-	public void change(double maxResizeScaling, String pathToFXML, String title);
 	
 }

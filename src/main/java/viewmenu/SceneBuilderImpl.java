@@ -62,8 +62,8 @@ public class SceneBuilderImpl implements SceneBuilder{
 	}
 	
 	public Pair<Double, Double> getMaxResizable(){
-		System.out.println(maxResizable.getKey());
-		System.out.println(maxResizable.getValue());
+		//System.out.println(maxResizable.getKey());
+		//System.out.println(maxResizable.getValue());
 		return maxResizable;
 	}
 

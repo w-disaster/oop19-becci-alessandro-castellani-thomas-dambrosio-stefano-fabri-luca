@@ -11,33 +11,13 @@
 <?import javafx.scene.layout.StackPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@menuStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuController">
-   <left>
-      <HBox prefHeight="518.0" prefWidth="950.0" spacing="50.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets left="318.0" top="100.0" />
-         </padding>
-         <children>
-            <VBox prefHeight="526.0" prefWidth="258.0" spacing="200.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#newGameButtonPressHandler" text="NEW GAME" />
-                  <Button mnemonicParsing="false" onAction="#loadGameButtonPressHandler" text="LOAD GAME" />
-               </children>
-            </VBox>
-            <VBox prefHeight="466.0" prefWidth="261.0" spacing="200.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#leaderboardButtonPressHandler" stylesheets="@menuStyle.css" text="LEADERBOARD" />
-                  <Button mnemonicParsing="false" onAction="#exitButtonPressHandler" text="EXIT GAME" />
-               </children></VBox>
-         </children>
-      </HBox>
-   </left>
    <top>
-      <VBox prefHeight="141.0" prefWidth="1366.0" styleClass="topBox" stylesheets="@menuStyle.css" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="141.0" prefWidth="1366.0" styleClass="topBox" stylesheets="@menuStyle.css" BorderPane.alignment="CENTER">
          <children>
-            <Label styleClass="bigLabel" stylesheets="@menuStyle.css" text="QUORIDOR" />
+            <Label styleClass="bigLabel" stylesheets="@menuStyle.css" text="QUORIDOR" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
-            <Insets left="300.0" top="40.0" />
+            <Insets top="40.0" />
          </padding>
       </VBox>
    </top>
@@ -59,4 +39,61 @@
          </padding>
       </HBox>
    </bottom>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="NEW GAME" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets top="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="LOAD GAME" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Region prefHeight="478.0" prefWidth="70.0" HBox.hgrow="ALWAYS" />
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="LEADERBOARD" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets top="30.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Region prefHeight="120.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="EXIT GAME" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="30.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
 </BorderPane>
