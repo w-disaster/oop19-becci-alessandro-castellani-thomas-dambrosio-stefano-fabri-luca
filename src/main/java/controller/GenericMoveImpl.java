@@ -26,7 +26,6 @@ public class GenericMoveImpl {
 		this.view = view;
 		this.leaderboard = new SaveLeaderBoard();
 		this.iterRounds = iterRounds;
-		this.iterTurns = this.turns.iterator();
 		this.roundWinner = roundWinner;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.turns = this.players.getPlayers();
