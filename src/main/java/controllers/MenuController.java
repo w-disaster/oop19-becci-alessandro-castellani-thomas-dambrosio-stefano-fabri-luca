@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jdk.jshell.spi.ExecutionControl.*;
@@ -22,6 +23,7 @@ public class MenuController {
 	@FXML private Button loadGameButton;
 	@FXML private Button leaderBoardButton;
 	@FXML private Button exitGameButton;
+	@FXML private Label title;
 	
 	private SceneChanger sceneChange;
 	private Stage stage;
@@ -35,11 +37,13 @@ public class MenuController {
 					@Override
 					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
 							Number newValue) {
-						String style = "-fx-font-size:" + newGameButton.getWidth()/7 + ";"; 
-						newGameButton.setStyle(style);
-						loadGameButton.setStyle(style);
-						leaderBoardButton.setStyle(style);
-						exitGameButton.setStyle(style);
+						String styleButtons = "-fx-font-size:" + newValue.doubleValue()/40 + ";"; 
+						String styleLabel = "-fx-font-size:" + newValue.doubleValue()/11 + ";";
+						newGameButton.setStyle(styleButtons);
+						loadGameButton.setStyle(styleButtons);
+						leaderBoardButton.setStyle(styleButtons);
+						exitGameButton.setStyle(styleButtons);
+						title.setStyle(styleLabel);
 					}
 				});
 			}
