@@ -47,7 +47,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="NEW GAME" HBox.hgrow="ALWAYS">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newGameButtonPressHandler" text="NEW GAME" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets top="30.0" />
                            </HBox.margin>
@@ -58,7 +58,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="LOAD GAME" HBox.hgrow="ALWAYS">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadGameButtonPressHandler" text="LOAD GAME" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="30.0" />
                            </HBox.margin>
@@ -72,7 +72,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="LEADERBOARD" HBox.hgrow="ALWAYS">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#leaderboardButtonPressHandler" text="LEADERBOARD" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets top="30.0" />
                            </HBox.margin>
@@ -83,7 +83,7 @@
                   <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="EXIT GAME" HBox.hgrow="ALWAYS">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exitButtonPressHandler" text="EXIT GAME" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="30.0" />
                            </HBox.margin>
