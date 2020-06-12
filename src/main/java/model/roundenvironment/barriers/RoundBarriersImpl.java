@@ -25,7 +25,7 @@ public class RoundBarriersImpl implements RoundBarriers {
 	 * barriers from an existing round
 	 * @param barriers
 	 */
-	public RoundBarriersImpl(List<Barrier> barriers) {
+	public RoundBarriersImpl(final List<Barrier> barriers) {
 		super();
 		this.barriers = barriers;
 	}

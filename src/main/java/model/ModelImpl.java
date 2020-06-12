@@ -23,7 +23,7 @@ public class ModelImpl<X> implements Model<X> {
 	 * @param gameRoundsEnvironments
 	 * @param boardDimension
 	 */
-	public ModelImpl(List<X> gameRoundsEnvironments, Optional<Integer> boardDimension) {
+	public ModelImpl(final List<X> gameRoundsEnvironments, final Optional<Integer> boardDimension) {
 		super();
 		this.boardDimension = boardDimension.isEmpty() ? BOARD_DIMENSION : boardDimension.get();
 		this.gameRoundsEnvironments = gameRoundsEnvironments;

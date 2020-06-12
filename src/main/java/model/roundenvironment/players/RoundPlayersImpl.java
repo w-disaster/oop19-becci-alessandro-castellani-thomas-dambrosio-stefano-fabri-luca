@@ -16,7 +16,7 @@ public class RoundPlayersImpl implements RoundPlayers {
 	 * Round players from existing players
 	 * @param players
 	 */
-	public RoundPlayersImpl(List<Player> players) {
+	public RoundPlayersImpl(final List<Player> players) {
 		super();
 		this.players = players;
 	}

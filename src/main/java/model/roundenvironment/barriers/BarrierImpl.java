@@ -7,7 +7,7 @@ public class BarrierImpl implements Barrier {
 	private Coordinate coordinate;
 	private Orientation type;
 	
-	public BarrierImpl(Coordinate coordinate, Orientation type) {
+	public BarrierImpl(final Coordinate coordinate, final Orientation type) {
 		super();
 		this.coordinate = coordinate;
 		this.type = type;

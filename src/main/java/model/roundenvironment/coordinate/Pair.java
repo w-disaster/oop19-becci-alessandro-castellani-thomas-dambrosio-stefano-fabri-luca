@@ -12,7 +12,7 @@ public class Pair<X, Y> {
 	private X x;
 	private Y y;
 	
-	public Pair(X x, Y y) {
+	public Pair(final X x, final Y y) {
 		super();
 		this.x = x;
 		this.y = y;

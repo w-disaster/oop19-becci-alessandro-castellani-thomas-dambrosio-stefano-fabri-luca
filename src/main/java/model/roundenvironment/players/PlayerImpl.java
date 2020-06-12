@@ -23,7 +23,7 @@ public class PlayerImpl implements Player{
 	 * @param availableBarriers
 	 * @param finishLine
 	 */
-	public PlayerImpl(String nickname, Coordinate coordinate, Optional<Integer> availableBarriers, Integer finishLine) {
+	public PlayerImpl(final String nickname, final Coordinate coordinate, final Optional<Integer> availableBarriers, final Integer finishLine) {
 		this.nickname = nickname;
 		this.coordinate = coordinate;
 		this.availableBarriers = availableBarriers.isEmpty() ? DEFAULT_BARRIERS_NUMBER : availableBarriers.get(); 

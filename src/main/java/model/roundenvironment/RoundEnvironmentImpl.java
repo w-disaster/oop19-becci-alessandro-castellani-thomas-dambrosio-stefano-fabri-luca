@@ -18,7 +18,7 @@ public class RoundEnvironmentImpl implements RoundEnvironment {
 	 * @param roundBarriers
 	 * @param roundPlayers
 	 */
-	public RoundEnvironmentImpl(RoundBarriers roundBarriers, RoundPlayers roundPlayers) {
+	public RoundEnvironmentImpl(final RoundBarriers roundBarriers, final RoundPlayers roundPlayers) {
 		super();
 		this.roundBarriers = roundBarriers;
 		this.roundPlayers = roundPlayers;

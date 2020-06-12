@@ -7,12 +7,12 @@ public class RoundPUpEnvironmentImpl extends RoundEnvironmentImpl implements Rou
 	
 	private RoundBarriers junk;
 	
-	public RoundPUpEnvironmentImpl(RoundBarriers roundBarriers, RoundPlayers roundPlayers) {
+	public RoundPUpEnvironmentImpl(final RoundBarriers roundBarriers, final RoundPlayers roundPlayers) {
 		super(roundBarriers, roundPlayers);
 		this.junk = new RoundBarriersImpl();
 	}
 
-	public RoundPUpEnvironmentImpl(RoundBarriers roundBarriers, RoundPlayers roundPlayers, RoundBarriers junk) {
+	public RoundPUpEnvironmentImpl(final RoundBarriers roundBarriers, final RoundPlayers roundPlayers, final RoundBarriers junk) {
 		super(roundBarriers, roundPlayers);
 		this.junk = junk;
 	}
