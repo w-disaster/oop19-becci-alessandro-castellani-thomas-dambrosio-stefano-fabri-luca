@@ -8,7 +8,7 @@
 
 <BorderPane fx:id="borderPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LeaderboardControl">
    <top>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="150.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="LEADERBOARD" />
          </children>
@@ -17,18 +17,10 @@
          </BorderPane.margin>
       </VBox>
    </top>
-   <bottom>
-      <VBox alignment="CENTER" fillWidth="false" prefHeight="100.0" prefWidth="1280.0" BorderPane.alignment="BOTTOM_CENTER">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#backToMenu" text="BackMenu" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </bottom>
    <center>
-      <Pagination fx:id="pag" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pagination fx:id="pag" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="30.0" />
+         </BorderPane.margin></Pagination>
    </center>
 </BorderPane>
