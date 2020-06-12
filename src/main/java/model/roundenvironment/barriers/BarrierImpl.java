@@ -6,21 +6,28 @@ public class BarrierImpl implements Barrier {
 
 	private Coordinate coordinate;
 	private Orientation type;
+	private Piece piece;
 	
-	public BarrierImpl(final Coordinate coordinate, final Orientation type) {
+	public BarrierImpl(final Coordinate coordinate, final Orientation type, final Piece piece) {
 		super();
 		this.coordinate = coordinate;
 		this.type = type;
+		this.piece = piece;
 	}
 
+	@Override
+	public Coordinate getCoordinate() {
+		return this.coordinate;
+	}
+	
 	@Override
 	public Orientation getOrientation() {
 		return this.type;
 	}
 
 	@Override
-	public Coordinate getCoordinate() {
-		return this.coordinate;
+	public Piece getPiece() {
+		return this.piece;
 	}
 
 	@Override

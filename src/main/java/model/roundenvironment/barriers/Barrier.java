@@ -17,6 +17,15 @@ public interface Barrier {
 	public enum Orientation {
 		HORIZONTAL, VERTICAL
 	}
+	
+	/**
+	 * piece of the barrier
+	 * @author luca
+	 *
+	 */
+	public enum Piece {
+		HEAD, TAIL
+	}
 
 	/**
 	 * 
@@ -29,6 +38,12 @@ public interface Barrier {
 	 * @return coordinate that represents the head of the barrier
 	 */
 	Coordinate getCoordinate();
+	
+	/**
+	 * 
+	 * @return the piece of this barrier
+	 */
+	Piece getPiece();
 	
 }
 
