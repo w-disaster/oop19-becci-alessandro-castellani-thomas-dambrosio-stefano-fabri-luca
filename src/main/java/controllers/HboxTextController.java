@@ -1,5 +1,12 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,6 +18,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import savings.LoadLeaderBoard;
 
 public class HboxTextController {
@@ -22,49 +30,61 @@ public class HboxTextController {
 	private Stage stage;
 	private LoadLeaderBoard load;
 	private int indexPage;
-	
+	private Map<Integer, List<String>> indexPageToPlayer;
+	private Map<Integer, List<Integer>> indexPageToScore;
+	Map<Integer, Integer> indexToNumEntries;
+	private List<Label> listLabelsName;
+	private List<Label> listLabelsScore;
 	
 	public void setData(final Stage stage, final int pageIndex) {
 		this.stage = stage;
 		this.indexPage = pageIndex;
-		title1.setText(Integer.toString(indexPage));
 	}
 	
 	public int getNumberPages() {
 		return load.getNumPages();
 	}
 	
+	private void populateLists() {
+		indexPageToPlayer = load.getIndexToPlayerMap();
+		indexPageToScore = load.getIndexToScoreMap();
+	}
+	
+	private void createInterface() {
+		//this method creates the interface for the given index page.
+		if(indexPageToPlayer.get(indexPage).size() == 3) {
+			//i'll create three spaces for each VBox
+			listLabelsName = new ArrayList<>();
+			listLabelsScore = new ArrayList<>();
+			for(int i=0; i < 3; i++) {
+				Label labelName = new Label(indexPageToPlayer.get(indexPage).get(i));
+				Label labelScore = new Label(Integer.toString(indexPageToScore.get(indexPage).get(i)));
+				labelName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				labelScore.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				labelName.setAlignment(Pos.CENTER);
+				labelScore.setAlignment(Pos.CENTER);
+				listLabelsName.add(labelName);
+				listLabelsScore.add(labelScore);
+			}
+			for(int i=0; i < 3; i++) {
+				boxNames.getChildren().add(listLabelsName.get(i));
+				boxScore.getChildren().add(listLabelsScore.get(i));
+				if(i!=2) {
+					boxNames.getChildren().add(new Region());
+					boxScore.getChildren().add(new Region());
+				}
+			}
+			for(int i=0; i < 5; i++) {
+				VBox.setVgrow(boxNames.getChildren().get(i), Priority.ALWAYS);
+				VBox.setVgrow(boxScore.getChildren().get(i), Priority.ALWAYS);
+			}
+		}
+	}
+	
 	public void initialize() {
 		load = new LoadLeaderBoard();
-		System.out.println(load.getSortedEntries());
-		System.out.println(load.getIndexToNumEntries());
-		
-		/*Label label1 = new Label("FIRST");
-		Region spacer1 = new Region();
-		Label label2 = new Label("SECOND");
-		Region spacer2 = new Region();
-		Label label3 = new Label("THIRD");
-		boxNames.getChildren().add(label1);
-		boxNames.getChildren().add(spacer1);
-		boxNames.getChildren().add(label2);
-		boxNames.getChildren().add(spacer2);
-		boxNames.getChildren().add(label3);
-		label1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		label2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		label3.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		VBox.setVgrow(label1, Priority.ALWAYS);
-		VBox.setVgrow(spacer1, Priority.ALWAYS);
-		VBox.setVgrow(label2, Priority.ALWAYS);
-		VBox.setVgrow(spacer2, Priority.ALWAYS);
-		VBox.setVgrow(label3, Priority.ALWAYS);
-		label1.setAlignment(Pos.CENTER);
-		label2.setAlignment(Pos.CENTER);
-		label3.setAlignment(Pos.CENTER);
-		label1.setStyle("-fx-border-color:red;");
-		spacer1.setStyle("-fx-border-color:purple;");
-		label2.setStyle("-fx-border-color:green;");
-		label3.setStyle("-fx-border-color:black;");*/
-		
+		populateLists();
+		createInterface();
 	}
 	
 	public void setListener() {
@@ -74,10 +94,14 @@ public class HboxTextController {
 					@Override
 					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
 							Number newValue) {
-						String styleButtons = "-fx-font-size:" + newValue.doubleValue()/30 + ";"; 
-						String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/30 + ";";
-						title1.setStyle(styleButtons);
+						String styleLabels = "-fx-font-size:" + newValue.doubleValue()/45 + ";"; 
+						String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/25 + ";";
+						title1.setStyle(styleNamesScore);
 						title2.setStyle(styleNamesScore);
+						for(int i=0; i < 3; i++) {
+							listLabelsName.get(i).setStyle(styleLabels);
+							listLabelsScore.get(i).setStyle(styleLabels);
+						}
 					}
 				});
 				stage.setWidth(stage.getWidth()+1);

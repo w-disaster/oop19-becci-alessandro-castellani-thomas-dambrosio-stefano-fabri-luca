@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import savings.LoadLeaderBoard;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
