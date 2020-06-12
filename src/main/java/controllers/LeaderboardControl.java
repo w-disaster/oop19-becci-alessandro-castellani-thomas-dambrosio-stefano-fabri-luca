@@ -1,6 +1,9 @@
 package controllers;
 
 
+import java.util.List;
+import java.util.Map;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +20,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
@@ -28,9 +32,16 @@ public class LeaderboardControl {
 	@FXML private Pagination pag;
 	@FXML private Label title1;
 	private HBox hBoxText;
+	private Stage stage;
+	private int indexPage;
+	private HboxTextController controllerHBox;
 	
 	@FXML private void backToMenu() {
 		sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
+	}
+	
+	private void setInformationTextBox() {
+		
 	}
 	
 	private void loadTextBox() {
@@ -38,15 +49,19 @@ public class LeaderboardControl {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ClassLoader.getSystemResource("layouts/leaderboard/hBoxText.fxml"));
 			hBoxText = loader.load();
-			HboxTextController controller = loader.<HboxTextController>getController();
-			controller.setData(8);
+			controllerHBox = loader.<HboxTextController>getController();
+			stage = (Stage) borderPane.getScene().getWindow();
+			//USELESS: i'll pass it with "LoadLeaderboard class"
+			
 		} catch(Exception e) {
 			System.out.println("problems loading fxml");
 		}
-		//return new HBox();
 	}
 	
 	private Node createNewPage(int pageIndex) {
+		this.indexPage = pageIndex;
+		controllerHBox.setData(stage, indexPage);
+		if(indexPage==0) { controllerHBox.setListener(); }
 		return hBoxText;
 	}
 	
@@ -55,7 +70,11 @@ public class LeaderboardControl {
 
 			@Override
 			public void run() {
+				setInformationTextBox();
 				loadTextBox();
+				pag.setMaxPageIndicatorCount(controllerHBox.getNumberPages());
+				pag.setPageCount(controllerHBox.getNumberPages());
+				pag.setCurrentPageIndex(1);
 				pag.setPageFactory(new Callback<Integer, Node>(){
 					@Override
 					public Node call(Integer param) {
@@ -63,9 +82,9 @@ public class LeaderboardControl {
 					}
 				});
 			}
+
 			
 		});
-		pag.setStyle("-fx-border-color:red;");
 	}
 
 	
