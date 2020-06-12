@@ -5,7 +5,7 @@
 .project
 .gradle/
 .settings/
-./relazione/relazione.aux
-./relazione/relazione.log
-./relazione/relazione.synctex.gz
-./relazione/relazione.toc
+/relazione/relazione.aux
+/relazione/relazione.log
+/relazione/relazione.synctex.gz
+/relazione/relazione.toc
