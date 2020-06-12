@@ -25,12 +25,12 @@ public interface RoundPlayers {
 	 * sets player the current player.
 	 * @param player
 	 */
-	void setCurrentPlayer(final Player player);
+	void setCurrentPlayer(Player player);
 	
 	/**
 	 * sets the current round players.
 	 * @param players
 	 */
-	void setPlayers(final List<Player> players);
+	void setPlayers(List<Player> players);
 	
 }

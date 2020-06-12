@@ -16,7 +16,7 @@ public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
 	private Integer boardDimension;
 	private X currentRoundEnvironment;
 	private List<X> gameRoundsEnvironments;
-	private Map<X, List<Pair<PlayerState, Player>>> ranking;
+	private Map<X, List<Pair<Player, PlayerState>>> ranking;
 	
 	/**
 	 * Model from existing environments, one for each round, and eventually the dimension of the board
@@ -45,17 +45,17 @@ public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
 	}
 
 	@Override
-	public Map<X, List<Pair<PlayerState, Player>>> getRanking() {
+	public Map<X, List<Pair<Player, PlayerState>>> getRanking() {
 		return this.ranking;
 	}
 
 	@Override
-	public Integer getNumberRounds() {
+	public int getNumberRounds() {
 		return this.gameRoundsEnvironments.size();
 	}
 
 	@Override
-	public Integer getBoardDimension() {
+	public int getBoardDimension() {
 		return this.boardDimension;
 	}
 

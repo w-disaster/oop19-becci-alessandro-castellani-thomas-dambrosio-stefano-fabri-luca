@@ -37,7 +37,7 @@ public interface Model<X extends RoundEnvironment> {
 	 * sets roundEnvironment as current round environment
 	 * @param roundEnvironment
 	 */
-	void setCurrentRoundEnvironment(final X roundEnvironment);
+	void setCurrentRoundEnvironment(X roundEnvironment);
 	
 	/**
 	 * 
@@ -49,18 +49,18 @@ public interface Model<X extends RoundEnvironment> {
 	 * 
 	 * @return map containing player winners and losers collected till the current round
 	 */
-	Map<X, List<Pair<PlayerState, Player>>> getRanking();
+	Map<X, List<Pair<Player, PlayerState>>> getRanking();
 	
 	/**
 	 * 
 	 * @return game number of rounds
 	 */
-	Integer getNumberRounds();
+	int getNumberRounds();
 	
 	/**
 	 * 
 	 * @return game board dimension
 	 */
-	Integer getBoardDimension();
+	int getBoardDimension();
 	
 }
