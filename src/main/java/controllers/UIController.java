@@ -233,24 +233,30 @@ public final class UIController{
     
     public void drawBarrier(Barrier barrier, String player) {
     	BorderPane selected = this.gridMap.get(barrier.getCoordinate());
-    	Rectangle verticalBarrier = new Rectangle(10, selected.getHeight());
-    	Rectangle horizontalBarrier = new Rectangle(selected.getWidth(), 10);
-    	//r.setFill(Color.BLUE);
+    	Pair<Double, Double> barrierSize = new Pair<>(selected.getWidth()/10, selected.getHeight()/10);
+    	Rectangle verticalBarrier = new Rectangle(barrierSize.getKey(), barrierSize.getValue()*8);
+    	verticalBarrier.getStyleClass().add("Barrier");
+    	Rectangle horizontalBarrier = new Rectangle(barrierSize.getKey()*8, barrierSize.getValue());
+    	horizontalBarrier.getStyleClass().add("Barrier");
     	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
     		if (player.equals(this.player1.get())) {
     			horizontalBarrier.setFill(Color.BLUE);
     			selected.setBottom(horizontalBarrier);
+    			BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
     		} else {
     			horizontalBarrier.setFill(Color.RED);
     			selected.setBottom(horizontalBarrier);	
+    			BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
     		}
     	} else {
     		if (player.equals(this.player1.get())) {
     			verticalBarrier.setFill(Color.BLUE);
     			selected.setRight(verticalBarrier);
+    			BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
     		} else {
     			verticalBarrier.setFill(Color.RED);
     			selected.setRight(verticalBarrier);
+    			BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
     		}
     	}	
     	this.changeSelectedLabel();

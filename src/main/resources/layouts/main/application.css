@@ -38,6 +38,12 @@
 	-fx-fill: blue;
 }
 
+.Barrier {
+	-fx-arc-height: 5;
+	-fx-arc-width: 5;
+	-fx-stroke: white;
+}
+
 .GridPane {
 	-fx-background-color: -fx-base;
 	-fx-border-color: white;
@@ -46,35 +52,6 @@
 
 .GridBorderPane {
 	-fx-border-color: white;
-}
-
-.WallUp {
-	-fx-border-color: #D90429 white white white;
-	-fx-border-width: 5 1 1 1;
-}
-
-.RedWallDown {
-	-fx-border-color: white white red white;
-	-fx-border-width: 1 1 10 1;
-}
-
-.RedWallRight {
-	-fx-border-color: white red white white;
-	-fx-border-width: 1 10 1 1;
-}
-.BlueWallDown {
-	-fx-border-color: white white blue white;
-	-fx-border-width: 1 1 10 1;
-}
-
-.BlueWallRight {
-	-fx-border-color: white blue white white;
-	-fx-border-width: 1 10 1 1;
-}
-
-.WallLeft {
-	-fx-border-color: white white white #D90429;
-	-fx-border-width: 1 1 1 5;
 }
 
 .GridBorderPane:hover, .WallLeft:hover, .WallRight:hover, .WallDown:hover, .WallUp:hover {
