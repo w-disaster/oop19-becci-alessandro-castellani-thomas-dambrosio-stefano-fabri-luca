@@ -11,7 +11,7 @@ import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.PlayerState;
 
-public class ModelImpl<X> implements Model<X> {
+public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
 
 	private Integer boardDimension;
 	private X currentRoundEnvironment;

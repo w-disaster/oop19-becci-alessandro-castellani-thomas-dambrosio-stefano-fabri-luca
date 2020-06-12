@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 import model.roundenvironment.BarrierEnvironment;
+import model.roundenvironment.RoundEnvironment;
 
 public interface ModelFactory {
 	
@@ -12,6 +13,6 @@ public interface ModelFactory {
 	 * @param roundEnvironments
 	 * @return
 	 */
-	<X> ModelImpl<X> build(List<X> roundEnvironments);
+	<X extends RoundEnvironment> ModelImpl<X> build(List<X> roundEnvironments);
 		
 }

@@ -15,7 +15,7 @@ import model.roundenvironment.players.*;
  *
  * @param <X> type of environment.
  */
-public interface Model<X> {
+public interface Model<X extends RoundEnvironment> {
 	
 	/**
 	 * Standard board dimension (9x9)
