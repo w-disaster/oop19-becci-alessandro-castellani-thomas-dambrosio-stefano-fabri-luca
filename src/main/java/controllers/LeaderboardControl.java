@@ -35,6 +35,7 @@ public class LeaderboardControl {
 	private HBox hBoxText;
 	public static Stage stage;
 	public static int indexPage;
+	private LoadLeaderBoard load = new LoadLeaderBoard();
 	
 	@FXML private void backToMenu() {
 		sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
@@ -48,7 +49,7 @@ public class LeaderboardControl {
 			loader.setLocation(ClassLoader.getSystemResource("layouts/leaderboard/hBoxText.fxml"));
 			hBoxText = loader.load();
 		} catch(Exception e) {
-			System.out.println("problems loading fxml");
+			System.out.println("problems loading fxmlFRBHVBYHUFVBGY");
 		}
 	}
 	
@@ -58,12 +59,13 @@ public class LeaderboardControl {
 	}
 	
 	public void initialize() {
+		
 		Platform.runLater(new Runnable() {
 
 			@Override
 			public void run() {
-				//pag.setMaxPageIndicatorCount();
-				//pag.setPageCount();
+				pag.setMaxPageIndicatorCount(load.getNumPages());
+				pag.setPageCount(load.getNumPages());
 				pag.setCurrentPageIndex(1);
 				pag.setPageFactory(new Callback<Integer, Node>(){
 					@Override
@@ -76,7 +78,5 @@ public class LeaderboardControl {
 			
 		});
 	}
-
-	
-	
+		
 }

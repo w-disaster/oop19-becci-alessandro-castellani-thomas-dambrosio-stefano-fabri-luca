@@ -29,10 +29,11 @@ public class LoadLeaderBoard {
 			reader = new BufferedReader(new FileReader(pathFile));
 			String line = reader.readLine();
 			while (line != null) {
-				//System.out.println(line);
+				System.out.println(line);
 				totalEntries++;
 				String name = line.split("//")[0];
 				int score = Integer.parseInt(line.split("//")[1]);
+				System.out.println(score);
 				Pair<String, Integer> entry = new Pair<>(name, score);
 				listEntries.add(entry);
 				// read next line
