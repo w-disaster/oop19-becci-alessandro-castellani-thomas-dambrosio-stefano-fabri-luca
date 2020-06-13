@@ -29,11 +29,11 @@ public class LoadLeaderBoard {
 			reader = new BufferedReader(new FileReader(pathFile));
 			String line = reader.readLine();
 			while (line != null) {
-				System.out.println(line);
+				//System.out.println(line);
 				totalEntries++;
 				String name = line.split("//")[0];
 				int score = Integer.parseInt(line.split("//")[1]);
-				System.out.println(score);
+				//System.out.println(score);
 				Pair<String, Integer> entry = new Pair<>(name, score);
 				listEntries.add(entry);
 				// read next line
@@ -92,9 +92,9 @@ public class LoadLeaderBoard {
 				List<Integer> scores = new ArrayList<>();
 				for(int k=0; k < totalEntries; k++) {
 					//PUT totalEntries ELEM left in page i
-					players.add(listEntries.get(k).getKey());
+					players.add(listEntries.get(0).getKey());
 					scores.add(listEntries.get(0).getValue());
-					listEntries.remove(k);
+					listEntries.remove(0);
 				}
 				indexToPlayer.put(i, players);
 				indexToScore.put(i, scores);

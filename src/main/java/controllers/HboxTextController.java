@@ -14,6 +14,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -100,7 +101,36 @@ public class HboxTextController {
 			mapLabelsName.put(indexPage, listLabelsName);
 			mapLabelsScore.put(indexPage, listLabelsScore);
 		}
-		
+		if(indexPageToPlayer.get(indexPage).size() == NUM_ENTRIES_PAG-1) {
+			//i'll create three spaces for each VBox
+			List<Label> listLabelsName = new ArrayList<Label>();
+			List<Label> listLabelsScore = new ArrayList<Label>();
+			for(int i=0; i < NUM_ENTRIES_PAG-1; i++) {
+				Label labelName = new Label(indexPageToPlayer.get(indexPage).get(i));
+				Label labelScore = new Label(Integer.toString(indexPageToScore.get(indexPage).get(i)));
+				labelName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				labelScore.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				labelName.setAlignment(Pos.CENTER);
+				labelScore.setAlignment(Pos.CENTER);
+				listLabelsName.add(labelName);
+				listLabelsScore.add(labelScore);
+			}
+			mapLabelsName.put(indexPage, listLabelsName);
+			mapLabelsScore.put(indexPage, listLabelsScore);
+			for(int i=0; i < NUM_ENTRIES_PAG-1; i++) {
+				boxNames.getChildren().add(listLabelsName.get(i));
+				boxScore.getChildren().add(listLabelsScore.get(i));
+				boxNames.getChildren().add(new Region());
+				boxScore.getChildren().add(new Region());
+				
+			}
+			for(Node child : boxNames.getChildren()) {
+				VBox.setVgrow(child, Priority.ALWAYS);
+			}
+			for(Node child : boxScore.getChildren()) {
+				VBox.setVgrow(child, Priority.ALWAYS);
+			}
+		}
 		setListener();
 	}
 	
