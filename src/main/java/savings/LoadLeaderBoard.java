@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import controllers.HboxTextController;
 import javafx.util.Pair;
 
 public class LoadLeaderBoard {
@@ -20,7 +21,7 @@ public class LoadLeaderBoard {
 	private final String pathFile = pathDir + File.separator + "leaderBoard";
 	private Map<Integer, List<String>> indexToPlayer;
 	private Map<Integer, List<Integer>> indexToScore;
-	private final int NUM_PER_PAG = 3;
+	private final int NUM_PER_PAG = HboxTextController.NUM_ENTRIES_PAG;
 	
 	private void readFileAndSort() {
 		BufferedReader reader;
@@ -108,8 +109,8 @@ public class LoadLeaderBoard {
 		readFileAndSort();
 		calculateNumberPages();
 		assignPagesToEntries();
-		System.out.println(indexToPlayer);
-		System.out.println(indexToScore);
+		//System.out.println(indexToPlayer);
+		//System.out.println(indexToScore);
 	}
 	
 	public Map<Integer, List<String>> getIndexToPlayerMap(){

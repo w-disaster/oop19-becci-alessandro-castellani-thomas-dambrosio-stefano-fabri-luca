@@ -1,10 +1,12 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.Set;
 
 import javafx.application.Platform;
@@ -30,20 +32,12 @@ public class HboxTextController {
 	private Stage stage;
 	private LoadLeaderBoard load;
 	private int indexPage;
+	public static int numPages;
 	private Map<Integer, List<String>> indexPageToPlayer;
 	private Map<Integer, List<Integer>> indexPageToScore;
-	Map<Integer, Integer> indexToNumEntries;
 	private List<Label> listLabelsName;
 	private List<Label> listLabelsScore;
-	
-	public void setData(final Stage stage, final int pageIndex) {
-		this.stage = stage;
-		this.indexPage = pageIndex;
-	}
-	
-	public int getNumberPages() {
-		return load.getNumPages();
-	}
+	public final static int NUM_ENTRIES_PAG = 3;
 	
 	private void populateLists() {
 		indexPageToPlayer = load.getIndexToPlayerMap();
@@ -51,12 +45,15 @@ public class HboxTextController {
 	}
 	
 	private void createInterface() {
+		indexPage = LeaderboardControl.indexPage;
+		stage = LeaderboardControl.stage;
+		System.out.println("creating INTERFACE " + indexPage);
 		//this method creates the interface for the given index page.
-		if(indexPageToPlayer.get(indexPage).size() == 3) {
+		if(indexPageToPlayer.get(indexPage).size() == NUM_ENTRIES_PAG) {
 			//i'll create three spaces for each VBox
 			listLabelsName = new ArrayList<>();
 			listLabelsScore = new ArrayList<>();
-			for(int i=0; i < 3; i++) {
+			for(int i=0; i < NUM_ENTRIES_PAG; i++) {
 				Label labelName = new Label(indexPageToPlayer.get(indexPage).get(i));
 				Label labelScore = new Label(Integer.toString(indexPageToScore.get(indexPage).get(i)));
 				labelName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -66,25 +63,38 @@ public class HboxTextController {
 				listLabelsName.add(labelName);
 				listLabelsScore.add(labelScore);
 			}
-			for(int i=0; i < 3; i++) {
+			for(int i=0; i < NUM_ENTRIES_PAG; i++) {
 				boxNames.getChildren().add(listLabelsName.get(i));
 				boxScore.getChildren().add(listLabelsScore.get(i));
-				if(i!=2) {
+				if(i != NUM_ENTRIES_PAG-1) {
 					boxNames.getChildren().add(new Region());
 					boxScore.getChildren().add(new Region());
 				}
 			}
-			for(int i=0; i < 5; i++) {
+			
+			for(int i=0; i < (NUM_ENTRIES_PAG*2 - 1); i++) {
 				VBox.setVgrow(boxNames.getChildren().get(i), Priority.ALWAYS);
 				VBox.setVgrow(boxScore.getChildren().get(i), Priority.ALWAYS);
 			}
 		}
+		else {
+			listLabelsName = new ArrayList<>();
+			listLabelsName.add(new Label("gangshit"));
+			boxNames.getChildren().add(listLabelsName.get(0));
+		}
+		setListener();
+	}
+	
+	private void calculateNumPages() {
+		OptionalInt numPages = indexPageToPlayer.keySet().stream().mapToInt(v -> v).max();
+		HboxTextController.numPages = numPages.getAsInt();
 	}
 	
 	public void initialize() {
 		load = new LoadLeaderBoard();
 		populateLists();
 		createInterface();
+		calculateNumPages();
 	}
 	
 	public void setListener() {
@@ -98,9 +108,9 @@ public class HboxTextController {
 						String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/25 + ";";
 						title1.setStyle(styleNamesScore);
 						title2.setStyle(styleNamesScore);
-						for(int i=0; i < 3; i++) {
+						for(int i=0; i < listLabelsName.size(); i++) {
 							listLabelsName.get(i).setStyle(styleLabels);
-							listLabelsScore.get(i).setStyle(styleLabels);
+							//listLabelsScore.get(i).setStyle(styleLabels);
 						}
 					}
 				});
@@ -108,4 +118,5 @@ public class HboxTextController {
 				stage.setWidth(stage.getWidth()-1);
 			//}
 	}
+	
 }

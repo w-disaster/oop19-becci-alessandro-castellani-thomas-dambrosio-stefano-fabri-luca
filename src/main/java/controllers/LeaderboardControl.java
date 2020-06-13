@@ -33,36 +33,27 @@ public class LeaderboardControl {
 	@FXML private Pagination pag;
 	@FXML private Label title1;
 	private HBox hBoxText;
-	private Stage stage;
-	private int indexPage;
-	private HboxTextController controllerHBox;
+	public static Stage stage;
+	public static int indexPage;
 	
 	@FXML private void backToMenu() {
 		sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
 	}
 	
-	private void setInformationTextBox() {
-		
-	}
-	
-	private void loadTextBox() {
+	private void loadTextBox(int pageIndex) {
 		try {
+			stage = (Stage) borderPane.getScene().getWindow();
+			indexPage = pageIndex;
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ClassLoader.getSystemResource("layouts/leaderboard/hBoxText.fxml"));
 			hBoxText = loader.load();
-			controllerHBox = loader.<HboxTextController>getController();
-			stage = (Stage) borderPane.getScene().getWindow();
-			//USELESS: i'll pass it with "LoadLeaderboard class"
-			
 		} catch(Exception e) {
 			System.out.println("problems loading fxml");
 		}
 	}
 	
 	private Node createNewPage(int pageIndex) {
-		this.indexPage = pageIndex;
-		controllerHBox.setData(stage, indexPage);
-		if(indexPage==0) { controllerHBox.setListener(); }
+		loadTextBox(pageIndex);
 		return hBoxText;
 	}
 	
@@ -71,10 +62,8 @@ public class LeaderboardControl {
 
 			@Override
 			public void run() {
-				setInformationTextBox();
-				loadTextBox();
-				pag.setMaxPageIndicatorCount(controllerHBox.getNumberPages());
-				pag.setPageCount(controllerHBox.getNumberPages());
+				//pag.setMaxPageIndicatorCount();
+				//pag.setPageCount();
 				pag.setCurrentPageIndex(1);
 				pag.setPageFactory(new Callback<Integer, Node>(){
 					@Override
