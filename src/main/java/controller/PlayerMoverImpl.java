@@ -62,22 +62,22 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private boolean noWall() {
 		//i need to find in which direction the player wants to move in order to check if there's a wall
 		if (this.newPosition.getX().equals(this.playerPosition.getX() + 1)) {
-			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.VERTICAL))) {
+			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.VERTICAL, null))) {
 				return false;
 			}
 		}
 		if (this.newPosition.getX().equals(this.playerPosition.getX() - 1)) {
-			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.VERTICAL))) {
+			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.VERTICAL, null))) { 
 				return false;
 			}
 		}
 		if (this.newPosition.getY().equals(this.playerPosition.getY() + 1)) {
-			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.HORIZONTAL))) {
+			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.HORIZONTAL, null))) {
 				return false;
 			}
 		}
 		if (this.newPosition.getY().equals(this.playerPosition.getY() - 1)) {
-			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.HORIZONTAL))) {
+			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.HORIZONTAL, null))) {
 				return false;
 			}
 		}
