@@ -7,6 +7,7 @@ import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
+import model.roundenvironment.barriers.Barrier.Piece;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
@@ -62,22 +63,42 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private boolean noWall() {
 		//i need to find in which direction the player wants to move in order to check if there's a wall
 		if (this.newPosition.getX().equals(this.playerPosition.getX() + 1)) {
-			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.VERTICAL, null))) {
+			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.VERTICAL, Piece.HEAD))) {
+				return false;
+			}
+		}
+		if (this.newPosition.getX().equals(this.playerPosition.getX() + 1)) {
+			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.VERTICAL, Piece.TAIL))) {
 				return false;
 			}
 		}
 		if (this.newPosition.getX().equals(this.playerPosition.getX() - 1)) {
-			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.VERTICAL, null))) { 
+			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.VERTICAL, Piece.HEAD))) { 
+				return false;
+			}
+		}
+		if (this.newPosition.getX().equals(this.playerPosition.getX() - 1)) {
+			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.VERTICAL, Piece.TAIL))) { 
 				return false;
 			}
 		}
 		if (this.newPosition.getY().equals(this.playerPosition.getY() + 1)) {
-			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.HORIZONTAL, null))) {
+			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.HORIZONTAL, Piece.HEAD))) {
+				return false;
+			}
+		}
+		if (this.newPosition.getY().equals(this.playerPosition.getY() + 1)) {
+			if (this.barriers.contains(new BarrierImpl(this.playerPosition, Orientation.HORIZONTAL, Piece.TAIL))) {
 				return false;
 			}
 		}
 		if (this.newPosition.getY().equals(this.playerPosition.getY() - 1)) {
-			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.HORIZONTAL, null))) {
+			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.HORIZONTAL, Piece.HEAD))) {
+				return false;
+			}
+		}
+		if (this.newPosition.getY().equals(this.playerPosition.getY() - 1)) {
+			if (this.barriers.contains(new BarrierImpl(this.newPosition, Orientation.HORIZONTAL, Piece.TAIL))) {
 				return false;
 			}
 		}
