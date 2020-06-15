@@ -6,19 +6,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HboxTextController">
+<HBox fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HboxTextController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="375.0" HBox.hgrow="ALWAYS">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="375.0" HBox.hgrow="ALWAYS">
          <children>
-            <HBox prefHeight="0.0" prefWidth="677.0" VBox.vgrow="ALWAYS">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="677.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="title1" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="137.0" prefWidth="160.0" text="NAME" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="20.0" />
                      </font>
-                     <padding>
-                        <Insets left="-15.0" />
-                     </padding>
                   </Label>
                   <Region prefHeight="137.0" prefWidth="118.0" HBox.hgrow="ALWAYS" />
                   <Label fx:id="title2" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="137.0" prefWidth="160.0" text="SCORE" HBox.hgrow="ALWAYS">
@@ -28,15 +25,15 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="300.0" prefWidth="317.0" VBox.vgrow="ALWAYS">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="317.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox fx:id="boxNames" alignment="TOP_CENTER" prefHeight="413.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="boxNames" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="413.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets top="15.0" />
                      </padding>
                   </VBox>
                   <Region prefHeight="413.0" prefWidth="260.0" HBox.hgrow="ALWAYS" />
-                  <VBox fx:id="boxScore" alignment="TOP_CENTER" prefHeight="413.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="boxScore" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="413.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets top="15.0" />
                      </padding>

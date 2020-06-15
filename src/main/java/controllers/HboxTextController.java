@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,6 +13,8 @@ import java.util.Set;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.css.CssParser;
+import javafx.css.Rule;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -138,28 +141,29 @@ public class HboxTextController {
 		load = new LoadLeaderBoard();
 		populateLists();
 		createInterface();
+		//setStyles();
 	}
 	
 	public void setListener() {
-			//DO IT ONCE
-			//if(indexPage==0) {
-				stage.widthProperty().addListener(new ChangeListener<Number>() {
-					@Override
-					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-							Number newValue) {
-						String styleLabels = "-fx-font-size:" + newValue.doubleValue()/45 + ";"; 
-						String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/25 + ";";
-						title1.setStyle(styleNamesScore);
-						title2.setStyle(styleNamesScore);
-						for(int i=0; i < mapLabelsName.get(indexPage).size(); i++) {
-							mapLabelsName.get(indexPage).get(i).setStyle(styleLabels);
-							mapLabelsScore.get(indexPage).get(i).setStyle(styleLabels);
-						}
+			stage.widthProperty().addListener(new ChangeListener<Number>() {
+				@Override
+				public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+						Number newValue) {
+					String styleLabels = "-fx-font-size:" + newValue.doubleValue()/45 + ";" + "-fx-font-family:monospace;" + 
+					"-fx-border-color:#D90429;-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius: 15.0;"; 
+					String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/22 + ";" + "-fx-text-fill: #FFFFFF;" + 
+					 "-fx-border-color: #1A1B28;" + "-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius:15.0;" +
+							"-fx-font-family: Serif";
+					title1.setStyle(styleNamesScore);
+					title2.setStyle(styleNamesScore);
+					for(int i=0; i < mapLabelsName.get(indexPage).size(); i++) {
+						mapLabelsName.get(indexPage).get(i).setStyle(styleLabels);
+						mapLabelsScore.get(indexPage).get(i).setStyle(styleLabels);
 					}
-				});
-				stage.setWidth(stage.getWidth()+1);
-				stage.setWidth(stage.getWidth()-1);
-			//}
+				}
+			});
+			stage.setWidth(stage.getWidth()+1);
+			stage.setWidth(stage.getWidth()-1);
 	}
 	
 }
