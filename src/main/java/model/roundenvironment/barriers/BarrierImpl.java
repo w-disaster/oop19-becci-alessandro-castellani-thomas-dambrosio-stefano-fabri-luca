@@ -35,6 +35,7 @@ public class BarrierImpl implements Barrier {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
+		result = prime * result + ((piece == null) ? 0 : piece.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
@@ -52,6 +53,8 @@ public class BarrierImpl implements Barrier {
 			if (other.coordinate != null)
 				return false;
 		} else if (!coordinate.equals(other.coordinate))
+			return false;
+		if (piece != other.piece)
 			return false;
 		if (type != other.type)
 			return false;
