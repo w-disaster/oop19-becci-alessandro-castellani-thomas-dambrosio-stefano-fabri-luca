@@ -139,8 +139,27 @@ public final class UIController{
 
     	Optional<Pair<String, String>> result = dialog.showAndWait();
     	
-    	this.player1 = Optional.of(result.get().getKey());
-    	this.player2 = Optional.of(result.get().getValue());
+    	if (result.get().getKey().equals("")) {
+    		this.player1 = Optional.of("Player 1");
+    	} else {
+    		this.player1 = Optional.of(result.get().getKey());    		
+    	}
+    	
+    	if (result.get().getValue().equals("")) {
+    		this.player2 = Optional.of("Player 2");
+    	} else {
+    		this.player2 = Optional.of(result.get().getValue());    		
+    	}
+    	
+    	if (player1.get().equals(player2.get())) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("ERROR");
+    		alert.setContentText("You can't use the same name!");
+    		
+    		alert.showAndWait();
+    	}
+    	
 	
     	
     	// Grid setup
@@ -195,10 +214,12 @@ public final class UIController{
         this.selectedBarrier = Optional.empty();
     }
     
-    public void setupGrid(Coordinate player1pos, Coordinate player2pos) {
+    public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2) {
     	this.gridMap.entrySet().forEach(e -> e.getValue().getChildren().remove(0, e.getValue().getChildren().size()));
     	this.gridMap.get(player1pos).setCenter(bluePlayer);
     	this.gridMap.get(player2pos).setCenter(redPlayer);
+    	this.updateBarriersNumber(player1.get(), barriersP1);
+    	this.updateBarriersNumber(player2.get(), barriersP2);
     }
     
     public void startGame(String player1, String player2) {
