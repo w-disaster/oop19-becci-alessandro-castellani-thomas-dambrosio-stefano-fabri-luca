@@ -24,6 +24,7 @@ public class MenuController {
 	@FXML private Button exitGameButton;
 	@FXML private Label title;
 	
+	public static boolean to_load;
 	private SceneChanger sceneChange;
 	private Stage stage;
 	
@@ -63,13 +64,18 @@ public class MenuController {
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
+		 to_load = false;
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/main/scene.fxml", "Game");
 	 }
 	 
 	 @FXML
 	 public void loadGameButtonPressHandler() {
-		 //this should call controller.
+		 stage = (Stage) rootPane.getScene().getWindow();
+		 stage.widthProperty().removeListener(changeListener);
+		 to_load = true;
+		 sceneChange = new SceneChangerImpl();
+		 sceneChange.change("layouts/main/scene.fxml", "Game");
 	 }
 	 
 	 @FXML
