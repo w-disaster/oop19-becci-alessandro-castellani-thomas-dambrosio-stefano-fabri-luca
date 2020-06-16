@@ -38,10 +38,12 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	public void newStandardGame(String nicknamePlayer1, String nicknamePlayer2) {
 		this.gameRunning = true;
 		this.listEnvironment = new ArrayList<>();
-		for (int i = 0; i < 3; i++) {
+		Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, 0);
+		Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
+		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
 			List<Player> playersList = new ArrayList<>();
-			Player player1 = new PlayerImpl(nicknamePlayer1, new Coordinate(4,0), Optional.of(10), 8);
-			Player player2 = new PlayerImpl(nicknamePlayer2, new Coordinate(4,8), Optional.of(10), 0);
+			Player player1 = new PlayerImpl(nicknamePlayer1, player1Coordinate, Optional.of(10), 8);
+			Player player2 = new PlayerImpl(nicknamePlayer2, player2Coordinate, Optional.of(10), 0);
 			playersList.add(player1);
 			playersList.add(player2);
 			RoundBarriers barriers = new RoundBarriersImpl();
@@ -49,7 +51,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 			RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
 			this.listEnvironment.add(environment);
 		}
-		this.view.setupGrid(new Coordinate(4,0), new Coordinate(4,8), 10, 10);
+		this.view.setupGrid(player1Coordinate, player2Coordinate, 10, 10);
 		this.model = new ModelImpl<>(this.listEnvironment, Optional.empty());
 		this.iterRounds = this.listEnvironment.iterator();
 		this.roundWinner = new ArrayList<>();
