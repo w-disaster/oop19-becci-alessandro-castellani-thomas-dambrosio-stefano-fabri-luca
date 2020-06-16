@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import viewmenu.SceneBuilder;
@@ -23,10 +24,11 @@ public final class Main extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
      	SceneBuilder sceneBuild = new SceneBuilderImpl("layouts/menu/MainMenu.fxml");
+     	Image logo = new Image(this.getClass().getResourceAsStream("/logo/logo.png"));
 
         // Stage configuration
-
         stage.setTitle("Quoridor2D - Menu");
+        stage.getIcons().add(logo);
         stage.setScene(sceneBuild.getScene());
         stage.sizeToScene();
         stage.show();

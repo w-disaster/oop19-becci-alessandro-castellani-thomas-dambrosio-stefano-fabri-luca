@@ -18,11 +18,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -106,10 +108,16 @@ public final class UIController{
     	// Dialog setup
     	Dialog<Pair<String, String>> dialog = new Dialog<>();
     	dialog.setHeaderText("Choose your nicknames");
+    	
+    	// Dialog styling
+//    	DialogPane dialogPane = dialog.getDialogPane();
+//    	dialogPane.getStylesheets().add(this.getClass().getResource("layouts/application.css").toExternalForm());
+//    	dialogPane.getStyleClass().add("Dialog");
 
     	// Set the icon 
-    	//dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
-
+    	((Stage)dialog.getDialogPane().getScene().getWindow()).getIcons().add
+    		(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
+    	
     	ButtonType startButton = new ButtonType("Start", ButtonData.OK_DONE);
     	dialog.getDialogPane().getButtonTypes().addAll(startButton, ButtonType.CANCEL);
     	
@@ -158,9 +166,8 @@ public final class UIController{
     		alert.setContentText("You can't use the same name!");
     		
     		alert.showAndWait();
+
     	}
-    	
-	
     	
     	// Grid setup
     	int numCols = 9;
@@ -221,13 +228,7 @@ public final class UIController{
     	this.updateBarriersNumber(player1.get(), barriersP1);
     	this.updateBarriersNumber(player2.get(), barriersP2);
     }
-    
-    public void startGame(String player1, String player2) {
-    	System.out.println("Game started");
-    	this.player1 = Optional.of(player1);
-    	this.player2 = Optional.of(player2);
-    }
-    
+
     public void move(Coordinate position, String player) {
     	if(player.equals(this.player1.get())) {
     		gridMap.get(position).getChildren().add(bluePlayer);
@@ -329,11 +330,7 @@ public final class UIController{
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
-    	    try {
-				this.returnToMainMenu();
-			} catch (IOException e) {
-				System.exit(0);
-			}
+			this.returnToMainMenu();
     	} else {
     	    System.exit(0);
     	}
@@ -355,7 +352,7 @@ public final class UIController{
      * A method that handles the return to the main menu.
      */ 
     @FXML
-    public void returnToMainMenu() throws IOException{
+    public void returnToMainMenu(){
     	SceneChanger sceneChange = new SceneChangerImpl();
     	sceneChange.change("layouts/menu/MainMenu.fxml", "Game");
     }
