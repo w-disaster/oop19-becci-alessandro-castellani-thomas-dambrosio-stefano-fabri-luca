@@ -50,6 +50,7 @@ public class SaveGame {
 	public void save() {
 		try {
 			out.writeObject(resource);
+			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

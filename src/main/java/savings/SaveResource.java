@@ -1,6 +1,8 @@
 package savings;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * I need this class for putting all objects in a single class for saving it in a single file.
@@ -22,16 +24,13 @@ public class SaveResource implements Serializable{
 		this.object3 = object3;
 	}
 
-	public Object getObject1() {
-		return object1;
+	public List<Object> getResource() {
+		List<Object> resources = new ArrayList<>();
+		resources.add(0, object1);
+		resources.add(1, object2);
+		resources.add(2, object3);
+		return resources;
 	}
 
-	public Object getObject2() {
-		return object2;
-	}
-
-	public Object getObject3() {
-		return object3;
-	}
 	
 }
