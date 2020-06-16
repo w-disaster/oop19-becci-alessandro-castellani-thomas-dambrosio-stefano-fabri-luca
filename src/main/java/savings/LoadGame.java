@@ -15,9 +15,10 @@ public class LoadGame {
 	
 	public LoadGame() {
 		fileSave = new File(pathFile);
-		resource = null;
-		in = null;
-		if(fileSave.exists()) {
+	}
+	
+	private void getData() {
+		if(saveExist()) {
 			try {
 				in = new ObjectInputStream(new FileInputStream(pathFile));
 			} catch (FileNotFoundException e) {
@@ -25,26 +26,25 @@ public class LoadGame {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			resource = (SaveResource) getData();
+			try {
+				resource = (SaveResource) in.readObject();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			System.out.println("save file doesn't exist");
 		}
 	}
 	
-	private Object getData() {
-		try {
-			return in.readObject();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public SaveResource getResource() {
+		getData();
+		return resource;
 	}
 	
-	public SaveResource getResource() {
-		return resource;
-		
+	public boolean saveExist() {
+		return fileSave.exists();
 	}
 }

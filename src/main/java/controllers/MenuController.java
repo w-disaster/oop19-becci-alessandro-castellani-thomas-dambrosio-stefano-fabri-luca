@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import savings.LoadGame;
 import savings.SaveGame;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
@@ -27,6 +28,7 @@ public class MenuController {
 	public static boolean to_load;
 	private SceneChanger sceneChange;
 	private Stage stage;
+	private LoadGame loading;
 	
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
@@ -71,9 +73,11 @@ public class MenuController {
 	 
 	 @FXML
 	 public void loadGameButtonPressHandler() {
+		 loading = new LoadGame();
+		 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+		 System.out.println(to_load);
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
-		 to_load = true;
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/main/scene.fxml", "Game");
 	 }
