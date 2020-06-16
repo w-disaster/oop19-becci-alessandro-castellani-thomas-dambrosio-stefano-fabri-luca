@@ -35,11 +35,11 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	@Override
 	public void movePlayer(Coordinate newPosition) {
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
-		this.newPosition = newPosition; //so i don't need to pass to all private methods a parameter
-		if (this.adjacent() && this.noWall()) {
+		//this.newPosition will be the final position (it may change while newPosition will remain the clicked position)
+		this.newPosition = new Coordinate(newPosition.getX(), newPosition.getY());
+		if (this.adjacent() && this.noWall(this.playerPosition, this.newPosition)) {
 			//System.out.println(this.players.getCurrentPlayer().getNickname() + " position is: " + this.players.getCurrentPlayer().getCoordinate());
 			//System.out.println("Moving to position " + newPosition);
-			/*
 			if (this.canJump()) {
 				switch(this.direction) {
 				case RIGHT:
@@ -49,18 +49,16 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 					this.newPosition.setX(this.newPosition.getX() - 1);
 					break;
 				case UP:
-					this.newPosition.setX(this.newPosition.getY() - 1);
+					this.newPosition.setY(this.newPosition.getY() - 1);
 					break;
 				case DOWN:
-					this.newPosition.setX(this.newPosition.getY() + 1);
+					this.newPosition.setY(this.newPosition.getY() + 1);
 					break;
 				}
 			}
-			*/
-			if (this.noWall()) {
-				this.playerPosition = newPosition;
-				this.players.getCurrentPlayer().setCoordinate(this.playerPosition);
-				this.observerPlayer.update(this.playerPosition, this.players.getCurrentPlayer().getNickname()); //update view
+			if (this.noWall(newPosition, this.newPosition)) {
+				this.players.getCurrentPlayer().setCoordinate(this.newPosition);
+				this.observerPlayer.update(this.newPosition, this.players.getCurrentPlayer().getNickname()); //update view
 				if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
 					System.out.println(this.players.getCurrentPlayer().getNickname() + " won the round!");
 					this.addWinner((this.players.getCurrentPlayer())); //add the winner of the round
@@ -68,13 +66,12 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				}
 				this.changeTurn(this.players.getCurrentPlayer());
 				this.view.changeSelectedLabel(this.players.getCurrentPlayer().getNickname());
-				this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 			}
 		} else {
 			System.out.println("Bad move! Still your turn!");
 		}
 	}
-	
+
 	private boolean adjacent() {
 		if (Math.abs(this.playerPosition.getX() - this.newPosition.getX()) + Math.abs(this.playerPosition.getY() - this.newPosition.getY()) == 1) {
 			return true;
@@ -82,32 +79,37 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		return false;
 	}
 	
-	private boolean noWall() {
+	private boolean noWall(Coordinate startPosition, Coordinate destPosition) {
 		//i need to find in which direction the player wants to move in order to check if there's a wall
-		if (this.newPosition.getX() > this.playerPosition.getX()) {
+		if (destPosition.getX() > startPosition.getX()) {
 			this.direction = Direction.RIGHT;
-			if (this.containsBarrierTypeIndipendent(this.barriers, this.playerPosition, Orientation.VERTICAL)) {
+			if (this.containsBarrierTypeIndipendent(this.barriers, startPosition, Orientation.VERTICAL)) {
 				return false;
 			}
 		}
-		if (this.newPosition.getX() < this.playerPosition.getX()) {
+		if (destPosition.getX() < startPosition.getX()) {
 			this.direction = Direction.LEFT;
-			if (this.containsBarrierTypeIndipendent(this.barriers, this.newPosition, Orientation.VERTICAL)) { 
+			if (this.containsBarrierTypeIndipendent(this.barriers, destPosition, Orientation.VERTICAL)) { 
 				return false;
 			}
 		}
-		if (this.newPosition.getY() > this.playerPosition.getY()) {
+		if (destPosition.getY() > startPosition.getY()) {
 			this.direction = Direction.DOWN;
-			if (this.containsBarrierTypeIndipendent(this.barriers, this.playerPosition, Orientation.HORIZONTAL)) {
+			if (this.containsBarrierTypeIndipendent(this.barriers, startPosition, Orientation.HORIZONTAL)) {
 				return false;
 			}
 		}
-		if (this.newPosition.getY() < this.playerPosition.getY()) {
+		if (destPosition.getY() < startPosition.getY()) {
 			this.direction = Direction.UP;
-			if (this.containsBarrierTypeIndipendent(this.barriers, this.newPosition, Orientation.HORIZONTAL)) {
+			if (this.containsBarrierTypeIndipendent(this.barriers, destPosition, Orientation.HORIZONTAL)) {
 				return false;
 			}
 		}
+		return true;
+	}
+	
+	private boolean noWallOnJump() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 	
@@ -115,7 +117,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		//new position must be empty
 		for (Player p : this.players.getPlayers()) {
 			if (!p.equals(this.players.getCurrentPlayer()) && p.getCoordinate().equals(this.newPosition)) {
-				System.out.println("You are going on a player! Let's jump!!!");
+				System.out.println("You are moving on a player! Let's jump!!!");
 				return true;
 			}
 		}

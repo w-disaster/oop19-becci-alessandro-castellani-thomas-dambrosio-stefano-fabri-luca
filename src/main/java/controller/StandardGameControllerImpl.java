@@ -4,16 +4,11 @@ import java.util.*;
 
 import controllers.UIController;
 import model.*;
-import model.roundenvironment.barriers.RoundBarriers;
-import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.RoundEnvironment;
-import model.roundenvironment.RoundEnvironmentImpl;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
-import model.roundenvironment.players.PlayerImpl;
 import model.roundenvironment.players.RoundPlayers;
-import model.roundenvironment.players.RoundPlayersImpl;
 import savings.LoadGame;
 import savings.SaveGame;
 
@@ -88,7 +83,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		this.loading = new LoadGame();
 		this.model = this.loading.getResource().getModel();
 		this.view = this.loading.getResource().getView();
-		this.iterRounds = this.loading.getResource().getIterator();
+		this.iterRounds = this.loading.getResource().getRoundIterator();
 	}
 	
 	/**
