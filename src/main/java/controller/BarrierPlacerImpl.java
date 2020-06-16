@@ -38,6 +38,7 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 		this.newBarrierOrientation = type;
 		if (this.isEmptyPosition() && this.enoughBarriers() && this.checkPosition() && this.noStall()) {
 			this.players.getCurrentPlayer().setAvailableBarriers(this.players.getCurrentPlayer().getAvailableBarriers() - 1);
+			this.view.updateBarriersNumber(this.players.getCurrentPlayer().getNickname(), this.players.getCurrentPlayer().getAvailableBarriers());
 			//to place barriers long 2 positions i have to add 2 barriers
 			if (type.equals(Orientation.HORIZONTAL)) {
 				this.barriers.add(new BarrierImpl(position, type, Piece.HEAD));
@@ -51,6 +52,7 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 				this.observerBarrier.update(new BarrierImpl(new Coordinate(position.getX(), position.getY() + 1), type, Piece.TAIL), this.players.getCurrentPlayer().getNickname());
 			}
 			this.changeTurn(this.players.getCurrentPlayer());
+			this.view.changeSelectedLabel(this.players.getCurrentPlayer().getNickname());
 		} else {
 			System.out.println("Bad move! Still your turn!");
 		}

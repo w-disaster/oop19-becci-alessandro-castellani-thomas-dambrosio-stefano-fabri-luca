@@ -47,6 +47,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				this.changeRound();
 			}
 			this.changeTurn(this.players.getCurrentPlayer());
+			this.view.changeSelectedLabel(this.players.getCurrentPlayer().getNickname());
 			this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		} else {
 			System.out.println("Bad move! Still your turn!");

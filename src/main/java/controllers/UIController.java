@@ -258,7 +258,7 @@ public final class UIController{
     	}	
     }
     
-    private void updateBarriersNumber(String player, int barriersNumber) {
+    public void updateBarriersNumber(String player, int barriersNumber) {
     	if (player.equals(player1.get())) {
     		this.barriersNumber1.setText(String.valueOf(barriersNumber));
     	} else {
