@@ -49,10 +49,10 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 					this.newPosition.setX(this.newPosition.getX() - 1);
 					break;
 				case UP:
-					this.newPosition.setX(this.newPosition.getY() + 1);
+					this.newPosition.setX(this.newPosition.getY() - 1);
 					break;
 				case DOWN:
-					this.newPosition.setX(this.newPosition.getY() - 1);
+					this.newPosition.setX(this.newPosition.getY() + 1);
 					break;
 				}
 			}
@@ -97,13 +97,13 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 			}
 		}
 		if (this.newPosition.getY() > this.playerPosition.getY()) {
-			this.direction = Direction.UP;
+			this.direction = Direction.DOWN;
 			if (this.containsBarrierTypeIndipendent(this.barriers, this.playerPosition, Orientation.HORIZONTAL)) {
 				return false;
 			}
 		}
 		if (this.newPosition.getY() < this.playerPosition.getY()) {
-			this.direction = Direction.DOWN;
+			this.direction = Direction.UP;
 			if (this.containsBarrierTypeIndipendent(this.barriers, this.newPosition, Orientation.HORIZONTAL)) {
 				return false;
 			}

@@ -28,7 +28,6 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	private UIController view;
 	private SaveGame saving;
 	private LoadGame loading;
-	private List<RoundEnvironment> listEnvironment;
 	private Iterator<RoundEnvironment> iterRounds;
 	private List<Player> roundWinner;
 	private BarrierPlacer placer;
@@ -45,7 +44,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
 		this.view.setupGrid(player1Coordinate, player2Coordinate, 10, 10);
 		this.model = new ModelFactoryImpl().standardModel(nicknamePlayer1, nicknamePlayer2);
-		this.iterRounds = this.listEnvironment.iterator();
+		this.iterRounds = this.model.getGameRoundsEnvironments().iterator();
 		this.roundWinner = new ArrayList<>();
 		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
 		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds, this.roundWinner);
@@ -87,6 +86,9 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	public void loadGame() {
 		this.gameRunning = true;
 		this.loading = new LoadGame();
+		this.model = this.loading.getResource().getModel();
+		this.view = this.loading.getResource().getView();
+		this.iterRounds = this.loading.getResource().getIterator();
 	}
 	
 	/**
