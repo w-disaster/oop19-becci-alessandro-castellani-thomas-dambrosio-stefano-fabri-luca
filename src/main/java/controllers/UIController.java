@@ -160,7 +160,7 @@ public final class UIController{
   
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
-	            addPane(i, j);
+	            this.addPane(i, j);
 	            System.out.println("pane added" + i + j);
 	        }
 	    }
@@ -175,29 +175,30 @@ public final class UIController{
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked cell " + position.toString() + "\n");
             if(this.selectedBarrier.isEmpty()) {
-            	controller.movePlayer(position);
+            	this.controller.movePlayer(position);
             } else {
             	if(this.selectedBarrier.get().equals(0)) {
-            		controller.placeBarrier(position, Orientation.VERTICAL);
+            		this.controller.placeBarrier(position, Orientation.VERTICAL);
             		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
             		
             	} else {
-            		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
+            		this.controller.placeBarrier(position, Orientation.HORIZONTAL);            		
             		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.HORIZONTAL + "\n");
             	}
             	this.selectedBarrier = Optional.empty();
             }
         });
         pane.getStyleClass().add("GridBorderPane");
-        grid.add(pane, position.getX(), position.getY());
-        gridMap.put(position, pane);     
+        this.grid.add(pane, position.getX(), position.getY());
+        this.gridMap.put(position, pane);     
         
         this.selectedBarrier = Optional.empty();
     }
     
     public void setupGrid(Coordinate player1pos, Coordinate player2pos) {
-    	gridMap.get(player1pos).setCenter(bluePlayer);
-    	gridMap.get(player2pos).setCenter(redPlayer);
+    	this.gridMap.entrySet().forEach(e -> e.getValue().getChildren().remove(0, e.getValue().getChildren().size()));
+    	this.gridMap.get(player1pos).setCenter(bluePlayer);
+    	this.gridMap.get(player2pos).setCenter(redPlayer);
     }
     
     public void startGame(String player1, String player2) {
@@ -346,5 +347,3 @@ public final class UIController{
     	 System.exit(0);
      }
 }
-
-
