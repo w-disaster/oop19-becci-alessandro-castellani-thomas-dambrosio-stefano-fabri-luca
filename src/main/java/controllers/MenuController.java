@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jdk.jshell.spi.ExecutionControl.*;
+import savings.SaveGame;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
@@ -61,8 +62,9 @@ public class MenuController {
 	 }
 	 
 	 @FXML
-	 public void loadGameButtonPressHandler() throws NotImplementedException {
-		 throw new NotImplementedException("Not Implemented Yet");
+	 public void loadGameButtonPressHandler() {
+		 SaveGame saveGame = new SaveGame(34, "gangshit", 2.4566);
+		 saveGame.save();
 	 }
 	 
 	 @FXML
