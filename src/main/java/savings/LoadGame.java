@@ -43,7 +43,7 @@ public class LoadGame {
 		return null;
 	}
 	
-	public Object getResource() {
+	public SaveResource getResource() {
 		return resource;
 		
 	}
