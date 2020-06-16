@@ -2,10 +2,14 @@ package controller;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
+import java.util.stream.Collectors;
 
 import controllers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
+import model.roundenvironment.barriers.RoundBarriers;
+import model.roundenvironment.barriers.Barrier.Orientation;
+import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import savings.SaveLeaderBoard;
@@ -69,5 +73,18 @@ public class GenericMoveImpl {
 	
 	protected void addWinner(Player player) {
 		this.roundWinner.add(player);
+	}
+	
+	/**
+	 * @param roundBarriers
+	 * @param coordinate
+	 * @param orientation
+	 * @return true if there's an existing barrier in certain position and orientation
+	 */
+	protected boolean containsBarrierTypeIndipendent(RoundBarriers roundBarriers, Coordinate coordinate, Orientation orientation) {
+		return roundBarriers.getBarriersAsList().stream()
+				.filter(b -> b.getCoordinate().equals(coordinate) && b.getOrientation().equals(orientation))
+				.collect(Collectors.toList())
+				.size() > 0;
 	}
 }
