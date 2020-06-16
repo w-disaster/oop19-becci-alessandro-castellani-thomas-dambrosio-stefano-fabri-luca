@@ -196,8 +196,6 @@ public final class UIController{
     }
     
     public void setupGrid(Coordinate player1pos, Coordinate player2pos) {
-    	System.out.println(player1pos);
-    	System.out.println(player2pos);
     	gridMap.get(player1pos).setCenter(bluePlayer);
     	gridMap.get(player2pos).setCenter(redPlayer);
     }
@@ -268,15 +266,15 @@ public final class UIController{
     
     public void changeSelectedLabel(String player) { 	
     	if (player.equals(player1.get())) {
-    		label2.getStyleClass().clear();
-    		label2.getStyleClass().add("SelectedLabel");
-    		label1.getStyleClass().clear();
-    		label1.getStyleClass().add("Label");
-    	} else {
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("SelectedLabel");   		
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("Label");
+    	} else {
+    		label2.getStyleClass().clear();
+    		label2.getStyleClass().add("SelectedLabel");
+    		label1.getStyleClass().clear();
+    		label1.getStyleClass().add("Label");
     	}
     	
     }
