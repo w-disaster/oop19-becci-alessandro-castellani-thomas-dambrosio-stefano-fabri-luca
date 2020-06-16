@@ -33,6 +33,7 @@ public class SceneChangerImpl implements SceneChanger{
 		try{
 			sceneBuild = new SceneBuilderImpl(pathToFXML);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("");
 		}
 		setScene(title);

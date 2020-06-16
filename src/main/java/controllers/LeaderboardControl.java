@@ -31,7 +31,20 @@ public class LeaderboardControl {
 	public static int indexPage;
 	private LoadLeaderBoard load = new LoadLeaderBoard();
 	
+	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
+
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			String styleButton = "-fx-font-size:" + newValue.doubleValue()/40 + ";" + "-fx-font-family:monospace;" + 
+					"-fx-background-color:#1A1B28;" + "-fx-text-fill: #FFFFFF;" + "-fx-border-color: white;";
+				backMenuButton.setStyle(styleButton);
+		}
+		
+	};
+	
 	@FXML private void backToMenu() {
+		Stage stage = (Stage) borderPane.getScene().getWindow();
+		stage.widthProperty().removeListener(changeListener);
 		sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
 	}
 	
@@ -78,16 +91,8 @@ public class LeaderboardControl {
 	}
 	
 	private void setResizeEvents() {
-		stage = (Stage) borderPane.getScene().getWindow();
- 		stage.widthProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-					Number newValue) {
-				String styleButton = "-fx-font-size:" + newValue.doubleValue()/40 + ";" + "-fx-font-family:monospace;" + 
-					"-fx-background-color:#1A1B28;" + "-fx-text-fill: #FFFFFF;" + "-fx-border-color: white;";
-				backMenuButton.setStyle(styleButton);
-			}
-		});
+		Stage stage = (Stage) borderPane.getScene().getWindow();
+		stage.widthProperty().addListener(changeListener);
 	}
 	
 	
