@@ -1,7 +1,5 @@
 package model.roundenvironment.players;
 
-import java.util.Optional;
-
 import model.roundenvironment.coordinate.Coordinate;
 
 /**

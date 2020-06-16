@@ -1,8 +1,6 @@
 package model;
 import java.util.List;
-import java.util.Map;
 
-import model.roundenvironment.BarrierEnvironment;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.players.*;

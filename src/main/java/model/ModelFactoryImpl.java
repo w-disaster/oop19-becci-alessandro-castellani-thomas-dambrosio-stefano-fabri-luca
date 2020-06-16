@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundEnvironmentImpl;
@@ -16,6 +16,13 @@ import model.roundenvironment.players.RoundPlayersImpl;
 
 public class ModelFactoryImpl implements ModelFactory {
 	
+	/**
+	 * 
+	 * @param <X>
+	 * @param roundEnvironments
+	 * @param boardDimension
+	 * @return model of generic type X
+	 */
 	private static <X extends RoundEnvironment> Model<X> build(List<X> roundEnvironments, int boardDimension) {
 		return new ModelImpl<X>(roundEnvironments, boardDimension);
 	}
@@ -23,12 +30,13 @@ public class ModelFactoryImpl implements ModelFactory {
 	@Override
 	public Model<RoundEnvironment> standardModel(final String nickname1, final String nickname2) {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
-		Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, 0);
-		Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
+		Coordinate coordinate1 = new Coordinate(Model.BOARD_DIMENSION/2, 0);
+		Coordinate coordinate2 = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
+				
 		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
 			List<Player> playersList = new ArrayList<>();
-			Player player1 = new PlayerImpl(nickname1, player1Coordinate, Player.DEFAULT_BARRIERS_NUMBER, Model.BOARD_DIMENSION);
-			Player player2 = new PlayerImpl(nickname2, player2Coordinate, Player.DEFAULT_BARRIERS_NUMBER, 0);
+			Player player1 = new PlayerImpl(nickname1, coordinate1, Player.DEFAULT_BARRIERS_NUMBER, Model.BOARD_DIMENSION);
+			Player player2 = new PlayerImpl(nickname2, coordinate2, Player.DEFAULT_BARRIERS_NUMBER, 0);
 			playersList.add(player1);
 			playersList.add(player2);
 			RoundBarriers barriers = new RoundBarriersImpl();
