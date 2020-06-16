@@ -1,20 +1,12 @@
 package controllers;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.OptionalInt;
-import java.util.Set;
-
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.css.CssParser;
-import javafx.css.Rule;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -47,93 +39,50 @@ public class HboxTextController {
 		indexPageToScore = load.getIndexToScoreMap();
 	}
 	
+	private Pair<List<Label>, List<Label>> createLabels() {
+		List<Label> listLabelsName = new ArrayList<Label>();
+		List<Label> listLabelsScore = new ArrayList<Label>();
+		for(int i=0; i < indexPageToPlayer.get(indexPage).size(); i++) {
+			Label labelName = new Label(indexPageToPlayer.get(indexPage).get(i));
+			Label labelScore = new Label(Integer.toString(indexPageToScore.get(indexPage).get(i)));
+			labelName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			labelScore.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			labelName.setAlignment(Pos.CENTER);
+			labelScore.setAlignment(Pos.CENTER);
+			listLabelsName.add(labelName);
+			listLabelsScore.add(labelScore);
+		}
+		return new Pair<>(listLabelsName, listLabelsScore);
+	}
+	
+	private void setVGrowChildrens() {
+		for(Node child: boxNames.getChildren()) {
+			VBox.setVgrow(child, Priority.ALWAYS);
+		}
+		for(Node child: boxScore.getChildren()) {
+			VBox.setVgrow(child, Priority.ALWAYS);
+		}
+	}
+	
+	private void fillBoxes() {
+		int numItems = indexPageToPlayer.get(indexPage).size();
+		for(int i=0; i < numItems; i++) {
+			boxNames.getChildren().add(mapLabelsName.get(indexPage).get(i));
+			boxScore.getChildren().add(mapLabelsScore.get(indexPage).get(i));
+			if(i != NUM_ENTRIES_PAG-1) {
+				boxNames.getChildren().add(new Region());
+				boxScore.getChildren().add(new Region());
+			}
+		}
+	}
+	
 	private void createInterface() {
 		indexPage = LeaderboardControl.indexPage;
-		stage = LeaderboardControl.stage;
 		System.out.println("creating INTERFACE " + indexPage);
-		//this method creates the interface for the given index page.
-		if(indexPageToPlayer.get(indexPage).size() == NUM_ENTRIES_PAG) {
-			//i'll create three spaces for each VBox
-			List<Label> listLabelsName = new ArrayList<Label>();
-			List<Label> listLabelsScore = new ArrayList<Label>();
-			for(int i=0; i < NUM_ENTRIES_PAG; i++) {
-				Label labelName = new Label(indexPageToPlayer.get(indexPage).get(i));
-				Label labelScore = new Label(Integer.toString(indexPageToScore.get(indexPage).get(i)));
-				labelName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-				labelScore.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-				labelName.setAlignment(Pos.CENTER);
-				labelScore.setAlignment(Pos.CENTER);
-				listLabelsName.add(labelName);
-				listLabelsScore.add(labelScore);
-			}
-			mapLabelsName.put(indexPage, listLabelsName);
-			mapLabelsScore.put(indexPage, listLabelsScore);
-			for(int i=0; i < NUM_ENTRIES_PAG; i++) {
-				boxNames.getChildren().add(listLabelsName.get(i));
-				boxScore.getChildren().add(listLabelsScore.get(i));
-				if(i != NUM_ENTRIES_PAG-1) {
-					boxNames.getChildren().add(new Region());
-					boxScore.getChildren().add(new Region());
-				}
-			}
-			
-			for(int i=0; i < (NUM_ENTRIES_PAG*2 - 1); i++) {
-				VBox.setVgrow(boxNames.getChildren().get(i), Priority.ALWAYS);
-				VBox.setVgrow(boxScore.getChildren().get(i), Priority.ALWAYS);
-			}
-		}
-		else {
-			List<Label> listLabelsName = new ArrayList<>();
-			List<Label> listLabelsScore = new ArrayList<>();
-			if(indexPageToPlayer.get(indexPage).size() == 1) {
-				Label labelName = new Label(indexPageToPlayer.get(indexPage).get(0));
-				Label labelScore= new Label(Integer.toString(indexPageToScore.get(indexPage).get(0)));
-				labelName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-				labelScore.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-				labelName.setAlignment(Pos.CENTER);
-				labelScore.setAlignment(Pos.CENTER);
-				boxNames.getChildren().add(labelName);
-				boxScore.getChildren().add(labelScore);
-				boxNames.getChildren().add(new Region());
-				boxScore.getChildren().add(new Region());
-				VBox.setVgrow(boxNames.getChildren().get(0), Priority.ALWAYS);
-				VBox.setVgrow(boxScore.getChildren().get(0), Priority.ALWAYS);
-				listLabelsName.add(labelName);
-				listLabelsScore.add(labelScore);
-			}
-			mapLabelsName.put(indexPage, listLabelsName);
-			mapLabelsScore.put(indexPage, listLabelsScore);
-		}
-		if(indexPageToPlayer.get(indexPage).size() == NUM_ENTRIES_PAG-1) {
-			//i'll create three spaces for each VBox
-			List<Label> listLabelsName = new ArrayList<Label>();
-			List<Label> listLabelsScore = new ArrayList<Label>();
-			for(int i=0; i < NUM_ENTRIES_PAG-1; i++) {
-				Label labelName = new Label(indexPageToPlayer.get(indexPage).get(i));
-				Label labelScore = new Label(Integer.toString(indexPageToScore.get(indexPage).get(i)));
-				labelName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-				labelScore.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-				labelName.setAlignment(Pos.CENTER);
-				labelScore.setAlignment(Pos.CENTER);
-				listLabelsName.add(labelName);
-				listLabelsScore.add(labelScore);
-			}
-			mapLabelsName.put(indexPage, listLabelsName);
-			mapLabelsScore.put(indexPage, listLabelsScore);
-			for(int i=0; i < NUM_ENTRIES_PAG-1; i++) {
-				boxNames.getChildren().add(listLabelsName.get(i));
-				boxScore.getChildren().add(listLabelsScore.get(i));
-				boxNames.getChildren().add(new Region());
-				boxScore.getChildren().add(new Region());
-				
-			}
-			for(Node child : boxNames.getChildren()) {
-				VBox.setVgrow(child, Priority.ALWAYS);
-			}
-			for(Node child : boxScore.getChildren()) {
-				VBox.setVgrow(child, Priority.ALWAYS);
-			}
-		}
+		mapLabelsName.put(indexPage, createLabels().getKey());
+		mapLabelsScore.put(indexPage, createLabels().getValue());
+		fillBoxes();
+		setVGrowChildrens();
 		setListener();
 	}
 	
@@ -141,10 +90,10 @@ public class HboxTextController {
 		load = new LoadLeaderBoard();
 		populateLists();
 		createInterface();
-		//setStyles();
 	}
 	
 	public void setListener() {
+			stage = LeaderboardControl.stage;
 			stage.widthProperty().addListener(new ChangeListener<Number>() {
 				@Override
 				public void changed(ObservableValue<? extends Number> observable, Number oldValue,
