@@ -28,25 +28,30 @@ public class MenuController {
 	private SceneChanger sceneChange;
 	private Stage stage;
 	
+	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
+
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			String styleButtons = "-fx-font-size:" + newValue.doubleValue()/40 + ";"; 
+			String styleLabel = "-fx-font-size:" + newValue.doubleValue()/11 + ";";
+			newGameButton.setStyle(styleButtons);
+			loadGameButton.setStyle(styleButtons);
+			leaderBoardButton.setStyle(styleButtons);
+			exitGameButton.setStyle(styleButtons);
+			title.setStyle(styleLabel);
+		}
+		
+	};
+	
 	public void initialize() {
 		Platform.runLater(new Runnable() {
+
 			@Override
 			public void run() {
 				stage = (Stage) rootPane.getScene().getWindow();
-				stage.widthProperty().addListener(new ChangeListener<Number>() {
-					@Override
-					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-							Number newValue) {
-						String styleButtons = "-fx-font-size:" + newValue.doubleValue()/40 + ";"; 
-						String styleLabel = "-fx-font-size:" + newValue.doubleValue()/11 + ";";
-						newGameButton.setStyle(styleButtons);
-						loadGameButton.setStyle(styleButtons);
-						leaderBoardButton.setStyle(styleButtons);
-						exitGameButton.setStyle(styleButtons);
-						title.setStyle(styleLabel);
-					}
-				});
+				stage.widthProperty().addListener(changeListener);
 			}
+			
 		});
 	}
 	
@@ -57,6 +62,8 @@ public class MenuController {
 
 	 @FXML
 	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
+		 stage = (Stage) rootPane.getScene().getWindow();
+		 stage.widthProperty().removeListener(changeListener);
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/main/scene.fxml", "Game");
 	 }
@@ -69,6 +76,8 @@ public class MenuController {
 	 
 	 @FXML
 	 public void leaderboardButtonPressHandler() {
+		 stage = (Stage) rootPane.getScene().getWindow();
+		 stage.widthProperty().removeListener(changeListener);
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/leaderboard/LeaderBoard.fxml", "Leaderboard");
 	 }

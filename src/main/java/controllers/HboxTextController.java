@@ -121,13 +121,11 @@ public class HboxTextController {
 		createInterface();
 	}
 	
-	public void setListener() {
-			stage = LeaderboardControl.stage;
-			stage.widthProperty().addListener(new ChangeListener<Number>() {
-				@Override
-				public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-						Number newValue) {
-					String styleLabels = "-fx-font-size:" + newValue.doubleValue()/45 + ";" + "-fx-font-family:monospace;" + 
+	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
+
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			String styleLabels = "-fx-font-size:" + newValue.doubleValue()/45 + ";" + "-fx-font-family:monospace;" + 
 					"-fx-border-color:#D90429;-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius: 15.0;"; 
 					String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/22 + ";" + "-fx-text-fill: #FFFFFF;" + 
 					 "-fx-border-color: #1A1B28;" + "-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius:15.0;" +
@@ -138,8 +136,13 @@ public class HboxTextController {
 						mapLabelsName.get(indexPage).get(i).setStyle(styleLabels);
 						mapLabelsScore.get(indexPage).get(i).setStyle(styleLabels);
 					}
-				}
-			});
+		}
+		
+	};
+	
+	public void setListener() {
+			stage = LeaderboardControl.stage;
+			stage.widthProperty().addListener(changeListener);
 			stage.setWidth(stage.getWidth()+1);
 			stage.setWidth(stage.getWidth()-1);
 	}
