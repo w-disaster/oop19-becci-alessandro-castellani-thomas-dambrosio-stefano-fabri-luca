@@ -16,7 +16,7 @@ public class ModelTest {
 	
 	private static boolean containsBarrierTypeIndipendent(RoundBarriers roundBarriers, Coordinate coordinate, Orientation orientation) {
 		return roundBarriers.getBarriersAsList().stream()
-				.filter(b -> b.getCoordinate().equals(new Coordinate(0, 0)) && b.getOrientation().equals(Barrier.Orientation.HORIZONTAL))
+				.filter(b -> b.getCoordinate().equals(coordinate) && b.getOrientation().equals(orientation))
 				.collect(Collectors.toList())
 				.size() > 0;
 	}
