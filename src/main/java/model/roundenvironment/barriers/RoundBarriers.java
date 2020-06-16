@@ -1,5 +1,7 @@
 package model.roundenvironment.barriers;
 
+import java.util.List;
+
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.barriers.Barrier.Piece;
 import model.roundenvironment.coordinate.Coordinate;
@@ -26,10 +28,8 @@ public interface RoundBarriers {
 	
 	/**
 	 * 
-	 * @param coordinate
-	 * @param orientation
-	 * @return barrier with Coordinate coordinate and Orientation orientation
+	 * @return immutable list of the round barriers
 	 */
-	Barrier getBarrierFrom(Coordinate coordinate, Orientation orientation);
+	List<Barrier> getBarriersAsList();
 	
 }

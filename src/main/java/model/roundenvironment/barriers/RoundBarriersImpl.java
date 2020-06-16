@@ -46,11 +46,8 @@ public class RoundBarriersImpl implements RoundBarriers {
 	}
 
 	@Override
-	public Barrier getBarrierFrom(Coordinate coordinate, Orientation orientation) {
-		return this.barriers.stream()
-				.filter(b -> b.getCoordinate().equals(coordinate) && b.getOrientation().equals(orientation))
-				.collect(Collectors.toList())
-				.get(0);
+	public List<Barrier> getBarriersAsList() {
+		return List.copyOf(this.barriers);
 	}
 	
 }
