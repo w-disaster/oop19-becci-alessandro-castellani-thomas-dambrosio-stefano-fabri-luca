@@ -32,7 +32,11 @@ public class GenericMoveImpl {
 		this.roundWinner = roundWinner;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.turns = this.players.getPlayers();
-		this.players.setCurrentPlayer(this.turns.get(0));
+		if (this.roundWinner.size() % 2 == 0) {
+			this.players.setCurrentPlayer(this.turns.get(0));
+		} else {
+			this.players.setCurrentPlayer(this.turns.get(1));
+		}
 	}
 	
 	protected void changeTurn(Player player) {

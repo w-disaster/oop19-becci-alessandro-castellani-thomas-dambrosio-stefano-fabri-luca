@@ -42,7 +42,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
 		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
 			List<Player> playersList = new ArrayList<>();
-			Player player1 = new PlayerImpl(nicknamePlayer1, player1Coordinate, Optional.of(10), 8);
+			Player player1 = new PlayerImpl(nicknamePlayer1, player1Coordinate, Optional.of(10), Model.BOARD_DIMENSION - 1);
 			Player player2 = new PlayerImpl(nicknamePlayer2, player2Coordinate, Optional.of(10), 0);
 			playersList.add(player1);
 			playersList.add(player2);
