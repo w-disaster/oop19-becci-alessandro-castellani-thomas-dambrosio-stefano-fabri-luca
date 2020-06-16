@@ -68,6 +68,7 @@ public class GenericMoveImpl {
 			System.out.println("Game Over!" + p.getNickname() + " won!");
 			this.leaderboard.updateLeaderBoard(p.getNickname());
 			this.view.endGame(p.getNickname());
+			this.view.updateBarriersNumber(this.players.getCurrentPlayer().getNickname(), this.players.getCurrentPlayer().getAvailableBarriers());
 		}
 	}
 	
