@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Iterator;
+
+import controllers.UIController;
+import model.Model;
+import model.roundenvironment.RoundEnvironment;
 
 public class SaveGame {
 	
@@ -29,8 +34,8 @@ public class SaveGame {
 		}
 	}
 	//I HAVE TO PUT ALL OBJECTS TO SAVE IN A SINGLE OBJECT
-	public SaveGame(final Object object1, final Object object2, final Object object3) {
-		resource = new SaveResource(object1, object2, object3);
+	public SaveGame(final Model<RoundEnvironment> model, final UIController view, final Iterator<RoundEnvironment> iterator) {
+		resource = new SaveResource(model, view, iterator);
 		try{
 			dir = new File(pathDir);
 			saveGame = new File(pathFile);

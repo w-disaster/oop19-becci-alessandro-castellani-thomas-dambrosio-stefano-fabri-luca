@@ -69,8 +69,7 @@ public class MenuController {
 	 
 	 @FXML
 	 public void loadGameButtonPressHandler() {
-		 SaveGame saveGame = new SaveGame(34, "gangshit", 2.4566);
-		 saveGame.save();
+		 //this should call controller.
 	 }
 	 
 	 @FXML

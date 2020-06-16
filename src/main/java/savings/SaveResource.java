@@ -35,7 +35,7 @@ public class SaveResource implements Serializable{
 		return view;
 	}
 
-	public Iterator<RoundEnvironment> getIterator(){
+	public Iterator<RoundEnvironment> getRoundIterator(){
 		return iterator;
 	}
 	
