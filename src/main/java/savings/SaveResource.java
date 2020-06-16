@@ -1,8 +1,11 @@
 package savings;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+
+import controllers.UIController;
+import model.Model;
+import model.roundenvironment.RoundEnvironment;
 
 /**
  * I need this class for putting all objects in a single class for saving it in a single file.
@@ -14,23 +17,26 @@ public class SaveResource implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 2546103703624570995L;
-	private final Object object1;
-	private final Object object2;
-	private final Object object3;
+	private final Model<RoundEnvironment> model;
+	private final UIController view;
+	private final Iterator<RoundEnvironment> iterator;
 	
-	public SaveResource(final Object object1, final Object object2, final Object object3) {
-		this.object1 = object1;
-		this.object2 = object2;
-		this.object3 = object3;
+	public SaveResource(final Model<RoundEnvironment> model, final UIController view, final Iterator<RoundEnvironment> iterator) {
+		this.model = model;
+		this.view = view;
+		this.iterator = iterator;
 	}
 
-	public List<Object> getResource() {
-		List<Object> resources = new ArrayList<>();
-		resources.add(0, object1);
-		resources.add(1, object2);
-		resources.add(2, object3);
-		return resources;
+	public Model<RoundEnvironment> getModel(){
+		return model;
+	}
+	
+	public UIController getView() {
+		return view;
 	}
 
+	public Iterator<RoundEnvironment> getIterator(){
+		return iterator;
+	}
 	
 }
