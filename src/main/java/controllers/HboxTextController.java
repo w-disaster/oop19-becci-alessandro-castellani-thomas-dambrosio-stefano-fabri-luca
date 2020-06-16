@@ -2,15 +2,23 @@ package controllers;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -18,6 +26,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import savings.LoadLeaderBoard;
+import viewmenu.SceneChanger;
+import viewmenu.SceneChangerImpl;
 
 public class HboxTextController {
 	@FXML private Label title1;
@@ -25,6 +35,7 @@ public class HboxTextController {
 	@FXML private VBox boxScore;
 	@FXML private VBox boxNames;
 	@FXML private HBox root;
+	private SceneChanger sceneChange = new SceneChangerImpl();
 	private Stage stage;
 	private LoadLeaderBoard load;
 	private int indexPage;
@@ -42,6 +53,10 @@ public class HboxTextController {
 	private Pair<List<Label>, List<Label>> createLabels() {
 		List<Label> listLabelsName = new ArrayList<Label>();
 		List<Label> listLabelsScore = new ArrayList<Label>();
+		if(indexPageToPlayer.isEmpty()) {
+			indexPageToPlayer.put(indexPage, Collections.emptyList());
+			return new Pair<>(Collections.emptyList(), Collections.emptyList());
+		}
 		for(int i=0; i < indexPageToPlayer.get(indexPage).size(); i++) {
 			Label labelName = new Label(indexPageToPlayer.get(indexPage).get(i));
 			Label labelScore = new Label(Integer.toString(indexPageToScore.get(indexPage).get(i)));
@@ -81,6 +96,20 @@ public class HboxTextController {
 		System.out.println("creating INTERFACE " + indexPage);
 		mapLabelsName.put(indexPage, createLabels().getKey());
 		mapLabelsScore.put(indexPage, createLabels().getValue());
+		if(mapLabelsName.get(indexPage).isEmpty()) {
+			// Dialog setup
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Empty Leaderboard");
+			alert.setHeaderText("The Leaderboard is empty");
+			alert.setContentText("You wanna get back to menu?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+			    sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
+			} else {
+				System.exit(0);
+			}
+		}
 		fillBoxes();
 		setVGrowChildrens();
 		setListener();

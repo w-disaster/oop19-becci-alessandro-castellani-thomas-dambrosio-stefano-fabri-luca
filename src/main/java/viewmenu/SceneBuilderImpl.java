@@ -46,7 +46,7 @@ public class SceneBuilderImpl implements SceneBuilder{
 			final Parent root = FXMLLoader.load(ClassLoader.getSystemResource(pathToFXML));
 			scene = new Scene(root, width, height);
 		} catch (Exception e) {
-			System.out.println("problems loading fxmlCIAO BELLO");
+			System.out.println("problems loading fxml");
 		}
 		
 	}

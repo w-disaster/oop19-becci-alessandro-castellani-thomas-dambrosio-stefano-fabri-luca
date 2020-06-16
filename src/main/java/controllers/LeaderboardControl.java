@@ -43,7 +43,8 @@ public class LeaderboardControl {
 			loader.setLocation(ClassLoader.getSystemResource("layouts/leaderboard/hBoxText.fxml"));
 			hBoxText = loader.load();
 		} catch(Exception e) {
-			System.out.println("problems loading fxmlFRBHVBYHUFVBGY");
+			//System.out.println(e.getMessage());
+			System.out.println("problems loading fxml");
 		}
 	}
 	
@@ -61,6 +62,7 @@ public class LeaderboardControl {
 				setResizeEvents();
 				pag.setMaxPageIndicatorCount(load.getNumPages());
 				pag.setPageCount(load.getNumPages());
+				
 				pag.setCurrentPageIndex(1);
 				pag.setPageFactory(new Callback<Integer, Node>(){
 					@Override
