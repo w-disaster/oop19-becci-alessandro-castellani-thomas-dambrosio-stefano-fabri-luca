@@ -80,6 +80,9 @@ public final class UIController{
     @FXML private Rectangle player2vertical;
     @FXML private Rectangle player2horizontal;
     
+    @FXML private Label barriersNumber1;
+    @FXML private Label barriersNumber2;
+    
     private Circle bluePlayer;
 	private Circle redPlayer;
 	
@@ -90,8 +93,6 @@ public final class UIController{
 	
 	//0 for vertical, 1 for horizontal
 	private Optional<Integer> selectedBarrier;
-	
-	private int selectedLabel;
 	
 	private Map<Coordinate, BorderPane> gridMap;
 	
@@ -156,8 +157,6 @@ public final class UIController{
     	label2.setText(player2.get());
     	label1.getStyleClass().add("SelectedLabel");
     	label2.getStyleClass().add("Label");
-    	//togliere
-    	this.selectedLabel = 0;
   
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
@@ -213,11 +212,9 @@ public final class UIController{
     	if(player.equals(this.player1.get())) {
     		gridMap.get(position).getChildren().add(bluePlayer);
     		BorderPane.setAlignment(redPlayer, Pos.CENTER);
-    		this.changeSelectedLabel();
     	} else {
     		gridMap.get(position).getChildren().add(redPlayer);
     		BorderPane.setAlignment(redPlayer, Pos.CENTER);
-    		this.changeSelectedLabel();
     	}
     }
     
@@ -259,23 +256,27 @@ public final class UIController{
     			BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
     		}
     	}	
-    	this.changeSelectedLabel();
     }
     
-    private void changeSelectedLabel() {
-    	System.out.println("TEST");
-    	if (this.selectedLabel == 0) {
+    private void updateBarriersNumber(String player, int barriersNumber) {
+    	if (player.equals(player1.get())) {
+    		this.barriersNumber1.setText(String.valueOf(barriersNumber));
+    	} else {
+    		this.barriersNumber2.setText(String.valueOf(barriersNumber));
+    	}
+    }
+    
+    public void changeSelectedLabel(String player) { 	
+    	if (player.equals(player1.get())) {
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("SelectedLabel");
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("Label");
-    		this.selectedLabel = 1;
-    	} else if (this.selectedLabel == 1) {
+    	} else {
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("SelectedLabel");   		
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("Label");
-			this.selectedLabel = 0;
     	}
     	
     }
