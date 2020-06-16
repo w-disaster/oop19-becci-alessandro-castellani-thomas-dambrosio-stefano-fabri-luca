@@ -47,9 +47,9 @@ public interface Model<X extends RoundEnvironment> {
 	
 	/**
 	 * 
-	 * @return map containing player winners and losers collected till the current round
+	 * @return list containing player winners and losers collected till the current round
 	 */
-	Map<X, List<Pair<Player, PlayerState>>> getRanking();
+	List<Pair<Player, PlayerState>> getRanking();
 	
 	/**
 	 * 

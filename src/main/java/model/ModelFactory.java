@@ -2,17 +2,16 @@ package model;
 
 import java.util.List;
 
-import model.roundenvironment.BarrierEnvironment;
 import model.roundenvironment.RoundEnvironment;
 
 public interface ModelFactory {
 	
 	/**
-	 * simple method to build the model given the round environments
-	 * @param <X>
-	 * @param roundEnvironments
-	 * @return
+	 * 
+	 * @param nickname1
+	 * @param nickname2
+	 * @return model of a standard game
 	 */
-	<X extends RoundEnvironment> ModelImpl<X> build(List<X> roundEnvironments);
+	Model<RoundEnvironment> standardModel(String nickname1, String nickname2);
 		
 }

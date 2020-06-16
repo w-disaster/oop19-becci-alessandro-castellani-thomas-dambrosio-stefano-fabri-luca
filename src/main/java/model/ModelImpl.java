@@ -13,19 +13,19 @@ import model.roundenvironment.players.PlayerState;
 
 public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
 
-	private Integer boardDimension;
+	private int boardDimension;
 	private X currentRoundEnvironment;
 	private List<X> gameRoundsEnvironments;
-	private Map<X, List<Pair<Player, PlayerState>>> ranking;
+	private List<Pair<Player, PlayerState>> ranking;
 	
 	/**
 	 * Model from existing environments, one for each round, and eventually the dimension of the board
 	 * @param gameRoundsEnvironments
 	 * @param boardDimension
 	 */
-	public ModelImpl(final List<X> gameRoundsEnvironments, final Optional<Integer> boardDimension) {
+	public ModelImpl(final List<X> gameRoundsEnvironments, final int boardDimension) {
 		super();
-		this.boardDimension = boardDimension.isEmpty() ? BOARD_DIMENSION : boardDimension.get();
+		this.boardDimension = boardDimension;
 		this.gameRoundsEnvironments = gameRoundsEnvironments;
 	}
 
@@ -45,7 +45,7 @@ public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
 	}
 
 	@Override
-	public Map<X, List<Pair<Player, PlayerState>>> getRanking() {
+	public List<Pair<Player, PlayerState>> getRanking() {
 		return this.ranking;
 	}
 

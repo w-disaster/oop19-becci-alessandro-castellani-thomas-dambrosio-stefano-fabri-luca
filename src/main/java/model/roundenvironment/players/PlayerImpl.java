@@ -14,7 +14,7 @@ public class PlayerImpl implements Player{
 	private String nickname;
 	private Coordinate coordinate;
 	private int availableBarriers;
-	private Integer finishLine;
+	private int finishLine;
 	
 	/**
 	 * game player
@@ -23,10 +23,10 @@ public class PlayerImpl implements Player{
 	 * @param availableBarriers
 	 * @param finishLine
 	 */
-	public PlayerImpl(final String nickname, final Coordinate coordinate, final Optional<Integer> availableBarriers, final Integer finishLine) {
+	public PlayerImpl(final String nickname, final Coordinate coordinate, final int availableBarriers, final int finishLine) {
 		this.nickname = nickname;
 		this.coordinate = coordinate;
-		this.availableBarriers = availableBarriers.isEmpty() ? DEFAULT_BARRIERS_NUMBER : availableBarriers.get(); 
+		this.availableBarriers = availableBarriers;
 		this.finishLine = finishLine;
 	}
 	
@@ -60,7 +60,7 @@ public class PlayerImpl implements Player{
 		this.coordinate = coordinate;
 	}
 
-	private Integer getFinishLine() {
+	private int getFinishLine() {
 		return finishLine;
 	}
 
