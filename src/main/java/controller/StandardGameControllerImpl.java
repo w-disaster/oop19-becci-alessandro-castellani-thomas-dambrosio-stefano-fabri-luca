@@ -49,7 +49,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 			RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
 			this.listEnvironment.add(environment);
 		}
-		this.view.setupGrid(new Coordinate(4,0), new Coordinate(4,8));
+		this.view.setupGrid(new Coordinate(4,0), new Coordinate(4,8), 10, 10);
 		this.model = new ModelImpl<>(this.listEnvironment, Optional.empty());
 		this.iterRounds = this.listEnvironment.iterator();
 		this.roundWinner = new ArrayList<>();
@@ -78,9 +78,11 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	public void nextRound() {
 		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+		Player player1 = players.getPlayers().get(0);
+		Player player2 = players.getPlayers().get(1);
 		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds, this.roundWinner);
 		this.placer = new BarrierPlacerImpl(this.model, this.view, this.iterRounds, this.roundWinner);
-		this.view.setupGrid(players.getPlayers().get(0).getCoordinate(), players.getPlayers().get(1).getCoordinate()); //reset grid
+		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
 	}
 	
 	/**
