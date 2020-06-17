@@ -4,6 +4,8 @@ import application.Main;
 
 import controller.StandardGameControllerImpl;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -65,7 +67,8 @@ import java.util.stream.Collectors;
  *
  */
 public final class UIController{
-    
+	
+    @FXML private BorderPane rootPane;
     @FXML private GridPane grid;
     
     @FXML private Label label1;
@@ -85,6 +88,8 @@ public final class UIController{
     @FXML private Label barriersNumber1;
     @FXML private Label barriersNumber2;
     
+    private Stage stage;
+    
     private Circle bluePlayer;
 	private Circle redPlayer;
 	
@@ -97,6 +102,22 @@ public final class UIController{
 	private Optional<Integer> selectedBarrier;
 	
 	private Map<Coordinate, BorderPane> gridMap;
+	
+//	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
+//
+//		@Override
+//		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//			bluePlayer.scaleXProperty();
+////			String styleButtons = "-fx-font-size:" + newValue.doubleValue()/40 + ";"; 
+////			String styleLabel = "-fx-font-size:" + newValue.doubleValue()/11 + ";";
+////			newGameButton.setStyle(styleButtons);
+////			loadGameButton.setStyle(styleButtons);
+////			leaderBoardButton.setStyle(styleButtons);
+////			exitGameButton.setStyle(styleButtons);
+////			title.setStyle(styleLabel);
+//		}
+//		
+//	};
 	
 	public UIController() {
 		this.controller = new StandardGameControllerImpl(this);
@@ -144,29 +165,32 @@ public final class UIController{
     	    }
     	    return null;
     	});
-
-    	Optional<Pair<String, String>> result = dialog.showAndWait();
     	
-    	if (result.get().getKey().equals("")) {
-    		this.player1 = Optional.of("Player 1");
-    	} else {
-    		this.player1 = Optional.of(result.get().getKey());    		
-    	}
+    	if (MenuController.to_load == false) {
+    		Optional<Pair<String, String>> result = dialog.showAndWait();
     	
-    	if (result.get().getValue().equals("")) {
-    		this.player2 = Optional.of("Player 2");
-    	} else {
-    		this.player2 = Optional.of(result.get().getValue());    		
-    	}
-    	
-    	if (player1.get().equals(player2.get())) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Error");
-    		alert.setHeaderText("ERROR");
-    		alert.setContentText("You can't use the same name!");
-    		
-    		alert.showAndWait();
-
+	    	
+	    	if (result.get().getKey().equals("")) {
+	    		this.player1 = Optional.of("Player 1");
+	    	} else {
+	    		this.player1 = Optional.of(result.get().getKey());    		
+	    	}
+	    	
+	    	if (result.get().getValue().equals("")) {
+	    		this.player2 = Optional.of("Player 2");
+	    	} else {
+	    		this.player2 = Optional.of(result.get().getValue());    		
+	    	}
+	    	
+	    	if (player1.get().equals(player2.get())) {
+	    		Alert alert = new Alert(AlertType.ERROR);
+	    		alert.setTitle("Error");
+	    		alert.setHeaderText("ERROR");
+	    		alert.setContentText("You can't use the same name!");
+	    		
+	    		alert.showAndWait();
+	    		
+	    	}
     	}
     	
     	// Grid setup
@@ -190,6 +214,14 @@ public final class UIController{
 	            System.out.println("pane added" + i + j);
 	        }
 	    }
+//	    
+//	    Platform.runLater(new Runnable() {
+//	    	@Override
+//	    	public void run() {
+//	    		stage = (Stage) rootPane.getScene().getWindow();
+//	    		stage.widthProperty().addListener(changeListener);
+//	    	}			
+//	    });
 	    
 	    //Starts the game
 	    this.controller.newStandardGame(this.player1.get(), this.player2.get());
@@ -346,6 +378,11 @@ public final class UIController{
     		this.textArea2.setText(barrierTutorial);  		
     	}
     			
+    }
+    
+    @FXML
+    public void saveGame() {
+    	this.controller.saveGame();
     }
 
     /**
