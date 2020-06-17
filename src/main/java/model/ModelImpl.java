@@ -5,7 +5,7 @@ import java.util.List;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.players.Player;
 
-public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
+public class ModelImpl<X extends RoundEnvironment> implements Model<X>{
 
 	private int boardDimension;
 	private X currentRoundEnvironment;
