@@ -274,10 +274,10 @@ public final class UIController{
     public void barrierPlacement(MouseEvent event) {
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
     		this.selectedBarrier = Optional.of(0);
-    		this.drawText(0);
+    		this.drawText(0, "barrier");
     	} else {
     		this.selectedBarrier = Optional.of(1);
-    		this.drawText(1);
+    		this.drawText(1, "barrier");
     	}
     }
     
@@ -368,16 +368,23 @@ public final class UIController{
     	}
     }
     
-    private void drawText(int player) {
+    private void drawText(int player, String textToDisplay) {
+    	String moveTutorial = "- Benvenuto su Quoridor! \n- Clicca su una casella adiacente alla tua per muovere la pedina"
+    			+ "- Clicca su una barriera per posizionarla";
     	String barrierTutorial = "Per posizionare la barriera, clicca la casella dove vuoi posizionarla: \n"
     			+ "- La barriera verticale sara` posizionata a destra e nella cassela in basso\n"
     			+ "- La barriera orizzontale sara` piazzata in basso e nella casella a destra";
-    	if (player == 0) {
-    		this.textArea1.setText(barrierTutorial);
-    	} else {
-    		this.textArea2.setText(barrierTutorial);  		
-    	}
-    			
+    	switch(textToDisplay) {
+    		case "move" :
+    			this.textArea1.setText(moveTutorial);
+    			this.textArea2.setText(moveTutorial);
+    		case "barrier" :
+    			if (player == 0) {
+    				this.textArea1.setText(barrierTutorial);
+    			} else {
+    				this.textArea2.setText(barrierTutorial);  		
+    			}
+    	}		
     }
     
     @FXML
