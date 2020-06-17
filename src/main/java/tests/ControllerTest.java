@@ -1,19 +1,7 @@
 package tests;
 
-import java.util.*;
-import org.junit.*;
-import controller.StandardGameControllerImpl;
-import controllers.UIController;
-import model.*;
-import model.roundenvironment.RoundEnvironment;
-import model.roundenvironment.barriers.Barrier.Orientation;
-import model.roundenvironment.coordinate.Coordinate;
-import model.roundenvironment.players.RoundPlayers;
-
-import static org.junit.Assert.*;
-
 public class ControllerTest {
-	
+	/*
 	@Test
     public void testMovePlayer() {
 		UIController view = new UIController();
@@ -51,4 +39,5 @@ public class ControllerTest {
         controller.placeBarrier(new Coordinate(6,0), Orientation.HORIZONTAL);
         assertEquals(players.getCurrentPlayer().getNickname(), "player1");
 	}
+	*/
 }

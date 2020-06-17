@@ -55,7 +55,7 @@ public class GenericMoveImpl {
 			long nWins = this.roundWinner.stream().peek(Player::getNickname)
 													.filter(p -> p.getNickname().compareTo(currentPlayer) == 0)
 													.count();
-			if (nWins > this.model.getGameRoundsEnvironments().size()/2) { //if the current player won half of the rounds he won the game
+			if (nWins > this.model.getGameRoundEnvironments().size()/2) { //if the current player won half of the rounds he won the game
 				System.out.println("Game Over!" + currentPlayer + " won!");
 				this.leaderboard.updateLeaderBoard(currentPlayer);
 				this.view.endGame(currentPlayer);

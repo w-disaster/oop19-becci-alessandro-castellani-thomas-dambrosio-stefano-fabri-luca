@@ -1,13 +1,12 @@
 package controller;
 
 import java.util.*;
+
 import controllers.UIController;
 import model.*;
-import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
-import model.roundenvironment.barriers.Barrier.Piece;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
@@ -33,10 +32,10 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	}
 	
 	@Override
-	public void movePlayer(Coordinate newPosition) {
+	public void movePlayer(Coordinate clickedPosition) {
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
-		//this.newPosition will be the final position (it may change while newPosition will remain the clicked position)
-		this.newPosition = new Coordinate(newPosition.getX(), newPosition.getY());
+		//this.newPosition will be the final position (it may change while clickedPosition will remain the clicked position)
+		this.newPosition = new Coordinate(clickedPosition.getX(), clickedPosition.getY());
 		if (this.adjacent() && this.noWall(this.playerPosition, this.newPosition)) {
 			//System.out.println(this.players.getCurrentPlayer().getNickname() + " position is: " + this.players.getCurrentPlayer().getCoordinate());
 			//System.out.println("Moving to position " + newPosition);
@@ -56,7 +55,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 					break;
 				}
 			}
-			if (this.noWall(newPosition, this.newPosition)) {
+			if (this.noWall(clickedPosition, this.newPosition)) {
 				this.players.getCurrentPlayer().setCoordinate(this.newPosition);
 				this.observerPlayer.update(this.newPosition, this.players.getCurrentPlayer().getNickname()); //update view
 				if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
@@ -105,11 +104,6 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				return false;
 			}
 		}
-		return true;
-	}
-	
-	private boolean noWallOnJump() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	
