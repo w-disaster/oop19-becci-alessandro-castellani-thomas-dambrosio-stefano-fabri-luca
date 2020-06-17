@@ -139,7 +139,7 @@
             <items>
               <MenuItem mnemonicParsing="false" text="Start new game" />
                   <MenuItem mnemonicParsing="false" text="Start new game+" />
-                  <MenuItem fx:id="saveGame" mnemonicParsing="false" text="Save game" />
+                  <MenuItem fx:id="saveGame" mnemonicParsing="false" onAction="#saveGame" text="Save game" />
                   <MenuItem mnemonicParsing="false" text="Load Game" />
             </items>
           </Menu>

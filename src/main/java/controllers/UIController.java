@@ -76,8 +76,8 @@ public final class UIController{
     @FXML private TextArea textArea1;
     @FXML private TextArea textArea2;
     
+    @FXML private MenuItem saveGame;
     @FXML private MenuItem retToMainMenu;
-    
     @FXML private MenuItem exit;
     
     @FXML private Rectangle player1vertical;
@@ -382,6 +382,7 @@ public final class UIController{
     
     @FXML
     public void saveGame() {
+    	System.out.println("Saving game...");
     	this.controller.saveGame();
     }
 
