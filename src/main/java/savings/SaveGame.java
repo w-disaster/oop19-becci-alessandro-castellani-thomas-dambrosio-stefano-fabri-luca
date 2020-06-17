@@ -13,7 +13,6 @@ import model.roundenvironment.RoundEnvironment;
 
 public class SaveGame {
 	
-	//THIS IS ONLY FOR TESTING PURPOSE
 	private final SaveResource resource;
 	private ObjectOutputStream out;
 	private File dir;

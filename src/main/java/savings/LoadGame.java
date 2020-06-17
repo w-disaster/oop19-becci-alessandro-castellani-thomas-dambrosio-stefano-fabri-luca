@@ -18,33 +18,39 @@ public class LoadGame {
 	}
 	
 	private void getData() {
-		if(saveExist()) {
-			try {
-				in = new ObjectInputStream(new FileInputStream(pathFile));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			try {
-				resource = (SaveResource) in.readObject();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			in = new ObjectInputStream(new FileInputStream(pathFile));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		else {
-			System.out.println("save file doesn't exist");
+		try {
+			resource = (SaveResource) in.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
+	
 	public SaveResource getResource() {
-		getData();
-		return resource;
+		if(fileSave.exists()) {
+			getData();
+			return resource;
+		}
+		return null;
 	}
 	
 	public boolean saveExist() {
-		return fileSave.exists();
+		getResource();
+		if(resource.getModel() != null && resource.getRoundIterator() != null &&
+				resource.getView() != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
