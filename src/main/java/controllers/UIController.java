@@ -67,7 +67,7 @@ import java.util.stream.Collectors;
  * The Controller related to the scene.fxml GUI.
  *
  */
-public final class UIController implements Serializable{
+public final class UIController{
 	
     @FXML private BorderPane rootPane;
     @FXML private GridPane grid;
@@ -126,15 +126,16 @@ public final class UIController implements Serializable{
 	
 	public void initialize() {
     	System.out.println("Initializing...");
+    	System.out.println("file:/layouts/application.css");
     	
     	// Dialog setup
     	Dialog<Pair<String, String>> dialog = new Dialog<>();
+    	dialog.setTitle("Quoridor2D");
     	dialog.setHeaderText("Choose your nicknames");
     	
     	// Dialog styling
-//    	DialogPane dialogPane = dialog.getDialogPane();
-//    	dialogPane.getStylesheets().add(this.getClass().getResource("layouts/application.css").toExternalForm());
-//    	dialogPane.getStyleClass().add("Dialog");
+    	DialogPane dialogPane = dialog.getDialogPane();
+    	dialogPane.setStyle("-fx-background-color: #2B2D42; -fx-fill: #FFFFFF;");
 
     	// Set the icon 
     	((Stage)dialog.getDialogPane().getScene().getWindow()).getIcons().add
@@ -153,9 +154,13 @@ public final class UIController implements Serializable{
     	TextField player2name = new TextField();
     	player2name.setPromptText("Player 2");
     	
-    	dialogGrid.add(new Label("Nickname for player 1:"), 0, 0);
+    	Label p1nickname = new Label("Nickname for player 1:");
+    	p1nickname.setTextFill(Color.WHITE);
+    	Label p2nickname = new Label("Nickname for player 2:");
+    	p2nickname.setTextFill(Color.WHITE);
+    	dialogGrid.add(p1nickname, 0, 0);
     	dialogGrid.add(player1name, 1, 0);
-    	dialogGrid.add(new Label("Nickname for player 2:"), 0, 1);
+    	dialogGrid.add(p2nickname, 0, 1);
     	dialogGrid.add(player2name, 1, 1);
 
     	dialog.getDialogPane().setContent(dialogGrid);

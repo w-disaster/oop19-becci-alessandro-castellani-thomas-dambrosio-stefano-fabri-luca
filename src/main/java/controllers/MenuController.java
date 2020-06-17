@@ -68,7 +68,7 @@ public class MenuController {
 		 stage.widthProperty().removeListener(changeListener);
 		 to_load = false;
 		 sceneChange = new SceneChangerImpl();
-		 sceneChange.change("layouts/main/scene.fxml", "Game");
+		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
 	 }
 	 
 	 @FXML
@@ -79,7 +79,7 @@ public class MenuController {
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
 		 sceneChange = new SceneChangerImpl();
-		 sceneChange.change("layouts/main/scene.fxml", "Game");
+		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
 	 }
 	 
 	 @FXML
