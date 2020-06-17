@@ -35,7 +35,7 @@ public class ModelFactoryImpl implements ModelFactory {
 				
 		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
 			List<Player> playersList = new ArrayList<>();
-			Player player1 = new PlayerImpl(nickname1, coordinate1, Player.DEFAULT_BARRIERS_NUMBER, Model.BOARD_DIMENSION);
+			Player player1 = new PlayerImpl(nickname1, coordinate1, Player.DEFAULT_BARRIERS_NUMBER, Model.BOARD_DIMENSION - 1);
 			Player player2 = new PlayerImpl(nickname2, coordinate2, Player.DEFAULT_BARRIERS_NUMBER, 0);
 			playersList.add(player1);
 			playersList.add(player2);

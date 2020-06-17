@@ -3,26 +3,24 @@ package model;
 import java.util.List;
 
 import model.roundenvironment.RoundEnvironment;
-import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.players.Player;
-import model.roundenvironment.players.PlayerState;
 
 public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
 
 	private int boardDimension;
 	private X currentRoundEnvironment;
-	private List<X> gameRoundsEnvironments;
-	private List<Pair<Player, PlayerState>> ranking;
+	private List<X> gameRoundEnvironments;
+	private List<Player> winners;
 	
 	/**
 	 * Model from existing environments, one for each round, and eventually the dimension of the board
 	 * @param gameRoundsEnvironments
 	 * @param boardDimension
 	 */
-	public ModelImpl(final List<X> gameRoundsEnvironments, final int boardDimension) {
+	public ModelImpl(final List<X> gameRoundEnvironments, final int boardDimension) {
 		super();
 		this.boardDimension = boardDimension;
-		this.gameRoundsEnvironments = gameRoundsEnvironments;
+		this.gameRoundEnvironments = gameRoundEnvironments;
 	}
 
 	@Override
@@ -36,23 +34,23 @@ public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
 	}
 	
 	@Override
-	public List<X> getGameRoundsEnvironments() {
-		return this.gameRoundsEnvironments;
+	public List<X> getGameRoundEnvironments() {
+		return this.gameRoundEnvironments;
 	}
 
 	@Override
-	public List<Pair<Player, PlayerState>> getRanking() {
-		return this.ranking;
+	public List<Player> getWinners() {
+		return this.winners;
 	}
 
 	@Override
 	public int getNumberRounds() {
-		return this.gameRoundsEnvironments.size();
+		return this.gameRoundEnvironments.size();
 	}
 
 	@Override
 	public int getBoardDimension() {
 		return this.boardDimension;
 	}
-
+	
 }

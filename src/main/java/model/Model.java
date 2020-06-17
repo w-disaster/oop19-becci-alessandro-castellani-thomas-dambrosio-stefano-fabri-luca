@@ -2,7 +2,6 @@ package model;
 import java.util.List;
 
 import model.roundenvironment.RoundEnvironment;
-import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.players.*;
 
 /**
@@ -41,13 +40,13 @@ public interface Model<X extends RoundEnvironment> {
 	 * 
 	 * @return game environments
 	 */
-	List<X> getGameRoundsEnvironments();
+	List<X> getGameRoundEnvironments();
 	
 	/**
 	 * 
-	 * @return list containing player winners and losers collected till the current round
+	 * @return list containing player winners collected till the current round
 	 */
-	List<Pair<Player, PlayerState>> getRanking();
+	List<Player> getWinners();
 	
 	/**
 	 * 
