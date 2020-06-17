@@ -55,6 +55,7 @@ import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -66,7 +67,7 @@ import java.util.stream.Collectors;
  * The Controller related to the scene.fxml GUI.
  *
  */
-public final class UIController{
+public final class UIController implements Serializable{
 	
     @FXML private BorderPane rootPane;
     @FXML private GridPane grid;
