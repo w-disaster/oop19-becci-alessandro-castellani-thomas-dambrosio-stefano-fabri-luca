@@ -1,11 +1,15 @@
 package savings;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Iterator;
+
+import com.google.gson.Gson;
 
 import controllers.UIController;
 import model.Model;
@@ -42,22 +46,13 @@ public class SaveGame {
 		}catch(Exception e) {
 			System.out.println("problem in creating file");
 		}
-		try {
-			out = new ObjectOutputStream(new FileOutputStream(pathFile));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
-	public void save() {
-		try {
-			out.writeObject(resource);
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void save() throws IOException {
+		Gson serializator = new Gson();
+		BufferedWriter out = new BufferedWriter(new FileWriter(saveGame));
+        out.write(serializator.toJson(resource));
+        out.close();
 	}
 
 	

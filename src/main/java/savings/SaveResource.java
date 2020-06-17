@@ -12,11 +12,8 @@ import model.roundenvironment.RoundEnvironment;
  * @author Alessandro Becci
  *
  */
-public class SaveResource implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2546103703624570995L;
+public class SaveResource {
+	
 	private final Model<RoundEnvironment> model;
 	private final UIController view;
 	private final Iterator<RoundEnvironment> iterator;
