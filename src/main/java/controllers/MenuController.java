@@ -35,7 +35,7 @@ public class MenuController {
 		@Override
 		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 			String styleButtons = "-fx-font-size:" + newValue.doubleValue()/40 + ";"; 
-			String styleLabel = "-fx-font-size:" + newValue.doubleValue()/11 + ";";
+			String styleLabel = "-fx-font-size:" + newValue.doubleValue()/13 + ";";
 			newGameButton.setStyle(styleButtons);
 			loadGameButton.setStyle(styleButtons);
 			leaderBoardButton.setStyle(styleButtons);
