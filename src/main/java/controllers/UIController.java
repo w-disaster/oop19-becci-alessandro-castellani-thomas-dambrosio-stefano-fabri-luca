@@ -223,6 +223,8 @@ public final class UIController{
 //	    	}			
 //	    });
 	    
+	    this.drawText(0, "start");
+	    
 	    //Starts the game
 	    this.controller.newStandardGame(this.player1.get(), this.player2.get());
 	}
@@ -369,21 +371,27 @@ public final class UIController{
     }
     
     private void drawText(int player, String textToDisplay) {
-    	String moveTutorial = "- Benvenuto su Quoridor! \n- Clicca su una casella adiacente alla tua per muovere la pedina"
-    			+ "- Clicca su una barriera per posizionarla";
+    	String moveTutorial = "- Benvenuto su Quoridor! \n- Clicca su una casella adiacente alla tua per muovere la pedina\n"
+    			+ "- Clicca su una barriera per posizionarla"
+    			+ "- Puoi saltare l'avversario quando e` di fronte a te";
     	String barrierTutorial = "Per posizionare la barriera, clicca la casella dove vuoi posizionarla: \n"
     			+ "- La barriera verticale sara` posizionata a destra e nella cassela in basso\n"
     			+ "- La barriera orizzontale sara` piazzata in basso e nella casella a destra";
     	switch(textToDisplay) {
-    		case "move" :
+    		case "start" :
     			this.textArea1.setText(moveTutorial);
     			this.textArea2.setText(moveTutorial);
+    			break;
     		case "barrier" :
     			if (player == 0) {
     				this.textArea1.setText(barrierTutorial);
     			} else {
     				this.textArea2.setText(barrierTutorial);  		
     			}
+    			break;
+    		default :
+    			this.textArea1.setText(textToDisplay);
+    			this.textArea2.setText(textToDisplay);
     	}		
     }
     
