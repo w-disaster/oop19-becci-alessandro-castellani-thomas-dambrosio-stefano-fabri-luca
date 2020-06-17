@@ -78,7 +78,10 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		} else {
 			System.out.println("There isn't a saved game!");
 		}
-		
+		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+		Player player1 = players.getPlayers().get(0);
+		Player player2 = players.getPlayers().get(1);
+		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
 	}
 	
 	/**
