@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.roundenvironment.RoundEnvironment;
@@ -21,6 +22,7 @@ public class ModelImpl<X extends RoundEnvironment> implements Model<X>{
 		super();
 		this.boardDimension = boardDimension;
 		this.gameRoundEnvironments = gameRoundEnvironments;
+		this.winners = new ArrayList<>();
 	}
 
 	@Override

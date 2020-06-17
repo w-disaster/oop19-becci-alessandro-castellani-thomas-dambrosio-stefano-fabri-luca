@@ -10,7 +10,6 @@ import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.barriers.Barrier.Piece;
 import model.roundenvironment.coordinate.Coordinate;
-import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 
 public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer {
@@ -23,8 +22,8 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	private Coordinate newBarrierPosition;
 	private Orientation newBarrierOrientation;
 
-	public BarrierPlacerImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds, List<Player> roundWinner) {
-		super(model, view, iterRounds, roundWinner);
+	public BarrierPlacerImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds) {
+		super(model, view, iterRounds);
 		this.model = model;
 		this.view = view;
 		this.observerBarrier = new ObserverBarrierPosition(this.view);
