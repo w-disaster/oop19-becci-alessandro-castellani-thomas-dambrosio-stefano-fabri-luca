@@ -50,7 +50,7 @@ public class LoadGame {
 			readerModelDim.close();
 			List<RoundEnvironment> gameRoundEnvironments = serializator.fromJson(serializedEnv, token.getType());
 			int boardDimension = serializator.fromJson(serializedDim, Integer.class);
-			model = new ModelImpl<RoundEnvironment>(gameRoundEnvironments, boardDimension); 
+			model = new ModelImpl<RoundEnvironment>(gameRoundEnvironments, boardDimension, null, null); 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
