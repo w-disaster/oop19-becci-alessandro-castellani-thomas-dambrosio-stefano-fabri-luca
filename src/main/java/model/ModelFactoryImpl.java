@@ -15,20 +15,9 @@ import model.roundenvironment.players.RoundPlayers;
 import model.roundenvironment.players.RoundPlayersImpl;
 
 public class ModelFactoryImpl implements ModelFactory {
-	
-	/**
-	 * 
-	 * @param <X>
-	 * @param roundEnvironments
-	 * @param boardDimension
-	 * @return model of generic type X
-	 */
-	private static <X extends RoundEnvironment> Model<X> build(List<X> roundEnvironments, int boardDimension) {
-		return new ModelImpl<X>(roundEnvironments, boardDimension);
-	}
 
 	@Override
-	public Model<RoundEnvironment> standardModel(final String nickname1, final String nickname2) {
+	public Model<RoundEnvironment> buildFromScratch(final String nickname1, final String nickname2) {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
 		Coordinate coordinate1 = new Coordinate(Model.BOARD_DIMENSION/2, 0);
 		Coordinate coordinate2 = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
@@ -44,7 +33,13 @@ public class ModelFactoryImpl implements ModelFactory {
 			RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
 			roundEnvironments.add(environment);
 		}
-		return build(roundEnvironments, Model.BOARD_DIMENSION);
+		return new ModelImpl<>(roundEnvironments, Model.BOARD_DIMENSION, roundEnvironments.get(0), new ArrayList<>());
 	}
+	
+	//TODO
+	public <X extends RoundEnvironment> Model<X> buildFromExisting(List<X> roundEnvironments, int boardDimension){
+		return null;
+	}
+	
 	
 }

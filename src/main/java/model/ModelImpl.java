@@ -8,21 +8,25 @@ import model.roundenvironment.players.Player;
 
 public class ModelImpl<X extends RoundEnvironment> implements Model<X>{
 
+	private List<X> gameRoundEnvironments;
 	private int boardDimension;
 	private X currentRoundEnvironment;
-	private List<X> gameRoundEnvironments;
 	private List<Player> winners;
 	
 	/**
-	 * Model from existing environments, one for each round, and eventually the dimension of the board
-	 * @param gameRoundsEnvironments
+	 * ModelImpl object from fields
+	 * @param gameRoundEnvironments
 	 * @param boardDimension
+	 * @param currentRoundEnvironment
+	 * @param winners
 	 */
-	public ModelImpl(final List<X> gameRoundEnvironments, final int boardDimension) {
+	public ModelImpl(List<X> gameRoundEnvironments, int boardDimension, X currentRoundEnvironment,
+			List<Player> winners) {
 		super();
-		this.boardDimension = boardDimension;
 		this.gameRoundEnvironments = gameRoundEnvironments;
-		this.winners = new ArrayList<>();
+		this.boardDimension = boardDimension;
+		this.currentRoundEnvironment = currentRoundEnvironment;
+		this.winners = winners;
 	}
 
 	@Override
