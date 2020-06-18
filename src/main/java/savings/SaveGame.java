@@ -19,17 +19,20 @@ public class SaveGame {
 	
 	private final Model<RoundEnvironment> model;
 	private File dir;
-	private File saveModel;
+	private File saveRoundEnvironment;
+	private File saveModelDimension;
 	private final String pathDir = PathSavings.DIRECTORY.getPath() ;
-	private final String pathFileModel = PathSavings.MODEL.getPath();
+	private final String pathFileModelEnv = PathSavings.MODELENV.getPath();
+	private final String pathFileModelDim = PathSavings.MODELDIM.getPath();
 	
 	private void createDirAndFiles() {
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
 		try {
-		if(!saveModel.exists()) {
-			saveModel.createNewFile();
+		if(!saveRoundEnvironment.exists() && !saveModelDimension.exists()) {
+			saveRoundEnvironment.createNewFile();
+			saveModelDimension.createNewFile();
 		}
 		} catch(Exception e) {
 			System.out.println("problems creating file");
@@ -40,7 +43,8 @@ public class SaveGame {
 		this.model = model;
 		try{
 			dir = new File(pathDir);
-			saveModel = new File(pathFileModel);
+			saveRoundEnvironment = new File(pathFileModelEnv);
+			saveModelDimension = new File(pathFileModelDim);
 			createDirAndFiles();
 		}catch(Exception e) {
 			System.out.println("problem in creating file");
@@ -49,19 +53,18 @@ public class SaveGame {
 	
 	public void save() {
 		Gson serializator = new Gson();
-		BufferedWriter out;
 		try {
-			out = new BufferedWriter(new FileWriter(saveModel));
-			out.write(serializator.toJson(model.getGameRoundEnvironments()));
-			out.newLine();
-			out.write(model.getBoardDimension());
-			out.close();
+			BufferedWriter roundEnvWriter = new BufferedWriter(new FileWriter(saveRoundEnvironment));
+			BufferedWriter roundDimWriter = new BufferedWriter(new FileWriter(saveModelDimension));
+			roundEnvWriter.write(serializator.toJson(model.getGameRoundEnvironments()));
+			roundDimWriter.write(serializator.toJson(model.getBoardDimension()));
+			roundEnvWriter.close();
+			roundDimWriter.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        LoadGame load = new LoadGame();
-        System.out.println(load.getModel().getBoardDimension());
+        
 	}
 	
 

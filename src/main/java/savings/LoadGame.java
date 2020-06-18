@@ -18,21 +18,23 @@ import model.ModelImpl;
 import model.roundenvironment.RoundEnvironment;
 
 public class LoadGame {
-	private final String pathDir = PathSavings.MODEL.getPath();
-	private final String pathFileModel = PathSavings.MODEL.getPath();
-	private final File fileSave;
+	private final String pathFileModelEnv = PathSavings.MODELENV.getPath();
+	private final String pathFileModelDim = PathSavings.MODELDIM.getPath();
+	private final File fileModelEnv;
+	private final File fileModelDim;
 	private Model<RoundEnvironment> model;
 	private boolean fileModelExist;
 	
 	public LoadGame() {
-		fileSave = new File(pathFileModel);
-		if(fileSave.exists()) {
+		fileModelEnv = new File(pathFileModelEnv);
+		fileModelDim = new File(pathFileModelDim);
+		if(fileModelEnv.exists() && fileModelDim.exists()) {
 			fileModelExist = true;
 			getData();
 		}
 		else {
 			fileModelExist = false;
-			System.out.println("file dont exist");
+			System.out.println("files doesnt exist");
 		}
 	}
 	
@@ -40,13 +42,14 @@ public class LoadGame {
 		Gson serializator = new Gson();
 		TypeToken<ArrayList<X>> token = new TypeToken<ArrayList<X>>() {};
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(fileSave));
-			String serialized = reader.readLine();
-			reader.close();
-			String gameRoundEnvironmentsSer = serialized.split("//")[0];
-			String boardDimensionSer = serialized.split("//")[1];
-			List<RoundEnvironment> gameRoundEnvironments = serializator.fromJson(gameRoundEnvironmentsSer, token.getType());
-			int boardDimension = serializator.fromJson(boardDimensionSer, Integer.class);
+			BufferedReader readerModelEnv = new BufferedReader(new FileReader(fileModelEnv));
+			BufferedReader readerModelDim = new BufferedReader(new FileReader(fileModelDim));
+			String serializedEnv = readerModelEnv.readLine();
+			String serializedDim = readerModelDim.readLine();
+			readerModelEnv.close();
+			readerModelDim.close();
+			List<RoundEnvironment> gameRoundEnvironments = serializator.fromJson(serializedEnv, token.getType());
+			int boardDimension = serializator.fromJson(serializedDim, Integer.class);
 			model = new ModelImpl<RoundEnvironment>(gameRoundEnvironments, boardDimension); 
 		} catch(Exception e) {
 			e.printStackTrace();

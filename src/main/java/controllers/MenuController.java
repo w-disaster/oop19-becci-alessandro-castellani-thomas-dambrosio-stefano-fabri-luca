@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Model;
+import model.roundenvironment.RoundEnvironment;
 import savings.LoadGame;
 import savings.SaveGame;
 import viewmenu.SceneChanger;
@@ -29,6 +31,7 @@ public class MenuController {
 	private SceneChanger sceneChange;
 	private Stage stage;
 	private LoadGame loading;
+	private Model<RoundEnvironment> model;
 	
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
@@ -74,12 +77,14 @@ public class MenuController {
 	 @FXML
 	 public void loadGameButtonPressHandler() {
 		 loading = new LoadGame();
-		 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+		 model = loading.getModel();
+		 /*if(loading.saveExist()) { to_load = true; } else { to_load = false; }
 		 System.out.println(to_load);
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
 		 sceneChange = new SceneChangerImpl();
-		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
+		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");*/
+	     System.out.println(model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer());
 	 }
 	 
 	 @FXML
