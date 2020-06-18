@@ -15,21 +15,15 @@ import model.roundenvironment.RoundEnvironment;
 public class SaveResource {
 	
 	private final Model<RoundEnvironment> model;
-	private final UIController view;
 	private final Iterator<RoundEnvironment> iterator;
 	
-	public SaveResource(final Model<RoundEnvironment> model, final UIController view, final Iterator<RoundEnvironment> iterator) {
+	public SaveResource(final Model<RoundEnvironment> model, final Iterator<RoundEnvironment> iterator) {
 		this.model = model;
-		this.view = view;
 		this.iterator = iterator;
 	}
 
 	public Model<RoundEnvironment> getModel(){
 		return model;
-	}
-	
-	public UIController getView() {
-		return view;
 	}
 
 	public Iterator<RoundEnvironment> getRoundIterator(){

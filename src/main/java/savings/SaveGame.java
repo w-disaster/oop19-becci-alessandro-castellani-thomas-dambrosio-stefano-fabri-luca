@@ -18,7 +18,6 @@ import model.roundenvironment.RoundEnvironment;
 public class SaveGame {
 	
 	private final SaveResource resource;
-	private ObjectOutputStream out;
 	private File dir;
 	private File saveGame;
 	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
@@ -37,8 +36,8 @@ public class SaveGame {
 		}
 	}
 	//I HAVE TO PUT ALL OBJECTS TO SAVE IN A SINGLE OBJECT
-	public SaveGame(final Model<RoundEnvironment> model, final UIController view, final Iterator<RoundEnvironment> iterator) {
-		resource = new SaveResource(model, view, iterator);
+	public SaveGame(final Model<RoundEnvironment> model, final Iterator<RoundEnvironment> iterator) {
+		resource = new SaveResource(model, iterator);
 		try{
 			dir = new File(pathDir);
 			saveGame = new File(pathFile);

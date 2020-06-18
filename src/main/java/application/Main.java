@@ -1,5 +1,6 @@
 package application;
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,7 +36,6 @@ public final class Main extends Application {
         stage.setMinWidth(stage.getWidth());
         stage.setMinHeight(stage.getHeight());
         Main.STAGE = stage;
-        
     }
     
     
