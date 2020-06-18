@@ -17,19 +17,19 @@ import model.roundenvironment.RoundEnvironment;
 
 public class SaveGame {
 	
-	private final SaveResource resource;
+	private final Model<RoundEnvironment> model;
 	private File dir;
-	private File saveGame;
-	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
-	private final String pathFile = pathDir + File.separator + "saveGame";
+	private File saveModel;
+	private final String pathDir = PathSavings.DIRECTORY.getPath() ;
+	private final String pathFileModel = PathSavings.MODEL.getPath();
 	
-	private void createDirAndFile() {
+	private void createDirAndFiles() {
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
 		try {
-		if(!saveGame.exists()) {
-			saveGame.createNewFile();
+		if(!saveModel.exists()) {
+			saveModel.createNewFile();
 		}
 		} catch(Exception e) {
 			System.out.println("problems creating file");
@@ -37,11 +37,11 @@ public class SaveGame {
 	}
 	//I HAVE TO PUT ALL OBJECTS TO SAVE IN A SINGLE OBJECT
 	public SaveGame(final Model<RoundEnvironment> model, final Iterator<RoundEnvironment> iterator) {
-		resource = new SaveResource(model, iterator);
+		this.model = model;
 		try{
 			dir = new File(pathDir);
-			saveGame = new File(pathFile);
-			createDirAndFile();
+			saveModel = new File(pathFileModel);
+			createDirAndFiles();
 		}catch(Exception e) {
 			System.out.println("problem in creating file");
 		}
@@ -51,15 +51,19 @@ public class SaveGame {
 		Gson serializator = new Gson();
 		BufferedWriter out;
 		try {
-			out = new BufferedWriter(new FileWriter(saveGame));
-			out.write(serializator.toJson(resource));
+			out = new BufferedWriter(new FileWriter(saveModel));
+			out.write(serializator.toJson(model.getGameRoundEnvironments()));
+			out.newLine();
+			out.write(model.getBoardDimension());
 			out.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        
+        LoadGame load = new LoadGame();
+        System.out.println(load.getModel().getBoardDimension());
 	}
+	
 
 	
 	

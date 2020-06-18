@@ -68,7 +68,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	}
 	
 	public void loadGame() {
-		if (MenuController.to_load) {
+		/*if (MenuController.to_load) {
 			this.loading = new LoadGame();
 			this.model = this.loading.getResource().getModel();
 			this.iterRounds = this.loading.getResource().getRoundIterator();
@@ -80,7 +80,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		Player player2 = players.getPlayers().get(1);
 		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds);
 		this.placer = new BarrierPlacerImpl(this.model, this.view, this.iterRounds);
-		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
+		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid*/
 	}
 	
 	/**
