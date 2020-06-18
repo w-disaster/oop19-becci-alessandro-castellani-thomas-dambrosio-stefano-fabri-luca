@@ -124,7 +124,9 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	}
 	
 	private boolean noStall() {
-		Graph<Coordinate> graph = ;
+		/*
+		Graph<Coordinate> graph = new Grap<>();
+		*/
 		return true; //need implementation
 	}
 }
