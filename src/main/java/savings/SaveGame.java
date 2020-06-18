@@ -48,11 +48,18 @@ public class SaveGame {
 		}
 	}
 	
-	public void save() throws IOException {
+	public void save() {
 		Gson serializator = new Gson();
-		BufferedWriter out = new BufferedWriter(new FileWriter(saveGame));
-        out.write(serializator.toJson(resource));
-        out.close();
+		BufferedWriter out;
+		try {
+			out = new BufferedWriter(new FileWriter(saveGame));
+			out.write(serializator.toJson(resource));
+			out.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
 	}
 
 	
