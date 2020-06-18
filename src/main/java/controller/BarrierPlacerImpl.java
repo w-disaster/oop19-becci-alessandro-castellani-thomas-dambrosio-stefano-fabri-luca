@@ -2,6 +2,8 @@ package controller;
 
 import java.util.*;
 
+import com.google.common.graph.*;
+
 import controllers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
@@ -122,6 +124,7 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	}
 	
 	private boolean noStall() {
+		Graph<Coordinate> graph = ;
 		return true; //need implementation
 	}
 }

@@ -63,7 +63,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	}
 	
 	public void saveGame() {
-		this.saving = new SaveGame(this.model, this.view, this.iterRounds);
+		this.saving = new SaveGame(this.model, this.iterRounds);
 		this.saving.save();
 	}
 	
@@ -71,7 +71,6 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		if (MenuController.to_load) {
 			this.loading = new LoadGame();
 			this.model = this.loading.getResource().getModel();
-			this.view = this.loading.getResource().getView();
 			this.iterRounds = this.loading.getResource().getRoundIterator();
 		} else {
 			System.out.println("There isn't a saved game!");
@@ -79,6 +78,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		Player player1 = players.getPlayers().get(0);
 		Player player2 = players.getPlayers().get(1);
+		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds);
+		this.placer = new BarrierPlacerImpl(this.model, this.view, this.iterRounds);
 		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
 	}
 	
@@ -87,6 +88,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	 * 
 	 * @return the current model
 	 */
+	
 	/*
 	public Model<RoundEnvironment> getModel() {
 		return this.model;
