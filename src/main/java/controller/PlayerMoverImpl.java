@@ -53,21 +53,21 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private List<Coordinate> checkMove() {
 		List<Coordinate> moves = new ArrayList<>();
 		List<Coordinate> movesJump = new ArrayList<>();
-		for (int y = 0; y < 8; y++) {
-			for (int x = 0; x < 8; x++) {
+		for (int y = 0; y < 9; y++) {
+			for (int x = 0; x < 9; x++) {
 				Coordinate testCoord = new Coordinate(x,y);
 				if (this.adjacent(this.playerPosition, testCoord)) {
 					moves.add(testCoord);
 				}
 				if (this.canJump()) {
-					if (this.adjacent(this.getOtherPlayer().getCoordinate(), testCoord)) {
+					if (this.adjacent(this.getOtherPlayer().get().getCoordinate(), testCoord)) {
 						movesJump.add(testCoord);
 					}
 				}
 			}
 		}
-		moves = this.getFreePositions(moves);
-		movesJump = this.getFreePositions(movesJump);
+		this.getFreePositions(moves);
+		this.getFreePositions(movesJump);
 		for (Coordinate c : moves) {
 			if (!this.noWall(this.playerPosition, c)) {
 				moves.remove(moves.indexOf(c));
@@ -75,7 +75,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		}
 		if (this.canJump()) {
 			for (Coordinate c : movesJump) {
-				if (!this.noWall(this.getOtherPlayer().getCoordinate(), c)) {
+				if (!this.noWall(this.getOtherPlayer().get().getCoordinate(), c)) {
 					movesJump.remove(movesJump.indexOf(c));
 				}
 			}
@@ -120,17 +120,24 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		return this.adjacent(this.players.getPlayers().get(0).getCoordinate(), this.players.getPlayers().get(1).getCoordinate());
 	}
 	
-	private Player getOtherPlayer() {
-		return (Player) this.players.getPlayers().stream()
-										.filter(p -> !p.equals(this.players.getCurrentPlayer()));
-	}
-	
-	private List<Coordinate> getFreePositions(List<Coordinate> coords) {
-		for (Coordinate c : coords) {
-			if (c.equals(this.players.getPlayers().get(0).getCoordinate()) || c.equals(this.players.getPlayers().get(1).getCoordinate())) {
-				coords.remove(coords.indexOf(c));
+	private Optional<Player> getOtherPlayer() {
+		for (Player p : this.players.getPlayers()) {
+			if (!p.equals(this.players.getCurrentPlayer())) {
+				return Optional.of(p);
 			}
 		}
-		return coords;
+		return Optional.empty();
+	}
+	
+	private void getFreePositions(List<Coordinate> coords) {
+		List<Integer> indexes = new ArrayList<>();
+		for (Coordinate c : coords) {
+			if (c.equals(this.players.getPlayers().get(0).getCoordinate()) || c.equals(this.players.getPlayers().get(1).getCoordinate())) {
+				indexes.add(coords.indexOf(c));
+			}
+		}
+		for (int i : indexes) {
+			coords.remove(i);
+		}
 	}
 }
