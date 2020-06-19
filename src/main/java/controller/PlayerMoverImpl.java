@@ -50,7 +50,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		}
 	}
 	
-	private List<Coordinate> checkMove() {
+	protected List<Coordinate> checkMove() {
 		List<Coordinate> moves = new ArrayList<>();
 		List<Coordinate> movesJump = new ArrayList<>();
 		for (int y = 0; y < 9; y++) {

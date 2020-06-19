@@ -37,7 +37,7 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	public void placeBarrier(Coordinate position, Orientation type) {
 		this.newBarrierPosition = position;
 		this.newBarrierOrientation = type;
-		if (this.isEmptyPosition() && this.enoughBarriers() && this.checkPosition() && this.noStall()) {
+		if (this.checkPlacement()) {
 			this.players.getCurrentPlayer().setAvailableBarriers(this.players.getCurrentPlayer().getAvailableBarriers() - 1);
 			this.view.updateBarriersNumber(this.players.getCurrentPlayer().getNickname(), this.players.getCurrentPlayer().getAvailableBarriers());
 			//to place barriers long 2 positions i have to add 2 barriers
@@ -57,6 +57,10 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 		} else {
 			System.out.println("Bad move! Still your turn!");
 		}
+	}
+	
+	protected boolean checkPlacement() {
+		return this.isEmptyPosition() && this.enoughBarriers() && this.checkPosition() && this.noStall() ? true : false;
 	}
 
 	//this method also prevents placing of barriers over other barriers
