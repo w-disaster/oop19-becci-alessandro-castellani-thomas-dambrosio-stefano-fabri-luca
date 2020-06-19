@@ -20,7 +20,6 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
-	private Direction direction;
 	
 	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds) {
 		super(model, view, iterRounds);
@@ -36,43 +35,57 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		//this.newPosition will be the final position (it may change while clickedPosition will remain the clicked position)
 		this.newPosition = new Coordinate(clickedPosition.getX(), clickedPosition.getY());
-		if (this.adjacent() && this.noWall(this.playerPosition, this.newPosition)) {
-			//System.out.println(this.players.getCurrentPlayer().getNickname() + " position is: " + this.players.getCurrentPlayer().getCoordinate());
-			//System.out.println("Moving to position " + newPosition);
-			if (this.canJump()) {
-				switch(this.direction) {
-				case RIGHT:
-					this.newPosition.setX(this.newPosition.getX() + 1);
-					break;
-				case LEFT:
-					this.newPosition.setX(this.newPosition.getX() - 1);
-					break;
-				case UP:
-					this.newPosition.setY(this.newPosition.getY() - 1);
-					break;
-				case DOWN:
-					this.newPosition.setY(this.newPosition.getY() + 1);
-					break;
-				}
+		if (this.checkMove().contains(clickedPosition)) {
+			this.players.getCurrentPlayer().setCoordinate(this.newPosition);
+			this.observerPlayer.update(this.newPosition, this.players.getCurrentPlayer().getNickname()); //update view
+			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
+				System.out.println(this.players.getCurrentPlayer().getNickname() + " won the round!");
+				this.model.getWinners().add(((this.players.getCurrentPlayer()))); //add the winner of the round
+				this.changeRound();
 			}
-			if (this.noWall(clickedPosition, this.newPosition)) {
-				this.players.getCurrentPlayer().setCoordinate(this.newPosition);
-				this.observerPlayer.update(this.newPosition, this.players.getCurrentPlayer().getNickname()); //update view
-				if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
-					System.out.println(this.players.getCurrentPlayer().getNickname() + " won the round!");
-					this.model.getWinners().add(((this.players.getCurrentPlayer()))); //add the winner of the round
-					this.changeRound();
-				}
-				this.changeTurn(this.players.getCurrentPlayer());
-				this.view.changeSelectedLabel(this.players.getCurrentPlayer().getNickname());
-			}
+			this.changeTurn(this.players.getCurrentPlayer());
+			this.view.changeSelectedLabel(this.players.getCurrentPlayer().getNickname());
 		} else {
 			System.out.println("Bad move! Still your turn!");
 		}
 	}
+	
+	private List<Coordinate> checkMove() {
+		List<Coordinate> moves = new ArrayList<>();
+		List<Coordinate> movesJump = new ArrayList<>();
+		for (int y = 0; y < 8; y++) {
+			for (int x = 0; x < 8; x++) {
+				Coordinate testCoord = new Coordinate(x,y);
+				if (this.adjacent(this.playerPosition, testCoord)) {
+					moves.add(testCoord);
+				}
+				if (this.canJump()) {
+					if (this.adjacent(this.getOtherPlayer().getCoordinate(), testCoord)) {
+						movesJump.add(testCoord);
+					}
+				}
+			}
+		}
+		moves = this.getFreePositions(moves);
+		movesJump = this.getFreePositions(movesJump);
+		for (Coordinate c : moves) {
+			if (!this.noWall(this.playerPosition, c)) {
+				moves.remove(moves.indexOf(c));
+			}
+		}
+		if (this.canJump()) {
+			for (Coordinate c : movesJump) {
+				if (!this.noWall(this.getOtherPlayer().getCoordinate(), c)) {
+					movesJump.remove(movesJump.indexOf(c));
+				}
+			}
+		}
+		moves.addAll(movesJump);
+		return moves;
+	}
 
-	private boolean adjacent() {
-		if (Math.abs(this.playerPosition.getX() - this.newPosition.getX()) + Math.abs(this.playerPosition.getY() - this.newPosition.getY()) == 1) {
+	private boolean adjacent(Coordinate coord1, Coordinate coord2) {
+		if (Math.abs(coord1.getX() - coord2.getX()) + Math.abs(coord1.getY() - coord2.getY()) == 1) {
 			return true;
 		}
 		return false;
@@ -81,25 +94,21 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private boolean noWall(Coordinate startPosition, Coordinate destPosition) {
 		//i need to find in which direction the player wants to move in order to check if there's a wall
 		if (destPosition.getX() > startPosition.getX()) {
-			this.direction = Direction.RIGHT;
 			if (this.containsBarrierTypeIndipendent(this.barriers, startPosition, Orientation.VERTICAL)) {
 				return false;
 			}
 		}
 		if (destPosition.getX() < startPosition.getX()) {
-			this.direction = Direction.LEFT;
 			if (this.containsBarrierTypeIndipendent(this.barriers, destPosition, Orientation.VERTICAL)) { 
 				return false;
 			}
 		}
 		if (destPosition.getY() > startPosition.getY()) {
-			this.direction = Direction.DOWN;
 			if (this.containsBarrierTypeIndipendent(this.barriers, startPosition, Orientation.HORIZONTAL)) {
 				return false;
 			}
 		}
 		if (destPosition.getY() < startPosition.getY()) {
-			this.direction = Direction.UP;
 			if (this.containsBarrierTypeIndipendent(this.barriers, destPosition, Orientation.HORIZONTAL)) {
 				return false;
 			}
@@ -108,13 +117,20 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	}
 	
 	private boolean canJump() {
-		//new position must be empty
-		for (Player p : this.players.getPlayers()) {
-			if (!p.equals(this.players.getCurrentPlayer()) && p.getCoordinate().equals(this.newPosition)) {
-				System.out.println("You are moving on a player! Let's jump!!!");
-				return true;
+		return this.adjacent(this.players.getPlayers().get(0).getCoordinate(), this.players.getPlayers().get(1).getCoordinate());
+	}
+	
+	private Player getOtherPlayer() {
+		return (Player) this.players.getPlayers().stream()
+										.filter(p -> !p.equals(this.players.getCurrentPlayer()));
+	}
+	
+	private List<Coordinate> getFreePositions(List<Coordinate> coords) {
+		for (Coordinate c : coords) {
+			if (c.equals(this.players.getPlayers().get(0).getCoordinate()) || c.equals(this.players.getPlayers().get(1).getCoordinate())) {
+				coords.remove(coords.indexOf(c));
 			}
 		}
-		return false;
+		return coords;
 	}
 }
