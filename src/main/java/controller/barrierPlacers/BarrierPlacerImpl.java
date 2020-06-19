@@ -1,9 +1,12 @@
-package controller;
+package controller.barrierPlacers;
 
 import java.util.*;
 
 import com.google.common.graph.*;
 
+import controller.GenericMoveImpl;
+import controller.observers.Observer;
+import controller.observers.ObserverBarrierPosition;
 import controllers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;

@@ -1,7 +1,10 @@
-package controller;
+package controller.playerMovers;
 
 import java.util.*;
 
+import controller.GenericMoveImpl;
+import controller.observers.Observer;
+import controller.observers.ObserverPlayerPosition;
 import controllers.UIController;
 import model.*;
 import model.roundenvironment.barriers.RoundBarriers;

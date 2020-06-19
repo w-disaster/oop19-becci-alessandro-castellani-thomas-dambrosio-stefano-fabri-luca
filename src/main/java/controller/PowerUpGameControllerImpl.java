@@ -2,6 +2,10 @@ package controller;
 
 import java.util.Iterator;
 
+import controller.barrierPlacers.BarrierPlacer;
+import controller.barrierPlacers.BarrierPlacerPowerUp;
+import controller.playerMovers.PlayerMover;
+import controller.playerMovers.PlayerMoverPowerUp;
 import controllers.UIController;
 import model.Model;
 import model.ModelFactoryImpl;

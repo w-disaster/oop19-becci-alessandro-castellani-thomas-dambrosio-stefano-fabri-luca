@@ -1,4 +1,4 @@
-package controller;
+package controller.playerMovers;
 
 import java.util.Iterator;
 

@@ -1,4 +1,4 @@
-package controller;
+package controller.observers;
 
 /**
  * this class updates the view when the model changes

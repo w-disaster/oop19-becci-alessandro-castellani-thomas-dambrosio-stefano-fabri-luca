@@ -1,4 +1,4 @@
-package controller;
+package controller.observers;
 
 import controllers.UIController;
 import model.roundenvironment.coordinate.Coordinate;

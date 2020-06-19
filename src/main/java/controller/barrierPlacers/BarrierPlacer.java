@@ -1,4 +1,4 @@
-package controller;
+package controller.barrierPlacers;
 
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.barriers.Barrier.Piece;
