@@ -102,7 +102,6 @@ public class SaveGame {
 		Gson serializator = new Gson();
 		try {
 			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));
-			
 			int numRound = -1;
 			for(RoundEnvironment env : model.getGameRoundEnvironments()) {
 				numRound++;

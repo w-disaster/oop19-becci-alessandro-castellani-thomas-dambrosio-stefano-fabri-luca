@@ -21,6 +21,9 @@ import model.ModelImpl;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundEnvironmentImpl;
 import model.roundenvironment.barriers.Barrier;
+import model.roundenvironment.barriers.Barrier.Orientation;
+import model.roundenvironment.barriers.Barrier.Piece;
+import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.coordinate.Coordinate;
@@ -32,8 +35,10 @@ import model.roundenvironment.players.RoundPlayersImpl;
 public class LoadGame {
 	private final String pathFilePlayers= PathSavings.MODELPLAYERS.getPath();
 	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
+	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
 	private final File fileModelCurrent;
 	private final File fileModelPlayers;
+	private final File fileModelBarriers;
 	private Model<RoundEnvironment> model;
 	private boolean fileModelExist;
 	private Gson serializator;
@@ -42,7 +47,8 @@ public class LoadGame {
 		serializator = new Gson();
 		fileModelPlayers = new File(pathFilePlayers);
 		fileModelCurrent = new File(pathFileCurrent);
-		if(fileModelPlayers.exists() && fileModelCurrent.exists()) {
+		fileModelBarriers = new File(pathFileBarriers);
+		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists()) {
 			fileModelExist = true;
 			getData();
 		}
@@ -96,6 +102,43 @@ public class LoadGame {
 		return playersList;
 	}
 	
+	private int lineCounter(File file) {
+		int counter = 0;
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			while(reader.readLine() != null) {
+				counter++;
+			}
+			reader.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return counter - 1;
+	}
+	
+	private List<Barrier> getBarrierList(final int numRound){
+		List<Barrier> barriers = new ArrayList<>();
+		try {
+			BufferedReader readerModelBarriers = new BufferedReader(new FileReader(fileModelBarriers));
+			if(Integer.parseInt(readerModelBarriers.readLine()) != numRound){
+				readerModelBarriers.close();
+				return barriers;
+			}
+			else {
+				System.out.println(lineCounter(fileModelBarriers));
+				for(int k = 0; k < lineCounter(fileModelBarriers) / 3; k++) {
+					Coordinate coord = serializator.fromJson(readerModelBarriers.readLine(), Coordinate.class);
+					Orientation type = serializator.fromJson(readerModelBarriers.readLine(), Orientation.class);
+					Piece piece = serializator.fromJson(readerModelBarriers.readLine(), Piece.class);
+					barriers.add(new BarrierImpl(coord, type, piece));
+				}
+			}
+			readerModelBarriers.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return barriers;
+	}
 	
 	private void getData() {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
@@ -105,7 +148,7 @@ public class LoadGame {
 			for(int i=0; i < 3; i++) {
 				RoundPlayers players = new RoundPlayersImpl(getPlayersList(i));
 				//i should have also the barriers. waiting for luca.
-				RoundBarriers barriers = new RoundBarriersImpl(Collections.emptyList());
+				RoundBarriers barriers = new RoundBarriersImpl(getBarrierList(i));
 				//set current player at the right round.
 				if(i==currents.getValue()) {
 					players.setCurrentPlayer(currents.getKey());
