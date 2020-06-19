@@ -75,7 +75,9 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 				System.out.println("Not empty!!");
 				return false;
 			} else {
-				return true;
+				if (!this.checkEmptyNextPosition()) {
+					return false;
+				}
 			}
 		}
 		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.VERTICAL, Piece.TAIL))) {
@@ -83,24 +85,29 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 				System.out.println("Not empty!!");
 				return false;
 			} else {
-				return true;
+				if (!this.checkEmptyNextPosition()) {
+					return false;
+				}
 			}
 		}
 		//more checks if the position is empty
+		if (!this.checkEmptyNextPosition()) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean checkEmptyNextPosition() {
 		if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX() + 1, this.newBarrierPosition.getY()), Orientation.HORIZONTAL, Piece.HEAD))) {
 			if (this.newBarrierOrientation.equals(Orientation.HORIZONTAL)) { //here i can place a horizontal barrier
 				System.out.println("Not empty!!");
 				return false;
-			} else {
-				return true;
 			}
 		}
 		if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX(), this.newBarrierPosition.getY() + 1), Orientation.VERTICAL, Piece.HEAD))) {
 			if (this.newBarrierOrientation.equals(Orientation.VERTICAL)) { //here i can place a horizontal barrier
 				System.out.println("Not empty!!");
 				return false;
-			} else {
-				return true;
 			}
 		}
 		return true;
