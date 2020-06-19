@@ -8,7 +8,7 @@ public enum PathSavings {
 	
 	LEADERBOARD(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "leaderBoard"),
 	
-	MODELENV(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "modelEnv"),
+	MODELPLAYERS(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "modelPlayers"),
 	
 	MODELDIM(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "model"),
 	

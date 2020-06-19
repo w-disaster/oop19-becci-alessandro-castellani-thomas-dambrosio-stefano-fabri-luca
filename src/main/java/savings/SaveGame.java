@@ -14,15 +14,16 @@ import com.google.gson.Gson;
 import controllers.UIController;
 import model.Model;
 import model.roundenvironment.RoundEnvironment;
+import model.roundenvironment.players.Player;
 
 public class SaveGame {
 	
 	private final Model<RoundEnvironment> model;
 	private File dir;
-	private File saveRoundEnvironment;
+	private File savePlayers;
 	private File saveModelDimension;
 	private final String pathDir = PathSavings.DIRECTORY.getPath() ;
-	private final String pathFileModelEnv = PathSavings.MODELENV.getPath();
+	private final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
 	private final String pathFileModelDim = PathSavings.MODELDIM.getPath();
 	
 	private void createDirAndFiles() {
@@ -30,8 +31,8 @@ public class SaveGame {
 			dir.mkdir();
 		}
 		try {
-		if(!saveRoundEnvironment.exists() && !saveModelDimension.exists()) {
-			saveRoundEnvironment.createNewFile();
+		if(!savePlayers.exists() && !saveModelDimension.exists()) {
+			savePlayers.createNewFile();
 			saveModelDimension.createNewFile();
 		}
 		} catch(Exception e) {
@@ -43,7 +44,7 @@ public class SaveGame {
 		this.model = model;
 		try{
 			dir = new File(pathDir);
-			saveRoundEnvironment = new File(pathFileModelEnv);
+			savePlayers = new File(pathFilePlayers);
 			saveModelDimension = new File(pathFileModelDim);
 			createDirAndFiles();
 		}catch(Exception e) {
@@ -54,11 +55,22 @@ public class SaveGame {
 	public void save() {
 		Gson serializator = new Gson();
 		try {
-			BufferedWriter roundEnvWriter = new BufferedWriter(new FileWriter(saveRoundEnvironment));
+			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));
 			BufferedWriter roundDimWriter = new BufferedWriter(new FileWriter(saveModelDimension));
-			roundEnvWriter.write(serializator.toJson(model.getGameRoundEnvironments()));
+			for(RoundEnvironment env : model.getGameRoundEnvironments()) {
+				for(Player pl : env.getRoundPlayers().getPlayers()) {
+					roundPlayersWriter.write(serializator.toJson(pl.getNickname()));
+					roundPlayersWriter.newLine();
+					roundPlayersWriter.write(serializator.toJson(pl.getCoordinate()));
+					roundPlayersWriter.newLine();
+					roundPlayersWriter.write(serializator.toJson(pl.getAvailableBarriers()));
+					roundPlayersWriter.newLine();
+					//i'll need also the finish line.
+				}
+			}
+			//roundEnvWriter.write(serializator.toJson(model.getGameRoundEnvironments().get(index)));
 			roundDimWriter.write(serializator.toJson(model.getBoardDimension()));
-			roundEnvWriter.close();
+			roundPlayersWriter.close();
 			roundDimWriter.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
