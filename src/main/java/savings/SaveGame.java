@@ -21,6 +21,7 @@ import model.roundenvironment.players.Player;
 public class SaveGame {
 	
 	private final Model<RoundEnvironment> model;
+	private final Iterator<RoundEnvironment> iterator;
 	private File dir;
 	private File savePlayers;
 	private File saveModelCurrent;
@@ -48,6 +49,7 @@ public class SaveGame {
 	
 	public SaveGame(final Model<RoundEnvironment> model, final Iterator<RoundEnvironment> iterator) {
 		this.model = model;
+		this.iterator = iterator;
 		serializator = new Gson();
 		try{
 			dir = new File(pathDir);
@@ -107,7 +109,9 @@ public class SaveGame {
 				numRound++;
 				if(env.getRoundPlayers().getCurrentPlayer() != null) {
 					saveCurrentPlayer(numRound, env.getRoundPlayers().getCurrentPlayer());
+					System.out.println("current player Saved");
 					saveBarriers(numRound, env.getRoundBarriers().getBarriersAsList());
+					System.out.println("barriers Saved");
 				}
 				for(Player pl : env.getRoundPlayers().getPlayers()) {
 					roundPlayersWriter.write(serializator.toJson(pl.getNickname()));
@@ -120,6 +124,7 @@ public class SaveGame {
 					roundPlayersWriter.newLine();
 				}
 			}
+			System.out.println("players Saved");
 			roundPlayersWriter.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

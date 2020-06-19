@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -40,6 +41,7 @@ public class LoadGame {
 	private final File fileModelPlayers;
 	private final File fileModelBarriers;
 	private Model<RoundEnvironment> model;
+	private Iterator<RoundEnvironment> iterator;
 	private boolean fileModelExist;
 	private Gson serializator;
 	
@@ -125,7 +127,6 @@ public class LoadGame {
 				return barriers;
 			}
 			else {
-				System.out.println(lineCounter(fileModelBarriers));
 				for(int k = 0; k < lineCounter(fileModelBarriers) / 3; k++) {
 					Coordinate coord = serializator.fromJson(readerModelBarriers.readLine(), Coordinate.class);
 					Orientation type = serializator.fromJson(readerModelBarriers.readLine(), Orientation.class);
@@ -147,7 +148,6 @@ public class LoadGame {
 			//now i have to get for each roundEnvironment the things i need
 			for(int i=0; i < 3; i++) {
 				RoundPlayers players = new RoundPlayersImpl(getPlayersList(i));
-				//i should have also the barriers. waiting for luca.
 				RoundBarriers barriers = new RoundBarriersImpl(getBarrierList(i));
 				//set current player at the right round.
 				if(i==currents.getValue()) {
@@ -156,15 +156,25 @@ public class LoadGame {
 				RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
 				roundEnvironments.add(environment);
 			}
-			
-			//model = new ModelImpl<RoundEnvironment>(gameRoundEnvironments, boardDimension, null, null); 
+			//here i should create the model.
+			iterator = roundEnvironments.iterator();
+			iterator.next();
+			for(int i=0; i < currents.getValue(); i++) {
+				iterator.next();
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("loaded Model");
 		
 	}
 	
-	
+	public Iterator<RoundEnvironment> getIterator(){
+		if(fileModelExist) {
+			return iterator;
+		}
+		return null;
+	}
 	
 	public Model<RoundEnvironment> getModel() {
 		if(fileModelExist) {
