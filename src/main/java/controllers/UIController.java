@@ -73,7 +73,7 @@ public final class UIController{
 	private Optional<String> player2;
 
 	public UIController() {
-		this.logic = new LogicImpl();
+		this.logic = new LogicImpl(this);
 		this.controller = new StandardGameControllerImpl(this);
 	}
 	
@@ -171,7 +171,7 @@ public final class UIController{
 	        }
 	    }
 
-	    this.drawText(0, "start");
+	    this.logic.drawTextLogic("start");
 	    
 	    this.logic.setPlayers(player1, player2);
 	    
@@ -207,10 +207,8 @@ public final class UIController{
     public void barrierPlacement(MouseEvent event) {
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
     		this.logic.setSelectedBarrier("vertical");
-    		this.drawText(0, "barrier");
     	} else {
     		this.logic.setSelectedBarrier("horizontal");
-    		this.drawText(0, "barrier");
     	}
     }
     
@@ -241,6 +239,11 @@ public final class UIController{
     	
     }
     
+    public void drawText(String text) {
+    	this.textArea1.setText(text);
+    	this.textArea2.setText(text);
+    }
+    
     public void endRound(String winner) {
        	Alert alert = new Alert(AlertType.CONFIRMATION);
     	alert.setTitle("We have a winner!");
@@ -263,28 +266,6 @@ public final class UIController{
     	} else {
     	    System.exit(0);
     	}
-    }
-    
-    private void drawText(int player, String textToDisplay) {
-    	String moveTutorial = "- Benvenuto su Quoridor! \n- Clicca su una casella adiacente alla tua per muovere la pedina\n"
-    			+ "- Clicca su una barriera per posizionarla\n"
-    			+ "- Puoi saltare l'avversario quando e` di fronte a te";
-    	String barrierTutorial = "Per posizionare la barriera, clicca la casella dove vuoi posizionarla: \n"
-    			+ "- La barriera verticale sara` posizionata a destra e nella cassela in basso\n"
-    			+ "- La barriera orizzontale sara` piazzata in basso e nella casella a destra";
-    	switch(textToDisplay) {
-    		case "start" :
-    			this.textArea1.setText(moveTutorial);
-    			this.textArea2.setText(moveTutorial);
-    			break;
-    		case "barrier" :
-    			this.textArea1.setText(barrierTutorial);
-    			this.textArea2.setText(barrierTutorial);  		
-    			break;
-    		default :
-    			this.textArea1.setText(textToDisplay);
-    			this.textArea2.setText(textToDisplay);
-    	}		
     }
     
     @FXML

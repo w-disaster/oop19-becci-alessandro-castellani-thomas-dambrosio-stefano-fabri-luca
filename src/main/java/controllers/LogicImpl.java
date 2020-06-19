@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import controller.StandardGameControllerImpl;
 import javafx.geometry.Pos;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -17,6 +18,7 @@ import model.roundenvironment.coordinate.Coordinate;
 
 public class LogicImpl implements Logic{
 	
+	private UIController view;
 	private Optional<String> player1;
 	private Optional<String> player2;
 
@@ -25,8 +27,9 @@ public class LogicImpl implements Logic{
 	//0 for vertical, 1 for horizontal
 	private Optional<Integer> selectedBarrier;
 
-	public LogicImpl() {
-    	gridMap = new HashMap<Coordinate, BorderPane>();
+	public LogicImpl(UIController view) {
+		this.view = view;
+    	this.gridMap = new HashMap<Coordinate, BorderPane>();
     	this.selectedBarrier = Optional.empty();
 	}
 	
@@ -42,8 +45,6 @@ public class LogicImpl implements Logic{
         pane.setOnMouseClicked(e -> {
         	this.setUpClickHandler(position, controller);
         });
-        System.out.println(position);
-        System.out.println(pane);
         this.gridMap.put(position, pane);        
 		return pane;
 	}
@@ -69,8 +70,10 @@ public class LogicImpl implements Logic{
 	public void setSelectedBarrier(String type) {
 		if (type.equals("vertical")) {
 			this.selectedBarrier = Optional.of(0);
+			this.drawTextLogic("barrier");
 		} else if (type.equals("horizontal")) {
 			this.selectedBarrier = Optional.of(1);
+			this.drawTextLogic("barrier");
 		}
 	}
 	
@@ -94,21 +97,42 @@ public class LogicImpl implements Logic{
     			horizontalBarrier.setFill(Color.BLUE);
     			selected.setBottom(horizontalBarrier);
     			BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
-    		} else {
+    		} else if (player.equals(this.player2.get())) {
     			horizontalBarrier.setFill(Color.RED);
     			selected.setBottom(horizontalBarrier);	
     			BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
     		}
-    	} else {
+    	} else if (barrier.getOrientation().equals(Orientation.VERTICAL)) {
     		if (player.equals(this.player1.get())) {
     			verticalBarrier.setFill(Color.BLUE);
     			selected.setRight(verticalBarrier);
     			BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
-    		} else {
+    		} else if (player.equals(this.player2.get())) {
     			verticalBarrier.setFill(Color.RED);
     			selected.setRight(verticalBarrier);
     			BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
     		}
     	}	
     }
+
+	@Override
+	public void drawTextLogic(String textToDisplay) {
+    	String moveTutorial = "- Benvenuto su Quoridor! \n- Clicca su una casella adiacente alla tua per muovere la pedina\n"
+    			+ "- Clicca su una barriera per posizionarla\n"
+    			+ "- Puoi saltare l'avversario quando e` di fronte a te\n";
+    	String barrierTutorial = "Per posizionare la barriera, clicca la casella dove vuoi posizionarla: \n"
+    			+ "- La barriera verticale sara` posizionata a destra e nella cassela in basso\n"
+    			+ "- La barriera orizzontale sara` piazzata in basso e nella casella a destra\n";
+    	switch(textToDisplay) {
+    		case "start" :
+    			this.view.drawText(moveTutorial);
+    			break;
+    		case "barrier" :
+    			this.view.drawText(barrierTutorial);		
+    			break;
+    		default :
+    			this.view.drawText(textToDisplay);
+    	}		
+		
+	}
 }

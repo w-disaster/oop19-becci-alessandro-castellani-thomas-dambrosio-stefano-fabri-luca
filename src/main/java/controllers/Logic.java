@@ -3,6 +3,7 @@ package controllers;
 import java.util.Optional;
 
 import controller.StandardGameControllerImpl;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.coordinate.Coordinate;
@@ -22,6 +23,8 @@ public interface Logic {
 	public void setPlayers(Optional<String> player1, Optional<String> player2);
 
 	public void drawBarrierLogic(Barrier barrier, String player);
+
+	public void drawTextLogic(String textToDisplay);
 
 
 
