@@ -66,15 +66,15 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				}
 			}
 		}
-		this.getFreePositions(moves);
-		this.getFreePositions(movesJump);
-		for (Coordinate c : moves) {
+		this.getEmptyPositions(moves);
+		this.getEmptyPositions(movesJump);
+		for (Coordinate c : List.copyOf(moves)) {
 			if (!this.noWall(this.playerPosition, c)) {
 				moves.remove(moves.indexOf(c));
 			}
 		}
 		if (this.canJump()) {
-			for (Coordinate c : movesJump) {
+			for (Coordinate c : List.copyOf(movesJump)) {
 				if (!this.noWall(this.getOtherPlayer().get().getCoordinate(), c)) {
 					movesJump.remove(movesJump.indexOf(c));
 				}
@@ -129,15 +129,11 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		return Optional.empty();
 	}
 	
-	private void getFreePositions(List<Coordinate> coords) {
-		List<Integer> indexes = new ArrayList<>();
-		for (Coordinate c : coords) {
+	private void getEmptyPositions(List<Coordinate> coords) {
+		for (Coordinate c : List.copyOf(coords)) {
 			if (c.equals(this.players.getPlayers().get(0).getCoordinate()) || c.equals(this.players.getPlayers().get(1).getCoordinate())) {
-				indexes.add(coords.indexOf(c));
+				coords.remove(coords.indexOf(c));
 			}
-		}
-		for (int i : indexes) {
-			coords.remove(i);
 		}
 	}
 }
