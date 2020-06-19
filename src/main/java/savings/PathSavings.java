@@ -10,7 +10,7 @@ public enum PathSavings {
 	
 	MODELPLAYERS(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "modelPlayers"),
 	
-	MODELDIM(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "model"),
+	MODELCURRENT(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "modelCurrent"),
 	
 	ITERATOR(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "iteratorSave");
 	

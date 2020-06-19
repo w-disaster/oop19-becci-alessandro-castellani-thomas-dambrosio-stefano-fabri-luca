@@ -84,7 +84,7 @@ public class MenuController {
 		 stage.widthProperty().removeListener(changeListener);
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");*/
-	     System.out.println(model.getGameRoundEnvironments());
+	    // System.out.println(model.getGameRoundEnvironments());
 	 }
 	 
 	 @FXML
