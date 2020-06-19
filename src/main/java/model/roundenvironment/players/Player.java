@@ -33,6 +33,12 @@ public interface Player {
 	
 	/**
 	 * 
+	 * @return player finish line
+	 */
+	int getFinishLine();
+	
+	/**
+	 * 
 	 * @return true if this player wins.
 	 */
 	boolean isWinner();

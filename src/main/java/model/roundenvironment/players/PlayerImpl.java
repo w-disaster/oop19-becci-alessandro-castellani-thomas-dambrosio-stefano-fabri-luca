@@ -58,7 +58,8 @@ public class PlayerImpl implements Player{
 		this.coordinate = coordinate;
 	}
 
-	private int getFinishLine() {
+	@Override
+	public int getFinishLine() {
 		return finishLine;
 	}
 
