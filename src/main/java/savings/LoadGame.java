@@ -66,7 +66,7 @@ public class LoadGame {
 	
 	private <X> void getData() {
 		Gson serializator = new Gson();
-		List<Player> playersList = new ArrayList<>();
+		
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
 		int numLinePlayers = lineCounter(fileModelPlayers);
 		try {
@@ -80,7 +80,8 @@ public class LoadGame {
 			Player currentPlayer = new PlayerImpl(nameCurrent, coordCurrent, barrLeftCurrent, finish_current);
 			readerModelCurrent.close();
 			//now i have to get for each roundEnvironment the things i need
-			for(int i=0; i < numLinePlayers / 8; i++) {
+			for(int i=0; i < 3; i++) {
+				List<Player> playersList = new ArrayList<>();
 				String player1 = serializator.fromJson(readerModelPlayers.readLine(), String.class);
 				Coordinate coord1 = serializator.fromJson(readerModelPlayers.readLine(), Coordinate.class);
 				int barrLeft1 = serializator.fromJson(readerModelPlayers.readLine(), Integer.class);
