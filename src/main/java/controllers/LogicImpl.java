@@ -90,28 +90,16 @@ public class LogicImpl implements Logic{
     	Pair<Double, Double> barrierSize = new Pair<>(selected.getWidth()/10, selected.getHeight()/10);
     	Rectangle verticalBarrier = new Rectangle(barrierSize.getKey(), barrierSize.getValue()*8);
     	verticalBarrier.getStyleClass().add("Barrier");
+    	verticalBarrier.setFill(Color.ORANGE);
     	Rectangle horizontalBarrier = new Rectangle(barrierSize.getKey()*8, barrierSize.getValue());
     	horizontalBarrier.getStyleClass().add("Barrier");
+    	horizontalBarrier.setFill(Color.ORANGE);
     	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
-    		if (player.equals(this.player1.get())) {
-    			horizontalBarrier.setFill(Color.BLUE);
-    			selected.setBottom(horizontalBarrier);
-    			BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
-    		} else if (player.equals(this.player2.get())) {
-    			horizontalBarrier.setFill(Color.RED);
-    			selected.setBottom(horizontalBarrier);	
-    			BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
-    		}
+    		selected.setBottom(horizontalBarrier);
+    		BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
     	} else if (barrier.getOrientation().equals(Orientation.VERTICAL)) {
-    		if (player.equals(this.player1.get())) {
-    			verticalBarrier.setFill(Color.BLUE);
-    			selected.setRight(verticalBarrier);
-    			BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
-    		} else if (player.equals(this.player2.get())) {
-    			verticalBarrier.setFill(Color.RED);
-    			selected.setRight(verticalBarrier);
-    			BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
-    		}
+    		selected.setRight(verticalBarrier);
+    		BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
     	}	
     }
 

@@ -15,6 +15,8 @@ public interface ModelFactory {
 	 */
 	Model<RoundEnvironment> buildFromScratch(String nickname1, String nickname2);
 	
+	Model<RoundEnvironment> buildWithPowerUp(String nicknamePlayer1, String nicknamePlayer2);
+	
 	/**
 	 * builds a model from saved game
 	 * @param <X>

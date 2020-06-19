@@ -129,6 +129,8 @@ public final class UIController{
     	// Check if user clicked 'load game'
     	if (MenuController.to_load == false) {
     		Optional<Pair<String, String>> result = dialog.showAndWait();
+    		
+    		// If you leave it empty it automatically set default nicknames
 	    	if (result.get().getKey().equals("")) {
 	    		this.player1 = Optional.of("Player 1");
 	    	} else {
@@ -141,12 +143,12 @@ public final class UIController{
 	    		this.player2 = Optional.of(result.get().getValue());    		
 	    	}
 	    	
+	    	// Nicknames can't be the same
 	    	if (player1.get().equals(player2.get())) {
 	    		Alert alert = new Alert(AlertType.ERROR);
 	    		alert.setTitle("Error");
 	    		alert.setHeaderText("ERROR");
 	    		alert.setContentText("You can't use the same name!");
-	    		
 	    		alert.showAndWait();	
 	    	}
     	}
@@ -236,7 +238,6 @@ public final class UIController{
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("Label");
     	}
-    	
     }
     
     public void drawText(String text) {

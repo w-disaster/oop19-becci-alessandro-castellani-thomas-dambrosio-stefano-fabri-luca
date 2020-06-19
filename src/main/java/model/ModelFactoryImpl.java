@@ -36,10 +36,16 @@ public class ModelFactoryImpl implements ModelFactory {
 		return new ModelImpl<>(roundEnvironments, Model.BOARD_DIMENSION, roundEnvironments.get(0), new ArrayList<>());
 	}
 	
+	public Model<RoundEnvironment> buildWithPowerUp(String nicknamePlayer1, String nicknamePlayer2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	//TODO
 	public <X extends RoundEnvironment> Model<X> buildFromExisting(List<X> roundEnvironments, int boardDimension){
 		return null;
 	}
+
 	
 	
 }
