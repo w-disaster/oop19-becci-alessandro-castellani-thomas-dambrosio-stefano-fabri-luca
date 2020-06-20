@@ -97,7 +97,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 			//need to find which position is the straight jump
 			Optional<Coordinate> straightJump = Optional.empty();
 			for (Coordinate c : movesJump) {
-				if (!c.equals(sideJumps.get(0)) && !c.equals(sideJumps.get(1))) {
+				if (!movesJump.contains(c)) {
 					straightJump = Optional.of(c);
 				}
 			}
@@ -108,9 +108,11 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				}
 			}
 			//if the normal jump position is still present i have to disable "side jump" positions
-			if (movesJump.contains(straightJump.get())) {
-				movesJump.remove(sideJumps.get(0));
-				movesJump.remove(sideJumps.get(1));
+			if (!straightJump.equals(Optional.empty())) {
+				if (movesJump.contains(straightJump.get())) {
+					movesJump.remove(sideJumps.get(0));
+					movesJump.remove(sideJumps.get(1));
+				}
 			}
 		}
 		this.getEmptyPositions(moves); //removing other player position
