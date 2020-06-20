@@ -23,6 +23,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
+	private boolean canJumpStraight;
 	
 	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds) {
 		super(model, view, iterRounds);
@@ -38,6 +39,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		//this.newPosition will be the final position (it may change while clickedPosition will remain the clicked position)
 		this.newPosition = new Coordinate(clickedPosition.getX(), clickedPosition.getY());
+		this.canJumpStraight = false;
 		if (this.checkMove(this.playerPosition).contains(clickedPosition)) {
 			this.players.getCurrentPlayer().setCoordinate(this.newPosition);
 			this.observerPlayer.update(this.newPosition, this.players.getCurrentPlayer().getNickname()); //update view
@@ -56,33 +58,66 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	protected List<Coordinate> checkMove(Coordinate playerPosition) {
 		List<Coordinate> moves = new ArrayList<>();
 		List<Coordinate> movesJump = new ArrayList<>();
+		//first i find where can the player normally go (adj and no walls)
 		for (int y = 0; y < 9; y++) {
 			for (int x = 0; x < 9; x++) {
 				Coordinate testCoord = new Coordinate(x,y);
 				if (this.adjacent(playerPosition, testCoord)) {
 					moves.add(testCoord);
 				}
-				if (this.canJump()) {
-					if (this.adjacent(this.getOtherPlayer().get().getCoordinate(), testCoord)) {
-						movesJump.add(testCoord);
-					}
-				}
 			}
 		}
-		this.getEmptyPositions(moves);
-		this.getEmptyPositions(movesJump);
+		//this.getEmptyPositions(moves);
+		//this.getEmptyPositions(movesJump);
 		for (Coordinate c : List.copyOf(moves)) {
 			if (!this.noWall(playerPosition, c)) {
 				moves.remove(moves.indexOf(c));
 			}
 		}
-		if (this.canJump()) {
+		//if he can jump i find the new positions
+		if (this.canJump(moves)) {
+			for (int y = 0; y < 9; y++) {
+				for (int x = 0; x < 9; x++) {
+					Coordinate testCoord = new Coordinate(x,y);
+					if (this.adjacent(this.getOtherPlayer().get().getCoordinate(), testCoord)) {
+						movesJump.add(testCoord);
+					}
+				}
+			}
+			//before removing the positions where there are walls i will remove the other player position and find the two "side jump" positions
+			this.getEmptyPositions(movesJump);
+			List<Coordinate> sideJumps = new ArrayList<>();
+			for (Coordinate c1 : movesJump) {
+				for (Coordinate c2 : movesJump) {
+					if (!c1.equals(c2)) {
+						if ((c1.getX().equals(c2.getX())) || (c1.getY().equals(c2.getY()))) {
+							sideJumps.add(c1);
+							sideJumps.add(c2);
+							break;
+						}
+					}
+				}
+			}
+			//need to find which position is the straight jump
+			Coordinate straightJump = new Coordinate(0,0);
+			for (Coordinate c : movesJump) {
+				if (!c.equals(sideJumps.get(0)) && !c.equals(sideJumps.get(1))) {
+					straightJump = c;
+				}
+			}
+			//removing the position where there's a wall
 			for (Coordinate c : List.copyOf(movesJump)) {
 				if (!this.noWall(this.getOtherPlayer().get().getCoordinate(), c)) {
 					movesJump.remove(movesJump.indexOf(c));
 				}
 			}
+			//if the normal jump position is still present i have to disable "side jump" positions
+			if (movesJump.contains(straightJump)) {
+				movesJump.remove(sideJumps.get(0));
+				movesJump.remove(sideJumps.get(1));
+			}
 		}
+		this.getEmptyPositions(moves); //removing other player position
 		moves.addAll(movesJump);
 		return moves;
 	}
@@ -119,8 +154,8 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		return true;
 	}
 	
-	private boolean canJump() {
-		return this.adjacent(this.players.getPlayers().get(0).getCoordinate(), this.players.getPlayers().get(1).getCoordinate());
+	private boolean canJump(List<Coordinate> positions) {
+		return positions.contains(this.getOtherPlayer().get().getCoordinate());
 	}
 	
 	private Optional<Player> getOtherPlayer() {
