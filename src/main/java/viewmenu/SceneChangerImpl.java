@@ -23,6 +23,7 @@ public class SceneChangerImpl implements SceneChanger{
 		    stage.setMinWidth(stage.getWidth());
 		    stage.setMinHeight(stage.getHeight());
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("problems with stage settings");
 		}
 		

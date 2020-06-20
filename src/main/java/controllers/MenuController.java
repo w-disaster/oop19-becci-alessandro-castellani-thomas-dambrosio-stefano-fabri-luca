@@ -50,7 +50,6 @@ public class MenuController {
 	};
 	
 	public void initialize() {
-		sceneChange = new SceneChangerImpl();
 		Platform.runLater(new Runnable() {
 
 			@Override
@@ -72,6 +71,7 @@ public class MenuController {
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
 		 to_load = false;
+		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
 	 }
 	 
@@ -79,6 +79,7 @@ public class MenuController {
 	 public void loadGameButtonPressHandler() {
 		 loading = new LoadGame();
 		 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
 	 }
 	 
@@ -86,6 +87,7 @@ public class MenuController {
 	 public void leaderboardButtonPressHandler() {
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
+		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/leaderboard/LeaderBoard.fxml", "Leaderboard");
 	 }
 	 
