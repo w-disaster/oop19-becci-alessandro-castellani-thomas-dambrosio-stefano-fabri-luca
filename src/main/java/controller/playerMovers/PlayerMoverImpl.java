@@ -23,7 +23,6 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
-	private boolean canJumpStraight;
 	
 	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds) {
 		super(model, view, iterRounds);
@@ -39,7 +38,6 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		//this.newPosition will be the final position (it may change while clickedPosition will remain the clicked position)
 		this.newPosition = new Coordinate(clickedPosition.getX(), clickedPosition.getY());
-		this.canJumpStraight = false;
 		if (this.checkMove(this.playerPosition).contains(clickedPosition)) {
 			this.players.getCurrentPlayer().setCoordinate(this.newPosition);
 			this.observerPlayer.update(this.newPosition, this.players.getCurrentPlayer().getNickname()); //update view
@@ -67,8 +65,6 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				}
 			}
 		}
-		//this.getEmptyPositions(moves);
-		//this.getEmptyPositions(movesJump);
 		for (Coordinate c : List.copyOf(moves)) {
 			if (!this.noWall(playerPosition, c)) {
 				moves.remove(moves.indexOf(c));
@@ -99,10 +95,10 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				}
 			}
 			//need to find which position is the straight jump
-			Coordinate straightJump = new Coordinate(0,0);
+			Optional<Coordinate> straightJump = Optional.empty();
 			for (Coordinate c : movesJump) {
 				if (!c.equals(sideJumps.get(0)) && !c.equals(sideJumps.get(1))) {
-					straightJump = c;
+					straightJump = Optional.of(c);
 				}
 			}
 			//removing the position where there's a wall
@@ -112,7 +108,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 				}
 			}
 			//if the normal jump position is still present i have to disable "side jump" positions
-			if (movesJump.contains(straightJump)) {
+			if (movesJump.contains(straightJump.get())) {
 				movesJump.remove(sideJumps.get(0));
 				movesJump.remove(sideJumps.get(1));
 			}
