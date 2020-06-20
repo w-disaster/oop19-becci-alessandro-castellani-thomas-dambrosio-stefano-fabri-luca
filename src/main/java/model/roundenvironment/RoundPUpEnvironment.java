@@ -1,8 +1,10 @@
 package model.roundenvironment;
-import model.roundenvironment.barriers.*;
+import javafx.util.Pair;
+import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.powerups.PowerUp.Type;
 
 public interface RoundPUpEnvironment extends RoundEnvironment {
 
-	RoundBarriers randomMethod();
+	Pair<Type, Coordinate> getPowerUp();
 	
 }

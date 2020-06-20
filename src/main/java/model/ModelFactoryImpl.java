@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundEnvironmentImpl;
 import model.roundenvironment.RoundPUpEnvironment;
+import model.roundenvironment.RoundPUpEnvironmentImpl;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.coordinate.Coordinate;
@@ -41,8 +42,22 @@ public class ModelFactoryImpl implements ModelFactory {
 	}
 	
 	public Model<RoundPUpEnvironment> buildWithPowerUps(String nicknamePlayer1, String nicknamePlayer2) {
-		// TODO Auto-generated method stub
-		return null;
+		List<RoundPUpEnvironment> roundPowerUpEnvironments = new ArrayList<>();
+		Coordinate coordinate1 = new Coordinate(Model.BOARD_DIMENSION/2, 0);
+		Coordinate coordinate2 = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
+				
+		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
+			List<Player> playersList = new ArrayList<>();
+			Player player1 = new PlayerImpl(nicknamePlayer1, coordinate1, Player.DEFAULT_BARRIERS_NUMBER, Model.BOARD_DIMENSION - 1);
+			Player player2 = new PlayerImpl(nicknamePlayer2, coordinate2, Player.DEFAULT_BARRIERS_NUMBER, 0);
+			playersList.add(player1);
+			playersList.add(player2);
+			RoundBarriers barriers = new RoundBarriersImpl();
+			RoundPlayers players = new RoundPlayersImpl(playersList);
+			RoundPUpEnvironment powerUpEnvironment = new RoundPUpEnvironmentImpl(barriers,players);
+			roundPowerUpEnvironments.add(powerUpEnvironment);
+		}
+		return new ModelImpl<>(roundPowerUpEnvironments, Model.BOARD_DIMENSION, roundPowerUpEnvironments.get(0), new ArrayList<>());
 	}
 	
 	
