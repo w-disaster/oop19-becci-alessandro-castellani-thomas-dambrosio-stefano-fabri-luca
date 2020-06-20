@@ -83,13 +83,21 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 			//before removing the positions where there are walls i will remove the other player position and find the two "side jump" positions
 			this.getEmptyPositions(movesJump);
 			List<Coordinate> sideJumps = new ArrayList<>();
-			for (Coordinate c1 : movesJump) {
-				for (Coordinate c2 : movesJump) {
-					if (!c1.equals(c2)) {
-						if ((c1.getX().equals(c2.getX())) || (c1.getY().equals(c2.getY()))) {
-							sideJumps.add(c1);
-							sideJumps.add(c2);
-							break;
+			if (playerPosition.getX().equals(Model.BOARD_DIMENSION - 1) || playerPosition.getX().equals(0)) { //if i am on the edges
+				for (Coordinate c : movesJump) {
+					if (!c.getX().equals(0) && !c.getX().equals(Model.BOARD_DIMENSION - 1)) {
+						sideJumps.add(c);
+					}
+				}
+			} else {
+				for (Coordinate c1 : movesJump) {
+					for (Coordinate c2 : movesJump) {
+						if (!c1.equals(c2)) {
+							if ((c1.getX().equals(c2.getX())) || (c1.getY().equals(c2.getY()))) {
+								sideJumps.add(c1);
+								sideJumps.add(c2);
+								break;
+							}
 						}
 					}
 				}
