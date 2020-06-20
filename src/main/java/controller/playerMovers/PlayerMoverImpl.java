@@ -38,7 +38,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		//this.newPosition will be the final position (it may change while clickedPosition will remain the clicked position)
 		this.newPosition = new Coordinate(clickedPosition.getX(), clickedPosition.getY());
-		if (this.checkMove().contains(clickedPosition)) {
+		if (this.checkMove(this.playerPosition).contains(clickedPosition)) {
 			this.players.getCurrentPlayer().setCoordinate(this.newPosition);
 			this.observerPlayer.update(this.newPosition, this.players.getCurrentPlayer().getNickname()); //update view
 			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
@@ -53,13 +53,13 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		}
 	}
 	
-	protected List<Coordinate> checkMove() {
+	protected List<Coordinate> checkMove(Coordinate playerPosition) {
 		List<Coordinate> moves = new ArrayList<>();
 		List<Coordinate> movesJump = new ArrayList<>();
 		for (int y = 0; y < 9; y++) {
 			for (int x = 0; x < 9; x++) {
 				Coordinate testCoord = new Coordinate(x,y);
-				if (this.adjacent(this.playerPosition, testCoord)) {
+				if (this.adjacent(playerPosition, testCoord)) {
 					moves.add(testCoord);
 				}
 				if (this.canJump()) {
@@ -72,7 +72,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 		this.getEmptyPositions(moves);
 		this.getEmptyPositions(movesJump);
 		for (Coordinate c : List.copyOf(moves)) {
-			if (!this.noWall(this.playerPosition, c)) {
+			if (!this.noWall(playerPosition, c)) {
 				moves.remove(moves.indexOf(c));
 			}
 		}
