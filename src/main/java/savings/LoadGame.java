@@ -186,6 +186,13 @@ public class LoadGame {
 		return null;
 	}
 	
+	public List<Player> getNicknamesCurrentRound(){
+		if(fileModelExist) {
+			return model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
+		}
+		return null;
+	}
+	
 	public boolean saveExist() {
 		return fileModelExist;
 	}
