@@ -2,13 +2,17 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundEnvironmentImpl;
+import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.PlayerImpl;
 import model.roundenvironment.players.RoundPlayers;
@@ -17,7 +21,7 @@ import model.roundenvironment.players.RoundPlayersImpl;
 public class ModelFactoryImpl implements ModelFactory {
 
 	@Override
-	public Model<RoundEnvironment> buildFromScratch(final String nickname1, final String nickname2) {
+	public Model<RoundEnvironment> buildStandard(final String nickname1, final String nickname2) {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
 		Coordinate coordinate1 = new Coordinate(Model.BOARD_DIMENSION/2, 0);
 		Coordinate coordinate2 = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
@@ -36,16 +40,31 @@ public class ModelFactoryImpl implements ModelFactory {
 		return new ModelImpl<>(roundEnvironments, Model.BOARD_DIMENSION, roundEnvironments.get(0), new ArrayList<>());
 	}
 	
-	public Model<RoundEnvironment> buildWithPowerUp(String nicknamePlayer1, String nicknamePlayer2) {
+	public Model<RoundPUpEnvironment> buildWithPowerUps(String nicknamePlayer1, String nicknamePlayer2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	//TODO
+	
 	public <X extends RoundEnvironment> Model<X> buildFromExisting(List<X> roundEnvironments, int boardDimension){
-		return null;
+		Map<X, Optional<Player>> map = roundEnvironments.stream()
+				.map(re -> new Pair<X, Optional<Player>>(re, re.getRoundPlayers().getPlayers().stream()
+						.filter(p -> p.isWinner())
+						.findFirst()))
+				.collect(Collectors.toMap(p -> p.getX(), p -> p.getY()));
+		
+		X currentRoundEnvironment = map.entrySet().stream()
+				.filter(e -> e.getValue().isEmpty())
+				.map(e -> e.getKey())
+				.collect(Collectors.toList())
+				.get(0);
+
+		List<Player> winners = map.values().stream()
+				.filter(o -> o.isPresent())
+				.map(o -> o.get())
+				.collect(Collectors.toList());
+		
+		return new ModelImpl<X>(roundEnvironments, boardDimension, currentRoundEnvironment, winners);
 	}
 
-	
-	
 }
