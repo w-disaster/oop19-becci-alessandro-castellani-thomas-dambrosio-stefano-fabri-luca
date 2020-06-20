@@ -10,6 +10,7 @@ import controllers.UIController;
 import model.Model;
 import model.ModelFactoryImpl;
 import model.roundenvironment.RoundEnvironment;
+import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import savings.LoadGame;
@@ -17,11 +18,11 @@ import savings.SaveGame;
 
 public class PowerUpGameControllerImpl extends StandardGameControllerImpl implements BarrierPlacer, PlayerMover{
 	
-	private Model<RoundEnvironment> model;
+	private Model<RoundPUpEnvironment> model;
 	private UIController view;
 	private SaveGame saving;
 	private LoadGame loading;
-	private Iterator<RoundEnvironment> iterRounds;
+	private Iterator<RoundPUpEnvironment> iterRounds;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 

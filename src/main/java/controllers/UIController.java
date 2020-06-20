@@ -27,6 +27,7 @@ import javafx.util.Pair;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
+import savings.LoadGame;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
@@ -69,6 +70,7 @@ public final class UIController{
 	private Circle redPlayer;
 	
 	private StandardGameControllerImpl controller;
+	private LoadGame loadGame;
 	
 	private Optional<String> player1;
 	private Optional<String> player2;
@@ -76,6 +78,7 @@ public final class UIController{
 	public UIController() {
 		this.logic = new LogicImpl(this);
 		this.controller = new StandardGameControllerImpl(this);
+		this.loadGame = new LoadGame();
 	}
 	
 	public void initialize() {
@@ -162,8 +165,8 @@ public final class UIController{
     	bluePlayer.getStyleClass().add("BluePlayer");
     	redPlayer = new Circle(25);
     	redPlayer.getStyleClass().add("RedPlayer");
-    	label1.setText(player1.get());
-    	label2.setText(player2.get());
+//    	label1.setText(player1.get());
+//    	label2.setText(player2.get());
     	label1.getStyleClass().add("SelectedLabel");
     	label2.getStyleClass().add("Label");
   
@@ -180,6 +183,8 @@ public final class UIController{
 	    
 	    //Starts the game
 	    if (MenuController.to_load) {
+	    	this.player1 = Optional.of(this.loadGame.getNicknamesCurrentRound().get(0).getNickname());
+	    	this.player2 = Optional.of(this.loadGame.getNicknamesCurrentRound().get(1).getNickname());
 	    	this.controller.loadGame();
 	    } else {
 	    	this.controller.newStandardGame(player1.get(), player2.get());	    	
