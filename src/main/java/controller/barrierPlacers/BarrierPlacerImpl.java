@@ -40,7 +40,7 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 	public void placeBarrier(Coordinate position, Orientation type) {
 		this.newBarrierPosition = position;
 		this.newBarrierOrientation = type;
-		if (this.checkPlacement()) {
+		if (this.checkPlacement(this.newBarrierPosition, this.newBarrierOrientation)) {
 			this.players.getCurrentPlayer().setAvailableBarriers(this.players.getCurrentPlayer().getAvailableBarriers() - 1);
 			this.view.updateBarriersNumber(this.players.getCurrentPlayer().getNickname(), this.players.getCurrentPlayer().getAvailableBarriers());
 			//to place barriers long 2 positions i have to add 2 barriers
@@ -62,57 +62,57 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 		}
 	}
 	
-	protected boolean checkPlacement() {
-		return this.isEmptyPosition() && this.enoughBarriers() && this.checkPosition() && this.noStall() ? true : false;
+	protected boolean checkPlacement(Coordinate position, Orientation type) {
+		return this.isEmptyPosition(position, type) && this.enoughBarriers() && this.checkEdge(position) && this.noStall() ? true : false;
 	}
 
 	//this method also prevents placing of barriers over other barriers
-	private boolean isEmptyPosition() {
+	private boolean isEmptyPosition(Coordinate newPosition, Orientation type) {
 		//barriers are memorized singularly so i need double checks to see if there's an empty position
-		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.HORIZONTAL, Piece.HEAD))) {
+		if (this.barriers.contains(new BarrierImpl(newPosition, Orientation.HORIZONTAL, Piece.HEAD))) {
 			System.out.println("Not empty!!");
 			return false;
 		}
-		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.VERTICAL, Piece.HEAD))) {
+		if (this.barriers.contains(new BarrierImpl(newPosition, Orientation.VERTICAL, Piece.HEAD))) {
 			System.out.println("Not empty!!");
 			return false;
 		}
-		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.HORIZONTAL, Piece.TAIL))) {
-			if (this.newBarrierOrientation.equals(Orientation.HORIZONTAL)) { //here i can place an opposite orientated barrier
+		if (this.barriers.contains(new BarrierImpl(newPosition, Orientation.HORIZONTAL, Piece.TAIL))) {
+			if (type.equals(Orientation.HORIZONTAL)) { //here i can place an opposite orientated barrier
 				System.out.println("Not empty!!");
 				return false;
 			} else {
-				if (!this.checkEmptyNextPosition()) {
+				if (!this.checkEmptyNextPosition(newPosition, type)) {
 					return false;
 				}
 			}
 		}
-		if (this.barriers.contains(new BarrierImpl(this.newBarrierPosition, Orientation.VERTICAL, Piece.TAIL))) {
-			if (this.newBarrierOrientation.equals(Orientation.VERTICAL)) { //here i can place an opposite orientated barrier
+		if (this.barriers.contains(new BarrierImpl(newPosition, Orientation.VERTICAL, Piece.TAIL))) {
+			if (type.equals(Orientation.VERTICAL)) { //here i can place an opposite orientated barrier
 				System.out.println("Not empty!!");
 				return false;
 			} else {
-				if (!this.checkEmptyNextPosition()) {
+				if (!this.checkEmptyNextPosition(newPosition, type)) {
 					return false;
 				}
 			}
 		}
 		//more checks if the position is empty
-		if (!this.checkEmptyNextPosition()) {
+		if (!this.checkEmptyNextPosition(newPosition, type)) {
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean checkEmptyNextPosition() {
-		if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX() + 1, this.newBarrierPosition.getY()), Orientation.HORIZONTAL, Piece.HEAD))) {
-			if (this.newBarrierOrientation.equals(Orientation.HORIZONTAL)) { //here i can place a horizontal barrier
+	private boolean checkEmptyNextPosition(Coordinate newPosition, Orientation type) {
+		if (this.barriers.contains(new BarrierImpl(new Coordinate(newPosition.getX() + 1, newPosition.getY()), Orientation.HORIZONTAL, Piece.HEAD))) {
+			if (type.equals(Orientation.HORIZONTAL)) { //here i can place a horizontal barrier
 				System.out.println("Not empty!!");
 				return false;
 			}
 		}
-		if (this.barriers.contains(new BarrierImpl(new Coordinate(this.newBarrierPosition.getX(), this.newBarrierPosition.getY() + 1), Orientation.VERTICAL, Piece.HEAD))) {
-			if (this.newBarrierOrientation.equals(Orientation.VERTICAL)) { //here i can place a horizontal barrier
+		if (this.barriers.contains(new BarrierImpl(new Coordinate(newPosition.getX(), newPosition.getY() + 1), Orientation.VERTICAL, Piece.HEAD))) {
+			if (type.equals(Orientation.VERTICAL)) { //here i can place a horizontal barrier
 				System.out.println("Not empty!!");
 				return false;
 			}
@@ -124,13 +124,13 @@ public class BarrierPlacerImpl extends GenericMoveImpl implements BarrierPlacer 
 		return this.players.getCurrentPlayer().getAvailableBarriers() > 0 ? true : false;
 	}
 	
-	private boolean checkPosition() {
+	private boolean checkEdge(Coordinate newPosition) {
 		//barriers are long 2 positions so they can't be placed where x or y are 'boardDimension'
-		if (this.newBarrierPosition.getX().equals(this.model.getBoardDimension() - 1)) {
+		if (newPosition.getX().equals(this.model.getBoardDimension() - 1)) {
 			System.out.println("Can't place on the edge!!");
 			return false;
 		}
-		if (this.newBarrierPosition.getY().equals(this.model.getBoardDimension() - 1)) {
+		if (newPosition.getY().equals(this.model.getBoardDimension() - 1)) {
 			System.out.println("Can't place on the edge!!");
 			return false;
 		}

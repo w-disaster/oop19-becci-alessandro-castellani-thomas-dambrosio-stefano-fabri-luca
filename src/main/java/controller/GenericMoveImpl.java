@@ -64,9 +64,9 @@ public class GenericMoveImpl {
 			System.out.println("All rounds finished, game over");
 			//now i check who won more rounds and set him winner of the game
 			Player p = this.model.getWinners().stream().peek(Player::getNickname)
-												.reduce(BinaryOperator.maxBy(
-									                    Comparator.comparingInt(o -> Collections.frequency(this.model.getWinners(), o))))
-									            .orElse(null);
+														.reduce(BinaryOperator.maxBy(
+																Comparator.comparingInt(o -> Collections.frequency(this.model.getWinners(), o))))
+														.orElse(null);
 			System.out.println("Game Over!" + p.getNickname() + " won!");
 			this.leaderboard.updateLeaderBoard(p.getNickname());
 			this.view.endGame(p.getNickname());
