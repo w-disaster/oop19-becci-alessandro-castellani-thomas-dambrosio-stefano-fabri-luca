@@ -33,7 +33,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, 0);
 		Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
 		this.view.setupGrid(player1Coordinate, player2Coordinate, 10, 10);
-		this.model = new ModelFactoryImpl().buildWithPowerUp(nicknamePlayer1, nicknamePlayer2);
+		this.model = new ModelFactoryImpl().buildWithPowerUps(nicknamePlayer1, nicknamePlayer2);
 		this.iterRounds = this.model.getGameRoundEnvironments().iterator();
 		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
 		this.mover = new PlayerMoverPowerUp(this.model, this.view, this.iterRounds);

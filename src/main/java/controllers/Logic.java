@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import controller.StandardGameControllerImpl;
@@ -17,12 +18,14 @@ public interface Logic {
 	public void setSelectedBarrier(String type);
 	
 	public void clearGrid();
+
+	public void drawBarriersOnLoad(List<Barrier> barrier);
 	
 	public BorderPane getPaneByPosition(Coordinate position);
 
 	public void setPlayers(Optional<String> player1, Optional<String> player2);
 
-	public void drawBarrierLogic(Barrier barrier, String player);
+	public void drawBarrierLogic(Barrier barrier);
 
 	public void drawTextLogic(String textToDisplay);
 

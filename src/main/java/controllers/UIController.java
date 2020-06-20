@@ -31,6 +31,7 @@ import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -178,7 +179,11 @@ public final class UIController{
 	    this.logic.setPlayers(player1, player2);
 	    
 	    //Starts the game
-	    this.controller.newStandardGame(player1.get(), player2.get());
+	    if (MenuController.to_load) {
+	    	this.controller.loadGame();
+	    } else {
+	    	this.controller.newStandardGame(player1.get(), player2.get());	    	
+	    }  
 	}
     
     private void addPane(int colIndex, int rowIndex) {
@@ -192,6 +197,15 @@ public final class UIController{
     	this.logic.clearGrid();
     	this.logic.getPaneByPosition(player1pos).setCenter(bluePlayer);
     	this.logic.getPaneByPosition(player2pos).setCenter(redPlayer);
+    	this.updateBarriersNumber(player1.get(), barriersP1);
+    	this.updateBarriersNumber(player2.get(), barriersP2);
+    }
+    
+    public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2, List<Barrier> barrierList) {
+    	this.logic.clearGrid();
+    	this.logic.getPaneByPosition(player1pos).setCenter(bluePlayer);
+    	this.logic.getPaneByPosition(player2pos).setCenter(redPlayer);
+    	
     	this.updateBarriersNumber(player1.get(), barriersP1);
     	this.updateBarriersNumber(player2.get(), barriersP2);
     }
@@ -214,8 +228,8 @@ public final class UIController{
     	}
     }
     
-    public void drawBarrier(Barrier barrier, String player) {
-    	this.logic.drawBarrierLogic(barrier, player);
+    public void drawBarrier(Barrier barrier) {
+    	this.logic.drawBarrierLogic(barrier);
     }
     
     public void updateBarriersNumber(String player, int barriersNumber) {

@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.HashMap;
-
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -81,11 +81,17 @@ public class LogicImpl implements Logic{
     	this.gridMap.entrySet().forEach(e -> e.getValue().getChildren().remove(0, e.getValue().getChildren().size()));
     }
     
+    public void drawBarriersOnLoad(List<Barrier> barrierList) {
+    	for (Barrier barrier : barrierList) {
+    		this.drawBarrierLogic(barrier);
+    	}
+    }
+    
     public BorderPane getPaneByPosition(Coordinate position) {
     	return this.gridMap.get(position);
     }
     
-    public void drawBarrierLogic(Barrier barrier, String player) {
+    public void drawBarrierLogic(Barrier barrier) {
     	BorderPane selected = this.gridMap.get(barrier.getCoordinate());
     	Pair<Double, Double> barrierSize = new Pair<>(selected.getWidth()/10, selected.getHeight()/10);
     	Rectangle verticalBarrier = new Rectangle(barrierSize.getKey(), barrierSize.getValue()*8);
@@ -123,4 +129,5 @@ public class LogicImpl implements Logic{
     	}		
 		
 	}
+
 }
