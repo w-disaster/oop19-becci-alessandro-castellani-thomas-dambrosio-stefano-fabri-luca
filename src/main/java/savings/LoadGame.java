@@ -18,6 +18,8 @@ import com.google.gson.reflect.TypeToken;
 
 import javafx.util.Pair;
 import model.Model;
+import model.ModelFactory;
+import model.ModelFactoryImpl;
 import model.ModelImpl;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundEnvironmentImpl;
@@ -165,6 +167,7 @@ public class LoadGame {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, 9);
 		System.out.println("loaded Model");
 		
 	}
