@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 
+import controller.StandardGameControllerImpl;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -49,6 +50,7 @@ public class MenuController {
 	};
 	
 	public void initialize() {
+		sceneChange = new SceneChangerImpl();
 		Platform.runLater(new Runnable() {
 
 			@Override
@@ -70,28 +72,20 @@ public class MenuController {
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
 		 to_load = false;
-		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
 	 }
 	 
 	 @FXML
 	 public void loadGameButtonPressHandler() {
 		 loading = new LoadGame();
-		 model = loading.getModel();
-		 /*if(loading.saveExist()) { to_load = true; } else { to_load = false; }
-		 System.out.println(to_load);
-		 stage = (Stage) rootPane.getScene().getWindow();
-		 stage.widthProperty().removeListener(changeListener);
-		 sceneChange = new SceneChangerImpl();
-		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");*/
-	    // System.out.println(model.getGameRoundEnvironments());
+		 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
 	 }
 	 
 	 @FXML
 	 public void leaderboardButtonPressHandler() {
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
-		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change("layouts/leaderboard/LeaderBoard.fxml", "Leaderboard");
 	 }
 	 
