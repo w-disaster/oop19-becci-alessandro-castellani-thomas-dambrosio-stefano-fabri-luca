@@ -127,6 +127,7 @@ public final class UIController{
     	    if (dialogButton == startButton) {
     	    	return new Pair<String, String>(player1name.getText(),player2name.getText());
     	    }
+    	    System.exit(0);
     	    return null;
     	});
     	
@@ -261,20 +262,27 @@ public final class UIController{
     }
     
     public void endRound(String winner) {
-       	Alert alert = new Alert(AlertType.CONFIRMATION);
+       	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
     	alert.setHeaderText(winner + " won the round!");
     	alert.setContentText("");
+
+    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
+    		(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
+    	
     	alert.showAndWait();
     	
     	this.controller.nextRound();
     }
     
     public void endGame(String winner) {
-    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
     	alert.setHeaderText(winner + " won the game!");
     	alert.setContentText("Do you want to return to the main menu?");
+
+    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
+    	(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
@@ -296,7 +304,7 @@ public final class UIController{
     @FXML
     public void returnToMainMenu(){
     	SceneChanger sceneChange = new SceneChangerImpl();
-    	sceneChange.change("layouts/menu/MainMenu.fxml", "Game");
+    	sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
     }
     
     /**
