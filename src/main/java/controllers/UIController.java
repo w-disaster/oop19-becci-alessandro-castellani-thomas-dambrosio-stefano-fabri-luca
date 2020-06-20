@@ -207,12 +207,8 @@ public final class UIController{
     }
     
     public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2, List<Barrier> barrierList) {
-    	this.logic.clearGrid();
-    	this.logic.getPaneByPosition(player1pos).setCenter(bluePlayer);
-    	this.logic.getPaneByPosition(player2pos).setCenter(redPlayer);
-    	
-    	this.updateBarriersNumber(player1.get(), barriersP1);
-    	this.updateBarriersNumber(player2.get(), barriersP2);
+    	this.setupGrid(player1pos, player2pos, barriersP1, barriersP2);
+    	this.logic.drawBarriersOnLoad(barrierList);
     }
 
     public void move(Coordinate position, String player) {
