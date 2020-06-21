@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -72,20 +73,34 @@ public class ModelFactoryImpl implements ModelFactory {
 	
 	
 	public <X extends RoundEnvironment> Model<X> buildFromExisting(List<X> roundEnvironments, int boardDimension){
-		Map<X, Optional<Player>> map = roundEnvironments.stream()
-				.map(re -> new Pair<X, Optional<Player>>(re, re.getRoundPlayers().getPlayers().stream()
-						.filter(p -> p.isWinner())
-						.findFirst()))
-				.collect(Collectors.toMap(p -> p.getX(), p -> p.getY()));
+		Map<X, Optional<Player>> map = new HashMap<>();
+		X currentRoundEnvironment = null;
 		
-		map.entrySet().forEach(e -> e.getKey().getRoundPlayers().getPlayers().stream().forEach(p -> p.getCoordinate()));
+		/*int i = 1;
+		for(X x : roundEnvironments) {
+			List<Player> l = x.getRoundPlayers().getPlayers();
+			System.out.println(i);
+			for(Player p : l) {
+				System.out.println(p.getNickname() + " " + p.getCoordinate());
+			}
+			System.out.println("");
+			i++;
+		}*/
 		
-		X currentRoundEnvironment = map.entrySet().stream()
-				.filter(e -> e.getValue().isEmpty())
-				.map(e -> e.getKey())
-				.collect(Collectors.toList())
-				.get(0);
-
+		for(X x : roundEnvironments) {
+			List<Player> l = x.getRoundPlayers().getPlayers().stream()
+					.filter(p -> p.isWinner())
+					.collect(Collectors.toList());
+			if(l.size() > 0) {
+				map.put(x, Optional.of(l.get(0)));
+			} else {
+				if(currentRoundEnvironment == null) {
+					currentRoundEnvironment = x;
+				}
+				map.put(x, Optional.empty());
+			}
+		}
+		
 		List<Player> winners = map.values().stream()
 				.filter(o -> o.isPresent())
 				.map(o -> o.get())
