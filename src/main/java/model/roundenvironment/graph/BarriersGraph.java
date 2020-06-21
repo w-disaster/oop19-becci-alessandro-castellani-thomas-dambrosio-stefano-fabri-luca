@@ -31,4 +31,12 @@ public interface BarriersGraph {
 	 * @return the graph as a list
 	 */
 	List<Pair<Coordinate, Coordinate>> getBarriersAsList();
+	
+	/**
+	 * compute bfs and checks if there's a path from node source to line destination
+	 * @param source
+	 * @param destination
+	 * @return
+	 */
+	boolean bfs(Node source, int destination);
 }
