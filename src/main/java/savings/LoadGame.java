@@ -167,8 +167,8 @@ public class LoadGame {
 			e.printStackTrace();
 		}
 		
-		/*System.out.println("first Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(0).getCoordinate());
-		System.out.println("second Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(1).getCoordinate());*/
+		/*System.out.println("first Player coord BEFORE factory " + roundEnvironments.get(1).getRoundPlayers().getPlayers().get(0).getCoordinate());
+		System.out.println("second Player coord BEFORE factory " + roundEnvironments.get(1).getRoundPlayers().getPlayers().get(1).getCoordinate());*/
 		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, 9);
 		/*System.out.println("first Player coord AFTER factory " + model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().get(0).getCoordinate());
 		System.out.println("second Player coord AFTER factory " + model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().get(1).getCoordinate());*/

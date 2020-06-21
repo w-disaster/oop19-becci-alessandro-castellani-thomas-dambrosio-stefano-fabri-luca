@@ -101,7 +101,6 @@ public class SaveGame {
 	}
 	
 	public void save() {
-		Gson serializator = new Gson();
 		try {
 			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));
 			int numRound = -1;
