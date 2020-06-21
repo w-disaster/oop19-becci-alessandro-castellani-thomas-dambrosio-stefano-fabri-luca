@@ -1,24 +1,30 @@
 package tests;
 
-import java.util.stream.Collectors;
+import static org.junit.Assert.*;
+import model.Model;
 
-import model.roundenvironment.barriers.Barrier;
-import model.roundenvironment.barriers.Barrier.Orientation;
-import model.roundenvironment.barriers.RoundBarriers;
-import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.coordinate.Pair;
+import model.roundenvironment.graph.BarriersGraph;
+import model.roundenvironment.graph.BarriersGraphImpl;
 
 public class ModelTest {
 
-	public static void main() {
-		containsBarrierTypeIndipendent(new RoundBarriersImpl(), new Coordinate(0, 0), Barrier.Orientation.HORIZONTAL);
-	}
-	
-	private static boolean containsBarrierTypeIndipendent(RoundBarriers roundBarriers, Coordinate coordinate, Orientation orientation) {
-		return roundBarriers.getBarriersAsList().stream()
-				.filter(b -> b.getCoordinate().equals(coordinate) && b.getOrientation().equals(orientation))
-				.collect(Collectors.toList())
-				.size() > 0;
+	@org.junit.Test
+	public void checkPath() {
+		BarriersGraph barriers = new BarriersGraphImpl(Model.BOARD_DIMENSION);
+		
+		/* I add all possible horizontal barriers between line 3 and line 4. The graph is bidirectional
+		 * then I must delete 2 edges for each barrier.
+		 * Note: adding those barriers imply there's not a path to the line 0 for all coordinates with line >= 4.
+		 */
+		for(int i = 0; i < Model.BOARD_DIMENSION; i++) {
+			barriers.add(new Pair<>(new Coordinate(4, i), new Coordinate(3, i)));
+			barriers.add(new Pair<>(new Coordinate(3, i), new Coordinate(4, i)));
+		}
+		
+		assertTrue(barriers.containsPath(new Coordinate(3, 5), 0));
+		assertFalse(barriers.containsPath(new Coordinate(4, 4), 0));
 	}
 	
 }

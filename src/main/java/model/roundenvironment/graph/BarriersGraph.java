@@ -38,5 +38,5 @@ public interface BarriersGraph {
 	 * @param destination
 	 * @return
 	 */
-	boolean bfs(Node source, int destination);
+	boolean containsPath(Coordinate source, int destination);
 }

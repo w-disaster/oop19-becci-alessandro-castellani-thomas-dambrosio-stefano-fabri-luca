@@ -61,14 +61,14 @@ public class BarriersGraphImpl implements BarriersGraph {
 	}
 
 	@Override
-	public boolean bfs(Node source, int destination) {
+	public boolean containsPath(Coordinate source, int destination) {
 		List<Node> list = new ArrayList<>();
 		List<Pair<Node, Node>> edges = edgesFromBarriers();
 		
-		source.setColour(model.roundenvironment.graph.Node.Colour.GRAY);
-		source.setDistance(Optional.of(0));
-		list.add(source);
+		Node s = new NodeImpl(source, Optional.of(0), Colour.GRAY);
+		list.add(s);
 		
+		// computing BFS
 		while (!list.isEmpty()) {
 			Node u = list.remove(0);
 			for(Node v : adjNodes(edges, u)) {
@@ -84,6 +84,10 @@ public class BarriersGraphImpl implements BarriersGraph {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @return edges from barriers
+	 */
 	private List<Pair<Node, Node>> edgesFromBarriers(){
 		return this.barriers.stream()
 				.map(p -> new Pair<Node, Node>(new NodeImpl(p.getX(), Optional.empty(), Colour.WHITE), 
@@ -91,6 +95,12 @@ public class BarriersGraphImpl implements BarriersGraph {
 				.collect(Collectors.toList());
 	}
 	
+	/**
+	 * 
+	 * @param edges
+	 * @param node
+	 * @return adjacent nodes of node
+	 */
 	private List<Node> adjNodes(List<Pair<Node, Node>> edges, Node node){
 		return edges.stream()
 				.filter(p -> p.getX().getCoordinate().equals(node.getCoordinate()) && p.getY().getcolour().equals(Colour.WHITE))
