@@ -30,6 +30,7 @@ public class MenuController {
 	@FXML private Label title;
 	
 	public static boolean to_load;
+	public static boolean powerup_game;
 	private SceneChanger sceneChange;
 	private Stage stage;
 	private LoadGame loading;
@@ -83,11 +84,11 @@ public class MenuController {
 	     alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
 		 Optional<ButtonType> result = alert.showAndWait();
 		 if (result.get() == buttonTypeOne){
-		     System.out.println("aa");
+		     powerup_game = false;
 		 } else if (result.get() == buttonTypeTwo) {
-		     System.out.println("bb");
+		     powerup_game = true;
 		 } else {
-		     //if you don't choice, normal Game
+		     powerup_game = false;
 		 }
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
