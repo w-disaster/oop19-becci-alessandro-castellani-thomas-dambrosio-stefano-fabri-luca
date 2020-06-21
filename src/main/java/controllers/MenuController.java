@@ -1,9 +1,7 @@
 package controllers;
 
-import java.io.IOException;
 import java.util.Optional;
 
-import controller.StandardGameControllerImpl;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,12 +15,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Model;
-import model.roundenvironment.RoundEnvironment;
 import savings.LoadGame;
-import savings.SaveGame;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
+import viewmenu.ScenesItem;
 
 public class MenuController {
 	
@@ -72,7 +68,7 @@ public class MenuController {
 	
 	
 	 @FXML
-	 public void newGameButtonPressHandler(ActionEvent event) throws IOException {
+	 public void newGameButtonPressHandler(ActionEvent event) {
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
 		 to_load = false;
@@ -94,7 +90,7 @@ public class MenuController {
 		     //if you don't choice, normal Game
 		 }
 		 sceneChange = new SceneChangerImpl();
-		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
+		 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
 	 }
 	 
 	 @FXML
@@ -102,7 +98,7 @@ public class MenuController {
 		 loading = new LoadGame();
 		 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
 		 sceneChange = new SceneChangerImpl();
-		 sceneChange.change("layouts/main/scene.fxml", "Quoridor2D");
+		 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
 	 }
 	 
 	 @FXML
@@ -110,7 +106,7 @@ public class MenuController {
 		 stage = (Stage) rootPane.getScene().getWindow();
 		 stage.widthProperty().removeListener(changeListener);
 		 sceneChange = new SceneChangerImpl();
-		 sceneChange.change("layouts/leaderboard/LeaderBoard.fxml", "Leaderboard");
+		 sceneChange.change(ScenesItem.LEADERBOARD.get(), ScenesItem.LEADERBOARDTITLE.get());
 	 }
 	 
 }

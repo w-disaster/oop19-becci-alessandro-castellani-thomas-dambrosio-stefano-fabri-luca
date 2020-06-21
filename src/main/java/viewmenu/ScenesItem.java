@@ -1,11 +1,14 @@
 package viewmenu;
 
-import java.io.File;
 
 public enum ScenesItem {
 	
 	MENU("layouts/menu/MainMenu.fxml"),
 	MENUTITLE("Quoridor2D-Menu"),
+	GAME("layouts/main/scene.fxml"),
+	GAMETITLE("Quoridor2D-Game"),
+	LEADERBOARD("layouts/leaderboard/LeaderBoard.fxml"),
+	LEADERBOARDTITLE("Leaderboard"),
 	;
 	
 	
