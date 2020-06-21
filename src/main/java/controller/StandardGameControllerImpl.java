@@ -43,8 +43,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		this.model = new ModelFactoryImpl().buildStandard(nicknamePlayer1, nicknamePlayer2);
 		this.iterRounds = this.model.getGameRoundEnvironments().iterator();
 		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
-		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, this.iterRounds);
+		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
+		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 	}
 	
 	@Override
@@ -61,8 +61,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		Player player1 = players.getPlayers().get(0);
 		Player player2 = players.getPlayers().get(1);
-		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, this.iterRounds);
+		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
+		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
 	}
 	
@@ -82,8 +82,8 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		Player player1 = players.getPlayers().get(0);
 		Player player2 = players.getPlayers().get(1);
-		this.mover = new PlayerMoverImpl(this.model, this.view, this.iterRounds);
-		this.placer = new BarrierPlacerImpl(this.model, this.view, this.iterRounds);
+		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
+		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers(), this.model.getCurrentRoundEnvironment().getRoundBarriers().getBarriersAsList()); //reset grid
 	}
 	

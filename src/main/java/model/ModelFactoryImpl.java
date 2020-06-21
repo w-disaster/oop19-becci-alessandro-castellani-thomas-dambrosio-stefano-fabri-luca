@@ -78,6 +78,8 @@ public class ModelFactoryImpl implements ModelFactory {
 						.findFirst()))
 				.collect(Collectors.toMap(p -> p.getX(), p -> p.getY()));
 		
+		map.entrySet().forEach(e -> e.getKey().getRoundPlayers().getPlayers().stream().forEach(p -> p.getCoordinate()));
+		
 		X currentRoundEnvironment = map.entrySet().stream()
 				.filter(e -> e.getValue().isEmpty())
 				.map(e -> e.getKey())
