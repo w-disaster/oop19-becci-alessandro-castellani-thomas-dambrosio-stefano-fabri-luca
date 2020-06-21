@@ -7,17 +7,12 @@ import model.Model;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.players.PlayerImpl;
 
-public class PlayerMoverPowerUp implements PlayerMover {
+public class PlayerMoverPowerUp extends PlayerMoverImpl {
 
 	public PlayerMoverPowerUp(Model<RoundPUpEnvironment> model, UIController view, Iterator<RoundPUpEnvironment> iterRounds) {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void movePlayer(Coordinate position) {
-		// TODO Auto-generated method stub
-
+		super();
 	}
 
 }

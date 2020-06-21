@@ -9,17 +9,12 @@ import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 
-public class BarrierPlacerPowerUp implements BarrierPlacer {
+public class BarrierPlacerPowerUp extends BarrierPlacerImpl<RoundPUpEnvironment> {
 
 	public BarrierPlacerPowerUp(Model<RoundPUpEnvironment> model, UIController view,
 			Iterator<RoundPUpEnvironment> iterRounds) {
-		// TODO Auto-generated constructor stub
+		super(model, view, iterRounds);
 	}
 
-	@Override
-	public void placeBarrier(Coordinate position, Orientation orientation) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

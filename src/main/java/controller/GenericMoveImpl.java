@@ -14,16 +14,16 @@ import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import savings.SaveLeaderBoard;
 
-public class GenericMoveImpl {
+public class GenericMoveImpl<X extends RoundEnvironment>{
 
-	private Model<RoundEnvironment> model;
+	private Model<X> model;
 	private UIController view;
 	private SaveLeaderBoard leaderboard;
 	private RoundPlayers players;
 	private List<Player> turns;
-	private Iterator<RoundEnvironment> iterRounds;
+	private Iterator<X> iterRounds;
 	
-	public GenericMoveImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds) {
+	public GenericMoveImpl(Model<X> model, UIController view, Iterator<X> iterRounds) {
 		this.model = model;
 		this.view = view;
 		this.leaderboard = new SaveLeaderBoard();

@@ -14,9 +14,9 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 
-public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
+public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl<X> implements PlayerMover {
 
-	private Model<RoundEnvironment> model;
+	private Model<X> model;
 	private UIController view;
 	private Observer observerPlayer;
 	private RoundPlayers players;
@@ -24,7 +24,7 @@ public class PlayerMoverImpl extends GenericMoveImpl implements PlayerMover {
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(Model<RoundEnvironment> model, UIController view, Iterator<RoundEnvironment> iterRounds) {
+	public PlayerMoverImpl(Model<X> model, UIController view, Iterator<X> iterRounds) {
 		super(model, view, iterRounds);
 		this.model = model;
 		this.view = view;
