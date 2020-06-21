@@ -172,7 +172,7 @@ public final class UIController{
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
 	            this.addPane(i, j);
-	            System.out.println("pane added" + i + j);
+	            //System.out.println("pane added" + i + j);
 	        }
 	    }
 
@@ -188,6 +188,8 @@ public final class UIController{
 	    } else {
 	    	this.controller.newStandardGame(player1.get(), player2.get());	    	
 	    }  
+	    System.out.println(player1.get());
+	    System.out.println(player2.get());
     	label1.setText(player1.get());
     	label2.setText(player2.get());
 	}
@@ -297,7 +299,19 @@ public final class UIController{
     	System.out.println("Saving game...");
     	this.controller.saveGame();
     }
+    
+    @FXML
+    public void saveAndReturn() {
+    	this.saveGame();
+    	this.returnToMainMenu();
+    }
 
+    @FXML
+    public void saveAndExit() {
+    	this.saveGame();
+    	this.exitToDesktop();
+    }
+    
     /**
      * A method that handles the return to the main menu.
      */ 
@@ -311,7 +325,7 @@ public final class UIController{
      * A method that handles the exit of the application.
      */
      @FXML
-     public void exitToDesktop(ActionEvent event) {
+     public void exitToDesktop() {
     	 System.exit(0);
      }
 }

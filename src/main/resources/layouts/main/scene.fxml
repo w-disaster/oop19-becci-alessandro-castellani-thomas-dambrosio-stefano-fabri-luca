@@ -155,6 +155,8 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Quit">
               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#saveAndReturn" text="Save and return to Main Menu" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveAndExit" text="Save and exit" />
                 <MenuItem fx:id="retToMainMenu" mnemonicParsing="false" onAction="#returnToMainMenu" text="Return to Main Menu" />
                   <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitToDesktop" text="Exit to desktop" />
               </items>
