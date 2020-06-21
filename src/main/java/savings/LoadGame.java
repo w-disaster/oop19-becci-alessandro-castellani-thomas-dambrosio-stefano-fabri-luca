@@ -54,7 +54,6 @@ public class LoadGame {
 		fileModelBarriers = new File(pathFileBarriers);
 		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists()) {
 			fileModelExist = true;
-			getData();
 		}
 		else {
 			fileModelExist = false;
@@ -168,14 +167,15 @@ public class LoadGame {
 			e.printStackTrace();
 		}
 		
-		System.out.println("first Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(0).getCoordinate());
-		System.out.println("second Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(1).getCoordinate());
+		/*System.out.println("first Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(0).getCoordinate());
+		System.out.println("second Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(1).getCoordinate());*/
 		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, 9);
-		System.out.println("first Player coord AFTER factory " + model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().get(0).getCoordinate());
-		System.out.println("second Player coord AFTER factory " + model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().get(1).getCoordinate());
+		/*System.out.println("first Player coord AFTER factory " + model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().get(0).getCoordinate());
+		System.out.println("second Player coord AFTER factory " + model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().get(1).getCoordinate());*/
 	}
 	
 	public Iterator<RoundEnvironment> getIterator(){
+		getData();
 		if(fileModelExist) {
 			return iterator;
 		}
@@ -183,6 +183,7 @@ public class LoadGame {
 	}
 	
 	public Model<RoundEnvironment> getModel() {
+		getData();
 		if(fileModelExist) {
 			return model;
 		}
@@ -190,6 +191,7 @@ public class LoadGame {
 	}
 	
 	public List<Player> getNicknamesCurrentRound(){
+		getData();
 		if(fileModelExist) {
 			return model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
 		}

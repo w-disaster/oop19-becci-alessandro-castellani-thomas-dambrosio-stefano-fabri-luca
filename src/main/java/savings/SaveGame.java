@@ -109,9 +109,9 @@ public class SaveGame {
 				numRound++;
 				if(env.getRoundPlayers().getCurrentPlayer() != null) {
 					saveCurrentPlayer(numRound, env.getRoundPlayers().getCurrentPlayer());
-					System.out.println("current player Saved");
+					//System.out.println("current player Saved");
 					saveBarriers(numRound, env.getRoundBarriers().getBarriersAsList());
-					System.out.println("barriers Saved");
+					//System.out.println("barriers Saved");
 				}
 				for(Player pl : env.getRoundPlayers().getPlayers()) {
 					roundPlayersWriter.write(serializator.toJson(pl.getNickname()));
@@ -124,7 +124,7 @@ public class SaveGame {
 					roundPlayersWriter.newLine();
 				}
 			}
-			System.out.println("players Saved");
+			//System.out.println("players Saved");
 			roundPlayersWriter.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
