@@ -26,8 +26,6 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	
 	private Model<RoundEnvironment> model;
 	private UIController view;
-	private SaveGame saving;
-	private LoadGame loading;
 	private Iterator<RoundEnvironment> iterRounds;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
@@ -67,15 +65,15 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 	}
 	
 	public void saveGame() {
-		this.saving = new SaveGame(this.model, this.iterRounds);
-		this.saving.save();
+		SaveGame saving = new SaveGame(this.model, this.iterRounds);
+		saving.save();
 	}
 	
 	public void loadGame() {
 		if (MenuController.to_load) {
-			this.loading = new LoadGame();
-			this.model = this.loading.getModel();
-			this.iterRounds = this.loading.getIterator();
+			LoadGame loading = new LoadGame();
+			this.model = loading.getModel();
+			this.iterRounds = loading.getIterator();
 		} else {
 			System.out.println("There isn't a saved game!");
 		}

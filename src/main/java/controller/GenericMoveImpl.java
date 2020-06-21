@@ -14,7 +14,7 @@ import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import savings.SaveLeaderBoard;
 
-public class GenericMoveImpl<X extends RoundEnvironment>{
+public class GenericMoveImpl<X extends RoundEnvironment> {
 
 	private Model<X> model;
 	private UIController view;
