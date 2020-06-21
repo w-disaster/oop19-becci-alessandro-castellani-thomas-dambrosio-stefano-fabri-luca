@@ -85,7 +85,7 @@ public class LoadGame {
 		try{
 			BufferedReader readerModelPlayers = new BufferedReader(new FileReader(fileModelPlayers));
 			//i need to go at the right round given the numRound
-			for(int i=0; i < (numRound * 4); i++) {
+			for(int i=0; i < (numRound * 8); i++) {
 				readerModelPlayers.readLine();
 			}
 			String player1 = serializator.fromJson(readerModelPlayers.readLine(), String.class);
@@ -167,6 +167,7 @@ public class LoadGame {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		System.out.println("first Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(0).getCoordinate());
 		System.out.println("second Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(1).getCoordinate());
 		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, 9);
