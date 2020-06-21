@@ -166,8 +166,6 @@ public final class UIController{
     	bluePlayer.getStyleClass().add("BluePlayer");
     	redPlayer = new Circle(25);
     	redPlayer.getStyleClass().add("RedPlayer");
-    	label1.setText(player1.get());
-    	label2.setText(player2.get());
     	label1.getStyleClass().add("SelectedLabel");
     	label2.getStyleClass().add("Label");
   
@@ -190,6 +188,8 @@ public final class UIController{
 	    } else {
 	    	this.controller.newStandardGame(player1.get(), player2.get());	    	
 	    }  
+    	label1.setText(player1.get());
+    	label2.setText(player2.get());
 	}
     
     private void addPane(int colIndex, int rowIndex) {
