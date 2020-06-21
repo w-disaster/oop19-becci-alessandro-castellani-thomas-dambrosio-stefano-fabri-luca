@@ -18,6 +18,8 @@ import model.roundenvironment.players.Player;
 import model.roundenvironment.players.PlayerImpl;
 import model.roundenvironment.players.RoundPlayers;
 import model.roundenvironment.players.RoundPlayersImpl;
+import model.roundenvironment.powerups.RoundPowerUps;
+import model.roundenvironment.powerups.RoundPowerUpsImpl;
 
 public class ModelFactoryImpl implements ModelFactory {
 
@@ -54,7 +56,8 @@ public class ModelFactoryImpl implements ModelFactory {
 			playersList.add(player2);
 			RoundBarriers barriers = new RoundBarriersImpl();
 			RoundPlayers players = new RoundPlayersImpl(playersList);
-			RoundPUpEnvironment powerUpEnvironment = new RoundPUpEnvironmentImpl(barriers,players);
+			RoundPowerUps roundPowerUps = new RoundPowerUpsImpl();
+			RoundPUpEnvironment powerUpEnvironment = new RoundPUpEnvironmentImpl(barriers, players, roundPowerUps);
 			roundPowerUpEnvironments.add(powerUpEnvironment);
 		}
 		return new ModelImpl<>(roundPowerUpEnvironments, Model.BOARD_DIMENSION, roundPowerUpEnvironments.get(0), new ArrayList<>());

@@ -45,6 +45,19 @@ public class LogicImpl implements Logic{
         pane.setOnMouseClicked(e -> {
         	this.setUpClickHandler(position, controller);
         });
+//        pane.setOnMouseDragReleased(e -> {
+//        	System.out.println(this.selectedBarrier);
+//        	System.out.println("booooo");
+//        	if(this.selectedBarrier.get().equals(0)) {
+//        		controller.placeBarrier(position, Orientation.VERTICAL);
+//        		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
+//        	} else {
+//        		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
+//        		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.HORIZONTAL + "\n");
+//        	}
+//        	this.selectedBarrier = Optional.empty();
+//        
+//        });
         this.gridMap.put(position, pane);        
 		return pane;
 	}

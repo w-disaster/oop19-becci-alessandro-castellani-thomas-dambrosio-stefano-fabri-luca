@@ -1,10 +1,8 @@
 package model.roundenvironment;
-import javafx.util.Pair;
-import model.roundenvironment.coordinate.Coordinate;
-import model.roundenvironment.powerups.PowerUp.Type;
+import model.roundenvironment.powerups.RoundPowerUps;
 
 public interface RoundPUpEnvironment extends RoundEnvironment {
-
-	Pair<Type, Coordinate> getPowerUp();
+	
+	RoundPowerUps getRoundPowerUps();
 	
 }

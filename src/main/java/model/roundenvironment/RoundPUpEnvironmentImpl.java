@@ -1,30 +1,21 @@
 package model.roundenvironment;
 
-import javafx.util.Pair;
 import model.roundenvironment.barriers.*;
-import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.RoundPlayers;
-import model.roundenvironment.powerups.PowerUp;
-import model.roundenvironment.powerups.PowerUp.Type;
-import model.roundenvironment.powerups.PowerUpImpl;
+import model.roundenvironment.powerups.RoundPowerUps;
 
 public class RoundPUpEnvironmentImpl extends RoundEnvironmentImpl implements RoundPUpEnvironment{
 	
-	private PowerUp powerUp;
+	private RoundPowerUps roundPowerUps;
 	
-	public RoundPUpEnvironmentImpl(final RoundBarriers roundBarriers, final RoundPlayers roundPlayers) {
+	public RoundPUpEnvironmentImpl(final RoundBarriers roundBarriers, final RoundPlayers roundPlayers, final RoundPowerUps roundPowerUps) {
 		super(roundBarriers, roundPlayers);
-		this.powerUp = new PowerUpImpl(roundBarriers, roundPlayers);
+		this.roundPowerUps = roundPowerUps;
 	}
 
-//	public RoundPUpEnvironmentImpl(final RoundBarriers roundBarriers, final RoundPlayers roundPlayers, final RoundBarriers junk) {
-//		super(roundBarriers, roundPlayers);
-//		this.junk = junk;
-//	}
-
 	@Override
-	public Pair<Type, Coordinate> getPowerUp() {
-		return new Pair<>(this.powerUp.getType(), this.powerUp.getCoordinate());
+	public RoundPowerUps getRoundPowerUps() {
+		return this.roundPowerUps;
 	}
 
 }
