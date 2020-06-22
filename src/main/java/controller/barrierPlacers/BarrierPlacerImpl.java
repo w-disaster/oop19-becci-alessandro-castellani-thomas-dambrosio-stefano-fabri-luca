@@ -55,7 +55,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMoveIm
 				this.observerBarrier.update(new BarrierImpl(position, type, Piece.HEAD), this.players.getCurrentPlayer().getNickname());
 				this.observerBarrier.update(new BarrierImpl(new Coordinate(position.getX(), position.getY() + 1), type, Piece.TAIL), this.players.getCurrentPlayer().getNickname());
 			}
-			this.changeTurn(this.players.getCurrentPlayer());
+			this.changeTurn();
 			this.view.changeSelectedLabel(this.players.getCurrentPlayer().getNickname());
 		} else {
 			System.out.println("Bad move! Still your turn!");

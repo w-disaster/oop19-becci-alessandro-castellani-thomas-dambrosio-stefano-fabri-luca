@@ -47,7 +47,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 				this.model.getWinners().add(this.players.getCurrentPlayer()); //add the winner of the round
 				this.changeRound();
 			}
-			this.changeTurn(this.players.getCurrentPlayer());
+			this.changeTurn();
 			this.view.changeSelectedLabel(this.players.getCurrentPlayer().getNickname());
 		} else {
 			System.out.println("Bad move! Still your turn!");

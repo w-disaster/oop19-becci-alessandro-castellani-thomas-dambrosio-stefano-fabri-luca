@@ -39,20 +39,16 @@ public class GenericMoveImpl<X extends RoundEnvironment> {
 		}
 	}
 	
-	//chiedere a lu se può tornare optional
 	private boolean existingPlayer() {
-		try {
-			if (!this.players.getCurrentPlayer().equals(null)) {
-				return true;
-			}
-		} catch (NullPointerException e) {
-			return false;
+		if (!(this.players.getCurrentPlayer() == null)) {
+			return true;
 		}
 		return false;
 	}
 
-	protected void changeTurn(Player player) {
-		int index = this.turns.indexOf(player);
+	protected void changeTurn() {
+		List<String> nicknames = List.copyOf(this.turns).stream().map(Player::getNickname).collect(Collectors.toList());
+		int index = nicknames.indexOf(this.players.getCurrentPlayer().getNickname());
 		if (index != this.turns.size() - 1) {
 			this.players.setCurrentPlayer(this.turns.get(index + 1));
 		} else {
