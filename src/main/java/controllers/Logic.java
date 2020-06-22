@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.powerups.PowerUp;
 
 public interface Logic {
 	
@@ -28,6 +29,8 @@ public interface Logic {
 	public void drawBarrierLogic(Barrier barrier);
 
 	public void drawTextLogic(String textToDisplay);
+
+	public void drawPowerUps(List<PowerUp> powerUpsAsList);
 
 
 

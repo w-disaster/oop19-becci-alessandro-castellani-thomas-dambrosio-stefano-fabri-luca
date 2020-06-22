@@ -15,6 +15,7 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 		this.powerUpList = new ArrayList<>();
 		for (int i = 0; i < POWERUP_NUMBER; i++) {
 			this.powerUpList.add(new PowerUpImpl(Model.BOARD_DIMENSION));
+			System.out.println(this.powerUpList.get(0));
 		}
 	}
 	

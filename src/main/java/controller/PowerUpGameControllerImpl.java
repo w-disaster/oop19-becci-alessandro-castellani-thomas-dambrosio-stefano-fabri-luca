@@ -1,30 +1,25 @@
 package controller;
 
 import java.util.Iterator;
-
-import controller.barrierPlacers.BarrierPlacer;
 import controller.barrierPlacers.BarrierPlacerPowerUp;
-import controller.playerMovers.PlayerMover;
 import controller.playerMovers.PlayerMoverPowerUp;
 import controllers.UIController;
+import javafx.util.Pair;
 import model.Model;
 import model.ModelFactoryImpl;
-import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
-import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
-import savings.LoadGame;
-import savings.SaveGame;
+import model.roundenvironment.players.Player;
+import model.roundenvironment.powerups.PowerUp;
 
-public class PowerUpGameControllerImpl extends StandardGameControllerImpl implements BarrierPlacer, PlayerMover{
+public class PowerUpGameControllerImpl extends StandardGameControllerImpl{
 	
 	private Model<RoundPUpEnvironment> model;
 	private UIController view;
-	private SaveGame saving;
-	private LoadGame loading;
 	private Iterator<RoundPUpEnvironment> iterRounds;
-	private BarrierPlacer placer;
-	private PlayerMover mover;
+	private BarrierPlacerPowerUp<RoundPUpEnvironment> placer;
+	private PlayerMoverPowerUp<RoundPUpEnvironment> mover;
+	private Pair<Player, PowerUp> powerUpPlayer;
 
 	public PowerUpGameControllerImpl(UIController view) {
 		super(view);
@@ -35,22 +30,34 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
 		this.model = new ModelFactoryImpl().buildWithPowerUps(nicknamePlayer1, nicknamePlayer2);
 		this.view.setupGrid(player1Coordinate, player2Coordinate, 10, 10);
+		this.view.drawPowerUps(this.model.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList());
 		this.iterRounds = this.model.getGameRoundEnvironments().iterator();
-		this.model.setCurrentRoundEnvironment(this.iterRounds.next()); //setting current round (first)
-		this.mover = new PlayerMoverPowerUp(this.model, this.view, this.iterRounds);
-		this.placer = new BarrierPlacerPowerUp(this.model, this.view, this.iterRounds);
+		this.model.setCurrentRoundEnvironment(this.iterRounds.next());
+		this.mover = new PlayerMoverPowerUp<>(this.model, this.view, this.iterRounds);
+		this.placer = new BarrierPlacerPowerUp<>(this.model, this.view, this.iterRounds);
 	}
 	
 	@Override
 	public void movePlayer(Coordinate position) {
+		for (PowerUp p : this.model.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList()) {
+			if (p.getCoordinate().equals(position)) {
+				this.powerUpPlayer = new Pair<>(this.model.getCurrentRoundEnvironment().getRoundPlayers()
+						.getCurrentPlayer(), p);
+			}
+		}
+		this.mover.movePlayer(position);
+		if (this.powerUpPlayer.getKey().getCoordinate().equals(position)) {
+			switch (this.powerUpPlayer.getValue().getType()) {
+			case PLUS_ONE_MOVE:
+				this.mover.doubleMove();
+				break;
+			case PLUS_ONE_BARRIER:
+				this.placer.plusOneBarrier();
+				break;
+			default:
+				break;
+			}
+		}
 		
-
 	}
-
-	@Override
-	public void placeBarrier(Coordinate position, Orientation orientation) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

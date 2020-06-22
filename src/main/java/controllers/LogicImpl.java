@@ -15,6 +15,7 @@ import javafx.util.Pair;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.powerups.PowerUp;
 
 public class LogicImpl implements Logic{
 	
@@ -46,8 +47,6 @@ public class LogicImpl implements Logic{
         	this.setUpClickHandler(position, controller);
         });
 //        pane.setOnMouseDragReleased(e -> {
-//        	System.out.println(this.selectedBarrier);
-//        	System.out.println("booooo");
 //        	if(this.selectedBarrier.get().equals(0)) {
 //        		controller.placeBarrier(position, Orientation.VERTICAL);
 //        		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
@@ -92,6 +91,15 @@ public class LogicImpl implements Logic{
 	
     public void clearGrid() {
     	this.gridMap.entrySet().forEach(e -> e.getValue().getChildren().remove(0, e.getValue().getChildren().size()));
+    }
+    
+    @Override
+    public void drawPowerUps(List<PowerUp> powerUpsAsList) {
+		for (PowerUp p : powerUpsAsList) {
+			System.out.println("Drawing powerUp in " + p.getCoordinate());
+			this.gridMap.get(p.getCoordinate()).getChildren().add(new Rectangle());
+		}
+    	
     }
     
     public void drawBarriersOnLoad(List<Barrier> barrierList) {
@@ -142,5 +150,6 @@ public class LogicImpl implements Logic{
     	}		
 		
 	}
+
 
 }

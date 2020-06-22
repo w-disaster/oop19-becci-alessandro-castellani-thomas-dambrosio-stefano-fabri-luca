@@ -1,5 +1,6 @@
 package controllers;
 
+import controller.PowerUpGameControllerImpl;
 import controller.StandardGameControllerImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ import javafx.util.Pair;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.powerups.PowerUp;
 import savings.LoadGame;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
@@ -70,15 +72,17 @@ public final class UIController{
 	private Circle redPlayer;
 	
 	private StandardGameControllerImpl controller;
-	private LoadGame loadGame;
 	
 	private Optional<String> player1;
 	private Optional<String> player2;
 
 	public UIController() {
 		this.logic = new LogicImpl(this);
-		this.controller = new StandardGameControllerImpl(this);
-		this.loadGame = new LoadGame();
+		if (MenuController.powerup_game) {
+			this.controller = new PowerUpGameControllerImpl(this);
+		} else {
+			this.controller = new StandardGameControllerImpl(this);						
+		}
 	}
 	
 	public void initialize() {
@@ -182,12 +186,13 @@ public final class UIController{
 	    
 	    //Starts the game
 	    if (MenuController.to_load) {
-	    	this.player1 = Optional.of(this.loadGame.getNicknamesCurrentRound().get(0).getNickname());
-	    	this.player2 = Optional.of(this.loadGame.getNicknamesCurrentRound().get(1).getNickname());
 	    	this.controller.loadGame();
-	    } else {
+	    } else if(MenuController.powerup_game){
+	    	//newPowerUpGame
 	    	this.controller.newStandardGame(player1.get(), player2.get());	    	
-	    }  
+	    }  else {
+	    	this.controller.newStandardGame(player1.get(), player2.get());	    
+	    }
 	    System.out.println(player1.get());
 	    System.out.println(player2.get());
     	label1.setText(player1.get());
@@ -201,6 +206,11 @@ public final class UIController{
         this.grid.add(pane, position.getX(), position.getY());
     }
     
+    public void setNicknames(String player1, String player2) {
+    	this.player1 = Optional.of(player1);
+    	this.player2 = Optional.of(player2);
+    }
+    
     public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2) {
     	this.logic.clearGrid();
     	this.logic.getPaneByPosition(player1pos).setCenter(bluePlayer);
@@ -212,6 +222,10 @@ public final class UIController{
     public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2, List<Barrier> barrierList) {
     	this.setupGrid(player1pos, player2pos, barriersP1, barriersP2);
     	this.logic.drawBarriersOnLoad(barrierList);
+    }
+    
+    public void drawPowerUps(List<PowerUp> powerUpsAsList) {
+    	this.logic.drawPowerUps(powerUpsAsList);
     }
 
     public void move(Coordinate position, String player) {
@@ -328,4 +342,5 @@ public final class UIController{
      public void exitToDesktop() {
     	 System.exit(0);
      }
+
 }
