@@ -12,6 +12,7 @@ public final class Launcher {
      * @param args unused
      */
     public static void main(final String[] args) {
+    	System.out.println(Integer.toString(11/2));
         Main.main(args);
     }
 }

@@ -15,8 +15,6 @@ import java.util.TreeMap;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import javafx.util.Pair;
 import model.Model;
 import model.ModelFactory;
 import model.ModelFactoryImpl;
@@ -30,6 +28,9 @@ import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.coordinate.Pair;
+import model.roundenvironment.graph.BarriersGraph;
+import model.roundenvironment.graph.Graph;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.PlayerImpl;
 import model.roundenvironment.players.RoundPlayers;
@@ -39,9 +40,11 @@ public class LoadGame {
 	private final String pathFilePlayers= PathSavings.MODELPLAYERS.getPath();
 	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
 	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
+	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
 	private final File fileModelCurrent;
 	private final File fileModelPlayers;
 	private final File fileModelBarriers;
+	private final File fileGraph;
 	private Model<RoundEnvironment> model;
 	private Iterator<RoundEnvironment> iterator;
 	private boolean fileModelExist;
@@ -55,7 +58,8 @@ public class LoadGame {
 		fileModelPlayers = new File(pathFilePlayers);
 		fileModelCurrent = new File(pathFileCurrent);
 		fileModelBarriers = new File(pathFileBarriers);
-		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists()) {
+		fileGraph = new File(pathFileGraph);
+		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists() && fileGraph.exists()) {
 			fileModelExist = true;
 		}
 		else {
@@ -122,13 +126,14 @@ public class LoadGame {
 		return counter - 1;
 	}
 	
-	private List<Barrier> getBarrierList(final int numRound){
+	private Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound){
 		List<Barrier> barriers = new ArrayList<>();
+		List<Pair<Coordinate, Coordinate>> listEdges = new ArrayList<>();
 		try {
 			BufferedReader readerModelBarriers = new BufferedReader(new FileReader(fileModelBarriers));
 			if(Integer.parseInt(readerModelBarriers.readLine()) != numRound){
 				readerModelBarriers.close();
-				return barriers;
+				return new Pair<>(barriers, new BarriersGraph<>(Model.BOARD_DIMENSION));
 			}
 			else {
 				for(int k = 0; k < lineCounter(fileModelBarriers) / 3; k++) {
@@ -137,12 +142,22 @@ public class LoadGame {
 					Piece piece = serializator.fromJson(readerModelBarriers.readLine(), Piece.class);
 					barriers.add(new BarrierImpl(coord, type, piece));
 				}
+				BufferedReader readerGraph = new BufferedReader(new FileReader(fileGraph));
+				int numberOfCoords = (lineCounter(fileGraph) / 2) + 1;
+				for(int i = 0; i < numberOfCoords; i++) {
+					Pair<Coordinate, Coordinate> coord = new Pair<>(serializator.fromJson(readerGraph.readLine(), Coordinate.class),
+							serializator.fromJson(readerGraph.readLine(), Coordinate.class));
+					if(coord.getX()!=null) {
+						listEdges.add(coord);
+					}
+				}
+				readerGraph.close();
 			}
 			readerModelBarriers.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return barriers;
+		return new Pair<List<Barrier>, Graph<Coordinate>>(barriers, new BarriersGraph<Coordinate>(listEdges));
 	}
 	
 	private void getData() {
@@ -152,10 +167,11 @@ public class LoadGame {
 			//now i have to get for each roundEnvironment the things i need
 			for(int i=0; i < 3; i++) {
 				RoundPlayers players = new RoundPlayersImpl(getPlayersList(i));
-				RoundBarriers barriers = new RoundBarriersImpl(getBarrierList(i));
+				//this is obvious. because i don't pass it the graph. I'll get that in the getBarrier
+				RoundBarriers barriers = new RoundBarriersImpl(getBarriers(i).getX(), getBarriers(i).getY());
 				//set current player at the right round.
-				if(i==currents.getValue()) {
-					players.setCurrentPlayer(currents.getKey());
+				if(i==currents.getY()) {
+					players.setCurrentPlayer(currents.getX());
 				}
 				RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
 				roundEnvironments.add(environment);
@@ -163,7 +179,7 @@ public class LoadGame {
 			//here i should create the model.
 			iterator = roundEnvironments.iterator();
 			iterator.next();
-			for(int i=0; i < currents.getValue(); i++) {
+			for(int i=0; i < currents.getY(); i++) {
 				iterator.next();
 			}
 		} catch(Exception e) {
@@ -172,7 +188,7 @@ public class LoadGame {
 		
 		//System.out.println("current Player BF: " + roundEnvironments.get(0).getRoundPlayers().getCurrentPlayer().getNickname());
 		//System.out.println("current Player BF: " + roundEnvironments.get(0).getRoundPlayers().getCurrentPlayer().getCoordinate());
-		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, 9);
+		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
 		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getNickname());
 		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getCoordinate());
 		loadingChanged = true;

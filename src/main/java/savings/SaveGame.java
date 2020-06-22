@@ -16,6 +16,9 @@ import controllers.UIController;
 import model.Model;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier;
+import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.coordinate.Pair;
+import model.roundenvironment.graph.Graph;
 import model.roundenvironment.players.Player;
 
 public class SaveGame {
@@ -108,8 +111,19 @@ public class SaveGame {
 		}
 	}
 	
-	private void saveGraph() {
-		
+	private void saveGraph(final Graph<Coordinate> graph) {
+		try {
+			BufferedWriter roundGraphWriter = new BufferedWriter(new FileWriter(saveGraph));
+			for(Pair<Coordinate, Coordinate> edge : graph.getEdges()) {
+				roundGraphWriter.write(serializator.toJson(edge.getX()));
+				roundGraphWriter.newLine();
+				roundGraphWriter.write(serializator.toJson(edge.getY()));
+				roundGraphWriter.newLine();
+			}
+			roundGraphWriter.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void save() {
@@ -124,6 +138,7 @@ public class SaveGame {
 					//i only care about current Barriers.
 					saveBarriers(numRound, env.getRoundBarriers().getBarriersAsList());
 					//i'll save the graph here.
+					saveGraph(env.getRoundBarriers().getBarriersAsGraph());
 					//System.out.println("barriers Saved");
 				}
 				for(Player pl : env.getRoundPlayers().getPlayers()) {
