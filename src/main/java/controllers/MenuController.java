@@ -58,6 +58,7 @@ public class MenuController {
 			public void run() {
 				stage = (Stage) rootPane.getScene().getWindow();
 				stage.widthProperty().addListener(changeListener);
+				stage.getIcons().add((new Image(this.getClass().getResourceAsStream("/logo/logo.png"))));
 			}
 			
 		});
