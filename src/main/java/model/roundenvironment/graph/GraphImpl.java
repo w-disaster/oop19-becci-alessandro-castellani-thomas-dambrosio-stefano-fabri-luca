@@ -15,7 +15,7 @@ public class GraphImpl<X> implements Graph<Coordinate> {
 	private List<Pair<Coordinate, Coordinate>> edges;
 	
 	/**
-	 * constructor of BarrierGraphImpl, given board dimension
+	 * BarrierGraphImpl given board dimension
 	 * @param boardDimension
 	 */
 	public GraphImpl(int boardDimension) {
@@ -27,6 +27,14 @@ public class GraphImpl<X> implements Graph<Coordinate> {
 			}
 		}
 		barriersGraphFromNodes(nodes);
+	}
+	
+	/**
+	 * BarrierGraphImpl given edges
+	 * @param edges
+	 */
+	public GraphImpl(List<Pair<Coordinate, Coordinate>> edges) {
+		this.edges = edges;
 	}
 	
 	/**
