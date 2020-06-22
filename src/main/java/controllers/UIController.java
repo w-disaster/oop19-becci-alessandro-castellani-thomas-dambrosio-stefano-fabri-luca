@@ -1,6 +1,9 @@
 package controllers;
 
+import controller.GameController;
+import controller.PowerUpGameController;
 import controller.PowerUpGameControllerImpl;
+import controller.StandardGameController;
 import controller.StandardGameControllerImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,7 +74,7 @@ public final class UIController{
     private Circle bluePlayer;
 	private Circle redPlayer;
 	
-	private StandardGameControllerImpl controller;
+	private GameController controller;
 	
 	private Optional<String> player1;
 	private Optional<String> player2;
@@ -189,9 +192,9 @@ public final class UIController{
 	    	this.controller.loadGame();
 	    } else if(MenuController.powerup_game){
 	    	//newPowerUpGame
-	    	this.controller.newStandardGame(player1.get(), player2.get());	    	
+	    	((PowerUpGameController) this.controller).newPowerUpGame(player1.get(), player2.get());	    	
 	    }  else {
-	    	this.controller.newStandardGame(player1.get(), player2.get());	    
+	    	((StandardGameController) this.controller).newStandardGame(player1.get(), player2.get());	    
 	    }
 	    System.out.println(player1.get());
 	    System.out.println(player2.get());

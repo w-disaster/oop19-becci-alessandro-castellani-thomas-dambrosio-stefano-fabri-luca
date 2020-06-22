@@ -3,6 +3,7 @@ package controllers;
 import java.util.List;
 import java.util.Optional;
 
+import controller.GameController;
 import controller.StandardGameControllerImpl;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
@@ -12,9 +13,9 @@ import model.roundenvironment.powerups.PowerUp;
 
 public interface Logic {
 	
-	public BorderPane addPaneLogic(Coordinate position, StandardGameControllerImpl controller);
+	public BorderPane addPaneLogic(Coordinate position, GameController controller);
 	
-	public void setUpClickHandler(Coordinate position, StandardGameControllerImpl controller);
+	public void setUpClickHandler(Coordinate position, GameController controller);
 	
 	public void setSelectedBarrier(String type);
 	

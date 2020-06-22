@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import controller.GameController;
 import controller.StandardGameControllerImpl;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
@@ -41,7 +42,7 @@ public class LogicImpl implements Logic{
 	}
 	
 	@Override
-	public BorderPane addPaneLogic(Coordinate position, StandardGameControllerImpl controller) {
+	public BorderPane addPaneLogic(Coordinate position, GameController controller) {
 		BorderPane pane = new BorderPane();
         pane.setOnMouseClicked(e -> {
         	this.setUpClickHandler(position, controller);
@@ -62,7 +63,7 @@ public class LogicImpl implements Logic{
 	}
 
 	@Override
-	public void setUpClickHandler(Coordinate position, StandardGameControllerImpl controller) {
+	public void setUpClickHandler(Coordinate position, GameController controller) {
         System.out.printf("Mouse clicked cell " + position.toString() + "\n");
         if (this.selectedBarrier.isEmpty()) {
         	controller.movePlayer(position);
