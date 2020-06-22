@@ -46,15 +46,17 @@ public class LoadGame {
 	private Iterator<RoundEnvironment> iterator;
 	private boolean fileModelExist;
 	private Gson serializator;
+	public static boolean loadingChanged;
 	
 	public LoadGame() {
+		//starts from true because we have to do loading at least one time.
+		loadingChanged = true;
 		serializator = new Gson();
 		fileModelPlayers = new File(pathFilePlayers);
 		fileModelCurrent = new File(pathFileCurrent);
 		fileModelBarriers = new File(pathFileBarriers);
 		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists()) {
 			fileModelExist = true;
-			getData();
 		}
 		else {
 			fileModelExist = false;
@@ -168,15 +170,18 @@ public class LoadGame {
 			e.printStackTrace();
 		}
 		
-		System.out.println("first Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(0).getCoordinate());
-		System.out.println("second Player coord BEFORE factory " + roundEnvironments.get(0).getRoundPlayers().getPlayers().get(1).getCoordinate());
+		//System.out.println("current Player BF: " + roundEnvironments.get(0).getRoundPlayers().getCurrentPlayer().getNickname());
+		//System.out.println("current Player BF: " + roundEnvironments.get(0).getRoundPlayers().getCurrentPlayer().getCoordinate());
 		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, 9);
-		System.out.println("first Player coord AFTER factory " + model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().get(0).getCoordinate());
-		System.out.println("second Player coord AFTER factory " + model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers().get(1).getCoordinate());
+		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getNickname());
+		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getCoordinate());
+		loadingChanged = true;
 	}
 	
 	public Iterator<RoundEnvironment> getIterator(){
-		
+		if(loadingChanged) {
+			getData();
+		}
 		if(fileModelExist) {
 			return iterator;
 		}
@@ -184,17 +189,11 @@ public class LoadGame {
 	}
 	
 	public Model<RoundEnvironment> getModel() {
-		
+		if(loadingChanged) {
+			getData();
+		}
 		if(fileModelExist) {
 			return model;
-		}
-		return null;
-	}
-	
-	public List<Player> getNicknamesCurrentRound(){
-		
-		if(fileModelExist) {
-			return model.getCurrentRoundEnvironment().getRoundPlayers().getPlayers();
 		}
 		return null;
 	}
