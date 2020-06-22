@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 import model.roundenvironment.barriers.Barrier;
@@ -97,8 +98,24 @@ public class LogicImpl implements Logic{
     @Override
     public void drawPowerUps(List<PowerUp> powerUpsAsList) {
 		for (PowerUp p : powerUpsAsList) {
-			System.out.println("Drawing powerUp in " + p.getCoordinate());
-			this.gridMap.get(p.getCoordinate()).getChildren().add(new Rectangle());
+			System.out.println(p);
+			switch (p.getType()) {
+			case PLUS_ONE_MOVE:
+				System.out.println("Drawing powerUp Double Move in " + p.getCoordinate());
+				Circle doubleMoveCircle = new Circle(25);
+				doubleMoveCircle.setFill(Color.BLUEVIOLET);
+				this.gridMap.get(p.getCoordinate()).setCenter(doubleMoveCircle);
+				break;
+			case PLUS_ONE_BARRIER:
+				System.out.println("Drawing powerUp Plus One Barrier in " + p.getCoordinate());
+				Circle plusOneBarrierCircle = new Circle(25);
+				plusOneBarrierCircle.setFill(Color.CHARTREUSE);
+				this.gridMap.get(p.getCoordinate()).setCenter(plusOneBarrierCircle);
+				break;
+			default:
+				break;
+			}
+			
 		}
     	
     }

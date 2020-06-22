@@ -10,7 +10,6 @@ public class RoundPUpEnvironmentImpl extends RoundEnvironmentImpl implements Rou
 	
 	public RoundPUpEnvironmentImpl(final RoundBarriers roundBarriers, final RoundPlayers roundPlayers, final RoundPowerUps roundPowerUps) {
 		super(roundBarriers, roundPlayers);
-		System.out.println(roundPowerUps);
 		this.roundPowerUps = roundPowerUps;
 	}
 
