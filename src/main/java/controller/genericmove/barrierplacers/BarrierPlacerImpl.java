@@ -67,7 +67,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	 * @return true if all checks return true
 	 */
 	protected boolean checkPlacement(Coordinate position, Orientation type) {
-		return this.isEmptyPosition(position, type) && this.enoughBarriers() && this.checkEdge(position) && this.noStall() ? true : false;
+		return this.isEmptyPosition(position, type) && this.enoughBarriers() && this.checkEdge(position) && this.noStall(position, type) ? true : false;
 	}
 
 	/**
@@ -160,13 +160,13 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	/**
 	 * @return true if the player have at least a path to follow to win
 	 */
-	private boolean noStall() {
-		RoundBarriers testPath = new RoundBarriersImpl(Model.BOARD_DIMENSION);
-		/*
-		if (testPath.getBarriersAsGraph().containsPath(this.players.getCurrentPlayer().getCoordinate(), this.players.getCurrentPlayer().getFinishLine())) {
-			return true;
+	private boolean noStall(Coordinate position, Orientation type) {
+		if (type.equals(Orientation.HORIZONTAL)) {
+			return this.barriers.getBarriersAsGraph().containsPath(this.barriers.getBarriersAsGraph().barriersAsEdges(List.of(new BarrierImpl(position, type, Piece.HEAD), 
+					new BarrierImpl(new Coordinate(position.getX() + 1, position.getY()), type, Piece.TAIL))), this.players.getCurrentPlayer().getCoordinate(), this.players.getCurrentPlayer().getFinishLine());
+		} else {
+			return this.barriers.getBarriersAsGraph().containsPath(this.barriers.getBarriersAsGraph().barriersAsEdges(List.of(new BarrierImpl(position, type, Piece.HEAD), 
+					new BarrierImpl(new Coordinate(position.getX(), position.getY() + 1), type, Piece.TAIL))), this.players.getCurrentPlayer().getCoordinate(), this.players.getCurrentPlayer().getFinishLine());
 		}
-		*/
-		return false;
 	}
 }
