@@ -39,6 +39,7 @@ public class GenericMoveImpl<X extends RoundEnvironment> {
 		}
 	}
 	
+	//chiedere a lu se può tornare optional
 	private boolean existingPlayer() {
 		try {
 			if (!this.players.getCurrentPlayer().equals(null)) {
