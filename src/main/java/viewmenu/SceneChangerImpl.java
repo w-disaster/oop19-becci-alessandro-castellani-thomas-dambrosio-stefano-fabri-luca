@@ -4,7 +4,11 @@ package viewmenu;
 
 import application.Main;
 import javafx.stage.Stage;
-
+/**
+ * This class changes the Scene.
+ * @author Alessandro Becci
+ *
+ */
 public class SceneChangerImpl implements SceneChanger{
 	
 	private Stage stage;
@@ -14,6 +18,10 @@ public class SceneChangerImpl implements SceneChanger{
 		stage = Main.STAGE;
 	}
 	
+	/**
+	 * Sets the Scene on the Stage
+	 * @param title
+	 */
 	private void setScene(final String title) {
 		try{
 			stage.setTitle(title);
@@ -29,6 +37,11 @@ public class SceneChangerImpl implements SceneChanger{
 		
 	}
 	
+	/**
+	 * This is the public method, it builds the scene with @SceneBuilder class and sets it with the private method setScene
+	 * @param pathToFXML
+	 * @param title
+	 */
 	@Override
 	public void change(final String pathToFXML, final String title) {
 		try{

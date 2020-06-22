@@ -1,6 +1,10 @@
 package viewmenu;
 
-
+/**
+ * This is an Enum for storing path and names used for scene changes.
+ * @author Alessandro Becci
+ *
+ */
 public enum ScenesItem {
 	
 	MENU("layouts/menu/MainMenu.fxml"),

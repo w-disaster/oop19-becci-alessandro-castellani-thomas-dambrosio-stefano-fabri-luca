@@ -30,7 +30,7 @@ public final class Main extends Application {
     	Main.STAGE = stage;
     	sceneChange = new SceneChangerImpl();
     	sceneChange.change(ScenesItem.MENU.get(), ScenesItem.MENUTITLE.get());
-     	Image logo = new Image(this.getClass().getResourceAsStream("/logo/logo.png"));
+    	stage.getIcons().add((new Image(this.getClass().getResourceAsStream("/logo/logo.png"))));
     }
     
     

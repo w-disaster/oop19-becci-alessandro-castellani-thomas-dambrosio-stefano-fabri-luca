@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.Optional;
 
-import javafx.application.Platform;
+import application.Main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -20,7 +20,11 @@ import savings.LoadGame;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 import viewmenu.ScenesItem;
-
+/**
+ * This is the @FXML controller of the Menu.
+ * @author Alessandro Becci
+ *
+ */
 public class MenuController {
 	
 	@FXML private BorderPane rootPane;
@@ -33,9 +37,10 @@ public class MenuController {
 	public static boolean to_load;
 	public static boolean powerup_game;
 	private SceneChanger sceneChange;
-	private Stage stage;
+	private Stage stage = Main.STAGE;
 	private LoadGame loading;
 	
+	//I need this changeListener for setting labels and buttons size while resizing.
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
 		@Override
@@ -51,17 +56,10 @@ public class MenuController {
 		
 	};
 	
+	
 	public void initialize() {
-		Platform.runLater(new Runnable() {
-
-			@Override
-			public void run() {
-				stage = (Stage) rootPane.getScene().getWindow();
-				stage.widthProperty().addListener(changeListener);
-				stage.getIcons().add((new Image(this.getClass().getResourceAsStream("/logo/logo.png"))));
-			}
-			
-		});
+		//setting on the stage the changeListener for resizing
+		stage.widthProperty().addListener(changeListener);
 	}
 	
 	@FXML
@@ -72,16 +70,19 @@ public class MenuController {
 	
 	 @FXML
 	 public void newGameButtonPressHandler(ActionEvent event) {
-		 stage = (Stage) rootPane.getScene().getWindow();
+		 //removing the listener before starting a game(exiting from menu)
 		 stage.widthProperty().removeListener(changeListener);
+		 //static variable to tell UIController to NOT load the game
 		 to_load = false;
+		 
+		//setting up an alert for gameType
 		 Alert alert = new Alert(AlertType.CONFIRMATION);
 	     alert.setTitle("Choose your game type !");
 	     alert.setHeaderText("Game Type choice");
 	     alert.setContentText("Choose your option");
 	     alert.getDialogPane().setStyle("-fx-background-color: #2B2D42; -fx-fill: #FFFFFF;");
 	     // Set the icon 
-	    ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
+	     ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
 	   		(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
 	     
 	     ButtonType buttonTypeOne = new ButtonType("Normal");
@@ -96,6 +97,7 @@ public class MenuController {
 		 } else {
 		     powerup_game = false;
 		 }
+		 //changing scene with Game
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
 	 }
@@ -103,15 +105,18 @@ public class MenuController {
 	 @FXML
 	 public void loadGameButtonPressHandler() {
 		 loading = new LoadGame();
+		 //setting static variable for loading(UIController)
 		 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+		 //changing scene with Game
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
 	 }
 	 
 	 @FXML
 	 public void leaderboardButtonPressHandler() {
-		 stage = (Stage) rootPane.getScene().getWindow();
+		//removing the listener before going in a game(exiting from menu)
 		 stage.widthProperty().removeListener(changeListener);
+		 //changing scene with leaderBoard
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change(ScenesItem.LEADERBOARD.get(), ScenesItem.LEADERBOARDTITLE.get());
 	 }
