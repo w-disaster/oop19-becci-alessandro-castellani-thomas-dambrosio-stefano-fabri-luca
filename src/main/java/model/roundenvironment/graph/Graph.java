@@ -29,19 +29,19 @@ public interface Graph<X> {
 	List<Pair<X, X>> getEdges();
 	
 	/**
-	 * converts a barrier in an edge
-	 * @param barrier
-	 * @return edge
+	 * converts barriers in edges
+	 * @param barriers
+	 * @return
 	 */
-	Pair<X, X> barrierAsEdge(Barrier barrier);
+	List<Pair<X, X>> barriersAsEdges(List<Barrier> barriers);
 	
 	/**
 	 * computes BFS and checks if there's a path from node source to line destination 
-	 * if we remove the edge parameter.
-	 * @param edge
+	 * if we remove the edges provided by the parameter.
+	 * @param edgesToRemove
 	 * @param source
 	 * @param destination
 	 * @return
 	 */
-	boolean containsPath(Pair<Coordinate, Coordinate> edge , X source, int destination);
+	boolean containsPath(List<Pair<X, X>> edgesToRemove, X source, int destination);
 }

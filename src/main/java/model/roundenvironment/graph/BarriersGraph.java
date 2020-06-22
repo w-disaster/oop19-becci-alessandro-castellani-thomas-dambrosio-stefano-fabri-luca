@@ -50,12 +50,11 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	}
 	
 	@Override
-	public boolean containsPath(Pair<Coordinate, Coordinate> edge, Coordinate source, int destination) {
+	public boolean containsPath(List<Pair<Coordinate, Coordinate>> edgesToRemove, Coordinate source, int destination) {
 		List<Node> list = new ArrayList<>();
 		
 		List<Pair<Node, Node>> edges = edgesOfNodes(this.edges.stream()
-				.filter(e -> !e.getX().equals(edge.getX()) && !e.getY().equals(edge.getY()))
-				.filter(e -> !e.getX().equals(edge.getY()) && !e.getY().equals(edge.getX()))
+				.filter(e -> !edgesToRemove.contains(e))
 				.collect(Collectors.toList()));
 		
 		Node s = new NodeImpl(source, Colour.GRAY);
@@ -77,14 +76,18 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	}
 	
 	@Override
-	public Pair<Coordinate, Coordinate> barrierAsEdge(Barrier barrier) {
-		if(barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
-			return new Pair<>(new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY()), 
-						new Coordinate(barrier.getCoordinate().getX() + 1, barrier.getCoordinate().getY()));
-		} else {
-			return new Pair<>(new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY()), 
-					new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY() + 1));
+	public List<Pair<Coordinate, Coordinate>> barriersAsEdges(List<Barrier> barriers) {
+		List<Pair<Coordinate, Coordinate>> edges = new ArrayList<>();
+		for(Barrier b : barriers) {
+			if(b.getOrientation().equals(Orientation.HORIZONTAL)) {
+				edges.add(new Pair<>(new Coordinate(b.getCoordinate().getX(), b.getCoordinate().getY()), 
+							new Coordinate(b.getCoordinate().getX() + 1, b.getCoordinate().getY())));
+			} else {
+				edges.add(new Pair<>(new Coordinate(b.getCoordinate().getX(), b.getCoordinate().getY()), 
+						new Coordinate(b.getCoordinate().getX(), b.getCoordinate().getY() + 1)));
+			}
 		}
+		return edges;
 	}
 	
 	/**

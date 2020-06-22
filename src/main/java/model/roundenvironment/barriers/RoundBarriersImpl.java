@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Graph;
 import model.roundenvironment.graph.BarriersGraph;
 
@@ -40,7 +41,10 @@ public class RoundBarriersImpl implements RoundBarriers {
 	@Override
 	public void add(Barrier barrier) {
 		this.barriers.add(barrier);
-		this.graph.remove(this.graph.barrierAsEdge(barrier));
+		for(Pair<Coordinate, Coordinate> edge : this.graph.barriersAsEdges(List.of(barrier))) {
+			this.graph.remove(edge);
+		}
+		
 	}
 
 	@Override

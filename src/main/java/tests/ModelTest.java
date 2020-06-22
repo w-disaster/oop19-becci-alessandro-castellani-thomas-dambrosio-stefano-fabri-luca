@@ -1,7 +1,11 @@
 package tests;
 
-import model.Model;
+import java.util.List;
 
+import model.Model;
+import model.roundenvironment.barriers.Barrier.Orientation;
+import model.roundenvironment.barriers.Barrier.Piece;
+import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Graph;
@@ -12,18 +16,22 @@ public class ModelTest {
 
 	
 	public void checkPath() {
-		Graph<Coordinate> barriers = new BarriersGraph<>(Model.BOARD_DIMENSION);
+		Graph<Coordinate> graph = new BarriersGraph<>(Model.BOARD_DIMENSION);
 		
 		/* I add all possible horizontal barriers between line 3 and line 4. The graph is bidirectional
 		 * then I must delete 2 edges for each barrier.
 		 * Note: adding those barriers imply there's not a path to the line 0 for all coordinates with line >= 4.
 		 */
 		for(int i = 0; i < Model.BOARD_DIMENSION; i++) {
-			barriers.remove(new Pair<>(new Coordinate(4, i), new Coordinate(3, i)));
+			graph.remove(new Pair<>(new Coordinate(4, i), new Coordinate(3, i)));
 		}
 		
-		System.out.println(barriers.containsPath(new Coordinate(3, 5), 0));
-		System.out.println(barriers.containsPath(new Coordinate(4, 4), 0));
+		//System.out.println(barriers.containsPath(new Coordinate(3, 5), 0));
+		//System.out.println(barriers.containsPath(new Coordinate(4, 4), 0));
+		
+		graph.containsPath(graph.barriersAsEdges(List.of(new BarrierImpl(new Coordinate(5,5), Orientation.HORIZONTAL, Piece.HEAD),
+				new BarrierImpl(new Coordinate(5, 6), Orientation.HORIZONTAL, Piece.TAIL))), new Coordinate(4, 0), Model.BOARD_DIMENSION - 1);   
+		
 	}
 	
 }
