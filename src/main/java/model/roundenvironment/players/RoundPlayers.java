@@ -1,6 +1,7 @@
 package model.roundenvironment.players;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This interface models the players of a round and keeps track of the current one.
@@ -11,9 +12,9 @@ public interface RoundPlayers {
 
 	/**
 	 * 
-	 * @return the current player.
+	 * @return optional of the current player if present, empty optional otherwise
 	 */
-	Player getCurrentPlayer();
+	Optional<Player> getCurrentPlayer();
 	
 	/**
 	 * 

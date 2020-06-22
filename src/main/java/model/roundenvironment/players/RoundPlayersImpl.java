@@ -1,6 +1,7 @@
 package model.roundenvironment.players;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Round players class
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class RoundPlayersImpl implements RoundPlayers {
 	
-	private Player currentPlayer;
+	private Optional<Player> currentPlayer;
 	private List<Player> players;
 	
 	/**
@@ -19,11 +20,11 @@ public class RoundPlayersImpl implements RoundPlayers {
 	public RoundPlayersImpl(final List<Player> players) {
 		super();
 		this.players = players;
-		this.currentPlayer = null;
+		this.currentPlayer = Optional.empty();
 	}
 
 	@Override
-	public Player getCurrentPlayer() {
+	public Optional<Player> getCurrentPlayer() {
 		return this.currentPlayer;
 	}
 
@@ -34,7 +35,7 @@ public class RoundPlayersImpl implements RoundPlayers {
 	
 	@Override
 	public void setCurrentPlayer(Player player) {
-		this.currentPlayer = player;
+		this.currentPlayer = Optional.of(player);
 	}
 
 	@Override
