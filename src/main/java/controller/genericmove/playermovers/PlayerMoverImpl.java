@@ -5,7 +5,7 @@ import java.util.*;
 import controller.genericmove.GenericMoveImpl;
 import controller.observers.Observer;
 import controller.observers.ObserverPlayerPosition;
-import controllers.UIController;
+import guicontrollers.UIController;
 import model.*;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.RoundEnvironment;

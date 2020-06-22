@@ -2,7 +2,7 @@ package controller.genericmove.playermovers;
 
 import java.util.Iterator;
 
-import controllers.UIController;
+import guicontrollers.UIController;
 import model.Model;
 import model.roundenvironment.RoundPUpEnvironment;
 

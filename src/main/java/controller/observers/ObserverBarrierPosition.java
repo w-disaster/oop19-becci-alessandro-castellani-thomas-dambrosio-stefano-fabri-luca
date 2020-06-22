@@ -1,6 +1,6 @@
 package controller.observers;
 
-import controllers.UIController;
+import guicontrollers.UIController;
 import model.roundenvironment.barriers.Barrier;
 
 public class ObserverBarrierPosition implements Observer {

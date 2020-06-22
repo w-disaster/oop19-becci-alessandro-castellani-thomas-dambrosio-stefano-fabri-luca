@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import controllers.HboxTextController;
+import guicontrollers.HboxTextController;
 import javafx.util.Pair;
 
 public class LoadLeaderBoard {

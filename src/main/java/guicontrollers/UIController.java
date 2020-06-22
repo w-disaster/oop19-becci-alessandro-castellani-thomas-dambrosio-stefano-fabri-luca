@@ -1,4 +1,4 @@
-package controllers;
+package guicontrollers;
 
 import controller.GameController;
 import controller.PowerUpGameController;

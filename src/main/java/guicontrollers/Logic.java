@@ -1,4 +1,4 @@
-package controllers;
+package guicontrollers;
 
 import java.util.List;
 import java.util.Optional;

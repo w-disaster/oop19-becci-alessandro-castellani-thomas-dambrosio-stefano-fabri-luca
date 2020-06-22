@@ -1,6 +1,6 @@
 package controller.observers;
 
-import controllers.UIController;
+import guicontrollers.UIController;
 import model.roundenvironment.coordinate.Coordinate;
 
 public class ObserverPlayerPosition implements Observer {

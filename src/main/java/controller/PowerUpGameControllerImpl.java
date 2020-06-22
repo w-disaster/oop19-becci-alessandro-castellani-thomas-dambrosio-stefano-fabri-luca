@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import controller.genericmove.barrierplacers.BarrierPlacerPowerUp;
 import controller.genericmove.playermovers.PlayerMoverPowerUp;
-import controllers.UIController;
+import guicontrollers.UIController;
 import javafx.util.Pair;
 import model.Model;
 import model.ModelFactoryImpl;

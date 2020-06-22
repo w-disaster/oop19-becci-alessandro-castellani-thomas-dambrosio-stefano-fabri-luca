@@ -2,7 +2,7 @@ package controller.genericmove.barrierplacers;
 
 import java.util.Iterator;
 
-import controllers.UIController;
+import guicontrollers.UIController;
 import model.Model;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.players.Player;

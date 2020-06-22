@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-import controllers.UIController;
+import guicontrollers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.RoundBarriers;

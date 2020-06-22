@@ -7,7 +7,7 @@ import com.google.common.graph.*;
 import controller.genericmove.GenericMoveImpl;
 import controller.observers.Observer;
 import controller.observers.ObserverBarrierPosition;
-import controllers.UIController;
+import guicontrollers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.BarrierImpl;

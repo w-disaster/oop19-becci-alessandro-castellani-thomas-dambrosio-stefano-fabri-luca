@@ -12,7 +12,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-import controllers.UIController;
+import guicontrollers.UIController;
 import model.Model;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier;
