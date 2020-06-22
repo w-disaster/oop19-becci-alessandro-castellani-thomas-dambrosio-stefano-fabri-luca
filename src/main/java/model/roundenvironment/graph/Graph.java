@@ -2,6 +2,8 @@ package model.roundenvironment.graph;
 
 import java.util.List;
 
+import model.roundenvironment.barriers.Barrier;
+import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 
 /**
@@ -27,10 +29,19 @@ public interface Graph<X> {
 	List<Pair<X, X>> getEdges();
 	
 	/**
-	 * computes BFS and checks if there's a path from node source to line destination
+	 * converts a barrier in an edge
+	 * @param barrier
+	 * @return edge
+	 */
+	Pair<X, X> barrierAsEdge(Barrier barrier);
+	
+	/**
+	 * computes BFS and checks if there's a path from node source to line destination 
+	 * if we remove the edge parameter.
+	 * @param edge
 	 * @param source
 	 * @param destination
-	 * @return true if there's a possible path, false otherwise
+	 * @return
 	 */
-	boolean containsPath(X source, int destination);
+	boolean containsPath(Pair<Coordinate, Coordinate> edge , X source, int destination);
 }

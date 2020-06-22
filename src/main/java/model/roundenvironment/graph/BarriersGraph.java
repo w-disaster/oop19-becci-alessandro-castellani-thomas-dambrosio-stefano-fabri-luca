@@ -2,10 +2,11 @@ package model.roundenvironment.graph;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import model.roundenvironment.barriers.Barrier;
+import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Node.Colour;
@@ -49,11 +50,15 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	}
 	
 	@Override
-	public boolean containsPath(Coordinate source, int destination) {
+	public boolean containsPath(Pair<Coordinate, Coordinate> edge, Coordinate source, int destination) {
 		List<Node> list = new ArrayList<>();
-		List<Pair<Node, Node>> edges = edgesOfNodes();
 		
-		Node s = new NodeImpl(source, Optional.of(0), Colour.GRAY);
+		List<Pair<Node, Node>> edges = edgesOfNodes(this.edges.stream()
+				.filter(e -> !e.getX().equals(edge.getX()) && !e.getY().equals(edge.getY()))
+				.filter(e -> !e.getX().equals(edge.getY()) && !e.getY().equals(edge.getX()))
+				.collect(Collectors.toList()));
+		
+		Node s = new NodeImpl(source, Colour.GRAY);
 		list.add(s);
 		
 		// computing BFS
@@ -64,12 +69,22 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 					return true;
 				}
 				v.setColour(model.roundenvironment.graph.Node.Colour.GRAY);
-				v.setDistance(Optional.of(u.getDistance().get() + 1));
 				list.add(v);
 			}
 			u.setColour(Colour.BLACK);
 		}
 		return false;
+	}
+	
+	@Override
+	public Pair<Coordinate, Coordinate> barrierAsEdge(Barrier barrier) {
+		if(barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
+			return new Pair<>(new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY()), 
+						new Coordinate(barrier.getCoordinate().getX() + 1, barrier.getCoordinate().getY()));
+		} else {
+			return new Pair<>(new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY()), 
+					new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY() + 1));
+		}
 	}
 	
 	/**
@@ -90,12 +105,12 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	
 	/**
 	 * 
-	 * @return edges from barriers
+	 * @return edges of nodes from edges of coordinates
 	 */
-	private List<Pair<Node, Node>> edgesOfNodes(){
-		return this.edges.stream()
-				.map(p -> new Pair<Node, Node>(new NodeImpl(p.getX(), Optional.empty(), Colour.WHITE), 
-						new NodeImpl(p.getY(), Optional.empty(), Colour.WHITE)))
+	private static List<Pair<Node, Node>> edgesOfNodes(List<Pair<Coordinate, Coordinate>> edges){
+		return 	edges.stream()
+				.map(p -> new Pair<Node, Node>(new NodeImpl(p.getX(), Colour.WHITE), 
+						new NodeImpl(p.getY(), Colour.WHITE)))
 				.collect(Collectors.toList());
 	}
 	

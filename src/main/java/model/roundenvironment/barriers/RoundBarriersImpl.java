@@ -3,11 +3,7 @@ package model.roundenvironment.barriers;
 import java.util.ArrayList;
 
 import java.util.List;
-
-
-import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
-import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Graph;
 import model.roundenvironment.graph.BarriersGraph;
 
@@ -44,13 +40,7 @@ public class RoundBarriersImpl implements RoundBarriers {
 	@Override
 	public void add(Barrier barrier) {
 		this.barriers.add(barrier);
-		if(barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
-			this.graph.remove(new Pair<>(new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY()), 
-						new Coordinate(barrier.getCoordinate().getX() + 1, barrier.getCoordinate().getY())));
-		} else {
-			this.graph.remove(new Pair<>(new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY()), 
-					new Coordinate(barrier.getCoordinate().getX(), barrier.getCoordinate().getY() + 1)));
-		}
+		this.graph.remove(this.graph.barrierAsEdge(barrier));
 	}
 
 	@Override
