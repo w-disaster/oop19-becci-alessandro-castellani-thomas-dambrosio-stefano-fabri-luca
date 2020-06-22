@@ -12,7 +12,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.powerups.PowerUp;
 
-public class PowerUpGameControllerImpl extends StandardGameControllerImpl{
+public class PowerUpGameControllerImpl extends StandardGameControllerImpl implements PowerUpGameController {
 	
 	private Model<RoundPUpEnvironment> model;
 	private UIController view;

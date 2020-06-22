@@ -1,18 +1,7 @@
 package controller;
 
-import controller.barrierPlacers.BarrierPlacer;
-import controller.playerMovers.PlayerMover;
+public interface StandardGameController extends GameController {
 
-/**
- * class with void methods that view can invoke
- * 
- * @author Thomas
- */
-public interface StandardGameController extends BarrierPlacer, PlayerMover {
-
-	public void nextRound();
+	public void newStandardGame(String nicknamePlayer1, String nicknamePlayer2);
 	
-	public void saveGame();
-	
-	public void loadGame();
 }
