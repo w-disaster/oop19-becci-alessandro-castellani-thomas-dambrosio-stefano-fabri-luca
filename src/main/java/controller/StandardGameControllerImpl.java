@@ -61,6 +61,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		Player player2 = players.getPlayers().get(1);
 		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
+		this.view.changeSelectedLabel(players.getCurrentPlayer().getNickname());
 		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
 	}
 	
@@ -83,6 +84,7 @@ public class StandardGameControllerImpl implements BarrierPlacer, PlayerMover {
 		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.view.setNicknames(player1.getNickname(), player2.getNickname());
+		this.view.changeSelectedLabel(this.model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getNickname());
 		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers(), this.model.getCurrentRoundEnvironment().getRoundBarriers().getBarriersAsList()); //reset grid
 	}
 	
