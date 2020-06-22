@@ -30,13 +30,26 @@ public class GenericMoveImpl<X extends RoundEnvironment> {
 		this.iterRounds = iterRounds;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.turns = this.players.getPlayers();
-		if (this.model.getWinners().size() % 2 == 0) {
-			this.players.setCurrentPlayer(this.turns.get(0));
-		} else {
-			this.players.setCurrentPlayer(this.turns.get(1));
+		if (!this.existingPlayer()) {
+			if (this.model.getWinners().size() % 2 == 0) {
+				this.players.setCurrentPlayer(this.turns.get(0));
+			} else {
+				this.players.setCurrentPlayer(this.turns.get(1));
+			}
 		}
 	}
 	
+	private boolean existingPlayer() {
+		try {
+			if (!this.players.getCurrentPlayer().equals(null)) {
+				return true;
+			}
+		} catch (NullPointerException e) {
+			return false;
+		}
+		return false;
+	}
+
 	protected void changeTurn(Player player) {
 		int index = this.turns.indexOf(player);
 		if (index != this.turns.size() - 1) {

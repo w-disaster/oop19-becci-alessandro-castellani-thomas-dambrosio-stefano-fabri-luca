@@ -39,6 +39,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 		//this.newPosition will be the final position (it may change while clickedPosition will remain the clicked position)
 		this.newPosition = new Coordinate(clickedPosition.getX(), clickedPosition.getY());
 		if (this.checkMove(this.playerPosition).contains(clickedPosition)) {
+			this.changePosition(this.players.getCurrentPlayer());
 			this.players.getCurrentPlayer().setCoordinate(this.newPosition);
 			this.observerPlayer.update(this.newPosition, this.players.getCurrentPlayer().getNickname()); //update view
 			if (this.players.getCurrentPlayer().isWinner()) { //when the player change position i check if he won
@@ -52,7 +53,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 			System.out.println("Bad move! Still your turn!");
 		}
 	}
-	
+
 	protected List<Coordinate> checkMove(Coordinate playerPosition) {
 		List<Coordinate> moves = new ArrayList<>();
 		List<Coordinate> movesJump = new ArrayList<>();
@@ -136,7 +137,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 		moves.addAll(movesJump);
 		return moves;
 	}
-
+	
 	private boolean adjacent(Coordinate coord1, Coordinate coord2) {
 		if (Math.abs(coord1.getX() - coord2.getX()) + Math.abs(coord1.getY() - coord2.getY()) == 1) {
 			return true;
@@ -186,6 +187,14 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 		for (Coordinate c : List.copyOf(coords)) {
 			if (c.equals(this.players.getPlayers().get(0).getCoordinate()) || c.equals(this.players.getPlayers().get(1).getCoordinate())) {
 				coords.remove(coords.indexOf(c));
+			}
+		}
+	}
+	
+	private void changePosition(Player currentPlayer) {
+		for (Player p : this.players.getPlayers()) {
+			if (currentPlayer.getNickname().compareTo(p.getNickname()) == 0) {
+				p.setCoordinate(this.newPosition);
 			}
 		}
 	}
