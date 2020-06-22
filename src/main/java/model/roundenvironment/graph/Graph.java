@@ -19,7 +19,7 @@ public interface Graph<X> {
 	void remove(Pair<X, X> edge);
 	
 	/**
-	 * compute bfs and checks if there's a path from node source to line destination
+	 * computes BFS and checks if there's a path from node source to line destination
 	 * @param source
 	 * @param destination
 	 * @return true if there's a possible path, false otherwise

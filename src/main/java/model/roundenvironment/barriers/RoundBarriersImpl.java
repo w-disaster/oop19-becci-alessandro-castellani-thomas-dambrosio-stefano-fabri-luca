@@ -31,12 +31,14 @@ public class RoundBarriersImpl implements RoundBarriers {
 	}
 
 	/**
-	 * barriers from an existing round
+	 * round barriers from fields
 	 * @param barriers
+	 * @param graph
 	 */
-	public RoundBarriersImpl(final List<Barrier> barriers) {
+	public RoundBarriersImpl(final List<Barrier> barriers, Graph<Coordinate> graph) {
 		super();
 		this.barriers = barriers;
+		this.graph = graph;
 	}
 
 	@Override
