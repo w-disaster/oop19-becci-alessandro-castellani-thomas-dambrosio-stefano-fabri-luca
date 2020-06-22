@@ -10,7 +10,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Node.Colour;
 
-public class GraphImpl<X> implements Graph<Coordinate> {
+public class BarriersGraph<X> implements Graph<Coordinate> {
 
 	private List<Pair<Coordinate, Coordinate>> edges;
 	
@@ -18,7 +18,7 @@ public class GraphImpl<X> implements Graph<Coordinate> {
 	 * BarrierGraphImpl given board dimension
 	 * @param boardDimension
 	 */
-	public GraphImpl(int boardDimension) {
+	public BarriersGraph(int boardDimension) {
 		this.edges = new ArrayList<>();
 		List<Coordinate> nodes = new ArrayList<>();
 		for(int r = 0; r < boardDimension; r++) {
@@ -26,31 +26,15 @@ public class GraphImpl<X> implements Graph<Coordinate> {
 				nodes.add(new Coordinate(r, c));
 			}
 		}
-		barriersGraphFromNodes(nodes);
+		edgesFromNodes(nodes);
 	}
 	
 	/**
 	 * BarrierGraphImpl given edges
 	 * @param edges
 	 */
-	public GraphImpl(List<Pair<Coordinate, Coordinate>> edges) {
+	public BarriersGraph(List<Pair<Coordinate, Coordinate>> edges) {
 		this.edges = edges;
-	}
-	
-	/**
-	 * private method to build the graph given the nodes, that in this case are the board coordinates
-	 * @param nodes
-	 */
-	private void barriersGraphFromNodes(List<Coordinate> nodes) {
-		for(Coordinate n : nodes) {
-			for(Coordinate adj : Stream.of(new Coordinate(n.getX() - 1, n.getY()), new Coordinate(n.getX() + 1, n.getY()), 
-					new Coordinate(n.getX(), n.getY() - 1), new Coordinate(n.getX(), n.getY() + 1))
-					.collect(Collectors.toList())) {
-				if(nodes.contains(adj)) {
-					this.edges.add(new Pair<>(n, adj));
-				}
-			}
-		}
 	}
 
 	@Override
@@ -60,9 +44,14 @@ public class GraphImpl<X> implements Graph<Coordinate> {
 	}
 
 	@Override
+	public List<Pair<Coordinate, Coordinate>> getEdges() {
+		return this.edges;
+	}
+	
+	@Override
 	public boolean containsPath(Coordinate source, int destination) {
 		List<Node> list = new ArrayList<>();
-		List<Pair<Node, Node>> edges = edgesFromBarriers();
+		List<Pair<Node, Node>> edges = edgesOfNodes();
 		
 		Node s = new NodeImpl(source, Optional.of(0), Colour.GRAY);
 		list.add(s);
@@ -84,10 +73,26 @@ public class GraphImpl<X> implements Graph<Coordinate> {
 	}
 	
 	/**
+	 * private method to build the graph given the nodes, that in this case are the board coordinates
+	 * @param nodes
+	 */
+	private void edgesFromNodes(List<Coordinate> nodes) {
+		for(Coordinate n : nodes) {
+			for(Coordinate adj : Stream.of(new Coordinate(n.getX() - 1, n.getY()), new Coordinate(n.getX() + 1, n.getY()), 
+					new Coordinate(n.getX(), n.getY() - 1), new Coordinate(n.getX(), n.getY() + 1))
+					.collect(Collectors.toList())) {
+				if(nodes.contains(adj)) {
+					this.edges.add(new Pair<>(n, adj));
+				}
+			}
+		}
+	}
+	
+	/**
 	 * 
 	 * @return edges from barriers
 	 */
-	private List<Pair<Node, Node>> edgesFromBarriers(){
+	private List<Pair<Node, Node>> edgesOfNodes(){
 		return this.edges.stream()
 				.map(p -> new Pair<Node, Node>(new NodeImpl(p.getX(), Optional.empty(), Colour.WHITE), 
 						new NodeImpl(p.getY(), Optional.empty(), Colour.WHITE)))

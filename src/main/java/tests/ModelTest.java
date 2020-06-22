@@ -5,14 +5,14 @@ import model.Model;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Graph;
-import model.roundenvironment.graph.GraphImpl;
+import model.roundenvironment.graph.BarriersGraph;
 
 
 public class ModelTest {
 
 	
 	public void checkPath() {
-		Graph<Coordinate> barriers = new GraphImpl<>(Model.BOARD_DIMENSION);
+		Graph<Coordinate> barriers = new BarriersGraph<>(Model.BOARD_DIMENSION);
 		
 		/* I add all possible horizontal barriers between line 3 and line 4. The graph is bidirectional
 		 * then I must delete 2 edges for each barrier.
