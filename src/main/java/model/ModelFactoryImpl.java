@@ -39,7 +39,7 @@ public class ModelFactoryImpl implements ModelFactory {
 				new PlayerImpl(nickname2, coordinate2, Player.DEFAULT_BARRIERS_NUMBER, 0))
 				.collect(Collectors.toList());
 		
-		RoundBarriers barriers = new RoundBarriersImpl();
+		RoundBarriers barriers = new RoundBarriersImpl(Model.BOARD_DIMENSION);
 		RoundPlayers players = new RoundPlayersImpl(playersList);
 		
 		return new Pair<>(barriers, players);

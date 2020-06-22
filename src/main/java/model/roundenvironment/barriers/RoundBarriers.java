@@ -2,9 +2,8 @@ package model.roundenvironment.barriers;
 
 import java.util.List;
 
-import model.roundenvironment.barriers.Barrier.Orientation;
-import model.roundenvironment.barriers.Barrier.Piece;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.graph.Graph;
 
 /**
  * This interface contains the methods needed to implement game barriers.
@@ -32,4 +31,9 @@ public interface RoundBarriers {
 	 */
 	List<Barrier> getBarriersAsList();
 	
+	/**
+	 * 
+	 * @return round barriers as graph
+	 */
+	Graph<Coordinate> getBarriersAsGraph(); 
 }

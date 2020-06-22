@@ -10,16 +10,16 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Node.Colour;
 
-public class BarriersGraphImpl implements BarriersGraph {
+public class GraphImpl<X> implements Graph<Coordinate> {
 
-	private List<Pair<Coordinate, Coordinate>> barriers;
+	private List<Pair<Coordinate, Coordinate>> edges;
 	
 	/**
 	 * constructor of BarrierGraphImpl, given board dimension
 	 * @param boardDimension
 	 */
-	public BarriersGraphImpl(int boardDimension) {
-		this.barriers = new ArrayList<>();
+	public GraphImpl(int boardDimension) {
+		this.edges = new ArrayList<>();
 		List<Coordinate> nodes = new ArrayList<>();
 		for(int r = 0; r < boardDimension; r++) {
 			for(int c = 0; c < boardDimension; c++) {
@@ -39,25 +39,16 @@ public class BarriersGraphImpl implements BarriersGraph {
 					new Coordinate(n.getX(), n.getY() - 1), new Coordinate(n.getX(), n.getY() + 1))
 					.collect(Collectors.toList())) {
 				if(nodes.contains(adj)) {
-					this.barriers.add(new Pair<>(n, adj));
+					this.edges.add(new Pair<>(n, adj));
 				}
 			}
 		}
 	}
 
 	@Override
-	public void add(Pair<Coordinate, Coordinate> barrier) {
-		this.barriers.remove(barrier);
-	}
-
-	@Override
-	public boolean containsBarrier(Pair<Coordinate, Coordinate> barrier) {
-		return this.barriers.contains(barrier);
-	}
-
-	@Override
-	public List<Pair<Coordinate, Coordinate>> getBarriersAsList() {
-		return List.copyOf(this.barriers);
+	public void remove(Pair<Coordinate, Coordinate> edge) {
+		this.edges.remove(edge);
+		this.edges.remove(new Pair<>(edge.getY(), edge.getX()));
 	}
 
 	@Override
@@ -89,7 +80,7 @@ public class BarriersGraphImpl implements BarriersGraph {
 	 * @return edges from barriers
 	 */
 	private List<Pair<Node, Node>> edgesFromBarriers(){
-		return this.barriers.stream()
+		return this.edges.stream()
 				.map(p -> new Pair<Node, Node>(new NodeImpl(p.getX(), Optional.empty(), Colour.WHITE), 
 						new NodeImpl(p.getY(), Optional.empty(), Colour.WHITE)))
 				.collect(Collectors.toList());
@@ -107,4 +98,5 @@ public class BarriersGraphImpl implements BarriersGraph {
 				.map(p -> p.getY())
 				.collect(Collectors.toList());
 	}
+
 }
