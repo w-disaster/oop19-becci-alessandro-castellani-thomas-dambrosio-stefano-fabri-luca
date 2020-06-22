@@ -1,10 +1,10 @@
-package controller.barrierPlacers;
+package controller.genericmove.barrierplacers;
 
 import java.util.*;
 
 import com.google.common.graph.*;
 
-import controller.GenericMoveImpl;
+import controller.genericmove.GenericMoveImpl;
 import controller.observers.Observer;
 import controller.observers.ObserverBarrierPosition;
 import controllers.UIController;

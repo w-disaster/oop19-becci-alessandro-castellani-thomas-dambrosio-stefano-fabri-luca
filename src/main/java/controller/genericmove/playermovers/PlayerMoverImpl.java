@@ -1,8 +1,8 @@
-package controller.playerMovers;
+package controller.genericmove.playermovers;
 
 import java.util.*;
 
-import controller.GenericMoveImpl;
+import controller.genericmove.GenericMoveImpl;
 import controller.observers.Observer;
 import controller.observers.ObserverPlayerPosition;
 import controllers.UIController;

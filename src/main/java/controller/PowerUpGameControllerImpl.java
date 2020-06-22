@@ -1,8 +1,9 @@
 package controller;
 
 import java.util.Iterator;
-import controller.barrierPlacers.BarrierPlacerPowerUp;
-import controller.playerMovers.PlayerMoverPowerUp;
+
+import controller.genericmove.barrierplacers.BarrierPlacerPowerUp;
+import controller.genericmove.playermovers.PlayerMoverPowerUp;
 import controllers.UIController;
 import javafx.util.Pair;
 import model.Model;

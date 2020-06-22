@@ -1,4 +1,4 @@
-package controller.barrierPlacers;
+package controller.genericmove.barrierplacers;
 
 import java.util.Iterator;
 

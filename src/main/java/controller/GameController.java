@@ -1,7 +1,7 @@
 package controller;
 
-import controller.barrierPlacers.BarrierPlacer;
-import controller.playerMovers.PlayerMover;
+import controller.genericmove.barrierplacers.BarrierPlacer;
+import controller.genericmove.playermovers.PlayerMover;
 
 /**
  * class with void methods that view can invoke

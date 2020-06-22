@@ -1,4 +1,4 @@
-package controller;
+package controller.genericmove;
 
 import java.util.*;
 import java.util.function.BinaryOperator;

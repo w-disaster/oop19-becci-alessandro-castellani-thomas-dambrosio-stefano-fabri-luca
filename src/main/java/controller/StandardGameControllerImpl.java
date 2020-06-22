@@ -2,10 +2,10 @@ package controller;
 
 import java.util.*;
 
-import controller.barrierPlacers.BarrierPlacer;
-import controller.barrierPlacers.BarrierPlacerImpl;
-import controller.playerMovers.PlayerMover;
-import controller.playerMovers.PlayerMoverImpl;
+import controller.genericmove.barrierplacers.BarrierPlacer;
+import controller.genericmove.barrierplacers.BarrierPlacerImpl;
+import controller.genericmove.playermovers.PlayerMover;
+import controller.genericmove.playermovers.PlayerMoverImpl;
 import controllers.MenuController;
 import controllers.UIController;
 import model.*;

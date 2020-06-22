@@ -1,4 +1,4 @@
-package controller.barrierPlacers;
+package controller.genericmove.barrierplacers;
 
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
