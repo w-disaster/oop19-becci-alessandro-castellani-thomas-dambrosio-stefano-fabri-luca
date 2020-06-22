@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import com.google.gson.Gson;
 
@@ -62,18 +63,18 @@ public class SaveGame {
 		}
 	}
 	
-	private void saveCurrentPlayer(final int numRound, Player currentPlayer) {
+	private void saveCurrentPlayer(final int numRound, Optional<Player> optional) {
 		try{
 			BufferedWriter roundCurrentPlayer = new BufferedWriter(new FileWriter(saveModelCurrent));
 			roundCurrentPlayer.write(Integer.toString(numRound));
 			roundCurrentPlayer.newLine();
-			roundCurrentPlayer.write(serializator.toJson(currentPlayer.getNickname()));
+			roundCurrentPlayer.write(serializator.toJson(optional.get().getNickname()));
 			roundCurrentPlayer.newLine();
-			roundCurrentPlayer.write(serializator.toJson(currentPlayer.getCoordinate()));
+			roundCurrentPlayer.write(serializator.toJson(optional.get().getCoordinate()));
 			roundCurrentPlayer.newLine();
-			roundCurrentPlayer.write(serializator.toJson(currentPlayer.getAvailableBarriers()));
+			roundCurrentPlayer.write(serializator.toJson(optional.get().getAvailableBarriers()));
 			roundCurrentPlayer.newLine();
-			roundCurrentPlayer.write(serializator.toJson(currentPlayer.getFinishLine()));
+			roundCurrentPlayer.write(serializator.toJson(optional.get().getFinishLine()));
 			roundCurrentPlayer.newLine();
 			roundCurrentPlayer.close();
 		} catch(Exception e) {
