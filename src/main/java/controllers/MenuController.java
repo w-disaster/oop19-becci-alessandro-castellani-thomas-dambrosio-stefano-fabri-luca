@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.image.Image;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -77,7 +78,11 @@ public class MenuController {
 	     alert.setTitle("Choose your game type !");
 	     alert.setHeaderText("Game Type choice");
 	     alert.setContentText("Choose your option");
-
+	     alert.getDialogPane().setStyle("-fx-background-color: #2B2D42; -fx-fill: #FFFFFF;");
+	     // Set the icon 
+	    ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
+	   		(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
+	     
 	     ButtonType buttonTypeOne = new ButtonType("Normal");
 	     ButtonType buttonTypeTwo = new ButtonType("PowerUp");
 	     ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
