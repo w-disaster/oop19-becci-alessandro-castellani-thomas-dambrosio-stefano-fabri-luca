@@ -21,15 +21,16 @@ import model.roundenvironment.players.Player;
 public class SaveGame {
 	
 	private final Model<RoundEnvironment> model;
-	private final Iterator<RoundEnvironment> iterator;
 	private File dir;
 	private File savePlayers;
 	private File saveModelCurrent;
 	private File saveBarriers;
+	private File saveGraph;
 	private final String pathDir = PathSavings.DIRECTORY.getPath() ;
 	private final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
 	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
 	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
+	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
 	private Gson serializator;
 	
 	private void createDirAndFiles() {
@@ -37,11 +38,18 @@ public class SaveGame {
 			dir.mkdir();
 		}
 		try {
-		if(!savePlayers.exists() && !saveModelCurrent.exists() && !saveBarriers.exists()) {
-			savePlayers.createNewFile();
-			saveModelCurrent.createNewFile();
-			saveBarriers.createNewFile();
-		}
+			if(!savePlayers.exists()) {
+				savePlayers.createNewFile();
+			}
+			if(!saveModelCurrent.exists()) {
+				saveModelCurrent.createNewFile();
+			}
+			if(!saveBarriers.exists()) {
+				saveBarriers.createNewFile();
+			}
+			if(!saveGraph.exists()) {
+				saveGraph.createNewFile();
+			}
 		} catch(Exception e) {
 			System.out.println("problems creating file");
 		}
@@ -49,13 +57,13 @@ public class SaveGame {
 	
 	public SaveGame(final Model<RoundEnvironment> model, final Iterator<RoundEnvironment> iterator) {
 		this.model = model;
-		this.iterator = iterator;
 		serializator = new Gson();
 		try{
 			dir = new File(pathDir);
 			savePlayers = new File(pathFilePlayers);
 			saveModelCurrent = new File(pathFileCurrent);
 			saveBarriers = new File(pathFileBarriers);
+			saveGraph = new File(pathFileGraph);
 			createDirAndFiles();
 		}catch(Exception e) {
 			System.out.println("problem in creating file");
@@ -100,6 +108,10 @@ public class SaveGame {
 		}
 	}
 	
+	private void saveGraph() {
+		
+	}
+	
 	public void save() {
 		try {
 			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));
@@ -109,7 +121,9 @@ public class SaveGame {
 				if(env.getRoundPlayers().getCurrentPlayer() != null) {
 					saveCurrentPlayer(numRound, env.getRoundPlayers().getCurrentPlayer());
 					//System.out.println("current player Saved");
+					//i only care about current Barriers.
 					saveBarriers(numRound, env.getRoundBarriers().getBarriersAsList());
+					//i'll save the graph here.
 					//System.out.println("barriers Saved");
 				}
 				for(Player pl : env.getRoundPlayers().getPlayers()) {
