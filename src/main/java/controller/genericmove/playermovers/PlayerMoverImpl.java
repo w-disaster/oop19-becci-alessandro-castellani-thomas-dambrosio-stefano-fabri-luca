@@ -2,7 +2,7 @@ package controller.genericmove.playermovers;
 
 import java.util.*;
 
-import controller.genericmove.GenericMoveImpl;
+import controller.genericmove.GenericMove;
 import controller.observers.Observer;
 import controller.observers.ObserverPlayerPosition;
 import guicontrollers.UIController;
@@ -14,7 +14,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 
-public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl<X> implements PlayerMover {
+public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> implements PlayerMover {
 
 	private Model<X> model;
 	private UIController view;
@@ -54,6 +54,10 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 		}
 	}
 
+	/**
+	 * @param playerPosition
+	 * @return list of positions where the player can move
+	 */
 	protected List<Coordinate> checkMove(Coordinate playerPosition) {
 		List<Coordinate> moves = new ArrayList<>();
 		List<Coordinate> movesJump = new ArrayList<>();
@@ -145,6 +149,11 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 		return false;
 	}
 	
+	/**
+	 * @param startPosition
+	 * @param destPosition
+	 * @return true if between the two coordinate there isn't a wall
+	 */
 	private boolean noWall(Coordinate startPosition, Coordinate destPosition) {
 		//i need to find in which direction the player wants to move in order to check if there's a wall
 		if (destPosition.getX() > startPosition.getX()) {
@@ -170,10 +179,17 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 		return true;
 	}
 	
+	/**
+	 * @param positions
+	 * @return true if the player can jump
+	 */
 	private boolean canJump(List<Coordinate> positions) {
 		return positions.contains(this.getOtherPlayer().get().getCoordinate());
 	}
 	
+	/**
+	 * @return the player against the current player
+	 */
 	private Optional<Player> getOtherPlayer() {
 		for (Player p : this.players.getPlayers()) {
 			if (!p.equals(this.players.getCurrentPlayer())) {
@@ -183,6 +199,11 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 		return Optional.empty();
 	}
 	
+	/**
+	 * @param coords
+	 * 
+	 * This method removes the positions occupied by the other player in coords
+	 */
 	private void getEmptyPositions(List<Coordinate> coords) {
 		for (Coordinate c : List.copyOf(coords)) {
 			if (c.equals(this.players.getPlayers().get(0).getCoordinate()) || c.equals(this.players.getPlayers().get(1).getCoordinate())) {
@@ -191,6 +212,11 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMoveImpl
 		}
 	}
 	
+	/**
+	 * @param currentPlayer
+	 * 
+	 * This method changes the position of the player that wants to move
+	 */
 	private void changePosition(Player currentPlayer) {
 		for (Player p : this.players.getPlayers()) {
 			if (currentPlayer.getNickname().compareTo(p.getNickname()) == 0) {

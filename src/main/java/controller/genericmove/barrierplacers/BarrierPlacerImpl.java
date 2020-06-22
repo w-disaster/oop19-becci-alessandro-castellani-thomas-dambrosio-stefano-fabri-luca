@@ -2,9 +2,7 @@ package controller.genericmove.barrierplacers;
 
 import java.util.*;
 
-import com.google.common.graph.*;
-
-import controller.genericmove.GenericMoveImpl;
+import controller.genericmove.GenericMove;
 import controller.observers.Observer;
 import controller.observers.ObserverBarrierPosition;
 import guicontrollers.UIController;
@@ -12,12 +10,13 @@ import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
+import model.roundenvironment.barriers.RoundBarriersImpl;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.barriers.Barrier.Piece;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.RoundPlayers;
 
-public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMoveImpl<X> implements BarrierPlacer {
+public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X> implements BarrierPlacer {
 
 	private Model<X> model;
 	private UIController view;
@@ -62,11 +61,20 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMoveIm
 		}
 	}
 	
+	/**
+	 * @param position
+	 * @param type
+	 * @return true if all checks return true
+	 */
 	protected boolean checkPlacement(Coordinate position, Orientation type) {
 		return this.isEmptyPosition(position, type) && this.enoughBarriers() && this.checkEdge(position) && this.noStall() ? true : false;
 	}
 
-	//this method also prevents placing of barriers over other barriers
+	/**
+	 * @param newPosition
+	 * @param type
+	 * @return true if the player wants to place the barrier in an empty position
+	 */
 	private boolean isEmptyPosition(Coordinate newPosition, Orientation type) {
 		//barriers are memorized singularly so i need double checks to see if there's an empty position
 		if (this.barriers.contains(new BarrierImpl(newPosition, Orientation.HORIZONTAL, Piece.HEAD))) {
@@ -104,6 +112,11 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMoveIm
 		return true;
 	}
 	
+	/**
+	 * @param newPosition
+	 * @param type
+	 * @return true if the next position (based on vertical/horizontal barriers) is empty
+	 */
 	private boolean checkEmptyNextPosition(Coordinate newPosition, Orientation type) {
 		if (this.barriers.contains(new BarrierImpl(new Coordinate(newPosition.getX() + 1, newPosition.getY()), Orientation.HORIZONTAL, Piece.HEAD))) {
 			if (type.equals(Orientation.HORIZONTAL)) { //here i can place a horizontal barrier
@@ -120,10 +133,17 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMoveIm
 		return true;
 	}
 	
+	/**
+	 * @return true if the player have barriers to place
+	 */
 	private boolean enoughBarriers() {
 		return this.players.getCurrentPlayer().getAvailableBarriers() > 0 ? true : false;
 	}
 	
+	/**
+	 * @param newPosition
+	 * @return true if the barrier isn't placed on an edge
+	 */
 	private boolean checkEdge(Coordinate newPosition) {
 		//barriers are long 2 positions so they can't be placed where x or y are 'boardDimension'
 		if (newPosition.getX().equals(this.model.getBoardDimension() - 1)) {
@@ -137,10 +157,16 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMoveIm
 		return true;
 	}
 	
+	/**
+	 * @return true if the player have at least a path to follow to win
+	 */
 	private boolean noStall() {
+		RoundBarriers testPath = new RoundBarriersImpl(Model.BOARD_DIMENSION);
 		/*
-		Graph<Coordinate> graph = new Grap<>();
+		if (testPath.getBarriersAsGraph().containsPath(this.players.getCurrentPlayer().getCoordinate(), this.players.getCurrentPlayer().getFinishLine())) {
+			return true;
+		}
 		*/
-		return true; //need implementation
+		return false;
 	}
 }

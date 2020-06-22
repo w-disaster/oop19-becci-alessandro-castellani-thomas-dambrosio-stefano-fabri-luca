@@ -14,7 +14,7 @@ import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import savings.SaveLeaderBoard;
 
-public class GenericMoveImpl<X extends RoundEnvironment> {
+public abstract class GenericMove<X extends RoundEnvironment> {
 
 	private Model<X> model;
 	private UIController view;
@@ -23,7 +23,7 @@ public class GenericMoveImpl<X extends RoundEnvironment> {
 	private List<Player> turns;
 	private Iterator<X> iterRounds;
 	
-	public GenericMoveImpl(Model<X> model, UIController view, Iterator<X> iterRounds) {
+	public GenericMove(Model<X> model, UIController view, Iterator<X> iterRounds) {
 		this.model = model;
 		this.view = view;
 		this.leaderboard = new SaveLeaderBoard();
@@ -40,12 +40,16 @@ public class GenericMoveImpl<X extends RoundEnvironment> {
 	}
 	
 	private boolean existingPlayer() {
+		//need to check if the current player is setted (the game may be loaded)
 		if (!(this.players.getCurrentPlayer() == null)) {
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Method that changes the players turn
+	 */
 	protected void changeTurn() {
 		List<String> nicknames = List.copyOf(this.turns).stream().map(Player::getNickname).collect(Collectors.toList());
 		int index = nicknames.indexOf(this.players.getCurrentPlayer().getNickname());
@@ -56,6 +60,9 @@ public class GenericMoveImpl<X extends RoundEnvironment> {
 		}
 	}
 	
+	/**
+	 * Method that changes the game round
+	 */
 	protected void changeRound() {
 		if (this.iterRounds.hasNext()) {
 			//i need to check if a player have already won so i don't pass to the next round

@@ -4,7 +4,7 @@ import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 
 /**
- * this class allow to place barriers on the board
+ * this class allows players to place barriers on the board
  * 
  * @author Thomas
  */

@@ -3,7 +3,7 @@ package controller.genericmove.playermovers;
 import model.roundenvironment.coordinate.Coordinate;
 
 /**
- * this class allow to move the current player on the board
+ * this class allows players to move on the board
  * 
  * @author Thomas
  */
