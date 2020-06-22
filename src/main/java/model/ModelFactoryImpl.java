@@ -31,7 +31,7 @@ public class ModelFactoryImpl implements ModelFactory {
 	 * @param nickname2
 	 * @return
 	 */
-	private static Pair<RoundBarriers, RoundPlayers> commonEnvironmentsObjectsOfStandard(String nickname1, String nickname2){
+	private static Pair<RoundBarriers, RoundPlayers> commonEnvironmentsObjects(String nickname1, String nickname2){
 		Coordinate coordinate1 = new Coordinate(Model.BOARD_DIMENSION/2, 0);
 		Coordinate coordinate2 = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
 				
@@ -50,7 +50,7 @@ public class ModelFactoryImpl implements ModelFactory {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
 		
 		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
-			Pair<RoundBarriers, RoundPlayers> roundObjects = commonEnvironmentsObjectsOfStandard(nickname1, nickname2);
+			Pair<RoundBarriers, RoundPlayers> roundObjects = commonEnvironmentsObjects(nickname1, nickname2);
 			RoundEnvironment environment = new RoundEnvironmentImpl(roundObjects.getX(), roundObjects.getY());
 			roundEnvironments.add(environment);
 		}
@@ -62,7 +62,7 @@ public class ModelFactoryImpl implements ModelFactory {
 		List<RoundPUpEnvironment> roundPowerUpEnvironments = new ArrayList<>();
 		
 		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
-			Pair<RoundBarriers, RoundPlayers> roundObjects = commonEnvironmentsObjectsOfStandard(nickname1, nickname2);
+			Pair<RoundBarriers, RoundPlayers> roundObjects = commonEnvironmentsObjects(nickname1, nickname2);
 			RoundPowerUps roundPowerUps = new RoundPowerUpsImpl();
 			RoundPUpEnvironment powerUpEnvironment = new RoundPUpEnvironmentImpl(roundObjects.getX(), roundObjects.getY(), roundPowerUps);
 			roundPowerUpEnvironments.add(powerUpEnvironment);
@@ -87,11 +87,13 @@ public class ModelFactoryImpl implements ModelFactory {
 			i++;
 		}*/
 		
+		List<Player> winners = new ArrayList<>();
 		for(X x : roundEnvironments) {
 			List<Player> l = x.getRoundPlayers().getPlayers().stream()
 					.filter(p -> p.isWinner())
 					.collect(Collectors.toList());
 			if(l.size() > 0) {
+				winners.addAll(l);
 				map.put(x, Optional.of(l.get(0)));
 			} else {
 				if(currentRoundEnvironment == null) {
@@ -100,11 +102,6 @@ public class ModelFactoryImpl implements ModelFactory {
 				map.put(x, Optional.empty());
 			}
 		}
-		
-		List<Player> winners = map.values().stream()
-				.filter(o -> o.isPresent())
-				.map(o -> o.get())
-				.collect(Collectors.toList());
 		
 		return new ModelImpl<>(roundEnvironments, boardDimension, currentRoundEnvironment, winners);
 	}

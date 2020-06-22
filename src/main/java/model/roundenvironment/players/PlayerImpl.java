@@ -45,7 +45,7 @@ public class PlayerImpl implements Player{
 	
 	@Override
 	public boolean isWinner() {
-		return this.coordinate.getY() == this.getFinishLine();
+		return this.coordinate.getY().equals(this.finishLine);
 	}
 
 	@Override
@@ -68,7 +68,5 @@ public class PlayerImpl implements Player{
 		return "PlayerImpl [nickname=" + nickname + ", coordinate=" + coordinate + ", availableBarriers="
 				+ availableBarriers + ", finishLine=" + finishLine + "]";
 	}
-
-	
 	
 }

@@ -19,6 +19,7 @@ public class RoundPlayersImpl implements RoundPlayers {
 	public RoundPlayersImpl(final List<Player> players) {
 		super();
 		this.players = players;
+		this.currentPlayer = null;
 	}
 
 	@Override
