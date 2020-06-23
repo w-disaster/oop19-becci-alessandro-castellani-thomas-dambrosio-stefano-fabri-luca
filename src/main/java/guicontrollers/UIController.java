@@ -176,9 +176,9 @@ public final class UIController{
 	        }
 	    }
 	    
-	    bluePlayer = new Circle(25, Color.BLUE);
+	    bluePlayer = new Circle();
+	    redPlayer = new Circle();
 	    bluePlayer.getStyleClass().add("BluePlayer");
-	    redPlayer = new Circle(25, Color.RED);
 	    redPlayer.getStyleClass().add("RedPlayer");
 	    label1.getStyleClass().add("SelectedLabel");
 	    label2.getStyleClass().add("Label");
@@ -205,7 +205,6 @@ public final class UIController{
         Coordinate position = new Coordinate(colIndex, rowIndex);
         BorderPane pane = this.logic.addPaneLogic(position, this.controller);
         pane.getStyleClass().add("GridBorderPane");
-        System.out.println(this.grid.getWidth());
         this.grid.add(pane, position.getX(), position.getY());
     }
     
@@ -224,8 +223,8 @@ public final class UIController{
     		
     		@Override
     		public void run() {
-    			bluePlayer.setRadius((grid.getWidth())/25);
-    			redPlayer.setRadius((grid.getWidth())/25);
+    			bluePlayer.setRadius((grid.getWidth())/28);
+    			redPlayer.setRadius((grid.getWidth())/28);
     		}
     		
     	});

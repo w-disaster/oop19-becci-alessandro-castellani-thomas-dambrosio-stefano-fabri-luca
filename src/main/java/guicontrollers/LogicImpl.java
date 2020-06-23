@@ -120,7 +120,6 @@ public class LogicImpl implements Logic{
     
     public void drawBarrierLogic(Barrier barrier) {
     	BorderPane selected = this.gridMap.get(barrier.getCoordinate());
-    	System.out.println(selected.getWidth());
     	Rectangle verticalBarrier = new Rectangle();
     	verticalBarrier.getStyleClass().add("Barrier");
     	verticalBarrier.setFill(Color.ORANGE);
