@@ -20,8 +20,8 @@ public class BarrierPlacerPowerUp<X extends RoundPUpEnvironment> extends Barrier
 		this.currentPlayer = this.model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer();
 	}
 	
-	public void plusOneBarrier() {
-		this.currentPlayer.setAvailableBarriers(this.currentPlayer.getAvailableBarriers()+1);
+	public void plusOneBarrier(Player player) {
+		player.setAvailableBarriers(this.currentPlayer.getAvailableBarriers()+1);
 	}
 
 
