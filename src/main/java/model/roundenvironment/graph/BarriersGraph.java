@@ -11,6 +11,12 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Node.Colour;
 
+/**
+ * Bidirectional graph that models barriers as a pair of coordinates
+ * @author luca
+ *
+ * @param <X>
+ */
 public class BarriersGraph<X> implements Graph<Coordinate> {
 
 	private List<Pair<Coordinate, Coordinate>> edges;
@@ -76,18 +82,22 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	}
 	
 	@Override
-	public List<Pair<Coordinate, Coordinate>> barriersAsEdges(List<Barrier> barriers) {
-		List<Pair<Coordinate, Coordinate>> edges = new ArrayList<>();
+	public List<Pair<Coordinate, Coordinate>> barriersAsEdgesToRemove(List<Barrier> barriers) {
+		List<Pair<Coordinate, Coordinate>> edgesToRemove = new ArrayList<>();
+		
 		for(Barrier b : barriers) {
+			Integer x = b.getCoordinate().getX();
+			Integer y = b.getCoordinate().getY();
+			
 			if(b.getOrientation().equals(Orientation.HORIZONTAL)) {
-				edges.add(new Pair<>(new Coordinate(b.getCoordinate().getX(), b.getCoordinate().getY()), 
-							new Coordinate(b.getCoordinate().getX() + 1, b.getCoordinate().getY())));
+				edgesToRemove.add(new Pair<>(new Coordinate(x, y), new Coordinate(x + 1, y)));
+				edgesToRemove.add(new Pair<>(new Coordinate(x + 1, x), new Coordinate(x, y)));
 			} else {
-				edges.add(new Pair<>(new Coordinate(b.getCoordinate().getX(), b.getCoordinate().getY()), 
-						new Coordinate(b.getCoordinate().getX(), b.getCoordinate().getY() + 1)));
+				edgesToRemove.add(new Pair<>(new Coordinate(x, y), new Coordinate(x, y + 1)));
+				edgesToRemove.add(new Pair<>(new Coordinate(x, y + 1), new Coordinate(x, y)));
 			}
 		}
-		return edges;
+		return edgesToRemove;
 	}
 	
 	/**
@@ -96,8 +106,10 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	 */
 	private void edgesFromNodes(List<Coordinate> nodes) {
 		for(Coordinate n : nodes) {
-			for(Coordinate adj : Stream.of(new Coordinate(n.getX() - 1, n.getY()), new Coordinate(n.getX() + 1, n.getY()), 
-					new Coordinate(n.getX(), n.getY() - 1), new Coordinate(n.getX(), n.getY() + 1))
+			Integer x = n.getX();
+			Integer y = n.getY();
+			for(Coordinate adj : Stream.of(new Coordinate(x - 1, y), new Coordinate(x + 1, y), 
+					new Coordinate(x, y - 1), new Coordinate(x, y + 1))
 					.collect(Collectors.toList())) {
 				if(nodes.contains(adj)) {
 					this.edges.add(new Pair<>(n, adj));

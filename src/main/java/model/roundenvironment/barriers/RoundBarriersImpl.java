@@ -41,7 +41,7 @@ public class RoundBarriersImpl implements RoundBarriers {
 	@Override
 	public void add(Barrier barrier) {
 		this.barriers.add(barrier);
-		for(Pair<Coordinate, Coordinate> edge : this.graph.barriersAsEdges(List.of(barrier))) {
+		for(Pair<Coordinate, Coordinate> edge : this.graph.barriersAsEdgesToRemove(List.of(barrier))) {
 			this.graph.remove(edge);
 		}
 		
