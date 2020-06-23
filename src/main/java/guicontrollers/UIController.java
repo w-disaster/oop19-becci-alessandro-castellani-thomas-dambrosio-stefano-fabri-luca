@@ -32,7 +32,7 @@ import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.powerups.PowerUp;
-import savings.LoadGame;
+import savings.LoadGameImpl;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 

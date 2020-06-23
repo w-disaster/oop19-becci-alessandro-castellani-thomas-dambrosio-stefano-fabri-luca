@@ -14,8 +14,8 @@ import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
-import savings.LoadGame;
-import savings.SaveGame;
+import savings.LoadGameImpl;
+import savings.SaveGameImpl;
 
 /**
  * controller for standard games
@@ -66,13 +66,13 @@ public class StandardGameControllerImpl implements StandardGameController {
 	}
 	
 	public void saveGame() {
-		SaveGame saving = new SaveGame(this.model, this.iterRounds);
+		SaveGameImpl saving = new SaveGameImpl(this.model, this.iterRounds);
 		saving.save();
 	}
 	
 	public void loadGame() {
 		if (MenuController.to_load) {
-			LoadGame loading = new LoadGame();
+			LoadGameImpl loading = new LoadGameImpl();
 			this.model = loading.getModel();
 			this.iterRounds = loading.getIterator();
 		} else {
