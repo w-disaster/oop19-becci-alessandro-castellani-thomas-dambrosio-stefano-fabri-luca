@@ -28,8 +28,6 @@ import model.roundenvironment.powerups.PowerUp.Type;
 public class LogicImpl implements Logic{
 	
 	private UIController view;
-	private Optional<String> player1;
-	private Optional<String> player2;
 
 	private Map<Coordinate, BorderPane> gridMap;
 	
@@ -40,12 +38,6 @@ public class LogicImpl implements Logic{
 		this.view = view;
     	this.gridMap = new HashMap<Coordinate, BorderPane>();
     	this.selectedBarrier = Optional.empty();
-	}
-	
-	@Override
-	public void setPlayers(Optional<String> player1, Optional<String> player2) {
-		this.player1 = player1;
-		this.player2 = player2;
 	}
 	
 	@Override

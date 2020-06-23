@@ -38,6 +38,7 @@ import model.roundenvironment.powerups.PowerUp;
 import savings.LoadGameImpl;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
+import viewmenu.ScenesItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,10 +60,6 @@ public final class UIController{
     @FXML private Label label2;
     @FXML private TextArea textArea1;
     @FXML private TextArea textArea2;
-    
-    @FXML private MenuItem saveGame;
-    @FXML private MenuItem retToMainMenu;
-    @FXML private MenuItem exit;
     
     @FXML private Rectangle player1vertical;
     @FXML private Rectangle player1horizontal;
@@ -93,7 +90,7 @@ public final class UIController{
 	
 	public void initialize() {
     	System.out.println("Initializing...");
-    	System.out.println(MenuController.gameStatus);
+    	System.out.println("Game type: " + MenuController.gameStatus);
     	
     	// Dialog setup
     	Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -142,9 +139,6 @@ public final class UIController{
     	    return null;
     	});
     	
-    	this.player1 = Optional.of("PLAYER 1");
-    	this.player2 = Optional.of("PLAYER 2");
-    	
     	// Check if user clicked 'load game'
     	if (MenuController.gameStatus.equals(GameStatus.NORMAL) || MenuController.gameStatus.equals(GameStatus.POWERUP)) {
     		Optional<Pair<String, String>> result = dialog.showAndWait();
@@ -190,9 +184,6 @@ public final class UIController{
 	    label2.getStyleClass().add("Label");
 
 	    this.logic.drawTextLogic("start");
-	    
-	    this.logic.setPlayers(player1, player2);
-	    
 	    
 	    //Starts the game
 	    switch(MenuController.gameStatus) {
@@ -335,6 +326,23 @@ public final class UIController{
     	} else {
     	    System.exit(0);
     	}
+    }
+    
+    @FXML
+    public void saveAndGoToLeaderboard() {
+    	this.saveGame();
+    	this.showLeaderboard();
+    }
+    
+    @FXML
+    public void showLeaderboard() {
+    	SceneChanger sceneChange = new SceneChangerImpl();
+    	sceneChange.change(ScenesItem.LEADERBOARD.get(), "Leaderboard");
+    }
+    
+    @FXML
+    public void showTutorials() {
+    	this.logic.drawTextLogic("start");
     }
     
     @FXML

@@ -102,6 +102,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.placer = new BarrierPlacerPowerUp<RoundPUpEnvironment>(this.powerUpModel, this.powerUpView, this.iterRounds);
 		this.powerUpView.changeSelectedLabel(players.getCurrentPlayer().getNickname());
 		this.powerUpView.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
+		this.powerUpView.drawPowerUps(this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList());
 	}
 	
 	public void saveGame() {
