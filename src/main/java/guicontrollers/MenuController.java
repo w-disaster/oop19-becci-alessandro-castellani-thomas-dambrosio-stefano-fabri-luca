@@ -44,9 +44,13 @@ public class MenuController {
 	@FXML private Button leaderBoardButton;
 	@FXML private Button exitGameButton;
 	@FXML private Label title;
-	
-	public static boolean to_load;
-	public static boolean powerup_game;
+	public enum GameStatus{
+		NORMAL,
+		POWERUP,
+		LOADNORMAL,
+		LOADPOWERUP;
+	}
+	public static GameStatus gameStatus;
 	private SceneChanger sceneChange;
 	private Stage stage = Main.STAGE;
 	
@@ -97,8 +101,7 @@ public class MenuController {
 		 //removing the listener before starting a game(exiting from menu)
 		 stage.widthProperty().removeListener(changeListener);
 		 //static variable to tell UIController to NOT load the game
-		 to_load = false;
-		 
+		 gameStatus = GameStatus.NORMAL;
 		//setting up an alert for gameType
 		 Alert alert = new Alert(AlertType.CONFIRMATION);
 	     alert.setTitle("Choose your game type !");
@@ -115,11 +118,11 @@ public class MenuController {
 	     alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
 		 Optional<ButtonType> result = alert.showAndWait();
 		 if (result.get() == buttonTypeOne){
-		     powerup_game = false;
+			 gameStatus = GameStatus.NORMAL;
 		 } else if (result.get() == buttonTypeTwo) {
-		     powerup_game = true;
+			 gameStatus = GameStatus.POWERUP;
 		 } else {
-		     powerup_game = false;
+			 gameStatus = GameStatus.NORMAL;
 		 }
 		 //changing scene with Game
 		 sceneChange = new SceneChangerImpl();
@@ -130,12 +133,12 @@ public class MenuController {
 	 public void loadGameButtonPressHandler() {
 		 if(getGameType().equals(gameType.NORMAL)) {
 			 LoadGame<RoundEnvironment> loading = new LoadGameImpl<>();
-			 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+			 if(loading.saveExist()) { gameStatus = GameStatus.LOADNORMAL; } else { gameStatus = GameStatus.NORMAL; }
 		 }
 		 else {
 			 LoadGame<RoundPUpEnvironment> loading = new LoadGamePUp();
 			 loading.getModel();
-			 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+			 if(loading.saveExist()) { gameStatus = GameStatus.LOADPOWERUP; } else { gameStatus = GameStatus.NORMAL; }
 		 }
 		 //changing scene with Game
 		 sceneChange = new SceneChangerImpl();
