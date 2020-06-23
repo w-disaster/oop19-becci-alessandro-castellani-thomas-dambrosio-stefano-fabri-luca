@@ -30,14 +30,6 @@
 	-fx-control-inner-background: -fx-base;
 }
 
-.RedPlayer {
-	-fx-fill: red;
-}
-
-.BluePlayer {
-	-fx-fill: blue;
-}
-
 .Barrier {
 	-fx-arc-height: 5;
 	-fx-arc-width: 5;

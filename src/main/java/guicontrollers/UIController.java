@@ -5,6 +5,7 @@ import controller.PowerUpGameController;
 import controller.PowerUpGameControllerImpl;
 import controller.StandardGameController;
 import controller.StandardGameControllerImpl;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -169,23 +170,23 @@ public final class UIController{
     	int numCols = 9;
     	int numRows = 9;
     	
-    	bluePlayer = new Circle(25);
-    	bluePlayer.getStyleClass().add("BluePlayer");
-    	redPlayer = new Circle(25);
-    	redPlayer.getStyleClass().add("RedPlayer");
-    	label1.getStyleClass().add("SelectedLabel");
-    	label2.getStyleClass().add("Label");
-  
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
 	            this.addPane(i, j);
-	            //System.out.println("pane added" + i + j);
 	        }
 	    }
+	    
+	    bluePlayer = new Circle(25, Color.BLUE);
+	    bluePlayer.getStyleClass().add("BluePlayer");
+	    redPlayer = new Circle(25, Color.RED);
+	    redPlayer.getStyleClass().add("RedPlayer");
+	    label1.getStyleClass().add("SelectedLabel");
+	    label2.getStyleClass().add("Label");
 
 	    this.logic.drawTextLogic("start");
 	    
 	    this.logic.setPlayers(player1, player2);
+	    
 	    
 	    //Starts the game
 	    if (MenuController.to_load) {
@@ -196,16 +197,15 @@ public final class UIController{
 	    }  else {
 	    	((StandardGameController) this.controller).newStandardGame(player1.get(), player2.get());	    
 	    }
-	    System.out.println(player1.get());
-	    System.out.println(player2.get());
-    	label1.setText(player1.get());
-    	label2.setText(player2.get());
+	    label1.setText(player1.get());
+	    label2.setText(player2.get());
 	}
     
     private void addPane(int colIndex, int rowIndex) {
         Coordinate position = new Coordinate(colIndex, rowIndex);
         BorderPane pane = this.logic.addPaneLogic(position, this.controller);
         pane.getStyleClass().add("GridBorderPane");
+        System.out.println(this.grid.getWidth());
         this.grid.add(pane, position.getX(), position.getY());
     }
     
@@ -220,6 +220,15 @@ public final class UIController{
     	this.logic.getPaneByPosition(player2pos).setCenter(redPlayer);
     	this.updateBarriersNumber(player1.get(), barriersP1);
     	this.updateBarriersNumber(player2.get(), barriersP2);
+    	Platform.runLater(new Runnable() {
+    		
+    		@Override
+    		public void run() {
+    			bluePlayer.setRadius((grid.getWidth())/25);
+    			redPlayer.setRadius((grid.getWidth())/25);
+    		}
+    		
+    	});
     }
     
     public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2, List<Barrier> barrierList) {
@@ -232,6 +241,7 @@ public final class UIController{
     }
 
     public void move(Coordinate position, String player) {
+    	System.out.println(this.grid.getWidth());
     	if(player.equals(this.player1.get())) {
     		this.logic.getPaneByPosition(position).getChildren().add(bluePlayer);
     		BorderPane.setAlignment(redPlayer, Pos.CENTER);

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import controller.GameController;
 import controller.StandardGameControllerImpl;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
@@ -48,17 +49,6 @@ public class LogicImpl implements Logic{
         pane.setOnMouseClicked(e -> {
         	this.setUpClickHandler(position, controller);
         });
-//        pane.setOnMouseDragReleased(e -> {
-//        	if(this.selectedBarrier.get().equals(0)) {
-//        		controller.placeBarrier(position, Orientation.VERTICAL);
-//        		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
-//        	} else {
-//        		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
-//        		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.HORIZONTAL + "\n");
-//        	}
-//        	this.selectedBarrier = Optional.empty();
-//        
-//        });
         this.gridMap.put(position, pane);        
 		return pane;
 	}
@@ -115,9 +105,7 @@ public class LogicImpl implements Logic{
 			default:
 				break;
 			}
-			
 		}
-    	
     }
     
     public void drawBarriersOnLoad(List<Barrier> barrierList) {
@@ -132,11 +120,11 @@ public class LogicImpl implements Logic{
     
     public void drawBarrierLogic(Barrier barrier) {
     	BorderPane selected = this.gridMap.get(barrier.getCoordinate());
-    	Pair<Double, Double> barrierSize = new Pair<>(selected.getWidth()/10, selected.getHeight()/10);
-    	Rectangle verticalBarrier = new Rectangle(barrierSize.getKey(), barrierSize.getValue()*8);
+    	System.out.println(selected.getWidth());
+    	Rectangle verticalBarrier = new Rectangle();
     	verticalBarrier.getStyleClass().add("Barrier");
     	verticalBarrier.setFill(Color.ORANGE);
-    	Rectangle horizontalBarrier = new Rectangle(barrierSize.getKey()*8, barrierSize.getValue());
+    	Rectangle horizontalBarrier = new Rectangle();
     	horizontalBarrier.getStyleClass().add("Barrier");
     	horizontalBarrier.setFill(Color.ORANGE);
     	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
@@ -146,6 +134,17 @@ public class LogicImpl implements Logic{
     		selected.setRight(verticalBarrier);
     		BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
     	}	
+    	Platform.runLater(new Runnable() {
+    		
+    		@Override
+    		public void run() {
+    			verticalBarrier.setHeight(gridMap.get(new Coordinate(0,0)).getHeight()/10*8);				
+    			verticalBarrier.setWidth(gridMap.get(new Coordinate(0,0)).getHeight()/10);				
+    			horizontalBarrier.setHeight(gridMap.get(new Coordinate(0,0)).getHeight()/10);				
+    			horizontalBarrier.setWidth(gridMap.get(new Coordinate(0,0)).getHeight()/10*8);				
+    		}
+    		
+    	});
     }
 
 	@Override
