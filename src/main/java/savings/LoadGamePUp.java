@@ -23,6 +23,8 @@ import model.roundenvironment.players.RoundPlayersImpl;
 import model.roundenvironment.powerups.PowerUp;
 import model.roundenvironment.powerups.PowerUp.Type;
 import model.roundenvironment.powerups.PowerUpImpl;
+import model.roundenvironment.powerups.RoundPowerUps;
+import model.roundenvironment.powerups.RoundPowerUpsImpl;
 
 public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements LoadGame<RoundPUpEnvironment>{
 	
@@ -55,9 +57,11 @@ public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements Lo
 				Type type = serializator.fromJson(readerPUp.readLine(), Type.class);
 				list.add(new PowerUpImpl(coord, type));
 			}
+			readerPUp.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		return list;
 	}
 	
 	@Override
@@ -68,14 +72,14 @@ public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements Lo
 			//now i have to get for each roundEnvironment the things i need
 			for(int i=0; i < 3; i++) {
 				RoundPlayers players = new RoundPlayersImpl(getPlayersList(i));
-				//this is obvious. because i don't pass it the graph. I'll get that in the getBarrier
 				RoundBarriers barriers = new RoundBarriersImpl(getBarriers(i).getX(), getBarriers(i).getY());
+				RoundPowerUps powerUps = new RoundPowerUpsImpl(getPowerUpList());
 				//set current player at the right round.
 				if(i==currents.getY()) {
 					players.setCurrentPlayer(currents.getX());
 				}
 				//da aggiungere i powerup nel costruttore
-				RoundPUpEnvironment environment = new RoundPUpEnvironmentImpl(barriers,players);
+				RoundPUpEnvironment environment = new RoundPUpEnvironmentImpl(barriers, players, powerUps);
 				roundEnvironments.add(environment);
 			}
 			//here i should create the model.
@@ -87,12 +91,7 @@ public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements Lo
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		//System.out.println("current Player BF: " + roundEnvironments.get(0).getRoundPlayers().getCurrentPlayer().getNickname());
-		//System.out.println("current Player BF: " + roundEnvironments.get(0).getRoundPlayers().getCurrentPlayer().getCoordinate());
 		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
-		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getNickname());
-		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getCoordinate());
 		loadingChanged = true;
 	}
 	
