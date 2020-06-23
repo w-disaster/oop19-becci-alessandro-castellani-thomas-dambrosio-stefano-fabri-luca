@@ -16,7 +16,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.roundenvironment.RoundPUpEnvironment;
+import savings.LoadGame;
 import savings.LoadGameImpl;
+import savings.LoadGamePUp;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 import viewmenu.ScenesItem;
@@ -38,7 +41,7 @@ public class MenuController {
 	public static boolean powerup_game;
 	private SceneChanger sceneChange;
 	private Stage stage = Main.STAGE;
-	private LoadGameImpl loading;
+	private LoadGame<RoundPUpEnvironment> loading;
 	
 	//I need this changeListener for setting labels and buttons size while resizing.
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
@@ -104,7 +107,8 @@ public class MenuController {
 	 
 	 @FXML
 	 public void loadGameButtonPressHandler() {
-		 loading = new LoadGameImpl();
+		 loading = new LoadGamePUp();
+		 loading.getModel().getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList();
 		 //setting static variable for loading(UIController)
 		 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
 		 //changing scene with Game

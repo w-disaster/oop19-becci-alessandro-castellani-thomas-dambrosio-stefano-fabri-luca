@@ -40,11 +40,8 @@ public class LoadGameImpl<X extends RoundEnvironment> implements LoadGame<X>{
 	protected Iterator<X> iterator;
 	protected boolean fileExist;
 	protected Gson serializator;
-	public static boolean loadingChanged;
 	
 	public LoadGameImpl() {
-		//starts from true because we have to do loading at least one time.
-		loadingChanged = true;
 		serializator = new Gson();
 		fileModelPlayers = new File(pathFilePlayers);
 		fileModelCurrent = new File(pathFileCurrent);
@@ -117,7 +114,7 @@ public class LoadGameImpl<X extends RoundEnvironment> implements LoadGame<X>{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return counter - 1;
+		return counter + 1;
 	}
 	
 	protected Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound){
@@ -130,7 +127,7 @@ public class LoadGameImpl<X extends RoundEnvironment> implements LoadGame<X>{
 				return new Pair<>(barriers, new BarriersGraph<>(Model.BOARD_DIMENSION));
 			}
 			else {
-				for(int k = 0; k < lineCounter(fileModelBarriers) / 3; k++) {
+				for(int k = 0; k < (lineCounter(fileModelBarriers) - 1) / 3; k++) {
 					Coordinate coord = serializator.fromJson(readerModelBarriers.readLine(), Coordinate.class);
 					Orientation type = serializator.fromJson(readerModelBarriers.readLine(), Orientation.class);
 					Piece piece = serializator.fromJson(readerModelBarriers.readLine(), Piece.class);
@@ -154,6 +151,7 @@ public class LoadGameImpl<X extends RoundEnvironment> implements LoadGame<X>{
 		return new Pair<List<Barrier>, Graph<Coordinate>>(barriers, new BarriersGraph<Coordinate>(listEdges));
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected void getData() {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
 		try {
@@ -185,13 +183,10 @@ public class LoadGameImpl<X extends RoundEnvironment> implements LoadGame<X>{
 		model = (Model<X>) new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
 		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getNickname());
 		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getCoordinate());
-		loadingChanged = true;
 	}
 	
 	public Iterator<X> getIterator(){
-		if(loadingChanged) {
-			getData();
-		}
+		getData();
 		if(fileExist) {
 			return iterator;
 		}
@@ -199,9 +194,7 @@ public class LoadGameImpl<X extends RoundEnvironment> implements LoadGame<X>{
 	}
 	
 	public Model<X> getModel() {
-		if(loadingChanged) {
-			getData();
-		}
+		getData();
 		if(fileExist) {
 			return model;
 		}

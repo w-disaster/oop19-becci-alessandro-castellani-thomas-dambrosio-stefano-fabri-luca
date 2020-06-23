@@ -36,9 +36,11 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 		}
 	}
 	
-	private void savePowerUps(final List<PowerUp> list) {
+	private void savePowerUps(final int numRound, final List<PowerUp> list) {
 		try {
 			BufferedWriter writerPUps = new BufferedWriter(new FileWriter(savePowerUps));
+			writerPUps.write(Integer.toString(numRound));
+			writerPUps.newLine();
 			for(PowerUp powerUp : list) {
 				writerPUps.write(serializator.toJson(powerUp.getCoordinate()));
 				writerPUps.newLine();
@@ -46,6 +48,19 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 				writerPUps.newLine();
 			}
 			writerPUps.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	private void writeGameType() {
+		File fileGameType = new File(PathSavings.GAMETYPE.getPath());
+		if(!fileGameType.exists()) {
+			fileGameType.exists();
+		}
+		try{
+			BufferedWriter writer = new BufferedWriter(new FileWriter(fileGameType));
+			writer.write(serializator.toJson(gameType.POWERUP));
+			writer.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -64,7 +79,7 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 					saveBarriers(numRound, env.getRoundBarriers().getBarriersAsList());
 					//i'll save the graph here.
 					saveGraph(env.getRoundBarriers().getBarriersAsGraph());
-					savePowerUps(env.getRoundPowerUps().getPowerUpsAsList());
+					savePowerUps(numRound, env.getRoundPowerUps().getPowerUpsAsList());
 				}
 				for(Player pl : env.getRoundPlayers().getPlayers()) {
 					roundPlayersWriter.write(serializator.toJson(pl.getNickname()));
@@ -78,7 +93,7 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 				}
 			}
 			roundPlayersWriter.close();
-			LoadGameImpl.loadingChanged = true;
+			writeGameType();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

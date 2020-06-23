@@ -9,8 +9,6 @@ import java.util.List;
 
 import model.Model;
 import model.ModelFactoryImpl;
-import model.roundenvironment.RoundEnvironment;
-import model.roundenvironment.RoundEnvironmentImpl;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.RoundPUpEnvironmentImpl;
 import model.roundenvironment.barriers.RoundBarriers;
@@ -26,7 +24,7 @@ import model.roundenvironment.powerups.PowerUpImpl;
 import model.roundenvironment.powerups.RoundPowerUps;
 import model.roundenvironment.powerups.RoundPowerUpsImpl;
 
-public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements LoadGame<RoundPUpEnvironment>{
+public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> {
 	
 	private File filePUp;
 	private String pathFilePUp = PathSavings.POWERUPS.getPath();
@@ -47,11 +45,15 @@ public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements Lo
 		}
 	}
 	
-	private List<PowerUp> getPowerUpList(){
+	private List<PowerUp> getPowerUpList(final int numRound){
 		List<PowerUp> list = new ArrayList<>();
-		int numPowerUps = lineCounter(filePUp) / 2;
+		int numPowerUps = (lineCounter(filePUp)-1) / 2;
 		try {
 			BufferedReader readerPUp = new BufferedReader(new FileReader(filePUp));
+			if(Integer.parseInt(readerPUp.readLine()) != numRound) {
+				readerPUp.close();
+				return list;
+			}
 			for(int i = 0; i < numPowerUps; i++) {
 				Coordinate coord = serializator.fromJson(readerPUp.readLine(), Coordinate.class);
 				Type type = serializator.fromJson(readerPUp.readLine(), Type.class);
@@ -73,12 +75,11 @@ public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements Lo
 			for(int i=0; i < 3; i++) {
 				RoundPlayers players = new RoundPlayersImpl(getPlayersList(i));
 				RoundBarriers barriers = new RoundBarriersImpl(getBarriers(i).getX(), getBarriers(i).getY());
-				RoundPowerUps powerUps = new RoundPowerUpsImpl(getPowerUpList());
+				RoundPowerUps powerUps = new RoundPowerUpsImpl(getPowerUpList(i));
 				//set current player at the right round.
 				if(i==currents.getY()) {
 					players.setCurrentPlayer(currents.getX());
 				}
-				//da aggiungere i powerup nel costruttore
 				RoundPUpEnvironment environment = new RoundPUpEnvironmentImpl(barriers, players, powerUps);
 				roundEnvironments.add(environment);
 			}
@@ -92,7 +93,6 @@ public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements Lo
 			e.printStackTrace();
 		}
 		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
-		loadingChanged = true;
 	}
 	
 	@Override

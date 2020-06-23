@@ -18,6 +18,8 @@ public enum PathSavings {
 	
 	POWERUPS(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "powerUps"),
 	
+	GAMETYPE(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "gameType"),
+	
 	ITERATOR(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "iteratorSave");
 	
 	

@@ -28,6 +28,10 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
 	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
 	protected Gson serializator;
+	protected enum gameType{
+		NORMAL,
+		POWERUP;
+	}
 	
 	private void createDirAndFiles() {
 		if(!dir.exists()) {
@@ -120,6 +124,20 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 	}
 	
+	private void writeGameType() {
+		File fileGameType = new File(PathSavings.GAMETYPE.getPath());
+		if(!fileGameType.exists()) {
+			fileGameType.exists();
+		}
+		try{
+			BufferedWriter writer = new BufferedWriter(new FileWriter(fileGameType));
+			writer.write(serializator.toJson(gameType.NORMAL));
+			writer.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void save() {
 		try {
 			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));
@@ -145,15 +163,15 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 				}
 			}
 			roundPlayersWriter.close();
-			LoadGameImpl.loadingChanged = true;
+			writeGameType();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        
 	}
-	
 
+	
+	
 	
 	
 	
