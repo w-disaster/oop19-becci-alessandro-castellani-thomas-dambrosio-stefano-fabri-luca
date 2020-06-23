@@ -162,10 +162,10 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	 */
 	private boolean noStall(Coordinate position, Orientation type) {
 		if (type.equals(Orientation.HORIZONTAL)) {
-			return this.barriers.getBarriersAsGraph().containsPath(this.barriers.getBarriersAsGraph().barriersAsEdges(List.of(new BarrierImpl(position, type, Piece.HEAD), 
+			return this.barriers.getBarriersAsGraph().containsPath(this.barriers.getBarriersAsGraph().barriersAsEdgesToRemove(List.of(new BarrierImpl(position, type, Piece.HEAD), 
 					new BarrierImpl(new Coordinate(position.getX() + 1, position.getY()), type, Piece.TAIL))), this.players.getCurrentPlayer().getCoordinate(), this.players.getCurrentPlayer().getFinishLine());
 		} else {
-			return this.barriers.getBarriersAsGraph().containsPath(this.barriers.getBarriersAsGraph().barriersAsEdges(List.of(new BarrierImpl(position, type, Piece.HEAD), 
+			return this.barriers.getBarriersAsGraph().containsPath(this.barriers.getBarriersAsGraph().barriersAsEdgesToRemove(List.of(new BarrierImpl(position, type, Piece.HEAD), 
 					new BarrierImpl(new Coordinate(position.getX(), position.getY() + 1), type, Piece.TAIL))), this.players.getCurrentPlayer().getCoordinate(), this.players.getCurrentPlayer().getFinishLine());
 		}
 	}
