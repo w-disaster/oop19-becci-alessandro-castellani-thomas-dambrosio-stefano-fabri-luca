@@ -3,16 +3,20 @@ package controller;
 import java.util.Iterator;
 import java.util.Optional;
 
+import controller.genericmove.barrierplacers.BarrierPlacerImpl;
 import controller.genericmove.barrierplacers.BarrierPlacerPowerUp;
+import controller.genericmove.playermovers.PlayerMoverImpl;
 import controller.genericmove.playermovers.PlayerMoverPowerUp;
 import guicontrollers.UIController;
 import javafx.util.Pair;
 import model.Model;
 import model.ModelFactoryImpl;
+import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
+import model.roundenvironment.players.RoundPlayers;
 import model.roundenvironment.powerups.PowerUp;
 
 public class PowerUpGameControllerImpl extends StandardGameControllerImpl implements PowerUpGameController {
@@ -74,5 +78,14 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.placer.placeBarrier(position, orientation);
 	}
 	
+	public void nextRound() {
+		RoundPlayers players = this.powerUpModel.getCurrentRoundEnvironment().getRoundPlayers();
+		Player player1 = players.getPlayers().get(0);
+		Player player2 = players.getPlayers().get(1);
+		this.mover = new PlayerMoverPowerUp<RoundPUpEnvironment>(this.powerUpModel, this.powerUpView, this.iterRounds);
+		this.placer = new BarrierPlacerPowerUp<RoundPUpEnvironment>(this.powerUpModel, this.powerUpView, this.iterRounds);
+		this.powerUpView.changeSelectedLabel(players.getCurrentPlayer().getNickname());
+		this.powerUpView.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
+	}
 }
 
