@@ -63,6 +63,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 				switch (this.powerUpPlayer.get().getValue().getType()) {
 				case PLUS_ONE_MOVE:
 					this.mover.doubleMove();
+					this.powerUpView.changeSelectedLabel(this.powerUpPlayer.get().getKey().getNickname());
 					this.powerUpView.deletePowerUp(this.powerUpPlayer.get().getValue());
 					break;
 				case PLUS_ONE_BARRIER:

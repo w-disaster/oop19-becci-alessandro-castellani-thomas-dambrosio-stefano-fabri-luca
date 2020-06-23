@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import controller.GameController;
 import controller.StandardGameControllerImpl;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -93,15 +95,15 @@ public class LogicImpl implements Logic{
 			switch (p.getType()) {
 			case PLUS_ONE_MOVE:
 				System.out.println("Drawing powerUp Double Move in " + p.getCoordinate());
-				Circle doubleMoveCircle = new Circle(25);
-				doubleMoveCircle.setFill(Color.BLUEVIOLET);
-				this.gridMap.get(p.getCoordinate()).setCenter(doubleMoveCircle);
+				Rectangle doubleMoveRectangle = new Rectangle(30, 30);
+				doubleMoveRectangle.setFill(Color.BLUEVIOLET);
+				this.gridMap.get(p.getCoordinate()).setCenter(doubleMoveRectangle);
 				break;
 			case PLUS_ONE_BARRIER:
 				System.out.println("Drawing powerUp Plus One Barrier in " + p.getCoordinate());
-				Circle plusOneBarrierCircle = new Circle(25);
-				plusOneBarrierCircle.setFill(Color.CHARTREUSE);
-				this.gridMap.get(p.getCoordinate()).setCenter(plusOneBarrierCircle);
+				Rectangle plusOneBarrierRectangle = new Rectangle(30, 30);
+				plusOneBarrierRectangle.setFill(Color.CHARTREUSE);
+				this.gridMap.get(p.getCoordinate()).setCenter(plusOneBarrierRectangle);
 				break;
 			default:
 				break;
@@ -148,10 +150,11 @@ public class LogicImpl implements Logic{
     }
     
     public void deletePowerUp(PowerUp p) {
-//    	if (p.getType().equals(Type.PLUS_ONE_BARRIER) {
-    		System.out.print(this.gridMap.get(p.getCoordinate()).getChildren());
-    		
-//    	}
+		List<Node> toRemove = this.gridMap.get(p.getCoordinate()).getChildren().stream()
+				.filter(e -> e.getClass().equals(Rectangle.class))
+				.collect(Collectors.toList()); 
+		this.gridMap.get(p.getCoordinate()).getChildren().removeAll(toRemove);
+
     }
 
 	@Override
