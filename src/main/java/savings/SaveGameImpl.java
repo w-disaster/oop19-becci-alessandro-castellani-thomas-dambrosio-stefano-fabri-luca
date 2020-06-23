@@ -75,7 +75,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	}
 	
 
-	private void saveCurrentPlayer(final int numRound, Player currentPlayer) {
+	protected void saveCurrentPlayer(final int numRound, Player currentPlayer) {
 		try{
 			BufferedWriter roundCurrentPlayer = new BufferedWriter(new FileWriter(saveModelCurrent));
 			roundCurrentPlayer.write(Integer.toString(numRound));
@@ -94,7 +94,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 	}
 	
-	private void saveBarriers(final int numRound, List<Barrier> list) {
+	protected void saveBarriers(final int numRound, List<Barrier> list) {
 		try{
 			BufferedWriter roundBarriersWriter = new BufferedWriter(new FileWriter(saveBarriers));
 			roundBarriersWriter.write(Integer.toString(numRound));
@@ -113,7 +113,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 	}
 	
-	private void saveGraph(final Graph<Coordinate> graph) {
+	protected void saveGraph(final Graph<Coordinate> graph) {
 		try {
 			BufferedWriter roundGraphWriter = new BufferedWriter(new FileWriter(saveGraph));
 			for(Pair<Coordinate, Coordinate> edge : graph.getEdges()) {

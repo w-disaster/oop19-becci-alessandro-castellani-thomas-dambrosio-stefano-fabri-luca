@@ -1,18 +1,17 @@
 package savings;
 
-import java.util.Iterator;
+
 
 import model.Model;
-import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
 
-public class SaveGamePUp<X extends RoundPUpEnvironment> extends SaveGameImpl implements SaveGame{
+public class SaveGamePUp<X extends RoundPUpEnvironment> extends SaveGameImpl<X> implements SaveGame{
 	
-	private Model<RoundPUpEnvironment> model;
-	private Iterator<RoundPUpEnvironment> iterator;
+	private Model<X> model;
 	
-	public SaveGamePUp(Model<RoundPUpEnvironment> model, Iterator<RoundPUpEnvironment> iterator) {
-		super(model, iterator);
+	public SaveGamePUp(Model<X> model) {
+		super(model);
+		this.model = model;
 	}
 
 }
