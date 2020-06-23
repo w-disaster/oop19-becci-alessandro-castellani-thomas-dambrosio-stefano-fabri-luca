@@ -16,6 +16,8 @@ public enum PathSavings {
 	
 	BARRIERGRAPH(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "barrierGraph"),
 	
+	POWERUPS(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "powerUps"),
+	
 	ITERATOR(System.getProperty("user.home") + File.separator + ".quoridor2D" + File.separator + "iteratorSave");
 	
 	

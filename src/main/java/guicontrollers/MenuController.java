@@ -55,7 +55,7 @@ public class MenuController {
 		}
 		
 	};
-	
+		
 	
 	public void initialize() {
 		//setting on the stage the changeListener for resizing

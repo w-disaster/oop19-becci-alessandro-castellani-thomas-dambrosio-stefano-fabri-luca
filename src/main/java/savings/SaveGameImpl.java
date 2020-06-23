@@ -13,6 +13,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import guicontrollers.UIController;
+import javafx.application.Platform;
 import model.Model;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
@@ -24,18 +25,18 @@ import model.roundenvironment.players.Player;
 
 public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	
-	private final Model<X> model;
-	private File dir;
-	private File savePlayers;
-	private File saveModelCurrent;
-	private File saveBarriers;
-	private File saveGraph;
-	private final String pathDir = PathSavings.DIRECTORY.getPath() ;
-	private final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
-	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
-	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
-	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
-	private Gson serializator;
+	protected final Model<X> model;
+	protected File dir;
+	protected File savePlayers;
+	protected File saveModelCurrent;
+	protected File saveBarriers;
+	protected File saveGraph;
+	protected final String pathDir = PathSavings.DIRECTORY.getPath() ;
+	protected final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
+	protected final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
+	protected final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
+	protected final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
+	protected Gson serializator;
 	
 	private void createDirAndFiles() {
 		if(!dir.exists()) {
@@ -136,12 +137,10 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 				numRound++;
 				if(env.getRoundPlayers().getCurrentPlayer() != null) {
 					saveCurrentPlayer(numRound, env.getRoundPlayers().getCurrentPlayer());
-					//System.out.println("current player Saved");
 					//i only care about current Barriers.
 					saveBarriers(numRound, env.getRoundBarriers().getBarriersAsList());
 					//i'll save the graph here.
 					saveGraph(env.getRoundBarriers().getBarriersAsGraph());
-					//System.out.println("barriers Saved");
 				}
 				for(Player pl : env.getRoundPlayers().getPlayers()) {
 					roundPlayersWriter.write(serializator.toJson(pl.getNickname()));
@@ -154,7 +153,6 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 					roundPlayersWriter.newLine();
 				}
 			}
-			//System.out.println("players Saved");
 			roundPlayersWriter.close();
 			LoadGameImpl.loadingChanged = true;
 		} catch (IOException e1) {
