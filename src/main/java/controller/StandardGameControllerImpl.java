@@ -7,6 +7,7 @@ import controller.genericmove.barrierplacers.BarrierPlacerImpl;
 import controller.genericmove.playermovers.PlayerMover;
 import controller.genericmove.playermovers.PlayerMoverImpl;
 import guicontrollers.MenuController;
+import guicontrollers.MenuController.GameStatus;
 import guicontrollers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
@@ -68,8 +69,8 @@ public class StandardGameControllerImpl implements StandardGameController {
 	}
 	
 	public void loadGame() {
-		if (MenuController.to_load) {
-			LoadGame loading = new LoadGameImpl();
+		if (MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
+			LoadGame<RoundEnvironment> loading = new LoadGameImpl<>();
 			this.model = loading.getModel();
 			this.iterRounds = loading.getIterator();
 		} else {
