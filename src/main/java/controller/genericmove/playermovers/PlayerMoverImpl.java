@@ -80,7 +80,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 			for (int y = 0; y < 9; y++) {
 				for (int x = 0; x < 9; x++) {
 					Coordinate testCoord = new Coordinate(x,y);
-					if (this.adjacent(this.getOtherPlayer().get().getCoordinate(), testCoord)) {
+					if (this.adjacent(this.getOtherPlayer(this.players.getCurrentPlayer()).get().getCoordinate(), testCoord)) {
 						movesJump.add(testCoord);
 					}
 				}
@@ -116,7 +116,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 			}
 			//removing the position where there's a wall
 			for (Coordinate c : List.copyOf(movesJump)) {
-				if (!this.noWall(this.getOtherPlayer().get().getCoordinate(), c)) {
+				if (!this.noWall(this.getOtherPlayer(this.players.getCurrentPlayer()).get().getCoordinate(), c)) {
 					movesJump.remove(movesJump.indexOf(c));
 				}
 			}
@@ -184,19 +184,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * @return true if the player can jump
 	 */
 	private boolean canJump(List<Coordinate> positions) {
-		return positions.contains(this.getOtherPlayer().get().getCoordinate());
-	}
-	
-	/**
-	 * @return the player against the current player
-	 */
-	private Optional<Player> getOtherPlayer() {
-		for (Player p : this.players.getPlayers()) {
-			if (!p.equals(this.players.getCurrentPlayer())) {
-				return Optional.of(p);
-			}
-		}
-		return Optional.empty();
+		return positions.contains(this.getOtherPlayer(this.players.getCurrentPlayer()).get().getCoordinate());
 	}
 	
 	/**

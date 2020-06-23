@@ -19,11 +19,6 @@ import savings.LoadGameImpl;
 import savings.SaveGame;
 import savings.SaveGameImpl;
 
-/**
- * controller for standard games
- * 
- * @author Thomas
- */
 public class StandardGameControllerImpl implements StandardGameController {
 	
 	private Model<RoundEnvironment> model;

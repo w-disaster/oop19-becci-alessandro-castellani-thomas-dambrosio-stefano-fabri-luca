@@ -102,4 +102,16 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 				.collect(Collectors.toList())
 				.size() > 0;
 	}
+	
+	/**
+	 * @return the player against the current player
+	 */
+	protected Optional<Player> getOtherPlayer(Player player) {
+		for (Player p : this.players.getPlayers()) {
+			if (!p.equals(player)) {
+				return Optional.of(p);
+			}
+		}
+		return Optional.empty();
+	}
 }

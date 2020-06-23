@@ -4,7 +4,7 @@ import controller.genericmove.barrierplacers.BarrierPlacer;
 import controller.genericmove.playermovers.PlayerMover;
 
 /**
- * class with void methods that view can invoke
+ * controller class, it contains basic methods (except newGame, different implementation for each controller)
  * 
  * @author Thomas
  */
