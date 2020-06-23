@@ -15,15 +15,16 @@ import com.google.gson.Gson;
 import guicontrollers.UIController;
 import model.Model;
 import model.roundenvironment.RoundEnvironment;
+import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Graph;
 import model.roundenvironment.players.Player;
 
-public class SaveGameImpl implements SaveGame{
+public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	
-	private final Model<RoundEnvironment> model;
+	private final Model<X> model;
 	private File dir;
 	private File savePlayers;
 	private File saveModelCurrent;
@@ -58,7 +59,7 @@ public class SaveGameImpl implements SaveGame{
 		}
 	}
 	
-	public SaveGameImpl(final Model<RoundEnvironment> model, final Iterator<RoundEnvironment> iterator) {
+	public SaveGameImpl(final Model<X> model) {
 		this.model = model;
 		serializator = new Gson();
 		try{
@@ -73,6 +74,7 @@ public class SaveGameImpl implements SaveGame{
 		}
 	}
 	
+
 	private void saveCurrentPlayer(final int numRound, Player currentPlayer) {
 		try{
 			BufferedWriter roundCurrentPlayer = new BufferedWriter(new FileWriter(saveModelCurrent));
