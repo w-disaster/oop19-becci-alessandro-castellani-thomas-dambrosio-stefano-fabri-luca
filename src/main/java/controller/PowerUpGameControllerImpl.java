@@ -9,6 +9,7 @@ import controller.genericmove.playermovers.PlayerMoverImpl;
 import controller.genericmove.playermovers.PlayerMoverPowerUp;
 import guicontrollers.MenuController;
 import guicontrollers.UIController;
+import guicontrollers.MenuController.GameStatus;
 import javafx.util.Pair;
 import model.Model;
 import model.ModelFactoryImpl;
@@ -107,23 +108,23 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	}
 	
 	public void loadGame() {
-		/*
-		if (MenuController.to_load) {
-			LoadGame loading = new LoadGameImpl();
-			this.model = loading.getModel();
+		if (MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
+			LoadGame<RoundPUpEnvironment> loading = new LoadGameImpl<>();
+			this.powerUpModel = loading.getModel();
 			this.iterRounds = loading.getIterator();
 		} else {
 			System.out.println("There isn't a saved game!");
 		}
-		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+		RoundPlayers players = this.powerUpModel.getCurrentRoundEnvironment().getRoundPlayers();
 		Player player1 = players.getPlayers().get(0);
 		Player player2 = players.getPlayers().get(1);
-		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
-		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
-		this.view.setNicknames(player1.getNickname(), player2.getNickname());
-		this.view.changeSelectedLabel(players.getCurrentPlayer().getNickname());
-		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers(), this.model.getCurrentRoundEnvironment().getRoundBarriers().getBarriersAsList()); //reset grid
-		*/
+		this.mover = new PlayerMoverPowerUp<RoundPUpEnvironment>(this.powerUpModel, this.powerUpView, this.iterRounds);
+		this.placer = new BarrierPlacerPowerUp<RoundPUpEnvironment>(this.powerUpModel, this.powerUpView, this.iterRounds);
+		this.powerUpView.setNicknames(player1.getNickname(), player2.getNickname());
+		this.powerUpView.changeSelectedLabel(players.getCurrentPlayer().getNickname());
+		this.powerUpView.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), 
+				player2.getAvailableBarriers(), this.powerUpModel.getCurrentRoundEnvironment().
+				getRoundBarriers().getBarriersAsList()); //reset grid
 	}
 }
 

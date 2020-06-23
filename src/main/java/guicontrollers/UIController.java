@@ -5,6 +5,7 @@ import controller.PowerUpGameController;
 import controller.PowerUpGameControllerImpl;
 import controller.StandardGameController;
 import controller.StandardGameControllerImpl;
+import guicontrollers.MenuController.GameStatus;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -83,15 +84,16 @@ public final class UIController{
 
 	public UIController() {
 		this.logic = new LogicImpl(this);
-		if (MenuController.powerup_game) {
-			this.controller = new PowerUpGameControllerImpl(this);
-		} else {
+		if (MenuController.gameStatus.equals(GameStatus.NORMAL) || MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
 			this.controller = new StandardGameControllerImpl(this);						
+		} else if (MenuController.gameStatus.equals(GameStatus.POWERUP) || MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
+			this.controller = new PowerUpGameControllerImpl(this);				
 		}
 	}
 	
 	public void initialize() {
     	System.out.println("Initializing...");
+    	System.out.println(MenuController.gameStatus);
     	
     	// Dialog setup
     	Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -140,8 +142,11 @@ public final class UIController{
     	    return null;
     	});
     	
+    	this.player1 = Optional.of("PLAYER 1");
+    	this.player2 = Optional.of("PLAYER 2");
+    	
     	// Check if user clicked 'load game'
-    	if (MenuController.to_load == false) {
+    	if (MenuController.gameStatus.equals(GameStatus.NORMAL) || MenuController.gameStatus.equals(GameStatus.POWERUP)) {
     		Optional<Pair<String, String>> result = dialog.showAndWait();
     		
     		// If you leave it empty it automatically set default nicknames
@@ -188,14 +193,23 @@ public final class UIController{
 	    
 	    this.logic.setPlayers(player1, player2);
 	    
+	    
 	    //Starts the game
-	    if (MenuController.to_load) {
-	    	this.controller.loadGame();
-	    } else if(MenuController.powerup_game){
-	    	//newPowerUpGame
-	    	((PowerUpGameController) this.controller).newPowerUpGame(player1.get(), player2.get());	    	
-	    }  else {
-	    	((StandardGameController) this.controller).newStandardGame(player1.get(), player2.get());	    
+	    switch(MenuController.gameStatus) {
+		case LOADNORMAL:
+			this.controller.loadGame();
+			break;
+		case LOADPOWERUP:
+			this.controller.loadGame();
+			break;
+		case NORMAL:
+			((StandardGameController) this.controller).newStandardGame(player1.get(), player2.get());	    
+			break;
+		case POWERUP:
+			((PowerUpGameController) this.controller).newPowerUpGame(player1.get(), player2.get());	    	
+			break;
+		default:
+			break;
 	    }
 	    label1.setText(player1.get());
 	    label2.setText(player2.get());
