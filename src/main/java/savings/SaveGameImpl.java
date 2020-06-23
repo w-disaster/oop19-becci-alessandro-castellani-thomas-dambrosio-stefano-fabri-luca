@@ -2,21 +2,12 @@ package savings;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.Iterator;
 import java.util.List;
-
 import com.google.gson.Gson;
-
-import guicontrollers.UIController;
-import javafx.application.Platform;
 import model.Model;
 import model.roundenvironment.RoundEnvironment;
-import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
@@ -26,16 +17,16 @@ import model.roundenvironment.players.Player;
 public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	
 	protected final Model<X> model;
-	protected File dir;
+	private File dir;
 	protected File savePlayers;
-	protected File saveModelCurrent;
-	protected File saveBarriers;
-	protected File saveGraph;
-	protected final String pathDir = PathSavings.DIRECTORY.getPath() ;
-	protected final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
-	protected final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
-	protected final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
-	protected final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
+	private File saveModelCurrent;
+	private File saveBarriers;
+	private File saveGraph;
+	private final String pathDir = PathSavings.DIRECTORY.getPath() ;
+	private final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
+	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
+	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
+	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
 	protected Gson serializator;
 	
 	private void createDirAndFiles() {

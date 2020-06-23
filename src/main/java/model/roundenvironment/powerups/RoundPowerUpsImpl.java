@@ -24,7 +24,11 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 			this.powerUpList.add(new PowerUpImpl(Model.BOARD_DIMENSION));
 		}
 	}
-
+	
+	public RoundPowerUpsImpl(final List<PowerUp> powerUpList) {
+		this.powerUpList = powerUpList;
+	}
+	
 	@Override
 	public List<PowerUp> getPowerUpsAsList() {
 		return this.powerUpList;

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.List;
 
 import model.Model;
-import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.powerups.PowerUp;

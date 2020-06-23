@@ -2,23 +2,13 @@ package savings;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TreeMap;
-
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import model.Model;
-import model.ModelFactory;
 import model.ModelFactoryImpl;
-import model.ModelImpl;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundEnvironmentImpl;
 import model.roundenvironment.barriers.Barrier;
@@ -36,7 +26,8 @@ import model.roundenvironment.players.PlayerImpl;
 import model.roundenvironment.players.RoundPlayers;
 import model.roundenvironment.players.RoundPlayersImpl;
 
-public class LoadGameImpl implements LoadGame{
+public class LoadGameImpl<X extends RoundEnvironment> implements LoadGame<X>{
+	
 	private final String pathFilePlayers= PathSavings.MODELPLAYERS.getPath();
 	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
 	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
@@ -45,10 +36,10 @@ public class LoadGameImpl implements LoadGame{
 	private final File fileModelPlayers;
 	private final File fileModelBarriers;
 	private final File fileGraph;
-	private Model<RoundEnvironment> model;
-	private Iterator<RoundEnvironment> iterator;
-	private boolean fileModelExist;
-	private Gson serializator;
+	protected Model<X> model;
+	protected Iterator<X> iterator;
+	protected boolean fileExist;
+	protected Gson serializator;
 	public static boolean loadingChanged;
 	
 	public LoadGameImpl() {
@@ -59,16 +50,19 @@ public class LoadGameImpl implements LoadGame{
 		fileModelCurrent = new File(pathFileCurrent);
 		fileModelBarriers = new File(pathFileBarriers);
 		fileGraph = new File(pathFileGraph);
+		fileExist = fileExist();
+	}
+	
+	private Boolean fileExist() {
 		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists() && fileGraph.exists()) {
-			fileModelExist = true;
+			return true;
 		}
 		else {
-			fileModelExist = false;
-			System.out.println("files doesnt exist");
+			return false;
 		}
 	}
 	
-	private Pair<Player, Integer> getCurrentRoundAndPlayer() {
+	protected Pair<Player, Integer> getCurrentRoundAndPlayer() {
 		Player currentPlayer = null;
 		int numRoundCurrent = -1;
 		try{
@@ -86,7 +80,7 @@ public class LoadGameImpl implements LoadGame{
 		return new Pair<>(currentPlayer, numRoundCurrent);
 	}
 	
-	private List<Player> getPlayersList(final int numRound) {
+	protected List<Player> getPlayersList(final int numRound) {
 		List<Player> playersList = new ArrayList<>();
 		try{
 			BufferedReader readerModelPlayers = new BufferedReader(new FileReader(fileModelPlayers));
@@ -112,7 +106,7 @@ public class LoadGameImpl implements LoadGame{
 		return playersList;
 	}
 	
-	private int lineCounter(File file) {
+	protected int lineCounter(File file) {
 		int counter = 0;
 		try{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -126,7 +120,7 @@ public class LoadGameImpl implements LoadGame{
 		return counter - 1;
 	}
 	
-	private Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound){
+	protected Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound){
 		List<Barrier> barriers = new ArrayList<>();
 		List<Pair<Coordinate, Coordinate>> listEdges = new ArrayList<>();
 		try {
@@ -160,7 +154,7 @@ public class LoadGameImpl implements LoadGame{
 		return new Pair<List<Barrier>, Graph<Coordinate>>(barriers, new BarriersGraph<Coordinate>(listEdges));
 	}
 	
-	private void getData() {
+	protected void getData() {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
 		try {
 			Pair<Player, Integer> currents = getCurrentRoundAndPlayer();
@@ -177,7 +171,7 @@ public class LoadGameImpl implements LoadGame{
 				roundEnvironments.add(environment);
 			}
 			//here i should create the model.
-			iterator = roundEnvironments.iterator();
+			iterator = (Iterator<X>) roundEnvironments.iterator();
 			iterator.next();
 			for(int i=0; i < currents.getY(); i++) {
 				iterator.next();
@@ -188,33 +182,33 @@ public class LoadGameImpl implements LoadGame{
 		
 		//System.out.println("current Player BF: " + roundEnvironments.get(0).getRoundPlayers().getCurrentPlayer().getNickname());
 		//System.out.println("current Player BF: " + roundEnvironments.get(0).getRoundPlayers().getCurrentPlayer().getCoordinate());
-		model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
+		model = (Model<X>) new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
 		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getNickname());
 		//System.out.println("current Player AF: " + model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer().getCoordinate());
 		loadingChanged = true;
 	}
 	
-	public Iterator<RoundEnvironment> getIterator(){
+	public Iterator<X> getIterator(){
 		if(loadingChanged) {
 			getData();
 		}
-		if(fileModelExist) {
+		if(fileExist) {
 			return iterator;
 		}
 		return null;
 	}
 	
-	public Model<RoundEnvironment> getModel() {
+	public Model<X> getModel() {
 		if(loadingChanged) {
 			getData();
 		}
-		if(fileModelExist) {
+		if(fileExist) {
 			return model;
 		}
 		return null;
 	}
 	
 	public boolean saveExist() {
-		return fileModelExist;
+		return fileExist;
 	}
 }
