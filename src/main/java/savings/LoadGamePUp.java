@@ -1,6 +1,8 @@
 package savings;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,10 +15,14 @@ import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.RoundPUpEnvironmentImpl;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.RoundBarriersImpl;
+import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import model.roundenvironment.players.RoundPlayersImpl;
+import model.roundenvironment.powerups.PowerUp;
+import model.roundenvironment.powerups.PowerUp.Type;
+import model.roundenvironment.powerups.PowerUpImpl;
 
 public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements LoadGame<RoundPUpEnvironment>{
 	
@@ -36,6 +42,21 @@ public class LoadGamePUp extends LoadGameImpl<RoundPUpEnvironment> implements Lo
 		}
 		else {
 			return false;
+		}
+	}
+	
+	private List<PowerUp> getPowerUpList(){
+		List<PowerUp> list = new ArrayList<>();
+		int numPowerUps = lineCounter(filePUp) / 2;
+		try {
+			BufferedReader readerPUp = new BufferedReader(new FileReader(filePUp));
+			for(int i = 0; i < numPowerUps; i++) {
+				Coordinate coord = serializator.fromJson(readerPUp.readLine(), Coordinate.class);
+				Type type = serializator.fromJson(readerPUp.readLine(), Type.class);
+				list.add(new PowerUpImpl(coord, type));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

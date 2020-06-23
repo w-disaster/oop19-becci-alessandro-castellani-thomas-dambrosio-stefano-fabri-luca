@@ -25,6 +25,11 @@ public class PowerUpImpl implements PowerUp{
 		}
 		this.coordinate = new Coordinate(2+random.nextInt(boardDimension-4), 2+random.nextInt(boardDimension-4));
 	}
+	
+	public PowerUpImpl(final Coordinate coord, final Type type) {
+		this.coordinate = coord;
+		this.type = type;
+	}
 
 	@Override
 	public Type getType() {
