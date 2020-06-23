@@ -31,11 +31,7 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 	}
 
 	@Override
-	public void remove(Coordinate coordinate) {
-		PowerUp p = this.powerUpList.stream()
-			.filter(e -> e.getCoordinate().equals(coordinate))
-			.collect(Collectors.toList())
-			.get(0);
+	public void remove(PowerUp p) {
 		this.powerUpList.remove(p);
 	}
 

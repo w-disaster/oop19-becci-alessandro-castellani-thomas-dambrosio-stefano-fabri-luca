@@ -10,6 +10,6 @@ public interface RoundPowerUps {
 	
 	List<PowerUp> getPowerUpsAsList();
 	
-	void remove(Coordinate coordinate);
+	void remove(PowerUp p);
 	
 }

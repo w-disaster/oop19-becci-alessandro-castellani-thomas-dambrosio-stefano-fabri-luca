@@ -15,7 +15,7 @@ public class PowerUpImpl implements PowerUp{
 		random = new Random();
 		switch(random.nextInt(2)) {
 		case 0:
-			this.type = Type.CLIMB_A_BARRIER;
+			this.type = Type.PLUS_ONE_MOVE;
 			break;
 		case 1:
 			this.type = Type.PLUS_ONE_BARRIER;
@@ -23,7 +23,7 @@ public class PowerUpImpl implements PowerUp{
 		default:
 			break;
 		}
-		this.coordinate = new Coordinate(2+random.nextInt(boardDimension-2), 2+random.nextInt(boardDimension-2));
+		this.coordinate = new Coordinate(2+random.nextInt(boardDimension-4), 2+random.nextInt(boardDimension-4));
 	}
 
 	@Override

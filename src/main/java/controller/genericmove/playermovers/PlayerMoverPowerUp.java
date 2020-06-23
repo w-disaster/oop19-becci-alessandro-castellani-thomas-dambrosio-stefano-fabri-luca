@@ -15,11 +15,7 @@ public class PlayerMoverPowerUp<X extends RoundPUpEnvironment> extends PlayerMov
 	}
 	
 	public void doubleMove() {
-		this.changeRound();
-	}
-	
-	public void moveAndClimbABarrier() {
-		
+		this.changeTurn();
 	}
 
 }

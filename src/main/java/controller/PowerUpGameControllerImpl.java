@@ -49,9 +49,10 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	public void movePlayer(Coordinate position) {
 		for (PowerUp p : this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList()) {
 			if (p.getCoordinate().equals(position)) {
-				Pair<Player, PowerUp> temp = new Pair<>(this.powerUpModel.getCurrentRoundEnvironment().getRoundPlayers()
-						.getCurrentPlayer(), p);
-				this.powerUpPlayer = Optional.of(temp);
+				this.powerUpPlayer = Optional.of(new Pair<>(this.powerUpModel.getCurrentRoundEnvironment().getRoundPlayers()
+						.getCurrentPlayer(), p));
+				System.out.println(this.powerUpPlayer.get());
+				break;
 			} else {
 				this.powerUpPlayer = Optional.empty();
 			}
@@ -62,9 +63,14 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 				switch (this.powerUpPlayer.get().getValue().getType()) {
 				case PLUS_ONE_MOVE:
 					this.mover.doubleMove();
+					this.powerUpView.deletePowerUp(this.powerUpPlayer.get().getValue());
 					break;
 				case PLUS_ONE_BARRIER:
 					this.placer.plusOneBarrier();
+					this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().remove(this.powerUpPlayer.get().getValue());
+					this.powerUpView.updateBarriersNumber(this.powerUpPlayer.get().getKey().getNickname(), 
+							this.powerUpPlayer.get().getKey().getAvailableBarriers());
+					this.powerUpView.deletePowerUp(this.powerUpPlayer.get().getValue());
 					break;
 				default:
 					break;

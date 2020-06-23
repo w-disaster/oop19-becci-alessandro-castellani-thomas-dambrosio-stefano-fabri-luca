@@ -33,6 +33,6 @@ public interface Logic {
 
 	public void drawPowerUps(List<PowerUp> powerUpsAsList);
 
-
+	public void deletePowerUp(PowerUp p);
 
 }

@@ -19,6 +19,7 @@ import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.powerups.PowerUp;
+import model.roundenvironment.powerups.PowerUp.Type;
 
 public class LogicImpl implements Logic{
 	
@@ -144,6 +145,13 @@ public class LogicImpl implements Logic{
     		}
     		
     	});
+    }
+    
+    public void deletePowerUp(PowerUp p) {
+//    	if (p.getType().equals(Type.PLUS_ONE_BARRIER) {
+    		System.out.print(this.gridMap.get(p.getCoordinate()).getChildren());
+    		
+//    	}
     }
 
 	@Override

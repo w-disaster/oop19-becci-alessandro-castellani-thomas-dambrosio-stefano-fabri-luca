@@ -32,6 +32,7 @@ import javafx.util.Pair;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.players.Player;
 import model.roundenvironment.powerups.PowerUp;
 import savings.LoadGameImpl;
 import viewmenu.SceneChanger;
@@ -187,7 +188,6 @@ public final class UIController{
 	    
 	    this.logic.setPlayers(player1, player2);
 	    
-	    
 	    //Starts the game
 	    if (MenuController.to_load) {
 	    	this.controller.loadGame();
@@ -240,7 +240,6 @@ public final class UIController{
     }
 
     public void move(Coordinate position, String player) {
-    	System.out.println(this.grid.getWidth());
     	if(player.equals(this.player1.get())) {
     		this.logic.getPaneByPosition(position).getChildren().add(bluePlayer);
     		BorderPane.setAlignment(redPlayer, Pos.CENTER);
@@ -268,6 +267,10 @@ public final class UIController{
     	} else {
     		this.barriersNumber2.setText(String.valueOf(barriersNumber));
     	}
+    }
+    
+    public void deletePowerUp(PowerUp p) {
+    	this.logic.deletePowerUp(p);
     }
     
     public void changeSelectedLabel(String player) { 	
@@ -354,5 +357,6 @@ public final class UIController{
      public void exitToDesktop() {
     	 System.exit(0);
      }
+
 
 }
