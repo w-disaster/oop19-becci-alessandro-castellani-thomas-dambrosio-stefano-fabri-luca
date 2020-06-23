@@ -1,6 +1,11 @@
 package guicontrollers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Optional;
+
+import com.google.gson.Gson;
 
 import application.Main;
 import javafx.beans.value.ChangeListener;
@@ -16,10 +21,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
 import savings.LoadGame;
 import savings.LoadGameImpl;
 import savings.LoadGamePUp;
+import savings.PathSavings;
+import savings.SaveGameImpl.gameType;
 import viewmenu.SceneChanger;
 import viewmenu.SceneChangerImpl;
 import viewmenu.ScenesItem;
@@ -41,7 +49,6 @@ public class MenuController {
 	public static boolean powerup_game;
 	private SceneChanger sceneChange;
 	private Stage stage = Main.STAGE;
-	private LoadGame<RoundPUpEnvironment> loading;
 	
 	//I need this changeListener for setting labels and buttons size while resizing.
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
@@ -58,6 +65,20 @@ public class MenuController {
 		}
 		
 	};
+	
+	private gameType getGameType() {
+		//if it's not setted, lets do a normal game
+		gameType type = gameType.NORMAL;
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(new File(PathSavings.GAMETYPE.getPath())));
+			Gson ser = new Gson();
+			type = ser.fromJson(reader.readLine(), gameType.class);
+			reader.close();
+		} catch(Exception e) {
+			System.out.println("file not found");
+		}
+		return type;
+	}
 		
 	
 	public void initialize() {
@@ -107,10 +128,15 @@ public class MenuController {
 	 
 	 @FXML
 	 public void loadGameButtonPressHandler() {
-		 loading = new LoadGamePUp();
-		 loading.getModel().getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList();
-		 //setting static variable for loading(UIController)
-		 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+		 if(getGameType().equals(gameType.NORMAL)) {
+			 LoadGame<RoundEnvironment> loading = new LoadGameImpl<>();
+			 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+		 }
+		 else {
+			 LoadGame<RoundPUpEnvironment> loading = new LoadGamePUp();
+			 loading.getModel();
+			 if(loading.saveExist()) { to_load = true; } else { to_load = false; }
+		 }
 		 //changing scene with Game
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());

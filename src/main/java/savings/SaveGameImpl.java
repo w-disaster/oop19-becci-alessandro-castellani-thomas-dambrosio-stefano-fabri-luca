@@ -28,7 +28,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
 	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
 	protected Gson serializator;
-	protected enum gameType{
+	public enum gameType{
 		NORMAL,
 		POWERUP;
 	}
