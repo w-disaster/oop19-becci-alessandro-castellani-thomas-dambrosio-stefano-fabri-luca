@@ -37,7 +37,7 @@ public class PowerUpImpl implements PowerUp{
 	}
 	
 	public String toString() {
-		return "PowerUp type: " + this.getType() + "\n PowerUp Coordinate: " + this.getCoordinate() + "\n";
+		return "PowerUp type: " + this.getType() + "\nPowerUp Coordinate: " + this.getCoordinate() + "\n";
 		
 	}
 }

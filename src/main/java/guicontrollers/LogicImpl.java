@@ -12,6 +12,8 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -95,15 +97,21 @@ public class LogicImpl implements Logic{
 			switch (p.getType()) {
 			case PLUS_ONE_MOVE:
 				System.out.println("Drawing powerUp Double Move in " + p.getCoordinate());
-				Rectangle doubleMoveRectangle = new Rectangle(30, 30);
-				doubleMoveRectangle.setFill(Color.BLUEVIOLET);
-				this.gridMap.get(p.getCoordinate()).setCenter(doubleMoveRectangle);
+				ImageView doubleMoveIcon = new ImageView(new Image(this.getClass()
+						.getResourceAsStream("/layouts/main/doubleMovePowerUp.png")));
+				doubleMoveIcon.setFitHeight(50);
+				doubleMoveIcon.setFitWidth(50);
+				doubleMoveIcon.setSmooth(true);
+				this.gridMap.get(p.getCoordinate()).setCenter(doubleMoveIcon);
 				break;
 			case PLUS_ONE_BARRIER:
 				System.out.println("Drawing powerUp Plus One Barrier in " + p.getCoordinate());
-				Rectangle plusOneBarrierRectangle = new Rectangle(30, 30);
-				plusOneBarrierRectangle.setFill(Color.CHARTREUSE);
-				this.gridMap.get(p.getCoordinate()).setCenter(plusOneBarrierRectangle);
+				ImageView plusOneBarrierIcon = new ImageView(new Image(this.getClass()
+						.getResourceAsStream("/layouts/main/barrierPowerUp.png")));
+				plusOneBarrierIcon.setFitHeight(50);
+				plusOneBarrierIcon.setFitWidth(50);
+				plusOneBarrierIcon.setSmooth(true);
+				this.gridMap.get(p.getCoordinate()).setCenter(plusOneBarrierIcon);
 				break;
 			default:
 				break;
@@ -151,7 +159,7 @@ public class LogicImpl implements Logic{
     
     public void deletePowerUp(PowerUp p) {
 		List<Node> toRemove = this.gridMap.get(p.getCoordinate()).getChildren().stream()
-				.filter(e -> e.getClass().equals(Rectangle.class))
+				.filter(e -> e.getClass().equals(ImageView.class))
 				.collect(Collectors.toList()); 
 		this.gridMap.get(p.getCoordinate()).getChildren().removeAll(toRemove);
 
