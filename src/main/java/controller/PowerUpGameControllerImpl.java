@@ -22,6 +22,7 @@ import model.roundenvironment.players.RoundPlayers;
 import model.roundenvironment.powerups.PowerUp;
 import savings.LoadGame;
 import savings.LoadGameImpl;
+import savings.LoadGamePUp;
 import savings.SaveGame;
 import savings.SaveGameImpl;
 import savings.SaveGamePUp;
@@ -109,7 +110,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	
 	public void loadGame() {
 		if (MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
-			LoadGame<RoundPUpEnvironment> loading = new LoadGameImpl<>();
+			LoadGame<RoundPUpEnvironment> loading = new LoadGamePUp();
 			this.powerUpModel = loading.getModel();
 			this.iterRounds = loading.getIterator();
 		} else {
@@ -125,6 +126,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.powerUpView.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), 
 				player2.getAvailableBarriers(), this.powerUpModel.getCurrentRoundEnvironment().
 				getRoundBarriers().getBarriersAsList()); //reset grid
+		this.powerUpView.drawPowerUps(this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList());
 	}
 }
 
