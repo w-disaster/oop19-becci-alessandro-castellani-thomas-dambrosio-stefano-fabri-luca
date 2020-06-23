@@ -81,9 +81,11 @@ public final class UIController{
 
 	public UIController() {
 		this.logic = new LogicImpl(this);
-		if (MenuController.gameStatus.equals(GameStatus.NORMAL) || MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
+		if (MenuController.gameStatus.equals(GameStatus.NORMAL)
+				|| MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
 			this.controller = new StandardGameControllerImpl(this);						
-		} else if (MenuController.gameStatus.equals(GameStatus.POWERUP) || MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
+		} else if (MenuController.gameStatus.equals(GameStatus.POWERUP)
+				|| MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
 			this.controller = new PowerUpGameControllerImpl(this);				
 		}
 	}
@@ -140,7 +142,8 @@ public final class UIController{
     	});
     	
     	// Check if user clicked 'load game'
-    	if (MenuController.gameStatus.equals(GameStatus.NORMAL) || MenuController.gameStatus.equals(GameStatus.POWERUP)) {
+    	if (MenuController.gameStatus.equals(GameStatus.NORMAL)
+    			|| MenuController.gameStatus.equals(GameStatus.POWERUP)) {
     		Optional<Pair<String, String>> result = dialog.showAndWait();
     		
     		// If you leave it empty it automatically set default nicknames
@@ -337,7 +340,7 @@ public final class UIController{
     @FXML
     public void showLeaderboard() {
     	SceneChanger sceneChange = new SceneChangerImpl();
-    	sceneChange.change(ScenesItem.LEADERBOARD.get(), "Leaderboard");
+    	sceneChange.change(ScenesItem.LEADERBOARD.get(), ScenesItem.LEADERBOARDTITLE.get());
     }
     
     @FXML
@@ -369,7 +372,7 @@ public final class UIController{
     @FXML
     public void returnToMainMenu(){
     	SceneChanger sceneChange = new SceneChangerImpl();
-    	sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
+    	sceneChange.change(ScenesItem.MENU.get(), ScenesItem.MENUTITLE.get());
     }
     
     /**
