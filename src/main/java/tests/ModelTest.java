@@ -22,15 +22,15 @@ public class ModelTest {
 		 * then 2 edges for each barrier will be removed.
 		 */
 		for(int i = 1; i < Model.BOARD_DIMENSION; i++) {
-			graph.remove(new Pair<>(new Coordinate(4, i), new Coordinate(3, i)));
+			graph.remove(new Pair<>(new Coordinate(i, 4), new Coordinate(i, 3)));
 		}
 		
 		//There must be a path
-		System.out.println(graph.containsPath(List.of(), new Coordinate(0, 4), Model.BOARD_DIMENSION - 1));
+		System.out.println(graph.containsPath(List.of(), new Coordinate(4, 0), Model.BOARD_DIMENSION - 1));
 		
 		//Note: adding those barriers imply there's not a path to the line 0 for all coordinates with line >= 4.
-		System.out.println(graph.containsPath(graph.barriersAsEdgesToRemove(List.of(new BarrierImpl(new Coordinate(4, 0), Orientation.HORIZONTAL, Piece.HEAD),
-				new BarrierImpl(new Coordinate(3, 0), Orientation.HORIZONTAL, Piece.TAIL))), new Coordinate(0, 4), Model.BOARD_DIMENSION - 1));   
+		System.out.println(graph.containsPath(graph.barriersAsEdgesToRemove(List.of(new BarrierImpl(new Coordinate(0, 4), Orientation.HORIZONTAL, Piece.HEAD),
+				new BarrierImpl(new Coordinate(0, 3), Orientation.HORIZONTAL, Piece.TAIL))), new Coordinate(4, 0), Model.BOARD_DIMENSION - 1));   
 		
 	}
 	

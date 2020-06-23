@@ -30,7 +30,7 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 		List<Coordinate> nodes = new ArrayList<>();
 		for(int r = 0; r < boardDimension; r++) {
 			for(int c = 0; c < boardDimension; c++) {
-				nodes.add(new Coordinate(r, c));
+				nodes.add(new Coordinate(c, r));
 			}
 		}
 		edgesFromNodes(nodes);
@@ -70,7 +70,7 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 		while (!list.isEmpty()) {
 			Node u = list.remove(0);
 			for(Node v : adjNodes(edges, u)) {
-				if(v.getCoordinate().getX().equals(destination)) {
+				if(v.getCoordinate().getY().equals(destination)) {
 					return true;
 				}
 				v.setColour(model.roundenvironment.graph.Node.Colour.GRAY);
@@ -90,13 +90,16 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 			Integer y = b.getCoordinate().getY();
 			
 			if(b.getOrientation().equals(Orientation.HORIZONTAL)) {
-				edgesToRemove.add(new Pair<>(new Coordinate(x, y), new Coordinate(x + 1, y)));
-				edgesToRemove.add(new Pair<>(new Coordinate(x + 1, x), new Coordinate(x, y)));
-			} else {
 				edgesToRemove.add(new Pair<>(new Coordinate(x, y), new Coordinate(x, y + 1)));
 				edgesToRemove.add(new Pair<>(new Coordinate(x, y + 1), new Coordinate(x, y)));
+			} else {
+				edgesToRemove.add(new Pair<>(new Coordinate(x, y), new Coordinate(x + 1, y)));
+				edgesToRemove.add(new Pair<>(new Coordinate(x + 1, y), new Coordinate(x, y)));
 			}
 		}
+		
+		edgesToRemove.forEach(e -> System.out.println(e));
+		
 		return edgesToRemove;
 	}
 	
