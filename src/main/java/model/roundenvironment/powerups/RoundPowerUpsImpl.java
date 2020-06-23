@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import model.Model;
 import model.roundenvironment.coordinate.Coordinate;
+import model.roundenvironment.powerups.PowerUp.Type;
 
 public class RoundPowerUpsImpl implements RoundPowerUps {
 	
@@ -13,15 +14,21 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 	
 	public RoundPowerUpsImpl() {
 		this.powerUpList = new ArrayList<>();
-		for (int i = 0; i < POWERUP_NUMBER; i++) {
-			this.powerUpList.add(new PowerUpImpl(Model.BOARD_DIMENSION));
+		for (int i = 0; i < BARRIER_POWERUP_NUMBER; i++) {
+			PowerUp p = new PowerUpImpl(Type.PLUS_ONE_BARRIER, Model.BOARD_DIMENSION);
+			if (!this.powerUpList.isEmpty() && this.powerUpList.stream().anyMatch(e -> e.getCoordinate().equals(p.getCoordinate()))) {
+				i--;
+			} else {
+				this.powerUpList.add(p);
+			}				
 		}
-	}
-	
-	public RoundPowerUpsImpl(int numberOfPowerUps) {
-		this.powerUpList = new ArrayList<>();
-		for (int i = 0; i < numberOfPowerUps; i++) {
-			this.powerUpList.add(new PowerUpImpl(Model.BOARD_DIMENSION));
+		for (int i = 0; i < MOVE_POWERUP_NUMBER; i++) {
+			PowerUp p = new PowerUpImpl(Type.PLUS_ONE_MOVE, Model.BOARD_DIMENSION);
+			if (!this.powerUpList.isEmpty() && this.powerUpList.stream().anyMatch(e -> e.getCoordinate().equals(p.getCoordinate()))) {
+				i--;
+			} else {
+				this.powerUpList.add(p);
+			}				
 		}
 	}
 	

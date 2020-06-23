@@ -6,7 +6,9 @@ import model.roundenvironment.coordinate.Coordinate;
 
 public interface RoundPowerUps {
 	
-	public static final int POWERUP_NUMBER = 4;
+	public static final int BARRIER_POWERUP_NUMBER = 3;
+	
+	public static final int MOVE_POWERUP_NUMBER = 3;
 	
 	List<PowerUp> getPowerUpsAsList();
 	

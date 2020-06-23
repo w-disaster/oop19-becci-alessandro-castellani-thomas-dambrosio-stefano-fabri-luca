@@ -11,18 +11,9 @@ public class PowerUpImpl implements PowerUp{
 	private Type type;
 	private Coordinate coordinate;
 	
-	public PowerUpImpl(int boardDimension) {
-		random = new Random();
-		switch(random.nextInt(2)) {
-		case 0:
-			this.type = Type.PLUS_ONE_MOVE;
-			break;
-		case 1:
-			this.type = Type.PLUS_ONE_BARRIER;
-			break;
-		default:
-			break;
-		}
+	public PowerUpImpl(Type type, int boardDimension) {
+		this.random = new Random();
+		this.type = type;
 		this.coordinate = new Coordinate(2+random.nextInt(boardDimension-4), 2+random.nextInt(boardDimension-4));
 	}
 	
