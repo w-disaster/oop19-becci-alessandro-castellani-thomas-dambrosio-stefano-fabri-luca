@@ -1,13 +1,14 @@
 package controller.observers;
 
-import guicontrollers.UIController;
 import model.roundenvironment.barriers.Barrier;
+import view.game.ViewController;
+import view.game.ViewLogic;
 
 public class ObserverBarrierPosition implements Observer {
 
-private UIController view;
+private ViewLogic view;
 	
-	public ObserverBarrierPosition(UIController view) {
+	public ObserverBarrierPosition(ViewLogic view) {
 		this.view = view;
 	}
 	

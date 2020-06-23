@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-import guicontrollers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.RoundBarriers;
@@ -13,19 +12,21 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import savings.SaveLeaderBoard;
+import view.game.ViewController;
+import view.game.ViewLogic;
 
 public abstract class GenericMove<X extends RoundEnvironment> {
 
 	private Model<X> model;
-	private UIController view;
+	private ViewLogic view;
 	private SaveLeaderBoard leaderboard;
 	private RoundPlayers players;
 	private List<Player> turns;
 	private Iterator<X> iterRounds;
 	
-	public GenericMove(Model<X> model, UIController view, Iterator<X> iterRounds) {
+	public GenericMove(Model<X> model, ViewLogic view2, Iterator<X> iterRounds) {
 		this.model = model;
-		this.view = view;
+		this.view = view2;
 		this.leaderboard = new SaveLeaderBoard();
 		this.iterRounds = iterRounds;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();

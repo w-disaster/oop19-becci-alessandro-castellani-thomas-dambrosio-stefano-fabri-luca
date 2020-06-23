@@ -1,13 +1,14 @@
 package controller.observers;
 
-import guicontrollers.UIController;
 import model.roundenvironment.coordinate.Coordinate;
+import view.game.ViewController;
+import view.game.ViewLogic;
 
 public class ObserverPlayerPosition implements Observer {
 
-	private UIController view;
+	private ViewLogic view;
 	
-	public ObserverPlayerPosition(UIController view) {
+	public ObserverPlayerPosition(ViewLogic view) {
 		this.view = view;
 	}
 	

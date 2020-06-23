@@ -6,9 +6,7 @@ import controller.genericmove.barrierplacers.BarrierPlacer;
 import controller.genericmove.barrierplacers.BarrierPlacerImpl;
 import controller.genericmove.playermovers.PlayerMover;
 import controller.genericmove.playermovers.PlayerMoverImpl;
-import guicontrollers.MenuController;
-import guicontrollers.MenuController.GameStatus;
-import guicontrollers.UIController;
+import javafx.util.Pair;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
@@ -19,16 +17,20 @@ import savings.LoadGame;
 import savings.LoadGameImpl;
 import savings.SaveGame;
 import savings.SaveGameImpl;
+import view.game.ViewController;
+import view.game.ViewLogic;
+import view.menu.MenuController;
+import view.menu.MenuController.GameStatus;
 
 public class StandardGameControllerImpl implements StandardGameController {
 	
 	private Model<RoundEnvironment> model;
-	private UIController view;
+	private ViewLogic view;
 	private Iterator<RoundEnvironment> iterRounds;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 	
-	public StandardGameControllerImpl(UIController view) {
+	public StandardGameControllerImpl(ViewLogic view) {
 		this.view = view;
 	}
 
@@ -81,7 +83,7 @@ public class StandardGameControllerImpl implements StandardGameController {
 		Player player2 = players.getPlayers().get(1);
 		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
-		this.view.setNicknames(player1.getNickname(), player2.getNickname());
+		this.view.setPlayer(Optional.of(new Pair<>(player1.getNickname(), player2.getNickname())));
 		this.view.changeSelectedLabel(players.getCurrentPlayer().getNickname());
 		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers(), this.model.getCurrentRoundEnvironment().getRoundBarriers().getBarriersAsList()); //reset grid
 	}

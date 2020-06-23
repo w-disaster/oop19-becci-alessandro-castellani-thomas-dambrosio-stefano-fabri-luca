@@ -5,7 +5,6 @@ import java.util.*;
 import controller.genericmove.GenericMove;
 import controller.observers.Observer;
 import controller.observers.ObserverPlayerPosition;
-import guicontrollers.UIController;
 import model.*;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.RoundEnvironment;
@@ -13,21 +12,23 @@ import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
+import view.game.ViewController;
+import view.game.ViewLogic;
 
 public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> implements PlayerMover {
 
 	private Model<X> model;
-	private UIController view;
+	private ViewLogic view;
 	private Observer observerPlayer;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(Model<X> model, UIController view, Iterator<X> iterRounds) {
-		super(model, view, iterRounds);
+	public PlayerMoverImpl(Model<X> model, ViewLogic view2, Iterator<X> iterRounds) {
+		super(model, view2, iterRounds);
 		this.model = model;
-		this.view = view;
+		this.view = view2;
 		this.observerPlayer = new ObserverPlayerPosition(this.view);
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();

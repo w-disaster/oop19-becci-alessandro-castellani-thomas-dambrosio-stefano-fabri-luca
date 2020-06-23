@@ -1,4 +1,4 @@
-package viewmenu;
+package view.sceneChanger;
 
 
 

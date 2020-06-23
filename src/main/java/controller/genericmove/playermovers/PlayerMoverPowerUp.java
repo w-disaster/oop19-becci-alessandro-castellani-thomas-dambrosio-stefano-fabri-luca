@@ -2,14 +2,14 @@ package controller.genericmove.playermovers;
 
 import java.util.Iterator;
 
-import guicontrollers.UIController;
 import model.Model;
 import model.roundenvironment.RoundPUpEnvironment;
+import view.game.ViewLogic;
 
 
 public class PlayerMoverPowerUp<X extends RoundPUpEnvironment> extends PlayerMoverImpl<RoundPUpEnvironment> {
 
-	public PlayerMoverPowerUp(Model<RoundPUpEnvironment> model, UIController view,
+	public PlayerMoverPowerUp(Model<RoundPUpEnvironment> model, ViewLogic view,
 			Iterator<RoundPUpEnvironment> iterRounds) {
 		super(model, view, iterRounds);
 	}

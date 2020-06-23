@@ -8,11 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import viewmenu.ScenesItem;
-import viewmenu.SceneBuilder;
-import viewmenu.SceneBuilderImpl;
-import viewmenu.SceneChanger;
-import viewmenu.SceneChangerImpl;
+import view.sceneChanger.SceneBuilder;
+import view.sceneChanger.SceneBuilderImpl;
+import view.sceneChanger.SceneChanger;
+import view.sceneChanger.SceneChangerImpl;
+import view.sceneChanger.ScenesItem;
 
 /**
  * This class represent the Main class of the JavaFX-based application.

@@ -1,4 +1,4 @@
-package viewmenu;
+package view.sceneChanger;
 
 /**
  * This is an Enum for storing path and names used for scene changes.

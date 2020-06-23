@@ -2,10 +2,10 @@ package controller.genericmove.barrierplacers;
 
 import java.util.Iterator;
 
-import guicontrollers.UIController;
 import model.Model;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.players.Player;
+import view.game.ViewLogic;
 
 
 public class BarrierPlacerPowerUp<X extends RoundPUpEnvironment> extends BarrierPlacerImpl<RoundPUpEnvironment> {
@@ -13,7 +13,7 @@ public class BarrierPlacerPowerUp<X extends RoundPUpEnvironment> extends Barrier
 	private Model<RoundPUpEnvironment> model;
 	private Player currentPlayer;
 
-	public BarrierPlacerPowerUp(Model<RoundPUpEnvironment> model, UIController view,
+	public BarrierPlacerPowerUp(Model<RoundPUpEnvironment> model, ViewLogic view,
 			Iterator<RoundPUpEnvironment> iterRounds) {
 		super(model, view, iterRounds);
 		this.model = model;

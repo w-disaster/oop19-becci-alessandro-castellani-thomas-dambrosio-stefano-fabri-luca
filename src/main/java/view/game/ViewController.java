@@ -1,16 +1,8 @@
-package guicontrollers;
+package view.game;
 
-import controller.GameController;
-import controller.PowerUpGameController;
-import controller.PowerUpGameControllerImpl;
-import controller.StandardGameController;
-import controller.StandardGameControllerImpl;
-import guicontrollers.MenuController.GameStatus;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -18,10 +10,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -30,20 +22,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import model.roundenvironment.barriers.Barrier;
-import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
-import model.roundenvironment.players.Player;
-import model.roundenvironment.powerups.PowerUp;
-import savings.LoadGameImpl;
-import viewmenu.SceneChanger;
-import viewmenu.SceneChangerImpl;
-import viewmenu.ScenesItem;
+import view.menu.MenuController;
+import view.menu.MenuController.GameStatus;
+import view.sceneChanger.SceneChanger;
+import view.sceneChanger.SceneChangerImpl;
+import view.sceneChanger.ScenesItem;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 
 
@@ -51,7 +36,7 @@ import java.util.Optional;
  * The Controller related to the scene.fxml GUI.
  *
  */
-public final class UIController{
+public final class ViewController{
 	
     @FXML private BorderPane rootPane;
     @FXML private GridPane grid;
@@ -69,25 +54,16 @@ public final class UIController{
     @FXML private Label barriersNumber1;
     @FXML private Label barriersNumber2;
     
-    private Logic logic;
+    private ViewLogic logic;
     
     private Circle bluePlayer;
 	private Circle redPlayer;
 	
-	private GameController controller;
-	
-	private Optional<String> player1;
-	private Optional<String> player2;
+	private String player1;
+	private String player2;
 
-	public UIController() {
-		this.logic = new LogicImpl(this);
-		if (MenuController.gameStatus.equals(GameStatus.NORMAL)
-				|| MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
-			this.controller = new StandardGameControllerImpl(this);						
-		} else if (MenuController.gameStatus.equals(GameStatus.POWERUP)
-				|| MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
-			this.controller = new PowerUpGameControllerImpl(this);				
-		}
+	public ViewController() {
+		this.logic = new ViewLogicImpl(this);
 	}
 	
 	public void initialize() {
@@ -145,37 +121,16 @@ public final class UIController{
     	if (MenuController.gameStatus.equals(GameStatus.NORMAL)
     			|| MenuController.gameStatus.equals(GameStatus.POWERUP)) {
     		Optional<Pair<String, String>> result = dialog.showAndWait();
-    		
-    		// If you leave it empty it automatically set default nicknames
-	    	if (result.get().getKey().equals("")) {
-	    		this.player1 = Optional.of("Player 1");
-	    	} else {
-	    		this.player1 = Optional.of(result.get().getKey());    		
-	    	}
-	    	
-	    	if (result.get().getValue().equals("")) {
-	    		this.player2 = Optional.of("Player 2");
-	    	} else {
-	    		this.player2 = Optional.of(result.get().getValue());    		
-	    	}
-	    	
-	    	// Nicknames can't be the same
-	    	if (player1.get().equals(player2.get())) {
-	    		Alert alert = new Alert(AlertType.ERROR);
-	    		alert.setTitle("Error");
-	    		alert.setHeaderText("ERROR");
-	    		alert.setContentText("You can't use the same name!");
-	    		alert.showAndWait();	
-	    	}
+    		this.logic.setPlayer(result);
     	}
-    	
+
     	// Grid setup
     	int numCols = 9;
     	int numRows = 9;
     	
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
-	            this.addPane(i, j);
+	            this.addPane(new Coordinate(i,j));
 	        }
 	    }
 	    
@@ -188,45 +143,28 @@ public final class UIController{
 
 	    this.logic.drawTextLogic("start");
 	    
-	    //Starts the game
-	    switch(MenuController.gameStatus) {
-		case LOADNORMAL:
-			this.controller.loadGame();
-			break;
-		case LOADPOWERUP:
-			this.controller.loadGame();
-			break;
-		case NORMAL:
-			((StandardGameController) this.controller).newStandardGame(player1.get(), player2.get());	    
-			break;
-		case POWERUP:
-			((PowerUpGameController) this.controller).newPowerUpGame(player1.get(), player2.get());	    	
-			break;
-		default:
-			break;
-	    }
-	    label1.setText(player1.get());
-	    label2.setText(player2.get());
+	    this.logic.startGame();
+	    label1.setText(player1);
+	    label2.setText(player2);
 	}
     
-    private void addPane(int colIndex, int rowIndex) {
-        Coordinate position = new Coordinate(colIndex, rowIndex);
-        BorderPane pane = this.logic.addPaneLogic(position, this.controller);
+    private void addPane(Coordinate position) {
+        BorderPane pane = this.logic.addPaneLogic(position);
         pane.getStyleClass().add("GridBorderPane");
         this.grid.add(pane, position.getX(), position.getY());
     }
     
     public void setNicknames(String player1, String player2) {
-    	this.player1 = Optional.of(player1);
-    	this.player2 = Optional.of(player2);
+    	this.player1 = player1;
+    	this.player2 = player2;
     }
     
-    public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2) {
-    	this.logic.clearGrid();
-    	this.logic.getPaneByPosition(player1pos).setCenter(bluePlayer);
-    	this.logic.getPaneByPosition(player2pos).setCenter(redPlayer);
-    	this.updateBarriersNumber(player1.get(), barriersP1);
-    	this.updateBarriersNumber(player2.get(), barriersP2);
+    public void setPlayerInPane(BorderPane p, String player) {
+    	if (player.equals(player1)) {
+    		p.setCenter(bluePlayer);
+    	} else {
+    		p.setCenter(redPlayer);
+    	}
     	Platform.runLater(new Runnable() {
     		
     		@Override
@@ -238,25 +176,6 @@ public final class UIController{
     	});
     }
     
-    public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2, List<Barrier> barrierList) {
-    	this.setupGrid(player1pos, player2pos, barriersP1, barriersP2);
-    	this.logic.drawBarriersOnLoad(barrierList);
-    }
-    
-    public void drawPowerUps(List<PowerUp> powerUpsAsList) {
-    	this.logic.drawPowerUps(powerUpsAsList);
-    }
-
-    public void move(Coordinate position, String player) {
-    	if(player.equals(this.player1.get())) {
-    		this.logic.getPaneByPosition(position).getChildren().add(bluePlayer);
-    		BorderPane.setAlignment(redPlayer, Pos.CENTER);
-    	} else {
-    		this.logic.getPaneByPosition(position).getChildren().add(redPlayer);
-    		BorderPane.setAlignment(redPlayer, Pos.CENTER);
-    	}
-    }
-    
     public void barrierPlacement(MouseEvent event) {
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
     		this.logic.setSelectedBarrier("vertical");
@@ -265,24 +184,29 @@ public final class UIController{
     	}
     }
     
-    public void drawBarrier(Barrier barrier) {
-    	this.logic.drawBarrierLogic(barrier);
-    }
-    
     public void updateBarriersNumber(String player, int barriersNumber) {
-    	if (player.equals(player1.get())) {
+    	if (player.equals(player1)) {
     		this.barriersNumber1.setText(String.valueOf(barriersNumber));
     	} else {
     		this.barriersNumber2.setText(String.valueOf(barriersNumber));
     	}
     }
     
-    public void deletePowerUp(PowerUp p) {
-    	this.logic.deletePowerUp(p);
+    public void drawPowerUp(BorderPane pane, ImageView powerUpIcon) {
+    	Platform.runLater(new Runnable() {
+    		
+    		@Override
+    		public void run() {
+    			powerUpIcon.setFitHeight(grid.getWidth()/12);
+    			powerUpIcon.setFitWidth(grid.getHeight()/12);
+    		}
+    		
+    	});
+		pane.setCenter(powerUpIcon);
     }
     
     public void changeSelectedLabel(String player) { 	
-    	if (player.equals(player1.get())) {
+    	if (player.equals(player1)) {
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("SelectedLabel");   		
     		label2.getStyleClass().clear();
@@ -311,7 +235,7 @@ public final class UIController{
     	
     	alert.showAndWait();
     	
-    	this.controller.nextRound();
+
     }
     
     public void endGame(String winner) {
@@ -351,7 +275,7 @@ public final class UIController{
     @FXML
     public void saveGame() {
     	System.out.println("Saving game...");
-    	this.controller.saveGame();
+    	this.logic.saveGame();
     }
     
     @FXML
@@ -382,6 +306,4 @@ public final class UIController{
      public void exitToDesktop() {
     	 System.exit(0);
      }
-
-
 }

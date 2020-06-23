@@ -1,4 +1,4 @@
-package guicontrollers;
+package view.menu;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,9 +28,9 @@ import savings.LoadGameImpl;
 import savings.LoadGamePUp;
 import savings.PathSavings;
 import savings.SaveGameImpl.gameType;
-import viewmenu.SceneChanger;
-import viewmenu.SceneChangerImpl;
-import viewmenu.ScenesItem;
+import view.sceneChanger.SceneChanger;
+import view.sceneChanger.SceneChangerImpl;
+import view.sceneChanger.ScenesItem;
 /**
  * This is the @FXML controller of the Menu.
  * @author Alessandro Becci

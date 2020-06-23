@@ -1,4 +1,4 @@
-package guicontrollers;
+package view.leaderboard;
 
 
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import savings.LoadLeaderBoard;
-import viewmenu.SceneChanger;
-import viewmenu.SceneChangerImpl;
+import view.sceneChanger.SceneChanger;
+import view.sceneChanger.SceneChangerImpl;
 
 public class HboxTextController {
 	@FXML private Label title1;

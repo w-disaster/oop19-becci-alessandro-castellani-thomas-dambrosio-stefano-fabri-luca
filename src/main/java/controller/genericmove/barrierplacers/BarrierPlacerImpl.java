@@ -5,7 +5,6 @@ import java.util.*;
 import controller.genericmove.GenericMove;
 import controller.observers.Observer;
 import controller.observers.ObserverBarrierPosition;
-import guicontrollers.UIController;
 import model.*;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.BarrierImpl;
@@ -14,21 +13,23 @@ import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.barriers.Barrier.Piece;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.RoundPlayers;
+import view.game.ViewController;
+import view.game.ViewLogic;
 
 public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X> implements BarrierPlacer {
 
 	private Model<X> model;
-	private UIController view;
+	private ViewLogic view;
 	private Observer observerBarrier;
 	private RoundPlayers players;
 	private RoundBarriers barriers;
 	private Coordinate newBarrierPosition;
 	private Orientation newBarrierOrientation;
 
-	public BarrierPlacerImpl(Model<X> model, UIController view, Iterator<X> iterRounds) {
-		super(model, view, iterRounds);
+	public BarrierPlacerImpl(Model<X> model, ViewLogic view2, Iterator<X> iterRounds) {
+		super(model, view2, iterRounds);
 		this.model = model;
-		this.view = view;
+		this.view = view2;
 		this.observerBarrier = new ObserverBarrierPosition(this.view);
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();

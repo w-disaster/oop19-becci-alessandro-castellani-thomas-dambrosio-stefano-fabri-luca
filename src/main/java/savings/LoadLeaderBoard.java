@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import guicontrollers.HboxTextController;
 import javafx.util.Pair;
+import view.leaderboard.HboxTextController;
 
 public class LoadLeaderBoard {
 	
