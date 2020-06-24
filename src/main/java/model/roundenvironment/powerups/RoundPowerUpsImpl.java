@@ -2,16 +2,21 @@ package model.roundenvironment.powerups;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import model.Model;
-import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.powerups.PowerUp.Type;
 
+/**
+ * Implementation of RoundPowerUps.
+ * 
+ * @author Stefano
+ */
 public class RoundPowerUpsImpl implements RoundPowerUps {
 	
-	private List<PowerUp> powerUpList;
+	private final List<PowerUp> powerUpList;
 	
+	/**
+	 * Instantiates a new roundPowerUps implementation
+	 */
 	public RoundPowerUpsImpl() {
 		this.powerUpList = new ArrayList<>();
 		for (int i = 0; i < BARRIER_POWERUP_NUMBER; i++) {
@@ -32,15 +37,30 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 		}
 	}
 	
+	/**
+	 * Instantiates a new roundPowerUp given a powerUp list.
+	 *
+	 * @param powerUpList the powerUp list
+	 */
 	public RoundPowerUpsImpl(final List<PowerUp> powerUpList) {
 		this.powerUpList = powerUpList;
 	}
 	
+	/**
+	 * Gets the power ups as list.
+	 *
+	 * @return the list of powerUps
+	 */
 	@Override
-	public List<PowerUp> getPowerUpsAsList() {
+	public final List<PowerUp> getPowerUpsAsList() {
 		return this.powerUpList;
 	}
 
+	/**
+	 * Removes the given powerUp from the powerUp list.
+	 *
+	 * @param p the powerUp
+	 */
 	@Override
 	public void remove(PowerUp p) {
 		this.powerUpList.remove(p);

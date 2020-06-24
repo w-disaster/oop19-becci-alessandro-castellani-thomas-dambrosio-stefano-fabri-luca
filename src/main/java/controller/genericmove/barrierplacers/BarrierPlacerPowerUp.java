@@ -7,12 +7,25 @@ import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.players.Player;
 import view.game.ViewLogic;
 
-
+/**
+ * The Class BarrierPlacer with a function for powerUp.
+ *
+ * @param <X> the generic type
+ * 
+ * @author Stefano
+ */
 public class BarrierPlacerPowerUp<X extends RoundPUpEnvironment> extends BarrierPlacerImpl<RoundPUpEnvironment> {
 	
 	private Model<RoundPUpEnvironment> model;
 	private Player currentPlayer;
 
+	/**
+	 * Instantiates a new barrier placer power up.
+	 *
+	 * @param model the model
+	 * @param view the view
+	 * @param iterRounds the iterator of rounds
+	 */
 	public BarrierPlacerPowerUp(Model<RoundPUpEnvironment> model, ViewLogic view,
 			Iterator<RoundPUpEnvironment> iterRounds) {
 		super(model, view, iterRounds);
@@ -20,6 +33,11 @@ public class BarrierPlacerPowerUp<X extends RoundPUpEnvironment> extends Barrier
 		this.currentPlayer = this.model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer();
 	}
 	
+	/**
+	 * Adds a barrier to the given player.
+	 *
+	 * @param player the player
+	 */
 	public void plusOneBarrier(Player player) {
 		player.setAvailableBarriers(this.currentPlayer.getAvailableBarriers()+1);
 	}

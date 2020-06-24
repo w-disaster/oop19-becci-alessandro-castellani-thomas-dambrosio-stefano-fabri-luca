@@ -2,6 +2,12 @@ package model.roundenvironment.powerups;
 
 import model.roundenvironment.coordinate.Coordinate;
 
+/**
+ * This inteface models a powerUp object
+ * 
+ * @author Stefano D'Ambrosio
+ * 
+ */
 public interface PowerUp{
 	
 	public enum Type {

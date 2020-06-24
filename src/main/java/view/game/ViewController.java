@@ -40,8 +40,7 @@ import java.util.Optional;
 /**
  * The Controller related to the scene.fxml GUI.
  *
- * @author Stefano D'Ambrosio
- *
+ * @author Stefano
  */
 public class ViewController{
 	

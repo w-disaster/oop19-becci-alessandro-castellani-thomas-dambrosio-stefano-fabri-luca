@@ -33,8 +33,7 @@ import view.scenechanger.ScenesItem;
 /**
  * The Logic implementation for controlling the view.
  *
- * @author Stefano D'Ambrosio
- *
+ * @author Stefano
  */
 public class ViewLogicImpl implements ViewLogic{
 	
@@ -190,7 +189,7 @@ public class ViewLogicImpl implements ViewLogic{
 	/**
 	 * Clears the grid.
 	 */
-	public void clearGrid() {
+	private void clearGrid() {
 		this.gridMap.entrySet().forEach(e -> e.getValue().getChildren().remove(0, e.getValue().getChildren().size()));
 	}
 	
@@ -231,7 +230,7 @@ public class ViewLogicImpl implements ViewLogic{
     }
     
     /**
-     * Draw a barrier/
+     * Draw a barrier.
      *
      * @param barrier the barrier to draw
      */
@@ -262,7 +261,7 @@ public class ViewLogicImpl implements ViewLogic{
      *
      * @param barrierList the barrier list to draw
      */
-    public void drawBarriersOnLoad(final List<Barrier> barrierList) {
+    private void drawBarriersOnLoad(final List<Barrier> barrierList) {
     	for (Barrier barrier : barrierList) {
     		this.drawBarrier(barrier);
     	}
@@ -360,7 +359,7 @@ public class ViewLogicImpl implements ViewLogic{
     			+ "- The horizontal barrier will be placed below and in the cell to the right\n";
     	final String verticalBarrierSelected = "Selected barrier: Vertical\n\n";
     	final String horizontalBarrierSelected = "Selected barrier: Horizontal\n\n";
-    	
+    	final String badMove = "Bad move! Still your turn";
     	switch(textToDisplay) {
     	case "start" :
     		this.view.drawText(start);
@@ -377,6 +376,8 @@ public class ViewLogicImpl implements ViewLogic{
     			this.view.drawText(horizontalBarrierSelected);
     			this.view.appendText(barrierTutorial);		
     			break;
+    		case "badMove":
+    			this.view.drawText(badMove);
     		default :
     			break;
     	}		

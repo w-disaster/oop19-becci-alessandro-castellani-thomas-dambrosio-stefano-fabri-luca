@@ -10,10 +10,9 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.powerups.PowerUp;
 
 /**
- * The Interface ViewLogic.
+ * The Interface for the view controller.
  * 
- * @author Stefano D'Ambrosio
- * 
+ * @author Stefano
  */
 public interface ViewLogic {
 	
@@ -29,8 +28,6 @@ public interface ViewLogic {
 	
 	public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2, List<Barrier> barrierList);
 	
-	public void clearGrid();
-	
 	public void move(Coordinate position, String player);
 	
 	public void changeSelectedLabel(String player);
@@ -38,8 +35,6 @@ public interface ViewLogic {
 	public void setSelectedBarrier(String type);
 	
 	public void drawBarrier(Barrier barrier);
-	
-	public void drawBarriersOnLoad(List<Barrier> barrier);
 
 	public void updateBarriersNumber(String nickname, int availableBarriers);
 	

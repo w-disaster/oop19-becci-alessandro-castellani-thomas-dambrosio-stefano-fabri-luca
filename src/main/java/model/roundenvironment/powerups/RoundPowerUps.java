@@ -2,8 +2,11 @@ package model.roundenvironment.powerups;
 
 import java.util.List;
 
-import model.roundenvironment.coordinate.Coordinate;
-
+/**
+ * The Interface models the powerUps in a round
+ * 
+ * @author Stefano
+ */
 public interface RoundPowerUps {
 	
 	public static final int BARRIER_POWERUP_NUMBER = 3;
