@@ -32,8 +32,6 @@ public interface ViewLogic {
 	public void setSelectedBarrier(String type);
 	
 	public void drawBarrier(Barrier barrier);
-
-	public void setCorrectBarrierSize();
 	
 	public void drawBarriersOnLoad(List<Barrier> barrier);
 

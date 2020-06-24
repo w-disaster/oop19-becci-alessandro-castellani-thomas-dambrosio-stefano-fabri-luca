@@ -31,13 +31,15 @@ import view.scenechanger.SceneChanger;
 import view.scenechanger.SceneChangerImpl;
 import view.scenechanger.ScenesItem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
 /**
  * The Controller related to the scene.fxml GUI.
  *
- * @author Stefano
+ * @author Stefano D'Ambrosio
  *
  */
 public final class ViewController{
@@ -67,9 +69,16 @@ public final class ViewController{
 	
 	private String player1;
 	private String player2;
+	
+	private List<Rectangle> verticalBarrierList;
+	private List<Rectangle> horizontalBarrierList;
+	private List<ImageView> powerUpList;
 
 	public ViewController() {
 		this.logic = new ViewLogicImpl(this);
+		this.verticalBarrierList = new ArrayList<>();
+		this.horizontalBarrierList= new ArrayList<>();
+		this.powerUpList= new ArrayList<>();
 	}
 	
 	public void initialize() {
@@ -114,6 +123,7 @@ public final class ViewController{
 
     	dialog.getDialogPane().setContent(dialogGrid);
 
+    	// Takes the nicknames from the textFields
     	dialog.setResultConverter(dialogButton -> {
     	    if (dialogButton == startButton) {
     	    	return new Pair<String, String>(player1name.getText(),player2name.getText());
@@ -139,6 +149,7 @@ public final class ViewController{
 	        }
 	    }
 	    
+	    // View styling
 	    bluePlayer = new Circle();
 	    redPlayer = new Circle();
 	    bluePlayer.getStyleClass().add("BluePlayer");
@@ -146,45 +157,86 @@ public final class ViewController{
 	    label1.getStyleClass().add("SelectedLabel");
 	    label2.getStyleClass().add("Label");
 
+	    // Prints the tutorial
 	    this.logic.drawTextLogic("start");
 	    
+	    // Starts the game
 	    this.logic.startGame();
+	    
+	    //Sets the players name in labels
 	    label1.setText(player1);
 	    label2.setText(player2);
 	}
     
+    /**
+     * Adds a BorderPane to the grid.
+     *
+     * @param position the position
+     */
     private void addPane(Coordinate position) {
         BorderPane pane = this.logic.addPaneLogic(position);
         pane.getStyleClass().add("GridBorderPane");
         this.grid.add(pane, position.getX(), position.getY());
     }
     
+    /**
+     * Sets the nicknames.
+     *
+     * @param player1 the player 1 nickname
+     * @param player2 the player 2 nickname
+     */
     public void setNicknames(String player1, String player2) {
     	this.player1 = player1;
     	this.player2 = player2;
     }
     
+    /**
+     * Sets the player in center og the BorderPane.
+     *
+     * @param p the pane
+     * @param player the player
+     */
     public void setPlayerInPane(BorderPane p, String player) {
     	if (player.equals(player1)) {
     		p.setCenter(bluePlayer);
     	} else {
     		p.setCenter(redPlayer);
     	}
-    	this.setCorrectPlayerSize();
+    	this.setCorrectSize();
     }
     
-    private void setCorrectPlayerSize() {
+    public void setCorrectSize() {
     	Platform.runLater(new Runnable() {
     		
     		@Override
     		public void run() {
-    			bluePlayer.setRadius((grid.getWidth())/28);
-    			redPlayer.setRadius((grid.getWidth())/28);
-    		}
-    		
+    			Double baseSize = grid.getWidth();
+    					
+    			// Players size
+    			bluePlayer.setRadius(baseSize/28);
+    			redPlayer.setRadius(baseSize/28);
+
+    			// Barrier size
+				for (Rectangle b : verticalBarrierList) {
+					b.setHeight(baseSize/11);				
+					b.setWidth(baseSize/70);					
+				}
+				for (Rectangle b : horizontalBarrierList) {
+					b.setHeight(baseSize/70);				
+					b.setWidth(baseSize/11);							
+				}
+				
+				// PowerUp size
+				for (ImageView powerUpIcon : powerUpList) {
+					powerUpIcon.setFitHeight(baseSize/12);
+					powerUpIcon.setFitWidth(baseSize/12);						
+				}
+			}
     	});
 		
 	}
+    
+    
 
 	public void barrierPlacement(MouseEvent event) {
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
@@ -203,15 +255,8 @@ public final class ViewController{
     }
     
     public void drawPowerUp(BorderPane pane, ImageView powerUpIcon) {
-    	Platform.runLater(new Runnable() {
-    		
-    		@Override
-    		public void run() {
-    			powerUpIcon.setFitHeight(grid.getWidth()/12);
-    			powerUpIcon.setFitWidth(grid.getHeight()/12);
-    		}
-    		
-    	});
+    	this.powerUpList.add(powerUpIcon);
+    	this.setCorrectSize();
 		pane.setCenter(powerUpIcon);
     }
     
@@ -266,6 +311,14 @@ public final class ViewController{
     	}
     }
     
+    public List<Rectangle> getHorizontalBarrierList() {
+    	return this.horizontalBarrierList;
+    }
+    
+    public List<Rectangle> getVerticalBarrierList() {
+    	return this.verticalBarrierList;
+    }
+    
     @FXML
     public void goFullscreen() {
     	Stage s = ((Stage) this.rootPane.getScene().getWindow());
@@ -276,8 +329,7 @@ public final class ViewController{
     		s.setFullScreen(true);
     		this.fullscreenMenuItem.setText("Go back");	
     	}
-    	this.setCorrectPlayerSize();
-    	this.logic.setCorrectBarrierSize();
+    	this.setCorrectSize();
     }
     
     @FXML

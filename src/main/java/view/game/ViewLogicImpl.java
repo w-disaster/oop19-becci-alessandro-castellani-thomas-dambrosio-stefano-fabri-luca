@@ -1,6 +1,6 @@
 package view.game;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,6 @@ import controller.PowerUpGameController;
 import controller.PowerUpGameControllerImpl;
 import controller.StandardGameController;
 import controller.StandardGameControllerImpl;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -38,9 +37,6 @@ public class ViewLogicImpl implements ViewLogic{
 	private ViewController view;
 
 	private Map<Coordinate, BorderPane> gridMap;
-	
-	private List<Rectangle> verticalBarrierList;
-	private List<Rectangle> horizontalBarrierList;
 
 	private Optional<Integer> selectedBarrier;
 
@@ -57,8 +53,6 @@ public class ViewLogicImpl implements ViewLogic{
 			this.controller = new PowerUpGameControllerImpl(this);				
 		}
     	this.gridMap = new HashMap<Coordinate, BorderPane>();
-    	this.verticalBarrierList = new ArrayList<>();
-    	this.horizontalBarrierList = new ArrayList<>();
     	this.selectedBarrier = Optional.empty();
 	}
 	
@@ -246,34 +240,13 @@ public class ViewLogicImpl implements ViewLogic{
     	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
     		selected.setBottom(horizontalBarrier);
     		BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
-    		this.horizontalBarrierList.add(horizontalBarrier);
+    		this.view.getHorizontalBarrierList().add(horizontalBarrier);
     	} else if (barrier.getOrientation().equals(Orientation.VERTICAL)) {
     		selected.setRight(verticalBarrier);
     		BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
-    		this.verticalBarrierList.add(verticalBarrier);
+    		this.view.getVerticalBarrierList().add(verticalBarrier);
     	}
-    	this.setCorrectBarrierSize();
-    }
-    
-    /**
-     * Sets the correct barrier size.
-     */
-    public void setCorrectBarrierSize() {
-    	Platform.runLater(new Runnable() {
-    		
-		    @Override
-    		public void run() {
-				Double dimensions = gridMap.get(new Coordinate(0,0)).getHeight()/10;
-				for (Rectangle b : verticalBarrierList) {
-					b.setHeight(dimensions*8);				
-					b.setWidth(dimensions);					
-				}
-				for (Rectangle b : horizontalBarrierList) {
-					b.setHeight(dimensions);				
-					b.setWidth(dimensions*8);							
-				}	
-			}
-    	});
+    	this.view.setCorrectSize();
     }
     
     /**
