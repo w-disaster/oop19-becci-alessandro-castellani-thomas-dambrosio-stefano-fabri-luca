@@ -81,7 +81,7 @@ public final class ViewController{
 
     	// Set the icon 
     	((Stage)dialog.getDialogPane().getScene().getWindow()).getIcons().add
-    		(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
+    		(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
     	
     	// Layout
     	ButtonType startButton = new ButtonType("Start", ButtonData.OK_DONE);
@@ -231,7 +231,7 @@ public final class ViewController{
     	alert.setContentText("");
 
     	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
-    		(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
+    		(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
     	
     	alert.showAndWait();
     	
@@ -245,7 +245,7 @@ public final class ViewController{
     	alert.setContentText("Do you want to return to the main menu?");
 
     	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
-    	(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
+    	(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
