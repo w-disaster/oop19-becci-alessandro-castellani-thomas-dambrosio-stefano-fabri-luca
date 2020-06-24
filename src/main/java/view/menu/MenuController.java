@@ -24,8 +24,8 @@ import javafx.stage.Stage;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
 import savings.LoadGame;
-import savings.LoadGameImpl;
-import savings.LoadGamePUp;
+import savings.LoadGameFactory;
+import savings.LoadGameFactoryImpl;
 import savings.PathSavings;
 import savings.SaveGameImpl.gameType;
 import view.sceneChanger.SceneChanger;
@@ -132,12 +132,11 @@ public class MenuController {
 	 @FXML
 	 public void loadGameButtonPressHandler() {
 		 if(getGameType().equals(gameType.NORMAL)) {
-			 LoadGame<RoundEnvironment> loading = new LoadGameImpl<>();
+			 LoadGame<RoundEnvironment> loading = new LoadGameFactoryImpl().buildNormal();
 			 if(loading.saveExist()) { gameStatus = GameStatus.LOADNORMAL; } else { gameStatus = GameStatus.NORMAL; }
 		 }
 		 else {
-			 LoadGame<RoundPUpEnvironment> loading = new LoadGamePUp();
-			 loading.getModel();
+			 LoadGame<RoundPUpEnvironment> loading = new LoadGameFactoryImpl().buildPowerup();
 			 if(loading.saveExist()) { gameStatus = GameStatus.LOADPOWERUP; } else { gameStatus = GameStatus.NORMAL; }
 		 }
 		 //changing scene with Game
