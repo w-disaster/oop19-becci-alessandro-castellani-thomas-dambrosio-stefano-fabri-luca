@@ -190,7 +190,7 @@ public class ViewController{
     }
     
     /**
-     * Sets the player in center og the BorderPane.
+     * Sets the player in center of the BorderPane.
      *
      * @param p the pane
      * @param player the player
@@ -208,6 +208,7 @@ public class ViewController{
      * Sets the correct size of all nodes.
      */
     public void setCorrectSize() {
+    	
     	// Runs after the initialize
     	Platform.runLater(new Runnable() {
     		
