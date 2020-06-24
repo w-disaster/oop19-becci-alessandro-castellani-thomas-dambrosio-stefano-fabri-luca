@@ -77,7 +77,12 @@ public class MenuController {
 			type = ser.fromJson(reader.readLine(), GameStatus.class);
 			reader.close();
 		} catch(Exception e) {
-			System.out.println("file not found");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("ATTENTION");
+			alert.setHeaderText("Saving not present");
+			alert.setContentText("There isn't any saved game, starting a normal match instead, Save next time!");
+
+			alert.showAndWait();
 		}
 		return type;
 	}
