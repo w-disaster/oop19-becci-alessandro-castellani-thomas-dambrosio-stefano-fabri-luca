@@ -119,16 +119,19 @@ public class MenuController {
 	     ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 	     alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
 		 Optional<ButtonType> result = alert.showAndWait();
+		 boolean cancel = false;
 		 if (result.get() == buttonTypeOne){
 			 gameStatus = GameStatus.NORMAL;
 		 } else if (result.get() == buttonTypeTwo) {
 			 gameStatus = GameStatus.POWERUP;
 		 } else {
-			 gameStatus = GameStatus.NORMAL;
+			 cancel = true;
 		 }
-		 //changing scene with Game
-		 sceneChange = new SceneChangerImpl();
-		 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
+		 if(!cancel) {
+			 //changing scene with Game
+			 sceneChange = new SceneChangerImpl();
+			 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
+		 }
 	 }
 	 
 	 @FXML
