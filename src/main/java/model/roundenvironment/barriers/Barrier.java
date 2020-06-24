@@ -10,37 +10,40 @@ import model.roundenvironment.coordinate.Coordinate;
 public interface Barrier {
 
 	/**
-	 * orientarion of the barrier
-	 * @author luca
+	 * Orientation of the barrier.
 	 *
+	 * @author luca
 	 */
 	public enum Orientation {
 		HORIZONTAL, VERTICAL
 	}
 	
 	/**
-	 * piece of the barrier
-	 * @author luca
+	 * Piece of the barrier.
 	 *
+	 * @author luca
 	 */
 	public enum Piece {
 		HEAD, TAIL
 	}
 
 	/**
-	 * 
+	 * Gets the orientation.
+	 *
 	 * @return the orientation of the barrier
 	 */
 	Orientation getOrientation();
 	
 	/**
-	 * 
+	 * Gets the coordinate.
+	 *
 	 * @return coordinate that represents the head of the barrier
 	 */
 	Coordinate getCoordinate();
 	
 	/**
-	 * 
+	 * Gets the piece.
+	 *
 	 * @return the piece of this barrier
 	 */
 	Piece getPiece();

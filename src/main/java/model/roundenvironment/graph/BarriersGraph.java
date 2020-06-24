@@ -12,7 +12,7 @@ import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Node.Colour;
 
 /**
- * Bidirectional graph that models barriers as a pair of coordinates
+ * Bidirectional graph that models barriers as holes of edges.
  * @author luca
  *
  * @param <X>
@@ -22,10 +22,11 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	private List<Pair<Coordinate, Coordinate>> edges;
 	
 	/**
-	 * BarrierGraphImpl given board dimension
-	 * @param boardDimension
+	 * BarrierGraphImpl given board dimension.
+	 *
+	 * @param boardDimension the board dimension
 	 */
-	public BarriersGraph(int boardDimension) {
+	public BarriersGraph(final int boardDimension) {
 		this.edges = new ArrayList<>();
 		List<Coordinate> nodes = new ArrayList<>();
 		for(int r = 0; r < boardDimension; r++) {
@@ -37,10 +38,11 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	}
 	
 	/**
-	 * BarrierGraphImpl given edges
-	 * @param edges
+	 * BarrierGraphImpl given edges.
+	 *
+	 * @param edges the edges
 	 */
-	public BarriersGraph(List<Pair<Coordinate, Coordinate>> edges) {
+	public BarriersGraph(final List<Pair<Coordinate, Coordinate>> edges) {
 		this.edges = edges;
 	}
 
@@ -96,16 +98,14 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 				edgesToRemove.add(new Pair<>(new Coordinate(x, y), new Coordinate(x + 1, y)));
 				edgesToRemove.add(new Pair<>(new Coordinate(x + 1, y), new Coordinate(x, y)));
 			}
-		}
-		
-		edgesToRemove.forEach(e -> System.out.println(e));
-		
+		}		
 		return edgesToRemove;
 	}
 	
 	/**
-	 * private method to build the graph given the nodes, that in this case are the board coordinates
-	 * @param nodes
+	 * private method to build the graph given the nodes, that in this case are the board coordinates.
+	 *
+	 * @param nodes the nodes
 	 */
 	private void edgesFromNodes(List<Coordinate> nodes) {
 		for(Coordinate n : nodes) {
@@ -122,7 +122,9 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	}
 	
 	/**
-	 * 
+	 * Edges of two nodes.
+	 *
+	 * @param edges the edges
 	 * @return edges of nodes from edges of coordinates
 	 */
 	private static List<Pair<Node, Node>> edgesOfNodes(List<Pair<Coordinate, Coordinate>> edges){
@@ -133,9 +135,10 @@ public class BarriersGraph<X> implements Graph<Coordinate> {
 	}
 	
 	/**
-	 * 
-	 * @param edges
-	 * @param node
+	 * Adjacent nodes.
+	 *
+	 * @param edges the edges
+	 * @param node the node
 	 * @return adjacent nodes of node
 	 */
 	private List<Node> adjNodes(List<Pair<Node, Node>> edges, Node node){

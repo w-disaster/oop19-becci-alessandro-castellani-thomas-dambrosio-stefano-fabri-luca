@@ -26,14 +26,6 @@ public class Pair<X, Y> {
 		return this.y;
 	}
 	
-	public void setX(X x) {
-		this.x = x;
-	}
-	
-	public void setY(Y y) {
-		this.y = y;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,7 +41,7 @@ public class Pair<X, Y> {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Pair))
+		if (getClass() != obj.getClass())
 			return false;
 		Pair other = (Pair) obj;
 		if (x == null) {
@@ -64,7 +56,7 @@ public class Pair<X, Y> {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "[" + x + ";" + y + "]";

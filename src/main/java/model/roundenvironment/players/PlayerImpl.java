@@ -3,7 +3,7 @@ package model.roundenvironment.players;
 import model.roundenvironment.coordinate.Coordinate;
 
 /**
- * Class that models a standard game player
+ * Class that models a game player
  * @author luca
  *
  */
@@ -63,10 +63,4 @@ public class PlayerImpl implements Player{
 		return this.finishLine;
 	}
 
-	@Override
-	public String toString() {
-		return "PlayerImpl [nickname=" + nickname + ", coordinate=" + coordinate + ", availableBarriers="
-				+ availableBarriers + ", finishLine=" + finishLine + "]";
-	}
-	
 }

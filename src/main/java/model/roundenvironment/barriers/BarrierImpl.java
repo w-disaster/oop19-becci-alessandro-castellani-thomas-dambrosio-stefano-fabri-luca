@@ -2,12 +2,23 @@ package model.roundenvironment.barriers;
 
 import model.roundenvironment.coordinate.Coordinate;
 
+/**
+ * The BarrierImpl class
+ * @author luca
+ *
+ */
 public class BarrierImpl implements Barrier {
 
 	private Coordinate coordinate;
 	private Orientation type;
 	private Piece piece;
 	
+	/**
+	 * Instantiates a new barrier
+	 * @param coordinate
+	 * @param type
+	 * @param piece
+	 */
 	public BarrierImpl(final Coordinate coordinate, final Orientation type, final Piece piece) {
 		super();
 		this.coordinate = coordinate;

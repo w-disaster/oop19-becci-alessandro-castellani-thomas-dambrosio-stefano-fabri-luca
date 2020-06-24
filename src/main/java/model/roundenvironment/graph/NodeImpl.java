@@ -2,12 +2,22 @@ package model.roundenvironment.graph;
 
 import model.roundenvironment.coordinate.Coordinate;
 
+/**
+ * The NodeImpl class
+ * @author luca
+ *
+ */
 public class NodeImpl implements Node {
 
 	private Coordinate coordinate;
 	private Colour colour;
 	
-	public NodeImpl(Coordinate coordinate, Colour colour) {
+	/**
+	 * Instantiates a new Node
+	 * @param coordinate
+	 * @param colour
+	 */
+	public NodeImpl(final Coordinate coordinate, final Colour colour) {
 		super();
 		this.coordinate = coordinate;
 		this.colour = colour;

@@ -9,7 +9,7 @@ import model.roundenvironment.graph.Graph;
 import model.roundenvironment.graph.BarriersGraph;
 
 /**
- * Round barriers class
+ * The round barriers class
  * @author luca
  *
  */
@@ -19,9 +19,9 @@ public class RoundBarriersImpl implements RoundBarriers {
 	private Graph<Coordinate> graph;
 	
 	/**
-	 * barriers for a new round
+	 * round barriers for a new round
 	 */
-	public RoundBarriersImpl(int boardDimension) {
+	public RoundBarriersImpl(final int boardDimension) {
 		super();
 		this.barriers = new ArrayList<>();
 		this.graph = new BarriersGraph<>(boardDimension);
@@ -32,7 +32,7 @@ public class RoundBarriersImpl implements RoundBarriers {
 	 * @param barriers
 	 * @param graph
 	 */
-	public RoundBarriersImpl(final List<Barrier> barriers, Graph<Coordinate> graph) {
+	public RoundBarriersImpl(final List<Barrier> barriers, final Graph<Coordinate> graph) {
 		super();
 		this.barriers = barriers;
 		this.graph = graph;

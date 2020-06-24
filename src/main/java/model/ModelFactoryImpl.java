@@ -23,13 +23,17 @@ import model.roundenvironment.players.RoundPlayersImpl;
 import model.roundenvironment.powerups.RoundPowerUps;
 import model.roundenvironment.powerups.RoundPowerUpsImpl;
 
+/**
+ * The Class ModelFactoryImpl.
+ */
 public class ModelFactoryImpl implements ModelFactory {
 	
 	/**
-	 * method to minimise repetitions
-	 * @param nickname1
-	 * @param nickname2
-	 * @return
+	 * method to minimise repetitions.
+	 *
+	 * @param nickname1 the nickname 1
+	 * @param nickname2 the nickname 2
+	 * @return the pair
 	 */
 	private static Pair<RoundBarriers, RoundPlayers> commonEnvironmentsObjects(String nickname1, String nickname2){
 		Coordinate coordinate1 = new Coordinate(Model.BOARD_DIMENSION/2, 0);
@@ -46,7 +50,7 @@ public class ModelFactoryImpl implements ModelFactory {
 	}
 
 	@Override
-	public Model<RoundEnvironment> buildStandard(final String nickname1, final String nickname2) {
+	public Model<RoundEnvironment> buildStandard(String nickname1, String nickname2) {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
 		
 		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
@@ -71,21 +75,9 @@ public class ModelFactoryImpl implements ModelFactory {
 		return new ModelImpl<>(roundPowerUpEnvironments, Model.BOARD_DIMENSION, roundPowerUpEnvironments.get(0), new ArrayList<>());
 	}
 	
-	
 	public <X extends RoundEnvironment> Model<X> buildFromExisting(List<X> roundEnvironments, int boardDimension){
 		Map<X, Optional<Player>> map = new HashMap<>();
 		X currentRoundEnvironment = null;
-		
-		/*int i = 1;
-		for(X x : roundEnvironments) {
-			List<Player> l = x.getRoundPlayers().getPlayers();
-			System.out.println(i);
-			for(Player p : l) {
-				System.out.println(p.getNickname() + " " + p.getCoordinate());
-			}
-			System.out.println("");
-			i++;
-		}*/
 		
 		List<Player> winners = new ArrayList<>();
 		for(X x : roundEnvironments) {
@@ -102,7 +94,6 @@ public class ModelFactoryImpl implements ModelFactory {
 				map.put(x, Optional.empty());
 			}
 		}
-		
 		return new ModelImpl<>(roundEnvironments, boardDimension, currentRoundEnvironment, winners);
 	}
 

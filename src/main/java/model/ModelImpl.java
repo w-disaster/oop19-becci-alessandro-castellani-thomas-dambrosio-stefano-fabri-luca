@@ -1,11 +1,14 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.players.Player;
 
+/**
+ * The Class ModelImpl.
+ *
+ * @param <X> the generic type
+ */
 public class ModelImpl<X extends RoundEnvironment> implements Model<X>{
 
 	private List<X> gameRoundEnvironments;
@@ -20,8 +23,8 @@ public class ModelImpl<X extends RoundEnvironment> implements Model<X>{
 	 * @param currentRoundEnvironment
 	 * @param winners
 	 */
-	public ModelImpl(List<X> gameRoundEnvironments, int boardDimension, X currentRoundEnvironment,
-			List<Player> winners) {
+	public ModelImpl(final List<X> gameRoundEnvironments, final int boardDimension, final X currentRoundEnvironment,
+			final List<Player> winners) {
 		super();
 		this.gameRoundEnvironments = gameRoundEnvironments;
 		this.boardDimension = boardDimension;
