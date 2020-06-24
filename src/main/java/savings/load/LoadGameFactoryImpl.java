@@ -20,10 +20,18 @@ import model.roundenvironment.players.RoundPlayersImpl;
 import model.roundenvironment.powerups.RoundPowerUps;
 import model.roundenvironment.powerups.RoundPowerUpsImpl;
 
+/**
+ * The Class LoadGameFactoryImpl.
+ */
 public class LoadGameFactoryImpl implements LoadGameFactory{
 	
 	private LoadUtilities loadUtil = new LoadUtilities();
 	
+	/**
+	 * Builds the normal loadGame
+	 *
+	 * @return LoadGame<RoundEnvironment>
+	 */
 	@Override
 	public LoadGame<RoundEnvironment> buildNormal() {
 		return new LoadGame<RoundEnvironment>() {
@@ -88,6 +96,11 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 		};
 	}
 
+	/**
+	 * Builds the PowerUp LoadGame
+	 *
+	 * @return LoadGame<RoundPUpEnvironment>
+	 */
 	@Override
 	public LoadGame<RoundPUpEnvironment> buildPowerup() {
 		return new LoadGame<RoundPUpEnvironment>() {
@@ -113,7 +126,7 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 						RoundPUpEnvironment environment = new RoundPUpEnvironmentImpl(barriers,players, powerUps);
 						roundEnvironments.add(environment);
 					}
-					//here i should create the model.
+					//setting iterator
 					iterator = roundEnvironments.iterator();
 					iterator.next();
 					//set the iterator to the current round.
@@ -124,6 +137,7 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 					LoadUtilities.setUpAlertException();
 					System.exit(1);
 				}
+				//creating model with modelfactoryimpl
 				model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
 			}
 

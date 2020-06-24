@@ -28,7 +28,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.powerups.PowerUp;
 import view.menu.MenuController;
 import view.menu.MenuController.GameStatus;
-import view.sceneChanger.ScenesItem;
+import view.scenechanger.ScenesItem;
 
 public class ViewLogicImpl implements ViewLogic{
 	

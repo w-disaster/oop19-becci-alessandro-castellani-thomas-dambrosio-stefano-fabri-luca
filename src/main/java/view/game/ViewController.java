@@ -25,9 +25,9 @@ import javafx.util.Pair;
 import model.roundenvironment.coordinate.Coordinate;
 import view.menu.MenuController;
 import view.menu.MenuController.GameStatus;
-import view.sceneChanger.SceneChanger;
-import view.sceneChanger.SceneChangerImpl;
-import view.sceneChanger.ScenesItem;
+import view.scenechanger.SceneChanger;
+import view.scenechanger.SceneChangerImpl;
+import view.scenechanger.ScenesItem;
 
 import java.util.Optional;
 

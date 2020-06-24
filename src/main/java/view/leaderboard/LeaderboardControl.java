@@ -24,11 +24,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import savings.load.LoadLeaderBoard;
+import savings.load.LoadLeaderBoardImpl;
 import savings.save.PathSavings;
-import view.sceneChanger.SceneChanger;
-import view.sceneChanger.SceneChangerImpl;
-import view.sceneChanger.ScenesItem;
+import view.scenechanger.SceneChanger;
+import view.scenechanger.SceneChangerImpl;
+import view.scenechanger.ScenesItem;
 
 public class LeaderboardControl {
 	
@@ -41,7 +41,7 @@ public class LeaderboardControl {
 	private HBox hBoxText;
 	private Stage stage = Main.STAGE;
 	public static int indexPage;
-	private LoadLeaderBoard load = new LoadLeaderBoard();
+	private LoadLeaderBoardImpl load = new LoadLeaderBoardImpl();
 	
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 

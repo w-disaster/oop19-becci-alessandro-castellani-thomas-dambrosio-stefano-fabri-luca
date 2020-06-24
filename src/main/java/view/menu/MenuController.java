@@ -27,9 +27,9 @@ import savings.load.LoadGame;
 import savings.load.LoadGameFactoryImpl;
 import savings.load.LoadUtilities;
 import savings.save.PathSavings;
-import view.sceneChanger.SceneChanger;
-import view.sceneChanger.SceneChangerImpl;
-import view.sceneChanger.ScenesItem;
+import view.scenechanger.SceneChanger;
+import view.scenechanger.SceneChangerImpl;
+import view.scenechanger.ScenesItem;
 /**
  * This is the @FXML controller of the Menu.
  * @author Alessandro Becci

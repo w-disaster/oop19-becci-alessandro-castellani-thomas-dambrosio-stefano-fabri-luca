@@ -1,4 +1,4 @@
-package view.sceneChanger;
+package view.scenechanger;
 
 import java.io.IOException;
 
