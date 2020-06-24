@@ -24,16 +24,16 @@ import view.menu.MenuController.GameStatus;
 public class StandardGameControllerImpl implements StandardGameController {
 	
 	private Model<RoundEnvironment> model;
-	private ViewLogic view;
+	private final ViewLogic view;
 	private Iterator<RoundEnvironment> iterRounds;
 	private BarrierPlacer placer;
 	private PlayerMover mover;
 	
-	public StandardGameControllerImpl(ViewLogic view) {
+	public StandardGameControllerImpl(final ViewLogic view) {
 		this.view = view;
 	}
 
-	public void newStandardGame(String nicknamePlayer1, String nicknamePlayer2) {
+	public void newStandardGame(final String nicknamePlayer1, final String nicknamePlayer2) {
 		Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, 0);
 		Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
 		this.view.setupGrid(player1Coordinate, player2Coordinate, 10, 10);
@@ -45,12 +45,12 @@ public class StandardGameControllerImpl implements StandardGameController {
 	}
 	
 	@Override
-	public void movePlayer(Coordinate position) {
+	public void movePlayer(final Coordinate position) {
 		this.mover.movePlayer(position);
 	}
 
 	@Override
-	public void placeBarrier(Coordinate position, Orientation orientation) {
+	public void placeBarrier(final Coordinate position, final Orientation orientation) {
 		this.placer.placeBarrier(position, orientation);
 	}
 	

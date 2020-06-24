@@ -5,14 +5,14 @@ import view.game.ViewLogic;
 
 public class ObserverPlayerPosition implements Observer {
 
-	private ViewLogic view;
+	private final ViewLogic view;
 	
-	public ObserverPlayerPosition(ViewLogic view) {
+	public ObserverPlayerPosition(final ViewLogic view) {
 		this.view = view;
 	}
 	
 	@Override
-	public void update(Object position, String player) {
+	public void update(final Object position, final String player) {
 		this.view.move((Coordinate) position, player);
 	}
 

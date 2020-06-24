@@ -17,15 +17,15 @@ import view.game.ViewLogic;
 
 public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X> implements BarrierPlacer {
 
-	private Model<X> model;
-	private ViewLogic view;
-	private Observer observerBarrier;
-	private RoundPlayers players;
-	private RoundBarriers barriers;
+	private final Model<X> model;
+	private final ViewLogic view;
+	private final Observer observerBarrier;
+	private final RoundPlayers players;
+	private final RoundBarriers barriers;
 	private Coordinate newBarrierPosition;
 	private Orientation newBarrierOrientation;
 
-	public BarrierPlacerImpl(Model<X> model, ViewLogic view, Iterator<X> iterRounds) {
+	public BarrierPlacerImpl(final Model<X> model, final ViewLogic view, final Iterator<X> iterRounds) {
 		super(model, view, iterRounds);
 		this.model = model;
 		this.view = view;
@@ -35,7 +35,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	}
 	
 	@Override
-	public void placeBarrier(Coordinate position, Orientation type) {
+	public void placeBarrier(final Coordinate position, final Orientation type) {
 		this.newBarrierPosition = position;
 		this.newBarrierOrientation = type;
 		if (this.checkPlacement(this.newBarrierPosition, this.newBarrierOrientation)) {
@@ -65,7 +65,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	 * @param type
 	 * @return true if all checks return true
 	 */
-	protected boolean checkPlacement(Coordinate position, Orientation type) {
+	protected boolean checkPlacement(final Coordinate position, final Orientation type) {
 		return this.isEmptyPosition(position, type) && this.enoughBarriers() && this.checkEdge(position) && this.noStall(position, type) ? true : false;
 	}
 
@@ -74,7 +74,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	 * @param type
 	 * @return true if the player wants to place the barrier in an empty position
 	 */
-	private boolean isEmptyPosition(Coordinate newPosition, Orientation type) {
+	private boolean isEmptyPosition(final Coordinate newPosition, final Orientation type) {
 		//barriers are memorized singularly so i need double checks to see if there's an empty position
 		if (this.barriers.contains(new BarrierImpl(newPosition, Orientation.HORIZONTAL, Piece.HEAD))) {
 			System.out.println("Not empty!!");
@@ -116,7 +116,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	 * @param type
 	 * @return true if the next position (based on vertical/horizontal barriers) is empty
 	 */
-	private boolean checkEmptyNextPosition(Coordinate newPosition, Orientation type) {
+	private boolean checkEmptyNextPosition(final Coordinate newPosition, final Orientation type) {
 		if (this.barriers.contains(new BarrierImpl(new Coordinate(newPosition.getX() + 1, newPosition.getY()), Orientation.HORIZONTAL, Piece.HEAD))) {
 			if (type.equals(Orientation.HORIZONTAL)) { //here i can place a horizontal barrier
 				System.out.println("Not empty!!");
@@ -143,7 +143,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	 * @param newPosition
 	 * @return true if the barrier isn't placed on an edge
 	 */
-	private boolean checkEdge(Coordinate newPosition) {
+	private boolean checkEdge(final Coordinate newPosition) {
 		//barriers are long 2 positions so they can't be placed where x or y are 'boardDimension'
 		if (newPosition.getX().equals(this.model.getBoardDimension() - 1)) {
 			System.out.println("Can't place on the edge!!");
@@ -159,7 +159,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	/**
 	 * @return true if the player have at least a path to follow to win
 	 */
-	private boolean noStall(Coordinate position, Orientation type) {
+	private boolean noStall(final Coordinate position, final Orientation type) {
 		if (type.equals(Orientation.HORIZONTAL)) {
 			if (this.barriers.getBarriersAsGraph().containsPath(this.barriers.getBarriersAsGraph().barriersAsEdgesToRemove(List.of(new BarrierImpl(position, type, Piece.HEAD), 
 					new BarrierImpl(new Coordinate(position.getX() + 1, position.getY()), type, Piece.TAIL))), this.players.getCurrentPlayer().getCoordinate(), this.players.getCurrentPlayer().getFinishLine())) {
