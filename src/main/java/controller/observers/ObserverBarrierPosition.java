@@ -5,14 +5,14 @@ import view.game.ViewLogic;
 
 public class ObserverBarrierPosition implements Observer {
 
-private ViewLogic view;
+private final ViewLogic view;
 	
-	public ObserverBarrierPosition(ViewLogic view) {
+	public ObserverBarrierPosition(final ViewLogic view) {
 		this.view = view;
 	}
 	
 	@Override
-	public void update(Object barrier, String player) {
+	public void update(final Object barrier, final String player) {
 		this.view.drawBarrier((Barrier) barrier);
 	}
 

@@ -14,16 +14,21 @@ import model.roundenvironment.players.RoundPlayers;
 import savings.save.SaveLeaderBoard;
 import view.game.ViewLogic;
 
+/**
+ * This class have methods that both BarrierPlacer and PlayerMover might need
+ * 
+ * @author Thomas
+ */
 public abstract class GenericMove<X extends RoundEnvironment> {
 
-	private Model<X> model;
-	private ViewLogic view;
-	private SaveLeaderBoard leaderboard;
-	private RoundPlayers players;
-	private List<Player> turns;
-	private Iterator<X> iterRounds;
+	private final Model<X> model;
+	private final ViewLogic view;
+	private final SaveLeaderBoard leaderboard;
+	private final RoundPlayers players;
+	private final List<Player> turns;
+	private final Iterator<X> iterRounds;
 	
-	public GenericMove(Model<X> model, ViewLogic view, Iterator<X> iterRounds) {
+	public GenericMove(final Model<X> model, final ViewLogic view, final Iterator<X> iterRounds) {
 		this.model = model;
 		this.view = view;
 		this.leaderboard = new SaveLeaderBoard();
@@ -99,7 +104,7 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 	 * @param orientation
 	 * @return true if there's an existing barrier in certain position and orientation
 	 */
-	protected boolean containsBarrierTypeIndipendent(RoundBarriers roundBarriers, Coordinate coordinate, Orientation orientation) {
+	protected boolean containsBarrierTypeIndipendent(final RoundBarriers roundBarriers, final Coordinate coordinate, final Orientation orientation) {
 		return roundBarriers.getBarriersAsList().stream()
 				.filter(b -> b.getCoordinate().equals(coordinate) && b.getOrientation().equals(orientation))
 				.collect(Collectors.toList())
@@ -109,7 +114,7 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 	/**
 	 * @return the player against the current player
 	 */
-	protected Optional<Player> getOtherPlayer(Player currentPlayer) {
+	protected Optional<Player> getOtherPlayer(final Player currentPlayer) {
 		for (Player p : this.players.getPlayers()) {
 			if (!p.equals(currentPlayer)) {
 				return Optional.of(p);

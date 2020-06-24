@@ -16,15 +16,15 @@ import view.game.ViewLogic;
 
 public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> implements PlayerMover {
 
-	private Model<X> model;
-	private ViewLogic view;
-	private Observer observerPlayer;
-	private RoundPlayers players;
-	private RoundBarriers barriers;
+	private final Model<X> model;
+	private final ViewLogic view;
+	private final Observer observerPlayer;
+	private final RoundPlayers players;
+	private final RoundBarriers barriers;
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(Model<X> model, ViewLogic view, Iterator<X> iterRounds) {
+	public PlayerMoverImpl(final Model<X> model, final ViewLogic view, final Iterator<X> iterRounds) {
 		super(model, view, iterRounds);
 		this.model = model;
 		this.view = view;
@@ -34,7 +34,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	}
 	
 	@Override
-	public void movePlayer(Coordinate clickedPosition) {
+	public void movePlayer(final Coordinate clickedPosition) {
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		//this.newPosition will be the final position (it may change while clickedPosition will remain the clicked position)
 		this.newPosition = new Coordinate(clickedPosition.getX(), clickedPosition.getY());
@@ -58,7 +58,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * @param playerPosition
 	 * @return list of positions where the player can move
 	 */
-	protected List<Coordinate> checkMove(Coordinate playerPosition) {
+	protected List<Coordinate> checkMove(final Coordinate playerPosition) {
 		List<Coordinate> moves = new ArrayList<>();
 		List<Coordinate> movesJump = new ArrayList<>();
 		//first i find where can the player normally go (adj and no walls)
@@ -145,7 +145,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 		return moves;
 	}
 	
-	private boolean adjacent(Coordinate coord1, Coordinate coord2) {
+	private boolean adjacent(final Coordinate coord1, final Coordinate coord2) {
 		if (Math.abs(coord1.getX() - coord2.getX()) + Math.abs(coord1.getY() - coord2.getY()) == 1) {
 			return true;
 		}
@@ -157,7 +157,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * @param destPosition
 	 * @return true if between the two coordinate there isn't a wall
 	 */
-	private boolean noWall(Coordinate startPosition, Coordinate destPosition) {
+	private boolean noWall(final Coordinate startPosition, final Coordinate destPosition) {
 		//i need to find in which direction the player wants to move in order to check if there's a wall
 		if (destPosition.getX() > startPosition.getX()) {
 			if (this.containsBarrierTypeIndipendent(this.barriers, startPosition, Orientation.VERTICAL)) {
@@ -186,7 +186,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * @param positions
 	 * @return true if the player can jump
 	 */
-	private boolean canJump(List<Coordinate> positions) {
+	private boolean canJump(final List<Coordinate> positions) {
 		return positions.contains(this.getOtherPlayer(this.players.getCurrentPlayer()).get().getCoordinate());
 	}
 	
@@ -195,7 +195,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * 
 	 * This method removes the positions occupied by the other player in coords
 	 */
-	private void getEmptyPositions(List<Coordinate> coords) {
+	private void getEmptyPositions(final List<Coordinate> coords) {
 		for (Coordinate c : List.copyOf(coords)) {
 			if (c.equals(this.players.getPlayers().get(0).getCoordinate()) || c.equals(this.players.getPlayers().get(1).getCoordinate())) {
 				coords.remove(coords.indexOf(c));
@@ -208,7 +208,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * 
 	 * This method changes the position of the player that wants to move
 	 */
-	private void changePosition(Player currentPlayer) {
+	private void changePosition(final Player currentPlayer) {
 		for (Player p : this.players.getPlayers()) {
 			if (currentPlayer.getNickname().compareTo(p.getNickname()) == 0) {
 				p.setCoordinate(this.newPosition);
