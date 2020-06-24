@@ -24,10 +24,10 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	private Coordinate playerPosition;
 	private Coordinate newPosition;
 	
-	public PlayerMoverImpl(Model<X> model, ViewLogic view2, Iterator<X> iterRounds) {
-		super(model, view2, iterRounds);
+	public PlayerMoverImpl(Model<X> model, ViewLogic view, Iterator<X> iterRounds) {
+		super(model, view, iterRounds);
 		this.model = model;
-		this.view = view2;
+		this.view = view;
 		this.observerPlayer = new ObserverPlayerPosition(this.view);
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.barriers = this.model.getCurrentRoundEnvironment().getRoundBarriers();

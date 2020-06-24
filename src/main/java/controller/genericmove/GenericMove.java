@@ -23,9 +23,9 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 	private List<Player> turns;
 	private Iterator<X> iterRounds;
 	
-	public GenericMove(Model<X> model, ViewLogic view2, Iterator<X> iterRounds) {
+	public GenericMove(Model<X> model, ViewLogic view, Iterator<X> iterRounds) {
 		this.model = model;
-		this.view = view2;
+		this.view = view;
 		this.leaderboard = new SaveLeaderBoard();
 		this.iterRounds = iterRounds;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
