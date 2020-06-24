@@ -130,9 +130,12 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 					}
 				}
 			} else {
-				for (Coordinate c : List.copyOf(movesJump)) {
-					if (sideJumps.contains(c)) {
-						movesJump.remove(c);
+				this.getEmptyPositions(moves);
+				if (!(moves.size() == 1)) {
+					for (Coordinate c : List.copyOf(movesJump)) {
+						if (sideJumps.contains(c)) {
+							movesJump.remove(c);
+						}
 					}
 				}
 			}
