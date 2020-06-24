@@ -9,6 +9,12 @@ import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.powerups.PowerUp;
 
+/**
+ * The Interface ViewLogic.
+ * 
+ * @author Stefano D'Ambrosio
+ * 
+ */
 public interface ViewLogic {
 	
 	public void startGame();

@@ -35,14 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 /**
  * The Controller related to the scene.fxml GUI.
  *
  * @author Stefano D'Ambrosio
  *
  */
-public final class ViewController{
+public class ViewController{
 	
     @FXML private BorderPane rootPane;
     @FXML private GridPane grid;
@@ -205,7 +204,11 @@ public final class ViewController{
     	this.setCorrectSize();
     }
     
+    /**
+     * Sets the correct size of all nodes.
+     */
     public void setCorrectSize() {
+    	// Runs after the initialize
     	Platform.runLater(new Runnable() {
     		
     		@Override
@@ -236,8 +239,11 @@ public final class ViewController{
 		
 	}
     
-    
-
+	/**
+	 * Sets the selected barrier in the logic
+	 *
+	 * @param event the event that handles the click on the barrier
+	 */
 	public void barrierPlacement(MouseEvent event) {
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
     		this.logic.setSelectedBarrier("vertical");
@@ -246,6 +252,12 @@ public final class ViewController{
     	}
     }
     
+    /**
+     * Update barriers number in the labels.
+     *
+     * @param player the player
+     * @param barriersNumber the barriers number
+     */
     public void updateBarriersNumber(String player, int barriersNumber) {
     	if (player.equals(player1)) {
     		this.barriersNumber1.setText(String.valueOf(barriersNumber));
@@ -254,12 +266,23 @@ public final class ViewController{
     	}
     }
     
+    /**
+     * Draw power up.
+     *
+     * @param pane the pane
+     * @param powerUpIcon the power up icon
+     */
     public void drawPowerUp(BorderPane pane, ImageView powerUpIcon) {
     	this.powerUpList.add(powerUpIcon);
     	this.setCorrectSize();
 		pane.setCenter(powerUpIcon);
     }
     
+    /**
+     * Change selected label.
+     *
+     * @param player the player
+     */
     public void changeSelectedLabel(String player) { 	
     	if (player.equals(player1)) {
     		label1.getStyleClass().clear();
@@ -274,11 +297,31 @@ public final class ViewController{
     	}
     }
     
+    /**
+     * Draw text on the textAreas.
+     *
+     * @param text the text
+     */
     public void drawText(String text) {
     	this.textArea1.setText(text);
     	this.textArea2.setText(text);
     }
     
+    /**
+     * Append text on the textAreas.
+     *
+     * @param text the text
+     */
+    public void appendText(String text) {
+    	this.textArea1.appendText(text);
+    	this.textArea2.appendText(text);    	
+    }
+    
+    /**
+     * Shows an alert when changing round
+     *
+     * @param winner the winner
+     */
     public void endRound(String winner) {
        	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
@@ -293,6 +336,11 @@ public final class ViewController{
 
     }
     
+    /**
+     * Shows an alert when a player wins.
+     *
+     * @param winner the winner
+     */
     public void endGame(String winner) {
     	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
@@ -311,14 +359,27 @@ public final class ViewController{
     	}
     }
     
+    /**
+     * Gets the horizontal barrier list.
+     *
+     * @return the horizontal barrier list
+     */
     public List<Rectangle> getHorizontalBarrierList() {
     	return this.horizontalBarrierList;
     }
     
+    /**
+     * Gets the vertical barrier list.
+     *
+     * @return the vertical barrier list
+     */
     public List<Rectangle> getVerticalBarrierList() {
     	return this.verticalBarrierList;
     }
     
+    /**
+     * Goes fullscreen or back depending by the stage
+     */
     @FXML
     public void goFullscreen() {
     	Stage s = ((Stage) this.rootPane.getScene().getWindow());
@@ -332,35 +393,53 @@ public final class ViewController{
     	this.setCorrectSize();
     }
     
+    /**
+     * Save and go to leaderboard.
+     */
     @FXML
     public void saveAndGoToLeaderboard() {
     	this.saveGame();
     	this.showLeaderboard();
     }
     
+    /**
+     * Show leaderboard.
+     */
     @FXML
     public void showLeaderboard() {
     	SceneChanger sceneChange = new SceneChangerImpl();
     	sceneChange.change(ScenesItem.LEADERBOARD.get(), ScenesItem.LEADERBOARDTITLE.get());
     }
     
+    /**
+     * Show tutorials.
+     */
     @FXML
     public void showTutorials() {
     	this.logic.drawTextLogic("start");
     }
     
+    /**
+     * Save game.
+     */
     @FXML
     public void saveGame() {
     	System.out.println("Saving game...");
     	this.logic.saveGame();
     }
     
+    /**
+     * Save and return.
+     */
     @FXML
     public void saveAndReturn() {
     	this.saveGame();
     	this.returnToMainMenu();
     }
 
+    /**
+     * Save and exit.
+     */
     @FXML
     public void saveAndExit() {
     	this.saveGame();
@@ -383,4 +462,5 @@ public final class ViewController{
      public void exitToDesktop() {
     	 System.exit(0);
      }
+
 }

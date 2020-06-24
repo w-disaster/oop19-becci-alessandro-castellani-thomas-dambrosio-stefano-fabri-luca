@@ -1,6 +1,5 @@
 package view.game;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +29,12 @@ import view.menu.MenuController;
 import view.menu.MenuController.GameStatus;
 import view.scenechanger.ScenesItem;
 
+/**
+ * The Logic implementation for controlling the view.
+ *
+ * @author Stefano D'Ambrosio
+ *
+ */
 public class ViewLogicImpl implements ViewLogic{
 	
 	private GameController controller;
@@ -196,6 +201,7 @@ public class ViewLogicImpl implements ViewLogic{
      */
     public void move(Coordinate position, String player) {
     	this.view.setPlayerInPane(this.gridMap.get(position), player);
+    	this.drawTextLogic("move");
     }
     
     /**
@@ -216,10 +222,11 @@ public class ViewLogicImpl implements ViewLogic{
     public void setSelectedBarrier(String type) {
     	if (type.equals("vertical")) {
     		this.selectedBarrier = Optional.of(0);
+    		this.drawTextLogic("verticalBarrier");
     	} else if (type.equals("horizontal")) {
     		this.selectedBarrier = Optional.of(1);
+    		this.drawTextLogic("horizontalBarrier");
     	}
-    	this.drawTextLogic("barrier");
     }
     
     /**
@@ -345,18 +352,30 @@ public class ViewLogicImpl implements ViewLogic{
 	 */
 	@Override
 	public void drawTextLogic(String textToDisplay) {
-    	String moveTutorial = "- Benvenuto su Quoridor! \n- Clicca su una casella adiacente alla tua per muovere la pedina\n"
+		String start = "- Benvenuto su Quoridor! \n";
+    	String moveTutorial = "- Clicca su una casella adiacente alla tua per muovere la pedina\n"
     			+ "- Clicca su una barriera per posizionarla\n"
     			+ "- Puoi saltare l'avversario quando e` di fronte a te\n";
     	String barrierTutorial = "Per posizionare la barriera, clicca la casella dove vuoi posizionarla: \n"
     			+ "- La barriera verticale sara` posizionata a destra e nella cassela in basso\n"
     			+ "- La barriera orizzontale sara` piazzata in basso e nella casella a destra\n";
+    	String verticalBarrierSelected = "Barriera selezionata: Verticale\n\n";
+    	String horizontalBarrierSelected = "Barriera selezionata: Orizzontale\n\n";
     	switch(textToDisplay) {
-    		case "start" :
-    			this.view.drawText(moveTutorial);
+    	case "start" :
+    		this.view.drawText(start);
+    		this.view.appendText(moveTutorial);
+    		break;
+    	case "move" :
+    		this.view.drawText(moveTutorial);
+    		break;
+    		case "verticalBarrier" :
+    			this.view.drawText(verticalBarrierSelected);
+    			this.view.appendText(barrierTutorial);		
     			break;
-    		case "barrier" :
-    			this.view.drawText(barrierTutorial);		
+    		case "horizontalBarrier" :
+    			this.view.drawText(horizontalBarrierSelected);
+    			this.view.appendText(barrierTutorial);		
     			break;
     		default :
     			this.view.drawText(textToDisplay);
