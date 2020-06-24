@@ -131,7 +131,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 				}
 			} else {
 				this.getEmptyPositions(moves);
-				if (!(moves.size() == 1)) {
+				if (!(moves.size() == 1)) { //if you can only move backwards you can side jump on the finish line
 					for (Coordinate c : List.copyOf(movesJump)) {
 						if (sideJumps.contains(c)) {
 							movesJump.remove(c);

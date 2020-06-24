@@ -11,8 +11,7 @@ import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
-import savings.SaveLeaderBoard;
-import view.game.ViewController;
+import savings.save.SaveLeaderBoard;
 import view.game.ViewLogic;
 
 public abstract class GenericMove<X extends RoundEnvironment> {
