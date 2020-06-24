@@ -26,7 +26,6 @@ import model.roundenvironment.powerups.PowerUpImpl;
 import savings.save.PathSavings;
 import model.roundenvironment.powerups.PowerUp.Type;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class LoadUtilities.
  */
