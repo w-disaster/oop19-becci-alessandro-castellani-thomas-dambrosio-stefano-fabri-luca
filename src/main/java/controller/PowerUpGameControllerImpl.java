@@ -14,10 +14,10 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import model.roundenvironment.powerups.PowerUp;
-import savings.LoadGame;
-import savings.LoadGamePUp;
-import savings.SaveGame;
-import savings.SaveGamePUp;
+import savings.load.LoadGame;
+import savings.load.LoadGameFactoryImpl;
+import savings.save.SaveGame;
+import savings.save.SaveGamePUp;
 import view.game.ViewLogic;
 import view.menu.MenuController;
 import view.menu.MenuController.GameStatus;
@@ -107,7 +107,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	
 	public void loadGame() {
 		if (MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
-			LoadGame<RoundPUpEnvironment> loading = new LoadGamePUp();
+			LoadGame<RoundPUpEnvironment> loading = new LoadGameFactoryImpl().buildPowerup();
 			this.powerUpModel = loading.getModel();
 			this.iterRounds = loading.getIterator();
 		} else {
