@@ -2,6 +2,7 @@ package view.game;
 
 import javafx.application.Platform;
 
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -379,17 +381,19 @@ public class ViewController{
     }
     
     /**
-     * Goes fullscreen or back depending by the stage
+     * Goes fullscreen or back depending by the stage.
      */
     @FXML
     public void goFullscreen() {
     	final Stage s = ((Stage) this.rootPane.getScene().getWindow());
+    	s.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+    	this.drawText("Click 'Game > Exit Fullscreen' to exit fullscreen mode correctly");
     	if (s.isFullScreen()) {
     		s.setFullScreen(false);
     		this.fullscreenMenuItem.setText("Go Fullscreen");	
     	} else {
     		s.setFullScreen(true);
-    		this.fullscreenMenuItem.setText("Go back");	
+    		this.fullscreenMenuItem.setText("Exit Fullscreen");	
     	}
     	this.setCorrectSize();
     }
