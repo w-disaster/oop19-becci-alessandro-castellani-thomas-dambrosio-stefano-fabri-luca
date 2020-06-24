@@ -14,10 +14,9 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import savings.LoadGame;
-import savings.LoadGameImpl;
+import savings.LoadGameFactoryImpl;
 import savings.SaveGame;
 import savings.SaveGameImpl;
-import view.game.ViewController;
 import view.game.ViewLogic;
 import view.menu.MenuController;
 import view.menu.MenuController.GameStatus;
@@ -72,7 +71,7 @@ public class StandardGameControllerImpl implements StandardGameController {
 	
 	public void loadGame() {
 		if (MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
-			LoadGame<RoundEnvironment> loading = new LoadGameImpl<>();
+			LoadGame<RoundEnvironment> loading = new LoadGameFactoryImpl().buildNormal();
 			this.model = loading.getModel();
 			this.iterRounds = loading.getIterator();
 		} else {

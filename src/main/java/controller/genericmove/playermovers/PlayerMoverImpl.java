@@ -12,7 +12,6 @@ import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
-import view.game.ViewController;
 import view.game.ViewLogic;
 
 public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> implements PlayerMover {
