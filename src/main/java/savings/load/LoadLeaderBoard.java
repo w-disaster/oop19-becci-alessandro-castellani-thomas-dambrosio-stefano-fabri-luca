@@ -1,12 +1,8 @@
 package savings.load;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,25 +40,9 @@ public class LoadLeaderBoard {
 			System.out.println("problems reading file");
 			e.printStackTrace();
 		}
-		listEntries.sort(new Comparator<Pair<String, Integer>>(){
-
-			@Override
-			public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
-				if(o1.getValue() > o2.getValue()) {
-					return -1;
-				}
-				else {
-					if(o1.getValue() == o2.getValue()) {
-						return 0;
-					}
-					else {
-						return 1;
-					}
-				}
-			}
-			
-		});
+		listEntries.sort(((o1, o2) -> o2.getValue() - o1.getValue()));
 	}
+	
 	
 	private void calculateNumberPages() {
 		Double numPagesDouble = (double)totalEntries / 3;
