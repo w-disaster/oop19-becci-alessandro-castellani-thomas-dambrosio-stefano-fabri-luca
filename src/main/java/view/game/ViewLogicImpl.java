@@ -28,6 +28,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.powerups.PowerUp;
 import view.menu.MenuController;
 import view.menu.MenuController.GameStatus;
+import view.sceneChanger.ScenesItem;
 
 public class ViewLogicImpl implements ViewLogic{
 	
@@ -215,13 +216,13 @@ public class ViewLogicImpl implements ViewLogic{
 			case PLUS_ONE_MOVE:
 				System.out.println("Drawing powerUp Double Move in " + p.getCoordinate());
 				ImageView doubleMoveIcon = new ImageView(new Image(this.getClass()
-						.getResourceAsStream("/layouts/main/doubleMovePowerUp.png")));
+						.getResourceAsStream(ScenesItem.DOUBLEPUP.get())));
 				this.view.drawPowerUp(this.gridMap.get(p.getCoordinate()), doubleMoveIcon);
 				break;
 			case PLUS_ONE_BARRIER:
 				System.out.println("Drawing powerUp Plus One Barrier in " + p.getCoordinate());
 				ImageView plusOneBarrierIcon = new ImageView(new Image(this.getClass()
-						.getResourceAsStream("/layouts/main/barrierPowerUp.png")));
+						.getResourceAsStream(ScenesItem.BARRIERPUP.get())));
 				this.view.drawPowerUp(this.gridMap.get(p.getCoordinate()), plusOneBarrierIcon);
 				break;
 			default:

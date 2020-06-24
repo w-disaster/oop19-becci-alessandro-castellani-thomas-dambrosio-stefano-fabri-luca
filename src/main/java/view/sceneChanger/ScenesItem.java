@@ -15,9 +15,9 @@ public enum ScenesItem {
 	PAGLEADERBOARD("layouts/leaderboard/hBoxText.fxml"),
 	LEADERBOARDTITLE("Leaderboard"),
 	LEADERBOARDSTYLE("layouts/leaderboard/style.css"),
-	LOGO("logo/logo.png"),
-	BARRIERPUP("layouts/main/barrierPowerUp.png"),
-	DOUBLEPUP("layouts/main/doubleMovePowerUp.png"),
+	LOGO("/logo/logo.png"),
+	BARRIERPUP("/layouts/main/barrierPowerUp.png"),
+	DOUBLEPUP("/layouts/main/doubleMovePowerUp.png"),
 	;
 	
 	
