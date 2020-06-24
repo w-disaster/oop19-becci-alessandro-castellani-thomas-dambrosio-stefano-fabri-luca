@@ -1,5 +1,6 @@
 package view.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,11 +39,12 @@ public class ViewLogicImpl implements ViewLogic{
 
 	private Map<Coordinate, BorderPane> gridMap;
 	
-	//0 for vertical, 1 for horizontal
+	private List<Rectangle> verticalBarrierList;
+	private List<Rectangle> horizontalBarrierList;
+
 	private Optional<Integer> selectedBarrier;
 
 	private String player1;
-
 	private String player2;
 
 	public ViewLogicImpl(ViewController viewController) {
@@ -55,11 +57,15 @@ public class ViewLogicImpl implements ViewLogic{
 			this.controller = new PowerUpGameControllerImpl(this);				
 		}
     	this.gridMap = new HashMap<Coordinate, BorderPane>();
+    	this.verticalBarrierList = new ArrayList<>();
+    	this.horizontalBarrierList = new ArrayList<>();
     	this.selectedBarrier = Optional.empty();
 	}
 	
+	/**
+	 * Starts the game in the controller.
+	 */
 	public void startGame() {
-	    //Starts the game
 	    switch(MenuController.gameStatus) {
 		case LOADNORMAL:
 			this.controller.loadGame();
@@ -78,6 +84,12 @@ public class ViewLogicImpl implements ViewLogic{
 	    }
 	}
 	
+	/**
+	 * Set the players nicknames.
+	 * 
+	 * @param Optional<Pair<String, String>> An optional containing a pair with nicknames
+	 * 
+	 */
 	@Override
 	public void setPlayer(Optional<Pair<String, String>> result) {
 		// If you leave it empty it automatically set default nicknames
@@ -105,6 +117,12 @@ public class ViewLogicImpl implements ViewLogic{
     	this.view.setNicknames(player1, player2);
 	}
 
+	/**
+	 * Adds the pane logic.
+	 *
+	 * @param position the position
+	 * @return the pane to add to the grid
+	 */
 	@Override
 	public BorderPane addPaneLogic(Coordinate position) {
 		BorderPane pane = new BorderPane();
@@ -116,51 +134,91 @@ public class ViewLogicImpl implements ViewLogic{
 	}
 	
 
+	/**
+	 * Sets the up click handler.
+	 *
+	 * @param position the position in which the click handler will be setted
+	 */
 	@Override
 	public void setUpClickHandler(Coordinate position) {
-        System.out.printf("Mouse clicked cell " + position.toString() + "\n");
+        //System.out.printf("Mouse clicked cell " + position.toString() + "\n");
         if (this.selectedBarrier.isEmpty()) {
         	this.controller.movePlayer(position);
         } else {
         	if(this.selectedBarrier.get().equals(0)) {
         		this.controller.placeBarrier(position, Orientation.VERTICAL);
-        		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
+        		//System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
         		
         	} else {
         		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
-        		System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.HORIZONTAL + "\n");
+        		//System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.HORIZONTAL + "\n");
         	}
         	this.selectedBarrier = Optional.empty();
         }
 	}
 	
+	/**
+	 * Clears the grid and set player in the given coordinate, it also update barriers number
+	 *
+	 * @param player1pos the player 1 position
+	 * @param player2pos the player 2 position
+	 * @param barriersP1 the barrier number of player 1
+	 * @param barriersP2 the barrier number of player 2
+	 */
 	public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2) {
 		this.clearGrid();
 		this.view.setPlayerInPane(this.gridMap.get(player1pos), this.player1);
 		this.view.setPlayerInPane(this.gridMap.get(player2pos), this.player2);
 		this.view.updateBarriersNumber(player1, barriersP1);
 		this.view.updateBarriersNumber(player2, barriersP2);
-		
 	}
 	
+	/**
+	 * Same as setup grid but with a list of barriers to draw in the grid.
+	 *
+	 * @param player1pos the player 1 position
+	 * @param player2pos the player 2 position
+	 * @param barriersP1 the barrier number of player 1
+	 * @param barriersP2 the barrier number of player 2
+	 * @param barrierList the barrier list
+	 */
 	public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2, List<Barrier> barrierList) {
 		this.setupGrid(player1pos, player2pos, barriersP1, barriersP2);
 		this.drawBarriersOnLoad(barrierList);
 	}
 	
+	/**
+	 * Clears the grid.
+	 */
 	public void clearGrid() {
 		this.gridMap.entrySet().forEach(e -> e.getValue().getChildren().remove(0, e.getValue().getChildren().size()));
 	}
 	
+    /**
+     * Move the player in the given position.
+     *
+     * @param position the position
+     * @param player the player
+     */
     public void move(Coordinate position, String player) {
     	this.view.setPlayerInPane(this.gridMap.get(position), player);
     }
     
+    /**
+     * Change selected label.
+     *
+     * @param player the current player 
+     */
     @Override
     public void changeSelectedLabel(String player) {
     	this.view.changeSelectedLabel(player);
     }
     
+    /**
+     * Sets the selected barrier, it is used to get which type of barrier has been clicked
+     *
+     * @param type the selected barrier type, 
+     */
     public void setSelectedBarrier(String type) {
     	if (type.equals("vertical")) {
     		this.selectedBarrier = Optional.of(0);
@@ -170,31 +228,48 @@ public class ViewLogicImpl implements ViewLogic{
     	this.drawTextLogic("barrier");
     }
     
+    /**
+     * Draw a barrier/
+     *
+     * @param barrier the barrier to draw
+     */
     public void drawBarrier(Barrier barrier) {
     	BorderPane selected = this.gridMap.get(barrier.getCoordinate());
+    	// barrier styling
     	Rectangle verticalBarrier = new Rectangle();
     	verticalBarrier.getStyleClass().add("Barrier");
     	verticalBarrier.setFill(Color.ORANGE);
     	Rectangle horizontalBarrier = new Rectangle();
     	horizontalBarrier.getStyleClass().add("Barrier");
     	horizontalBarrier.setFill(Color.ORANGE);
+    	
     	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
     		selected.setBottom(horizontalBarrier);
     		BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
+    		this.horizontalBarrierList.add(horizontalBarrier);
     	} else if (barrier.getOrientation().equals(Orientation.VERTICAL)) {
     		selected.setRight(verticalBarrier);
     		BorderPane.setAlignment(verticalBarrier, Pos.CENTER);
-    	}	
+    		this.verticalBarrierList.add(verticalBarrier);
+    	}
+    	this.setCorrectBarrierSize();
+    }
+    
+    public void setCorrectBarrierSize() {
     	Platform.runLater(new Runnable() {
     		
     		@Override
     		public void run() {
-    			verticalBarrier.setHeight(gridMap.get(new Coordinate(0,0)).getHeight()/10*8);				
-    			verticalBarrier.setWidth(gridMap.get(new Coordinate(0,0)).getHeight()/10);				
-    			horizontalBarrier.setHeight(gridMap.get(new Coordinate(0,0)).getHeight()/10);				
-    			horizontalBarrier.setWidth(gridMap.get(new Coordinate(0,0)).getHeight()/10*8);				
-    		}
-    		
+				Double dimensions = gridMap.get(new Coordinate(0,0)).getHeight()/10;
+				for (Rectangle b : verticalBarrierList) {
+					b.setHeight(dimensions*8);				
+					b.setWidth(dimensions);					
+				}
+				for (Rectangle b : horizontalBarrierList) {
+					b.setHeight(dimensions);				
+					b.setWidth(dimensions*8);							
+				}	
+			}
     	});
     }
     
@@ -209,6 +284,11 @@ public class ViewLogicImpl implements ViewLogic{
     	this.view.updateBarriersNumber(player, barriersNumber);
     }
     
+    /**
+     * Draw power ups.
+     *
+     * @param powerUpsAsList the power ups as list
+     */
     @Override
     public void drawPowerUps(List<PowerUp> powerUpsAsList) {
 		for (PowerUp p : powerUpsAsList) {

@@ -1,6 +1,7 @@
 package view.game;
 
 import javafx.application.Platform;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -10,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -35,6 +37,8 @@ import java.util.Optional;
 /**
  * The Controller related to the scene.fxml GUI.
  *
+ * @author Stefano
+ *
  */
 public final class ViewController{
 	
@@ -54,6 +58,8 @@ public final class ViewController{
     @FXML private Label barriersNumber1;
     @FXML private Label barriersNumber2;
     
+    @FXML private MenuItem fullscreenMenuItem;
+    
     private ViewLogic logic;
     
     private Circle bluePlayer;
@@ -68,7 +74,6 @@ public final class ViewController{
 	
 	public void initialize() {
     	System.out.println("Initializing...");
-    	System.out.println("Game type: " + MenuController.gameStatus);
     	
     	// Dialog setup
     	Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -77,7 +82,7 @@ public final class ViewController{
     	
     	// Dialog styling
     	DialogPane dialogPane = dialog.getDialogPane();
-    	dialogPane.setStyle("-fx-background-color: #2B2D42; -fx-fill: #FFFFFF;");
+    	dialogPane.setStyle("-fx-background-color: #2B2D42");
 
     	// Set the icon 
     	((Stage)dialog.getDialogPane().getScene().getWindow()).getIcons().add
@@ -165,6 +170,10 @@ public final class ViewController{
     	} else {
     		p.setCenter(redPlayer);
     	}
+    	this.setCorrectPlayerSize();
+    }
+    
+    private void setCorrectPlayerSize() {
     	Platform.runLater(new Runnable() {
     		
     		@Override
@@ -174,9 +183,10 @@ public final class ViewController{
     		}
     		
     	});
-    }
-    
-    public void barrierPlacement(MouseEvent event) {
+		
+	}
+
+	public void barrierPlacement(MouseEvent event) {
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
     		this.logic.setSelectedBarrier("vertical");
     	} else {
@@ -228,7 +238,7 @@ public final class ViewController{
        	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
     	alert.setHeaderText(winner + " won the round!");
-    	alert.setContentText("");
+    	alert.getDialogPane().setStyle("-fx-background-color: #2B2D42");
 
     	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
     		(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
@@ -241,8 +251,9 @@ public final class ViewController{
     public void endGame(String winner) {
     	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
-    	alert.setHeaderText(winner + " won the game!");
-    	alert.setContentText("Do you want to return to the main menu?");
+    	alert.setHeaderText(winner + " won the game!\nDo you want to return to the main menu?");
+    	
+    	alert.getDialogPane().setStyle("-fx-background-color: #2B2D42");
 
     	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
     	(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
@@ -253,6 +264,20 @@ public final class ViewController{
     	} else {
     	    System.exit(0);
     	}
+    }
+    
+    @FXML
+    public void goFullscreen() {
+    	Stage s = ((Stage) this.rootPane.getScene().getWindow());
+    	if (s.isFullScreen()) {
+    		s.setFullScreen(false);
+    		this.fullscreenMenuItem.setText("Go Fullscreen");	
+    	} else {
+    		s.setFullScreen(true);
+    		this.fullscreenMenuItem.setText("Go back");	
+    	}
+    	this.setCorrectPlayerSize();
+    	this.logic.setCorrectBarrierSize();
     }
     
     @FXML

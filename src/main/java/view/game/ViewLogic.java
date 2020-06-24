@@ -33,6 +33,8 @@ public interface ViewLogic {
 	
 	public void drawBarrier(Barrier barrier);
 
+	public void setCorrectBarrierSize();
+	
 	public void drawBarriersOnLoad(List<Barrier> barrier);
 
 	public void updateBarriersNumber(String nickname, int availableBarriers);
@@ -48,6 +50,7 @@ public interface ViewLogic {
 	public void saveGame();
 
 	public void drawTextLogic(String textToDisplay);
+
 
 
 }
