@@ -89,7 +89,7 @@ public class SaveLeaderBoard {
 	            if(line.split("//")[0].toLowerCase().equals(winner)) {
 	            	line = winner + "//" + (Integer.parseInt(numVictories) + 1) ;
 	            }
-	            //if the line doesnt have to be modified, the inputBuffer takes the original one
+	            //saves the line in inputBuffer
 	            inputBuffer.append(line);
 	            inputBuffer.append(System.lineSeparator());
 	        }

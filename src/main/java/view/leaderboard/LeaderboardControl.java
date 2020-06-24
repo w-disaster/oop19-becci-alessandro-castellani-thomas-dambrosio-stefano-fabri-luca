@@ -31,19 +31,39 @@ import view.scenechanger.SceneChanger;
 import view.scenechanger.SceneChangerImpl;
 import view.scenechanger.ScenesItem;
 
+/**
+ * The Class LeaderboardControl.
+ */
 public class LeaderboardControl {
 	
+	/** The SceneChanger. */
 	private SceneChanger sceneChange = new SceneChangerImpl();
+	
+	/** The root pane. */
 	@FXML private BorderPane borderPane;
+	
+	/** The pagination. */
 	@FXML private Pagination pag;
-	@FXML private Label leaderBoardLabel;
+	
+	/** The back menu button. */
 	@FXML private Button backMenuButton;
+	
+	/** The clean button. */
 	@FXML private Button cleanButton;
+	
+	/** The hBox where the text stays */
 	private HBox hBoxText;
+	
+	/** The stage. */
 	private Stage stage = Main.STAGE;
+	
+	/** The index page. */
 	public static int indexPage;
+	
+	/** The loadLeaderBoard. */
 	private LoadLeaderBoard load = new LoadLeaderBoardImpl();
 	
+	/** The ChangeListener. */
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
 		@Override
@@ -56,10 +76,16 @@ public class LeaderboardControl {
 		
 	};
 	
+	/**
+	 * Removes the listener.
+	 */
 	private void removeListener() {
 		stage.widthProperty().removeListener(changeListener);
 	}
 	
+	/**
+	 * Cleans leaderboard.
+	 */
 	@FXML private void cleanLeaderboard() {
 		 boolean delete = false;
 		 Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -91,11 +117,19 @@ public class LeaderboardControl {
 		}
 	}
 	
+	/**
+	 * Back to menu.
+	 */
 	@FXML private void backToMenu() {
 		removeListener();
 		sceneChange.change(ScenesItem.MENU.get(), ScenesItem.MENUTITLE.get());
 	}
 	
+	/**
+	 * Load the box with Text.
+	 *
+	 * @param pageIndex the page index
+	 */
 	private void loadTextBox(int pageIndex) {
 		try {
 			
@@ -104,16 +138,29 @@ public class LeaderboardControl {
 			loader.setLocation(ClassLoader.getSystemResource(ScenesItem.PAGLEADERBOARD.get()));
 			hBoxText = loader.load();
 		} catch(Exception e) {
-			//System.out.println(e.getMessage());
-			System.out.println("problems loading fxml");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("An error occured");
+			alert.setContentText("Error in loading fxml.!");
+			alert.showAndWait();
+			System.exit(1);
 		}
 	}
 	
+	/**
+	 * Creates the new page of the pagination.
+	 *
+	 * @param pageIndex the page index
+	 * @return the node
+	 */
 	private Node createNewPage(int pageIndex) {
 		loadTextBox(pageIndex);
 		return hBoxText;
 	}
 	
+	/**
+	 * @FXML initialize.
+	 */
 	public void initialize() {
 		Platform.runLater(new Runnable() {
 
@@ -138,6 +185,9 @@ public class LeaderboardControl {
 		});
 	}
 	
+	/**
+	 * Sets the resize events.
+	 */
 	private void setResizeEvents() {
 		stage.widthProperty().addListener(changeListener);
 	}

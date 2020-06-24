@@ -29,22 +29,55 @@ import savings.load.LoadLeaderBoardImpl;
 import view.scenechanger.SceneChanger;
 import view.scenechanger.SceneChangerImpl;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HboxTextController.
+ */
 public class HboxTextController {
+	
+	/** The first title */
 	@FXML private Label title1;
+	
+	/** The second title */
 	@FXML private Label title2;
+	
+	/** The box of the Score. */
 	@FXML private VBox boxScore;
+	
+	/** The box of the Names. */
 	@FXML private VBox boxNames;
+	
+	/** The root. */
 	@FXML private HBox root;
+	
+	/** The SceneChanger. */
 	private SceneChanger sceneChange = new SceneChangerImpl();
+	
+	/** The stage. */
 	private Stage stage = Main.STAGE;
+	
+	/** The loader of LeaderBoard. */
 	private LoadLeaderBoard load;
+	
+	/** The index page. */
 	private int indexPage;
+	
+	/** A map that associates index of the Page and the list of the Players. */
 	private Map<Integer, List<String>> indexPageToPlayer;
+	
+	/** A map that associates index of the Page and the list of the Scores. */
 	private Map<Integer, List<Integer>> indexPageToScore;
+	
+	/** A map that associates index of the Page and the list of the Player Labels. */
 	private Map<Integer, List<Label>> mapLabelsName = new HashMap<>();
+	
+	/** A map that associates index of the Page and the list of the Score Labels. */
 	private Map<Integer, List<Label>> mapLabelsScore = new HashMap<>();
+	
+	/** The Constant NUM_ENTRIES_PAG. */
 	public final static int NUM_ENTRIES_PAG = 3;
 	
+	/** The ChangeListener. */
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
 		@Override
@@ -64,11 +97,19 @@ public class HboxTextController {
 		
 	};
 	
+	/**
+	 * Populate the lists.
+	 */
 	private void populateLists() {
 		indexPageToPlayer = load.getIndexToPlayerMap();
 		indexPageToScore = load.getIndexToScoreMap();
 	}
 	
+	/**
+	 * Creates the List of players and Scores.
+	 *
+	 * @return the pair of Lists
+	 */
 	private Pair<List<Label>, List<Label>> createLabels() {
 		List<Label> listLabelsName = new ArrayList<Label>();
 		List<Label> listLabelsScore = new ArrayList<Label>();
@@ -89,6 +130,9 @@ public class HboxTextController {
 		return new Pair<>(listLabelsName, listLabelsScore);
 	}
 	
+	/**
+	 * Sets the childrens of VBox to VGrow ALWAYS
+	 */
 	private void setVGrowChildrens() {
 		for(Node child: boxNames.getChildren()) {
 			VBox.setVgrow(child, Priority.ALWAYS);
@@ -98,6 +142,9 @@ public class HboxTextController {
 		}
 	}
 	
+	/**
+	 * Fills the boxes of names and scores.
+	 */
 	private void fillBoxes() {
 		int numItems = indexPageToPlayer.get(indexPage).size();
 		for(int i=0; i < numItems; i++) {
@@ -110,6 +157,9 @@ public class HboxTextController {
 		}
 	}
 	
+	/**
+	 * Creates the Graphical Interface of LeaderBoard.
+	 */
 	private void createInterface() {
 		indexPage = LeaderboardControl.indexPage;
 		mapLabelsName.put(indexPage, createLabels().getKey());
@@ -133,12 +183,18 @@ public class HboxTextController {
 		setListener();
 	}
 	
+	/**
+	 * @FXML initialize.
+	 */
 	public void initialize() {
 		load = new LoadLeaderBoardImpl();
 		populateLists();
 		createInterface();
 	}
 	
+	/**
+	 * Sets the listener for resizing.
+	 */
 	public void setListener() {
 		stage.widthProperty().addListener(changeListener);
 		stage.setWidth(stage.getWidth()+1);

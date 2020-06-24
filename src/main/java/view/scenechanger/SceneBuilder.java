@@ -1,18 +1,18 @@
 package view.scenechanger;
 
-import java.io.IOException;
-
 import javafx.scene.Scene;
 
+/**
+ * The Interface SceneBuilder.
+ */
 public interface SceneBuilder {
 	
 	/**
-	 * Builds the scene
-	 * 
+	 * Builds the scene.
+	 *
 	 * @return the constructed scene
-	 * @throws IOException 
 	 */
-	public Scene getScene() throws IOException;
+	public Scene getScene();
 	
 	
 }
