@@ -32,10 +32,12 @@
 
 .RedPlayer {
 	-fx-fill: red;
+	-fx-stroke : white;
 }
 
 .BluePlayer {
 	-fx-fill: blue;
+	-fx-stroke : white;
 }
 
 .Barrier {
