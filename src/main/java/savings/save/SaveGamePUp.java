@@ -1,4 +1,4 @@
-package savings;
+package savings.save;
 
 
 
@@ -12,6 +12,7 @@ import model.Model;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.powerups.PowerUp;
+import view.menu.MenuController.GameStatus;
 
 public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements SaveGame{
 	
@@ -59,7 +60,7 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 		}
 		try{
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileGameType));
-			writer.write(serializator.toJson(gameType.POWERUP));
+			writer.write(serializator.toJson(GameStatus.POWERUP));
 			writer.close();
 		} catch(Exception e) {
 			e.printStackTrace();

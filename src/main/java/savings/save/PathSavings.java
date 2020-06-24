@@ -1,4 +1,4 @@
-package savings;
+package savings.save;
 
 import java.io.File;
 

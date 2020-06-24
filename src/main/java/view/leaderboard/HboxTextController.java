@@ -8,24 +8,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import application.Main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import savings.LoadLeaderBoard;
+import savings.load.LoadLeaderBoard;
 import view.sceneChanger.SceneChanger;
 import view.sceneChanger.SceneChangerImpl;
 
@@ -36,7 +35,7 @@ public class HboxTextController {
 	@FXML private VBox boxNames;
 	@FXML private HBox root;
 	private SceneChanger sceneChange = new SceneChangerImpl();
-	private Stage stage;
+	private Stage stage = Main.STAGE;
 	private LoadLeaderBoard load;
 	private int indexPage;
 	private Map<Integer, List<String>> indexPageToPlayer;
@@ -44,6 +43,25 @@ public class HboxTextController {
 	private Map<Integer, List<Label>> mapLabelsName = new HashMap<>();
 	private Map<Integer, List<Label>> mapLabelsScore = new HashMap<>();
 	public final static int NUM_ENTRIES_PAG = 3;
+	
+	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
+
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			String styleLabels = "-fx-font-size:" + newValue.doubleValue()/45 + ";" + "-fx-font-family:monospace;" + 
+					"-fx-border-color:#D90429;-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius: 15.0;"; 
+					String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/22 + ";" + "-fx-text-fill: #FFFFFF;" + 
+					 "-fx-border-color: #1A1B28;" + "-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius:15.0;" +
+							"-fx-font-family: Serif";
+					title1.setStyle(styleNamesScore);
+					title2.setStyle(styleNamesScore);
+					for(int i=0; i < mapLabelsName.get(indexPage).size(); i++) {
+						mapLabelsName.get(indexPage).get(i).setStyle(styleLabels);
+						mapLabelsScore.get(indexPage).get(i).setStyle(styleLabels);
+					}
+		}
+		
+	};
 	
 	private void populateLists() {
 		indexPageToPlayer = load.getIndexToPlayerMap();
@@ -93,7 +111,6 @@ public class HboxTextController {
 	
 	private void createInterface() {
 		indexPage = LeaderboardControl.indexPage;
-		System.out.println("creating INTERFACE " + indexPage);
 		mapLabelsName.put(indexPage, createLabels().getKey());
 		mapLabelsScore.put(indexPage, createLabels().getValue());
 		if(mapLabelsName.get(indexPage).isEmpty()) {
@@ -121,30 +138,10 @@ public class HboxTextController {
 		createInterface();
 	}
 	
-	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
-
-		@Override
-		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-			String styleLabels = "-fx-font-size:" + newValue.doubleValue()/45 + ";" + "-fx-font-family:monospace;" + 
-					"-fx-border-color:#D90429;-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius: 15.0;"; 
-					String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/22 + ";" + "-fx-text-fill: #FFFFFF;" + 
-					 "-fx-border-color: #1A1B28;" + "-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius:15.0;" +
-							"-fx-font-family: Serif";
-					title1.setStyle(styleNamesScore);
-					title2.setStyle(styleNamesScore);
-					for(int i=0; i < mapLabelsName.get(indexPage).size(); i++) {
-						mapLabelsName.get(indexPage).get(i).setStyle(styleLabels);
-						mapLabelsScore.get(indexPage).get(i).setStyle(styleLabels);
-					}
-		}
-		
-	};
-	
 	public void setListener() {
-			stage = LeaderboardControl.stage;
-			stage.widthProperty().addListener(changeListener);
-			stage.setWidth(stage.getWidth()+1);
-			stage.setWidth(stage.getWidth()-1);
+		stage.widthProperty().addListener(changeListener);
+		stage.setWidth(stage.getWidth()+1);
+		stage.setWidth(stage.getWidth()-1);
 	}
 	
 }

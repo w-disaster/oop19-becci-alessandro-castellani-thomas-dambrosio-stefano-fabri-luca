@@ -12,7 +12,12 @@ public enum ScenesItem {
 	GAME("layouts/main/scene.fxml"),
 	GAMETITLE("Quoridor2D-Game"),
 	LEADERBOARD("layouts/leaderboard/LeaderBoard.fxml"),
+	PAGLEADERBOARD("layouts/leaderboard/hBoxText.fxml"),
 	LEADERBOARDTITLE("Leaderboard"),
+	LEADERBOARDSTYLE("layouts/leaderboard/style.css"),
+	LOGO("logo/logo.png"),
+	BARRIERPUP("layouts/main/barrierPowerUp.png"),
+	DOUBLEPUP("layouts/main/doubleMovePowerUp.png"),
 	;
 	
 	

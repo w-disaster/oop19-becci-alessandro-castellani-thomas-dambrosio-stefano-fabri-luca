@@ -2,6 +2,7 @@ package view.leaderboard;
 
 
 
+import application.Main;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,9 +16,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import savings.LoadLeaderBoard;
+import savings.load.LoadLeaderBoard;
 import view.sceneChanger.SceneChanger;
 import view.sceneChanger.SceneChangerImpl;
+import view.sceneChanger.ScenesItem;
 
 public class LeaderboardControl {
 	
@@ -27,7 +29,7 @@ public class LeaderboardControl {
 	@FXML private Label leaderBoardLabel;
 	@FXML private Button backMenuButton;
 	private HBox hBoxText;
-	public static Stage stage;
+	private Stage stage = Main.STAGE;
 	public static int indexPage;
 	private LoadLeaderBoard load = new LoadLeaderBoard();
 	
@@ -43,17 +45,15 @@ public class LeaderboardControl {
 	};
 	
 	@FXML private void backToMenu() {
-		Stage stage = (Stage) borderPane.getScene().getWindow();
 		stage.widthProperty().removeListener(changeListener);
-		sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
+		sceneChange.change(ScenesItem.MENU.get(), ScenesItem.MENUTITLE.get());
 	}
 	
 	private void loadTextBox(int pageIndex) {
 		try {
-			stage = (Stage) borderPane.getScene().getWindow();
 			indexPage = pageIndex;
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(ClassLoader.getSystemResource("layouts/leaderboard/hBoxText.fxml"));
+			loader.setLocation(ClassLoader.getSystemResource(ScenesItem.PAGLEADERBOARD.get()));
 			hBoxText = loader.load();
 		} catch(Exception e) {
 			//System.out.println(e.getMessage());
@@ -71,7 +71,7 @@ public class LeaderboardControl {
 
 			@Override
 			public void run() {
-				borderPane.getScene().getStylesheets().add("/layouts/leaderboard/style.css");
+				borderPane.getScene().getStylesheets().add(ScenesItem.LEADERBOARDSTYLE.get());
 				setResizeEvents();
 				pag.setMaxPageIndicatorCount(load.getNumPages());
 				pag.setPageCount(load.getNumPages());
@@ -91,7 +91,6 @@ public class LeaderboardControl {
 	}
 	
 	private void setResizeEvents() {
-		Stage stage = (Stage) borderPane.getScene().getWindow();
 		stage.widthProperty().addListener(changeListener);
 	}
 	

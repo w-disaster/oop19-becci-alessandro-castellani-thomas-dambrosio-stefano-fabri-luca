@@ -1,4 +1,4 @@
-package savings;
+package savings.save;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,6 +13,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Graph;
 import model.roundenvironment.players.Player;
+import view.menu.MenuController.GameStatus;
 
 public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	
@@ -28,10 +29,6 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
 	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
 	protected Gson serializator;
-	public enum gameType{
-		NORMAL,
-		POWERUP;
-	}
 	
 	private void createDirAndFiles() {
 		if(!dir.exists()) {
@@ -131,7 +128,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 		try{
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileGameType));
-			writer.write(serializator.toJson(gameType.NORMAL));
+			writer.write(serializator.toJson(GameStatus.NORMAL));
 			writer.close();
 		} catch(Exception e) {
 			e.printStackTrace();
