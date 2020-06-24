@@ -215,26 +215,27 @@ public class ViewController{
     		
     		@Override
     		public void run() {
-    			final Double baseSize = grid.getWidth();
+    			final Double gridHeight = grid.getHeight();
+    			final Double gridWidth = grid.getWidth();
     					
     			// Players size
-    			bluePlayer.setRadius(baseSize/28);
-    			redPlayer.setRadius(baseSize/28);
+    			bluePlayer.setRadius(gridHeight/28);
+    			redPlayer.setRadius(gridHeight/28);
 
     			// Barrier size
 				for (final Rectangle b : verticalBarrierList) {
-					b.setHeight(baseSize/11);				
-					b.setWidth(baseSize/70);					
+					b.setHeight(gridHeight/11);				
+					b.setWidth(gridWidth/70);					
 				}
 				for (final Rectangle b : horizontalBarrierList) {
-					b.setHeight(baseSize/70);				
-					b.setWidth(baseSize/11);							
+					b.setHeight(gridHeight/70);				
+					b.setWidth(gridWidth/11);							
 				}
 				
 				// PowerUp size
 				for (final ImageView powerUpIcon : powerUpList) {
-					powerUpIcon.setFitHeight(baseSize/12);
-					powerUpIcon.setFitWidth(baseSize/12);						
+					powerUpIcon.setFitHeight(gridHeight/12);
+					powerUpIcon.setFitWidth(gridWidth/12);						
 				}
 			}
     	});
