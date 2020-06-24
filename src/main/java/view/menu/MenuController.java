@@ -147,6 +147,15 @@ public class MenuController {
 	 public void leaderboardButtonPressHandler() {
 		//removing the listener before going in a game(exiting from menu)
 		 stage.widthProperty().removeListener(changeListener);
+		 File leaderBoard = new File(PathSavings.LEADERBOARD.getPath());
+		 if(!leaderBoard.exists()) {
+			 try{
+				 System.out.println("creating file");
+				 leaderBoard.createNewFile();
+			 } catch(Exception e) {
+				 System.out.println("cant create file");
+			 }
+		 }
 		 //changing scene with leaderBoard
 		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change(ScenesItem.LEADERBOARD.get(), ScenesItem.LEADERBOARDTITLE.get());

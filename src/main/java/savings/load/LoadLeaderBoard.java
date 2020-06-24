@@ -2,7 +2,9 @@ package savings.load;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.util.Pair;
+import savings.save.PathSavings;
 import view.leaderboard.HboxTextController;
 
 public class LoadLeaderBoard {
@@ -17,8 +20,7 @@ public class LoadLeaderBoard {
 	private List<Pair<String, Integer>> listEntries;
 	private int numPages;
 	private int totalEntries;
-	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
-	private final String pathFile = pathDir + File.separator + "leaderBoard";
+	private final String pathFile = PathSavings.LEADERBOARD.getPath();
 	private Map<Integer, List<String>> indexToPlayer;
 	private Map<Integer, List<Integer>> indexToScore;
 	private final int NUM_PER_PAG = HboxTextController.NUM_ENTRIES_PAG;
@@ -29,11 +31,9 @@ public class LoadLeaderBoard {
 			reader = new BufferedReader(new FileReader(pathFile));
 			String line = reader.readLine();
 			while (line != null) {
-				//System.out.println(line);
 				totalEntries++;
 				String name = line.split("//")[0];
 				int score = Integer.parseInt(line.split("//")[1]);
-				//System.out.println(score);
 				Pair<String, Integer> entry = new Pair<>(name, score);
 				listEntries.add(entry);
 				// read next line
@@ -110,8 +110,6 @@ public class LoadLeaderBoard {
 		readFileAndSort();
 		calculateNumberPages();
 		assignPagesToEntries();
-		//System.out.println(indexToPlayer);
-		//System.out.println(indexToScore);
 	}
 	
 	public Map<Integer, List<String>> getIndexToPlayerMap(){

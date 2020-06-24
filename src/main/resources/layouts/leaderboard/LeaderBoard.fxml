@@ -16,9 +16,11 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Region prefHeight="100.0" prefWidth="250.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="cleanButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cleanLeaderboard" text="CLEAR" HBox.hgrow="ALWAYS" />
+            <Region prefHeight="100.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="backMenuButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backToMenu" text="BACK MENU" HBox.hgrow="ALWAYS" />
-            <Region prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Region prefHeight="100.0" prefWidth="250.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </top>
