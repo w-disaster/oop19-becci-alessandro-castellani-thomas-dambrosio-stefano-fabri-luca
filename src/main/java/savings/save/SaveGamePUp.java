@@ -8,10 +8,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import model.Model;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.powerups.PowerUp;
+import savings.load.LoadUtilities;
 import view.menu.MenuController.GameStatus;
 
 public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements SaveGame{
@@ -33,7 +36,8 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 				savePowerUps.createNewFile();
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -50,7 +54,8 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 			}
 			writerPUps.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	private void writeGameType() {
@@ -63,7 +68,8 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 			writer.write(serializator.toJson(GameStatus.POWERUP));
 			writer.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -96,8 +102,8 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 			roundPlayersWriter.close();
 			writeGameType();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 

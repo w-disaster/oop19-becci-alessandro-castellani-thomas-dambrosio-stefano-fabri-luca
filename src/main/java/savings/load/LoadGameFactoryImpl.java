@@ -56,7 +56,8 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 						iterator.next();
 					}
 				} catch(Exception e) {
-					e.printStackTrace();
+					LoadUtilities.setUpAlertException();
+					System.exit(1);
 				}
 				model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
 			}
@@ -120,7 +121,8 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 						iterator.next();
 					}
 				} catch(Exception e) {
-					e.printStackTrace();
+					LoadUtilities.setUpAlertException();
+					System.exit(1);
 				}
 				model = new ModelFactoryImpl().buildFromExisting(roundEnvironments, Model.BOARD_DIMENSION);
 			}

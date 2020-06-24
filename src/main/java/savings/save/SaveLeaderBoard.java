@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import savings.load.LoadUtilities;
+
 public class SaveLeaderBoard {
 
 	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
@@ -29,7 +31,8 @@ public class SaveLeaderBoard {
 			leaderBoard.createNewFile();
 		}
 		} catch(Exception e) {
-			System.out.println("problems creating file");
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -52,7 +55,8 @@ public class SaveLeaderBoard {
 			}
 			br.close();
 		} catch(Exception e) {
-			System.out.println("problems in reading file");
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 		
 		return exist;
@@ -81,7 +85,8 @@ public class SaveLeaderBoard {
 	        fileOut.close();
 
 	    } catch (Exception e) {
-	        System.out.println("Cannot read file");
+	    	LoadUtilities.setUpAlertException();
+			System.exit(1);
 	    }
 	}
 	
@@ -92,7 +97,8 @@ public class SaveLeaderBoard {
 			fout.write(winner.toLowerCase() + "//" + Integer.toString(1) + System.lineSeparator());
 			fout.close();
 		}catch (Exception e) {
-			System.out.println("problems in reading file");
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 		
 	}
@@ -108,7 +114,8 @@ public class SaveLeaderBoard {
 				writeNewName();
 			}
 		}catch(Exception e) {
-			System.out.println("problems in reading files");
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 		
 	}
@@ -123,7 +130,8 @@ public class SaveLeaderBoard {
 			leaderBoard = new File(pathFile);
 			createDirAndFile();
 		}catch(Exception e) {
-			System.out.println("problem in creating file");
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 		
 	}

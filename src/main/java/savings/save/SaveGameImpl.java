@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import com.google.gson.Gson;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import model.Model;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier;
@@ -13,6 +16,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.coordinate.Pair;
 import model.roundenvironment.graph.Graph;
 import model.roundenvironment.players.Player;
+import savings.load.LoadUtilities;
 import view.menu.MenuController.GameStatus;
 
 public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
@@ -48,7 +52,8 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 				saveGraph.createNewFile();
 			}
 		} catch(Exception e) {
-			System.out.println("problems creating file");
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -63,7 +68,8 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 			saveGraph = new File(pathFileGraph);
 			createDirAndFiles();
 		}catch(Exception e) {
-			System.out.println("problem in creating file");
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -83,7 +89,8 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 			roundCurrentPlayer.newLine();
 			roundCurrentPlayer.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -102,7 +109,8 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 			}
 			roundBarriersWriter.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -117,7 +125,8 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 			}
 			roundGraphWriter.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -131,7 +140,8 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 			writer.write(serializator.toJson(GameStatus.NORMAL));
 			writer.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 	
@@ -162,8 +172,8 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 			roundPlayersWriter.close();
 			writeGameType();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 	}
 

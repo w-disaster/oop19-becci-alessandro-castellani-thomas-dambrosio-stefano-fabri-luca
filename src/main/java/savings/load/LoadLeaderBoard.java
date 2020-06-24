@@ -37,8 +37,8 @@ public class LoadLeaderBoard {
 			}
 			reader.close();
 		} catch (Exception e) {
-			System.out.println("problems reading file");
-			e.printStackTrace();
+			LoadUtilities.setUpAlertException();
+			System.exit(1);
 		}
 		listEntries.sort(((o1, o2) -> o2.getValue() - o1.getValue()));
 	}

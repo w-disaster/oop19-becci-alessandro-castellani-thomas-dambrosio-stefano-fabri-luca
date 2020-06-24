@@ -79,7 +79,6 @@ public class MenuController {
 		} catch(Exception e) {
 			System.out.println("file not found");
 		}
-		System.out.println("returning " + type);
 		return type;
 	}
 		
@@ -93,7 +92,6 @@ public class MenuController {
     public void exitButtonPressHandler() {
         System.exit(0);
     }
-	
 	
 	 @FXML
 	 public void newGameButtonPressHandler(ActionEvent event) {

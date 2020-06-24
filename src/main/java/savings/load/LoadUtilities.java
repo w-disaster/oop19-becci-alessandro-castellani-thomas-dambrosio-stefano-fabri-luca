@@ -8,6 +8,8 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import model.Model;
 import model.roundenvironment.barriers.Barrier;
 import model.roundenvironment.barriers.BarrierImpl;
@@ -37,6 +39,14 @@ public class LoadUtilities {
 	private final File fileGraph = new File(pathFileGraph);
 	private final Gson serializator = new Gson();
 	private File filePUp = new File(pathFilePUp);
+	
+	public static void setUpAlertException() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error !!");
+		alert.setHeaderText("Error Dialog");
+		alert.setContentText("Ooops, there was an error in reading/writing files. Check your permissions.!");
+		alert.showAndWait();
+	}
 	
 	Boolean fileExistNormal() {
 		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists() && fileGraph.exists()) {
@@ -68,7 +78,8 @@ public class LoadUtilities {
 			currentPlayer = new PlayerImpl(nameCurrent, coordCurrent, barrLeftCurrent, finish_current);
 			readerModelCurrent.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			setUpAlertException();
+			System.exit(1);
 		}
 		return new Pair<>(currentPlayer, numRoundCurrent);
 	}
@@ -94,7 +105,8 @@ public class LoadUtilities {
 			playersList.add(new PlayerImpl(player2, coord2, barrLeft2, finish2));
 			readerModelPlayers.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			setUpAlertException();
+			System.exit(1);
 		}
 		return playersList;
 	}
@@ -108,7 +120,8 @@ public class LoadUtilities {
 			}
 			reader.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			setUpAlertException();
+			System.exit(1);
 		}
 		return counter + 1;
 	}
@@ -142,7 +155,8 @@ public class LoadUtilities {
 			}
 			readerModelBarriers.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			setUpAlertException();
+			System.exit(1);
 		}
 		return new Pair<List<Barrier>, Graph<Coordinate>>(barriers, new BarriersGraph<Coordinate>(listEdges));
 	}
@@ -163,7 +177,8 @@ public class LoadUtilities {
 			}
 			readerPUp.close();
 		} catch(Exception e) {
-			e.printStackTrace();
+			setUpAlertException();
+			System.exit(1);
 		}
 		return list;
 	}
