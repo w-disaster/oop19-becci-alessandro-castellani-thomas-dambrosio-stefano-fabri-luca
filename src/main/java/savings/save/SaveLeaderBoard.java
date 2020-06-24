@@ -9,18 +9,31 @@ import java.io.IOException;
 
 import savings.load.LoadUtilities;
 
+/**
+ * The Class SaveLeaderBoard.
+ */
 public class SaveLeaderBoard {
 
+	/** The path of the directory. */
 	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
+	
+	/** The path of the leaderboard file. */
 	private final String pathFile = pathDir + File.separator + "leaderBoard";
+	
+	/** The directory. */
 	private File dir;
+	
+	/** The leader board. */
 	private File leaderBoard;
+	
+	/** The winner. */
 	private String winner;
+	
+	/** The number of victories. */
 	private String numVictories;
 	
 	/**
-	 * If the directory or the files doesn't exist, they're created
-	 * @throws IOException
+	 * If the directory or the files doesn't exist, they're created.
 	 */
 	private void createDirAndFile() {
 		if(!dir.exists()) {
@@ -37,9 +50,9 @@ public class SaveLeaderBoard {
 	}
 	
 	/**
-	 * This method tells if the name is on the list, otherwise, we'll need to add
+	 * This method tells if the name is on the list, otherwise, we'll need to add.
+	 *
 	 * @return True if it present, False if it isn't
-	 * @throws IOException 
 	 */
 	private Boolean nameIsPresent() {
 		Boolean exist = false;
@@ -62,6 +75,9 @@ public class SaveLeaderBoard {
 		return exist;
 	}
 	
+	/**
+	 * Update name victories.
+	 */
 	private void updateNameVictories() {
 		try {
 	        // StringBuffer takes the line to modify, it is like a String, but immutable
@@ -90,6 +106,9 @@ public class SaveLeaderBoard {
 	    }
 	}
 	
+	/**
+	 * Write new name.
+	 */
 	private void writeNewName() {
 		//setting to true for append mode
 		try{
@@ -103,6 +122,11 @@ public class SaveLeaderBoard {
 		
 	}
 	
+	/**
+	 * Update leader board.
+	 *
+	 * @param winner the winner
+	 */
 	public void updateLeaderBoard(final String winner) {
 		//updates the file in LeaderBoard
 		this.winner = winner.toLowerCase();
@@ -121,8 +145,7 @@ public class SaveLeaderBoard {
 	}
 
 	/**
-	 * TODO
-	 * @throws IOException 
+	 * Instantiates a new SaveLeaderBoard.
 	 */
 	public SaveLeaderBoard() {
 		try{

@@ -19,21 +19,52 @@ import model.roundenvironment.players.Player;
 import savings.load.LoadUtilities;
 import view.menu.MenuController.GameStatus;
 
+/**
+ * The Class SaveGameImpl.
+ *
+ * @param <X> the generic type
+ */
 public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	
+	/** The model. */
 	protected final Model<X> model;
+	
+	/** The dir. */
 	private File dir;
+	
+	/** The save players. */
 	protected File savePlayers;
+	
+	/** The save model current. */
 	private File saveModelCurrent;
+	
+	/** The save barriers. */
 	private File saveBarriers;
+	
+	/** The save graph. */
 	private File saveGraph;
+	
+	/** The path dir. */
 	private final String pathDir = PathSavings.DIRECTORY.getPath() ;
+	
+	/** The path file players. */
 	private final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
+	
+	/** The path file current. */
 	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
+	
+	/** The path file barriers. */
 	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
+	
+	/** The path file graph. */
 	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
+	
+	/** The serializator. */
 	protected Gson serializator;
 	
+	/**
+	 * Creates the dir and files.
+	 */
 	private void createDirAndFiles() {
 		if(!dir.exists()) {
 			dir.mkdir();
@@ -57,6 +88,11 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 	}
 	
+	/**
+	 * Instantiates a new SaveGameImpl.
+	 *
+	 * @param model the model
+	 */
 	public SaveGameImpl(final Model<X> model) {
 		this.model = model;
 		serializator = new Gson();
@@ -74,6 +110,12 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	}
 	
 
+	/**
+	 * Saves current player.
+	 *
+	 * @param numRound the num round
+	 * @param currentPlayer the current player
+	 */
 	protected void saveCurrentPlayer(final int numRound, Player currentPlayer) {
 		try{
 			BufferedWriter roundCurrentPlayer = new BufferedWriter(new FileWriter(saveModelCurrent));
@@ -94,6 +136,12 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 	}
 	
+	/**
+	 * Save the barriers.
+	 *
+	 * @param numRound the num round
+	 * @param list the list of barriers
+	 */
 	protected void saveBarriers(final int numRound, List<Barrier> list) {
 		try{
 			BufferedWriter roundBarriersWriter = new BufferedWriter(new FileWriter(saveBarriers));
@@ -114,6 +162,11 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 	}
 	
+	/**
+	 * Save the graph.
+	 *
+	 * @param graph the graph
+	 */
 	protected void saveGraph(final Graph<Coordinate> graph) {
 		try {
 			BufferedWriter roundGraphWriter = new BufferedWriter(new FileWriter(saveGraph));
@@ -130,6 +183,9 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 	}
 	
+	/**
+	 * Saves GameType.
+	 */
 	private void writeGameType() {
 		File fileGameType = new File(PathSavings.GAMETYPE.getPath());
 		if(!fileGameType.exists()) {
@@ -145,6 +201,9 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		}
 	}
 	
+	/**
+	 * Saves all the game.
+	 */
 	public void save() {
 		try {
 			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));

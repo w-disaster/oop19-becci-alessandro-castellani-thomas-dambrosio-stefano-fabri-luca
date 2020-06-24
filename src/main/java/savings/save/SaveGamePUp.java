@@ -17,11 +17,22 @@ import model.roundenvironment.powerups.PowerUp;
 import savings.load.LoadUtilities;
 import view.menu.MenuController.GameStatus;
 
+/**
+ * The Class SaveGamePUp.
+ */
 public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements SaveGame{
 	
+	/** The path power ups. */
 	private String pathPowerUps;
+	
+	/** The save power ups. */
 	private File savePowerUps;
 	
+	/**
+	 * Instantiates a new SaveGamePUp.
+	 *
+	 * @param model the model
+	 */
 	public SaveGamePUp(Model<RoundPUpEnvironment> model) {
 		//other files are created
 		super(model);
@@ -30,6 +41,9 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 		createFile();
 	}
 	
+	/**
+	 * Creates the file.
+	 */
 	private void createFile() {
 		try {
 			if(!savePowerUps.exists()) {
@@ -41,6 +55,12 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 		}
 	}
 	
+	/**
+	 * Saves power ups.
+	 *
+	 * @param numRound the num round
+	 * @param list the list
+	 */
 	private void savePowerUps(final int numRound, final List<PowerUp> list) {
 		try {
 			BufferedWriter writerPUps = new BufferedWriter(new FileWriter(savePowerUps));
@@ -58,6 +78,10 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 			System.exit(1);
 		}
 	}
+	
+	/**
+	 * Saves GameType.
+	 */
 	private void writeGameType() {
 		File fileGameType = new File(PathSavings.GAMETYPE.getPath());
 		if(!fileGameType.exists()) {
@@ -73,6 +97,9 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 		}
 	}
 	
+	/**
+	 * Saves all the game.
+	 */
 	@Override
 	public void save() {
 		try {

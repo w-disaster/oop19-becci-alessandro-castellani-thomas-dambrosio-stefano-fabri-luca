@@ -11,16 +11,35 @@ import javafx.util.Pair;
 import savings.save.PathSavings;
 import view.leaderboard.HboxTextController;
 
+/**
+ * Class LoadLeaderBoardImpl.
+ */
 public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	
+	/** The list entries. */
 	private List<Pair<String, Integer>> listEntries;
+	
+	/** The num pages. */
 	private int numPages;
+	
+	/** The total entries. */
 	private int totalEntries;
+	
+	/** The path file. */
 	private final String pathFile = PathSavings.LEADERBOARD.getPath();
+	
+	/** The index to player. */
 	private Map<Integer, List<String>> indexToPlayer;
+	
+	/** The index to score. */
 	private Map<Integer, List<Integer>> indexToScore;
+	
+	/** The num per pag. */
 	private final int NUM_PER_PAG = HboxTextController.NUM_ENTRIES_PAG;
 	
+	/**
+	 * Read file and sort.
+	 */
 	private void readFileAndSort() {
 		BufferedReader reader;
 		try {
@@ -44,6 +63,9 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	}
 	
 	
+	/**
+	 * Calculate number pages.
+	 */
 	private void calculateNumberPages() {
 		Double numPagesDouble = (double)totalEntries / 3;
 		numPages = numPagesDouble.intValue();
@@ -52,6 +74,9 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 		}
 	}
 	
+	/**
+	 * Assign pages to entries.
+	 */
 	private void assignPagesToEntries() {
 		for(int i=0; i < numPages; i++) {
 			if(totalEntries >= NUM_PER_PAG) {
@@ -83,6 +108,9 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 		}
 	}
 	
+	/**
+	 * Instantiates a new loadLeaderBoardImpl.
+	 */
 	public LoadLeaderBoardImpl() {
 		listEntries = new ArrayList<>();
 		indexToPlayer = new HashMap<>();
@@ -92,14 +120,29 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 		assignPagesToEntries();
 	}
 	
+	/**
+	 * Gets the index to player map.
+	 *
+	 * @return the index to player map
+	 */
 	public Map<Integer, List<String>> getIndexToPlayerMap(){
 		return indexToPlayer;
 	}
 	
+	/**
+	 * Gets the index to score map.
+	 *
+	 * @return the index to score map
+	 */
 	public Map<Integer, List<Integer>> getIndexToScoreMap(){
 		return indexToScore;
 	}
 
+	/**
+	 * Gets the number of pages.
+	 *
+	 * @return the number of pages
+	 */
 	public int getNumPages() {
 		return numPages;
 	}

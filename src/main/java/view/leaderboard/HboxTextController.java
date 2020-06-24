@@ -24,6 +24,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import savings.load.LoadLeaderBoard;
 import savings.load.LoadLeaderBoardImpl;
 import view.scenechanger.SceneChanger;
 import view.scenechanger.SceneChangerImpl;
@@ -36,7 +37,7 @@ public class HboxTextController {
 	@FXML private HBox root;
 	private SceneChanger sceneChange = new SceneChangerImpl();
 	private Stage stage = Main.STAGE;
-	private LoadLeaderBoardImpl load;
+	private LoadLeaderBoard load;
 	private int indexPage;
 	private Map<Integer, List<String>> indexPageToPlayer;
 	private Map<Integer, List<Integer>> indexPageToScore;

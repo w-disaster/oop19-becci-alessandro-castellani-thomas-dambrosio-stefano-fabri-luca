@@ -26,20 +26,48 @@ import model.roundenvironment.powerups.PowerUpImpl;
 import savings.save.PathSavings;
 import model.roundenvironment.powerups.PowerUp.Type;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LoadUtilities.
+ */
 public class LoadUtilities {
 
+	/** The path file of the players. */
 	private final String pathFilePlayers= PathSavings.MODELPLAYERS.getPath();
+	
+	/** The path file of the current. */
 	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
+	
+	/** The path file of the barriers. */
 	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
+	
+	/** The path file of the graph. */
 	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
+	
+	/** The path file PowerUp. */
 	private final String pathFilePUp = PathSavings.POWERUPS.getPath();
+	
+	/** The file of the model current. */
 	private final File fileModelCurrent = new File(pathFileCurrent);
+	
+	/** The file of the model players. */
 	private final File fileModelPlayers = new File(pathFilePlayers);
+	
+	/** The file of the model barriers. */
 	private final File fileModelBarriers = new File(pathFileBarriers);
+	
+	/** The file of the graph. */
 	private final File fileGraph = new File(pathFileGraph);
+	
+	/** The serializator. */
 	private final Gson serializator = new Gson();
+	
+	/** The file PowerUp. */
 	private File filePUp = new File(pathFilePUp);
 	
+	/**
+	 * Sets the alert exception.
+	 */
 	public static void setUpAlertException() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error !!");
@@ -48,6 +76,11 @@ public class LoadUtilities {
 		alert.showAndWait();
 	}
 	
+	/**
+	 * Verifies if the normalGame file exist.
+	 *
+	 * @return the boolean
+	 */
 	Boolean fileExistNormal() {
 		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists() && fileGraph.exists()) {
 			return true;
@@ -57,6 +90,11 @@ public class LoadUtilities {
 		}
 	}
 	
+	/**
+	 * Verifies if the powerUpGame file exist.
+	 *
+	 * @return the boolean
+	 */
 	Boolean fileExistPowerUp() {
 		boolean normal = fileExistNormal();
 		if(normal && filePUp.exists()) {
@@ -65,6 +103,11 @@ public class LoadUtilities {
 		return false;
 	}
 	
+	/**
+	 * Gets the current round and player.
+	 *
+	 * @return the current round and player
+	 */
 	Pair<Player, Integer> getCurrentRoundAndPlayer() {
 		Player currentPlayer = null;
 		int numRoundCurrent = -1;
@@ -84,6 +127,12 @@ public class LoadUtilities {
 		return new Pair<>(currentPlayer, numRoundCurrent);
 	}
 	
+	/**
+	 * Gets the players list.
+	 *
+	 * @param numRound the num round
+	 * @return the players list
+	 */
 	List<Player> getPlayersList(final int numRound) {
 		List<Player> playersList = new ArrayList<>();
 		try{
@@ -111,6 +160,12 @@ public class LoadUtilities {
 		return playersList;
 	}
 	
+	/**
+	 * Line counter.
+	 *
+	 * @param file the file
+	 * @return the int
+	 */
 	private int lineCounter(File file) {
 		int counter = 0;
 		try{
@@ -126,6 +181,12 @@ public class LoadUtilities {
 		return counter + 1;
 	}
 	
+	/**
+	 * Gets the barriers and the Graph.
+	 *
+	 * @param numRound the num round
+	 * @return the barriers
+	 */
 	Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound){
 		List<Barrier> barriers = new ArrayList<>();
 		List<Pair<Coordinate, Coordinate>> listEdges = new ArrayList<>();
@@ -161,6 +222,12 @@ public class LoadUtilities {
 		return new Pair<List<Barrier>, Graph<Coordinate>>(barriers, new BarriersGraph<Coordinate>(listEdges));
 	}
 	
+	/**
+	 * Gets the power up list.
+	 *
+	 * @param numRound the num round
+	 * @return the power up list
+	 */
 	List<PowerUp> getPowerUpList(final int numRound){
 		List<PowerUp> list = new ArrayList<>();
 		int numPowerUps = (lineCounter(filePUp)-1) / 2;

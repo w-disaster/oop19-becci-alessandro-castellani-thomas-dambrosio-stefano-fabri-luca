@@ -24,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import savings.load.LoadLeaderBoard;
 import savings.load.LoadLeaderBoardImpl;
 import savings.save.PathSavings;
 import view.scenechanger.SceneChanger;
@@ -41,7 +42,7 @@ public class LeaderboardControl {
 	private HBox hBoxText;
 	private Stage stage = Main.STAGE;
 	public static int indexPage;
-	private LoadLeaderBoardImpl load = new LoadLeaderBoardImpl();
+	private LoadLeaderBoard load = new LoadLeaderBoardImpl();
 	
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
