@@ -106,9 +106,9 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 	/**
 	 * @return the player against the current player
 	 */
-	protected Optional<Player> getOtherPlayer(Player player) {
+	protected Optional<Player> getOtherPlayer(Player currentPlayer) {
 		for (Player p : this.players.getPlayers()) {
-			if (!p.equals(player)) {
+			if (!p.equals(currentPlayer)) {
 				return Optional.of(p);
 			}
 		}
