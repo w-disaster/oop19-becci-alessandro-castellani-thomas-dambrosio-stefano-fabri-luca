@@ -59,18 +59,18 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * @return list of positions where the player can move
 	 */
 	protected List<Coordinate> checkMove(final Coordinate playerPosition) {
-		List<Coordinate> moves = new ArrayList<>();
-		List<Coordinate> movesJump = new ArrayList<>();
+		final List<Coordinate> moves = new ArrayList<>();
+		final List<Coordinate> movesJump = new ArrayList<>();
 		//first i find where can the player normally go (adj and no walls)
 		for (int y = 0; y < 9; y++) {
 			for (int x = 0; x < 9; x++) {
-				Coordinate testCoord = new Coordinate(x,y);
+				final Coordinate testCoord = new Coordinate(x,y);
 				if (this.adjacent(playerPosition, testCoord)) {
 					moves.add(testCoord);
 				}
 			}
 		}
-		for (Coordinate c : List.copyOf(moves)) {
+		for (final Coordinate c : List.copyOf(moves)) {
 			if (!this.noWall(playerPosition, c)) {
 				moves.remove(moves.indexOf(c));
 			}
@@ -79,7 +79,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 		if (this.canJump(moves)) {
 			for (int y = 0; y < 9; y++) {
 				for (int x = 0; x < 9; x++) {
-					Coordinate testCoord = new Coordinate(x,y);
+					final Coordinate testCoord = new Coordinate(x,y);
 					if (this.adjacent(this.getOtherPlayer(this.players.getCurrentPlayer()).get().getCoordinate(), testCoord)) {
 						movesJump.add(testCoord);
 					}
@@ -87,16 +87,16 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 			}
 			//before removing the positions where there are walls i will remove the other player position and find the two "side jump" positions
 			this.getEmptyPositions(movesJump);
-			List<Coordinate> sideJumps = new ArrayList<>();
+			final List<Coordinate> sideJumps = new ArrayList<>();
 			if (playerPosition.getX().equals(Model.BOARD_DIMENSION - 1) || playerPosition.getX().equals(0)) { //if i am on the edges
-				for (Coordinate c : movesJump) {
+				for (final Coordinate c : movesJump) {
 					if (!c.getX().equals(0) && !c.getX().equals(Model.BOARD_DIMENSION - 1)) {
 						sideJumps.add(c);
 					}
 				}
 			} else {
-				for (Coordinate c1 : movesJump) {
-					for (Coordinate c2 : movesJump) {
+				for (final Coordinate c1 : movesJump) {
+					for (final Coordinate c2 : movesJump) {
 						if (!c1.equals(c2)) {
 							if ((c1.getX().equals(c2.getX())) || (c1.getY().equals(c2.getY()))) {
 								sideJumps.add(c1);
@@ -109,13 +109,13 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 			}
 			//need to find which position is the straight jump
 			Optional<Coordinate> straightJump = Optional.empty();
-			for (Coordinate c : movesJump) {
+			for (final Coordinate c : movesJump) {
 				if (!sideJumps.contains(c)) {
 					straightJump = Optional.of(c);
 				}
 			}
 			//removing the position where there's a wall
-			for (Coordinate c : List.copyOf(movesJump)) {
+			for (final Coordinate c : List.copyOf(movesJump)) {
 				if (!this.noWall(this.getOtherPlayer(this.players.getCurrentPlayer()).get().getCoordinate(), c)) {
 					movesJump.remove(movesJump.indexOf(c));
 				}
@@ -123,7 +123,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 			//if the normal jump position is still present i have to disable "side jump" positions
 			if (!straightJump.equals(Optional.empty())) {
 				if (movesJump.contains(straightJump.get())) {
-					for (Coordinate c : List.copyOf(movesJump)) {
+					for (final Coordinate c : List.copyOf(movesJump)) {
 						if (sideJumps.contains(c)) {
 							movesJump.remove(c);
 						}
@@ -132,7 +132,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 			} else {
 				this.getEmptyPositions(moves);
 				if (!(moves.size() == 1)) { //if you can only move backwards you can side jump on the finish line
-					for (Coordinate c : List.copyOf(movesJump)) {
+					for (final Coordinate c : List.copyOf(movesJump)) {
 						if (sideJumps.contains(c)) {
 							movesJump.remove(c);
 						}
@@ -196,7 +196,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * This method removes the positions occupied by the other player in coords
 	 */
 	private void getEmptyPositions(final List<Coordinate> coords) {
-		for (Coordinate c : List.copyOf(coords)) {
+		for (final Coordinate c : List.copyOf(coords)) {
 			if (c.equals(this.players.getPlayers().get(0).getCoordinate()) || c.equals(this.players.getPlayers().get(1).getCoordinate())) {
 				coords.remove(coords.indexOf(c));
 			}
@@ -209,7 +209,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * This method changes the position of the player that wants to move
 	 */
 	private void changePosition(final Player currentPlayer) {
-		for (Player p : this.players.getPlayers()) {
+		for (final Player p : this.players.getPlayers()) {
 			if (currentPlayer.getNickname().compareTo(p.getNickname()) == 0) {
 				p.setCoordinate(this.newPosition);
 			}

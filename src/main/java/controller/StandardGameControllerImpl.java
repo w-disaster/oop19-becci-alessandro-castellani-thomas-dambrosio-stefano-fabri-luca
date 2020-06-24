@@ -34,8 +34,8 @@ public class StandardGameControllerImpl implements StandardGameController {
 	}
 
 	public void newStandardGame(final String nicknamePlayer1, final String nicknamePlayer2) {
-		Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, 0);
-		Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
+		final Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, 0);
+		final Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
 		this.view.setupGrid(player1Coordinate, player2Coordinate, 10, 10);
 		this.model = new ModelFactoryImpl().buildStandard(nicknamePlayer1, nicknamePlayer2);
 		this.iterRounds = this.model.getGameRoundEnvironments().iterator();
@@ -55,9 +55,9 @@ public class StandardGameControllerImpl implements StandardGameController {
 	}
 	
 	public void nextRound() {
-		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
-		Player player1 = players.getPlayers().get(0);
-		Player player2 = players.getPlayers().get(1);
+		final RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+		final Player player1 = players.getPlayers().get(0);
+		final Player player2 = players.getPlayers().get(1);
 		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.view.changeSelectedLabel(players.getCurrentPlayer().getNickname());
@@ -65,21 +65,21 @@ public class StandardGameControllerImpl implements StandardGameController {
 	}
 	
 	public void saveGame() {
-		SaveGame saving = new SaveGameImpl<>(this.model);
+		final SaveGame saving = new SaveGameImpl<>(this.model);
 		saving.save();
 	}
 	
 	public void loadGame() {
 		if (MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
-			LoadGame<RoundEnvironment> loading = new LoadGameFactoryImpl().buildNormal();
+			final LoadGame<RoundEnvironment> loading = new LoadGameFactoryImpl().buildNormal();
 			this.model = loading.getModel();
 			this.iterRounds = loading.getIterator();
 		} else {
 			System.out.println("There isn't a saved game!");
 		}
-		RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
-		Player player1 = players.getPlayers().get(0);
-		Player player2 = players.getPlayers().get(1);
+		final RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
+		final Player player1 = players.getPlayers().get(0);
+		final Player player2 = players.getPlayers().get(1);
 		this.mover = new PlayerMoverImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 		this.view.setPlayer(Optional.of(new Pair<>(player1.getNickname(), player2.getNickname())));

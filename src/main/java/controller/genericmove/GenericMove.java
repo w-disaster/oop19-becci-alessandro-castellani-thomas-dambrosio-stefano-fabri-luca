@@ -56,7 +56,7 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 	 * Method that changes the players turn
 	 */
 	protected void changeTurn() {
-		List<String> nicknames = List.copyOf(this.turns).stream().map(Player::getNickname).collect(Collectors.toList());
+		final List<String> nicknames = List.copyOf(this.turns).stream().map(Player::getNickname).collect(Collectors.toList());
 		int index = nicknames.indexOf(this.players.getCurrentPlayer().getNickname());
 		if (index != this.turns.size() - 1) {
 			this.players.setCurrentPlayer(this.turns.get(index + 1));
@@ -71,7 +71,7 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 	protected void changeRound() {
 		if (this.iterRounds.hasNext()) {
 			//i need to check if a player have already won so i don't pass to the next round
-			String currentPlayer = this.players.getCurrentPlayer().getNickname();
+			final String currentPlayer = this.players.getCurrentPlayer().getNickname();
 			long nWins = this.model.getWinners().stream().peek(Player::getNickname)
 													.filter(p -> p.getNickname().compareTo(currentPlayer) == 0)
 													.count();
@@ -87,8 +87,8 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 		} else {
 			System.out.println("All rounds finished, game over");
 			//now i check who won more rounds and set him winner of the game
-			List<String> winnersNicknames = this.model.getWinners().stream().map(Player::getNickname).collect(Collectors.toList());
-			String winner = winnersNicknames.stream()
+			final List<String> winnersNicknames = this.model.getWinners().stream().map(Player::getNickname).collect(Collectors.toList());
+			final String winner = winnersNicknames.stream()
 			        							.reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(winnersNicknames, o1) - 
 			        									Collections.frequency(winnersNicknames, o2)))
 			        							.orElse(null);
@@ -115,7 +115,7 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 	 * @return the player against the current player
 	 */
 	protected Optional<Player> getOtherPlayer(final Player currentPlayer) {
-		for (Player p : this.players.getPlayers()) {
+		for (final Player p : this.players.getPlayers()) {
 			if (!p.equals(currentPlayer)) {
 				return Optional.of(p);
 			}
