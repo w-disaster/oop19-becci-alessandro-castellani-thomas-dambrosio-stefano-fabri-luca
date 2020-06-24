@@ -4,6 +4,7 @@ import java.io.File;
 
 /**
  * The Enum PathSavings.
+ * @author Alessandro Becci
  */
 public enum PathSavings {
 	

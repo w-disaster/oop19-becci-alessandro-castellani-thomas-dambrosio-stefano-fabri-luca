@@ -13,13 +13,14 @@ import view.leaderboard.HboxTextController;
 
 /**
  * Class LoadLeaderBoardImpl.
+ * @author Alessandro Becci
  */
 public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	
 	/** The list entries. */
-	private List<Pair<String, Integer>> listEntries;
+	private final List<Pair<String, Integer>> listEntries;
 	
-	/** The num pages. */
+	/** The number of pages. */
 	private int numPages;
 	
 	/** The total entries. */
@@ -29,10 +30,10 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	private final String pathFile = PathSavings.LEADERBOARD.getPath();
 	
 	/** The index to player. */
-	private Map<Integer, List<String>> indexToPlayer;
+	private final Map<Integer, List<String>> indexToPlayer;
 	
 	/** The index to score. */
-	private Map<Integer, List<Integer>> indexToScore;
+	private final Map<Integer, List<Integer>> indexToScore;
 	
 	/** The num per pag. */
 	private final int NUM_PER_PAG = HboxTextController.NUM_ENTRIES_PAG;

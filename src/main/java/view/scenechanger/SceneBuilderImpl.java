@@ -2,7 +2,6 @@ package view.scenechanger;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.IOException;
 
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.util.Pair;
-// TODO: Auto-generated Javadoc
+
 /**
  * This class creates a scene.
  * @author Alessandro Becci

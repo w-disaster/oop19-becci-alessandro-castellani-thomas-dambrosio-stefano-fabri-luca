@@ -6,9 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import com.google.gson.Gson;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import model.Model;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier;
@@ -23,6 +20,7 @@ import view.menu.MenuController.GameStatus;
  * The Class SaveGameImpl.
  *
  * @param <X> the generic type
+ * @author Alessandro Becci
  */
 public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	
@@ -60,7 +58,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
 	
 	/** The serializator. */
-	protected Gson serializator;
+	protected final Gson serializator;
 	
 	/**
 	 * Creates the dir and files.

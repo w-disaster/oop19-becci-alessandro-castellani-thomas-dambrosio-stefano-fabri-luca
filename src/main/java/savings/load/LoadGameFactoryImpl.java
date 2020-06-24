@@ -22,10 +22,11 @@ import model.roundenvironment.powerups.RoundPowerUpsImpl;
 
 /**
  * The Class LoadGameFactoryImpl.
+ * @author Alessandro Becci
  */
 public class LoadGameFactoryImpl implements LoadGameFactory{
 	
-	private LoadUtilities loadUtil = new LoadUtilities();
+	private final LoadUtilities loadUtil = new LoadUtilities();
 	
 	/**
 	 * Builds the normal loadGame
@@ -38,7 +39,7 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 
 			private Iterator<RoundEnvironment> iterator;
 			private Model<RoundEnvironment> model;
-			private boolean fileExist = loadUtil.fileExistNormal();
+			private final boolean fileExist = loadUtil.fileExistNormal();
 
 			@Override
 			public void getData() {

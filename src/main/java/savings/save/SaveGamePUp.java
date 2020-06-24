@@ -7,9 +7,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import model.Model;
 import model.roundenvironment.RoundPUpEnvironment;
 import model.roundenvironment.players.Player;
@@ -19,14 +16,15 @@ import view.menu.MenuController.GameStatus;
 
 /**
  * The Class SaveGamePUp.
+ * @author Alessandro Becci
  */
 public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements SaveGame{
 	
 	/** The path power ups. */
-	private String pathPowerUps;
+	private final String pathPowerUps;
 	
 	/** The save power ups. */
-	private File savePowerUps;
+	private final File savePowerUps;
 	
 	/**
 	 * Instantiates a new SaveGamePUp.

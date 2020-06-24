@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * Interface LoadLeaderBoard.
+ * @author Alessandro Becci
  */
 public interface LoadLeaderBoard {
 

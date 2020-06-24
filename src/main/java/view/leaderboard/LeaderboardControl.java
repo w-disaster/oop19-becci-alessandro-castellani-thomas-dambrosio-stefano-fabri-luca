@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -33,6 +32,7 @@ import view.scenechanger.ScenesItem;
 
 /**
  * The Class LeaderboardControl.
+ * @author Alessandro Becci
  */
 public class LeaderboardControl {
 	
@@ -55,16 +55,16 @@ public class LeaderboardControl {
 	private HBox hBoxText;
 	
 	/** The stage. */
-	private Stage stage = Main.STAGE;
+	private final Stage stage = Main.STAGE;
 	
 	/** The index page. */
 	public static int indexPage;
 	
 	/** The loadLeaderBoard. */
-	private LoadLeaderBoard load = new LoadLeaderBoardImpl();
+	private final LoadLeaderBoard load = new LoadLeaderBoardImpl();
 	
 	/** The ChangeListener. */
-	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
+	private final ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
 		@Override
 		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

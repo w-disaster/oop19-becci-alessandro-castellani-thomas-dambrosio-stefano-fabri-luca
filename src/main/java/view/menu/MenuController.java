@@ -25,6 +25,7 @@ import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
 import savings.load.LoadGame;
 import savings.load.LoadGameFactoryImpl;
+import savings.load.LoadUtilities;
 import savings.save.PathSavings;
 import view.scenechanger.SceneChanger;
 import view.scenechanger.SceneChangerImpl;
@@ -49,8 +50,8 @@ public class MenuController {
 		LOADPOWERUP;
 	}
 	public static GameStatus gameStatus;
-	private SceneChanger sceneChange;
-	private Stage stage = Main.STAGE;
+	private final SceneChanger sceneChange = new SceneChangerImpl();
+	private final Stage stage = Main.STAGE;
 	
 	//I need this changeListener for setting labels and buttons size while resizing.
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
@@ -129,7 +130,6 @@ public class MenuController {
 		 }
 		 if(!cancel) {
 			 //changing scene with Game
-			 sceneChange = new SceneChangerImpl();
 			 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
 		 }
 	 }
@@ -145,7 +145,6 @@ public class MenuController {
 			 if(loading.saveExist()) { gameStatus = GameStatus.LOADPOWERUP; } else { gameStatus = GameStatus.NORMAL; }
 		 }
 		 //changing scene with Game
-		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change(ScenesItem.GAME.get(), ScenesItem.GAMETITLE.get());
 	 }
 	 
@@ -158,11 +157,11 @@ public class MenuController {
 			 try{
 				 leaderBoard.createNewFile();
 			 } catch(Exception e) {
-				 System.out.println("cant create file");
+				 LoadUtilities.setUpAlertException();
+				 System.exit(1);
 			 }
 		 }
 		 //changing scene with leaderBoard
-		 sceneChange = new SceneChangerImpl();
 		 sceneChange.change(ScenesItem.LEADERBOARD.get(), ScenesItem.LEADERBOARDTITLE.get());
 	 }
 	 

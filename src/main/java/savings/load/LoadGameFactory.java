@@ -5,6 +5,7 @@ import model.roundenvironment.RoundPUpEnvironment;
 
 /**
  * A factory for creating LoadGame objects.
+ * @author Alessandro Becci
  */
 public interface LoadGameFactory {
 

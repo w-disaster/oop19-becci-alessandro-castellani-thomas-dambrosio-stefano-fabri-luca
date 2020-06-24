@@ -9,6 +9,7 @@ import model.roundenvironment.RoundEnvironment;
  * The Interface LoadGame.
  *
  * @param <X> the generic type
+ * @author Alessandro Becci
  */
 public interface LoadGame<X extends RoundEnvironment> {
 	

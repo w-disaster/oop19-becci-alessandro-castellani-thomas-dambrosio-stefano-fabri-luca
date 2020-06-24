@@ -29,9 +29,9 @@ import savings.load.LoadLeaderBoardImpl;
 import view.scenechanger.SceneChanger;
 import view.scenechanger.SceneChangerImpl;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HboxTextController.
+ * @author Alessandro Becci
  */
 public class HboxTextController {
 	
@@ -51,13 +51,13 @@ public class HboxTextController {
 	@FXML private HBox root;
 	
 	/** The SceneChanger. */
-	private SceneChanger sceneChange = new SceneChangerImpl();
+	private final SceneChanger sceneChange = new SceneChangerImpl();
 	
 	/** The stage. */
-	private Stage stage = Main.STAGE;
+	private final Stage stage = Main.STAGE;
 	
 	/** The loader of LeaderBoard. */
-	private LoadLeaderBoard load;
+	private final LoadLeaderBoard load = new LoadLeaderBoardImpl();
 	
 	/** The index page. */
 	private int indexPage;
@@ -69,16 +69,16 @@ public class HboxTextController {
 	private Map<Integer, List<Integer>> indexPageToScore;
 	
 	/** A map that associates index of the Page and the list of the Player Labels. */
-	private Map<Integer, List<Label>> mapLabelsName = new HashMap<>();
+	private final Map<Integer, List<Label>> mapLabelsName = new HashMap<>();
 	
 	/** A map that associates index of the Page and the list of the Score Labels. */
-	private Map<Integer, List<Label>> mapLabelsScore = new HashMap<>();
+	private final Map<Integer, List<Label>> mapLabelsScore = new HashMap<>();
 	
 	/** The Constant NUM_ENTRIES_PAG. */
 	public final static int NUM_ENTRIES_PAG = 3;
 	
 	/** The ChangeListener. */
-	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {
+	private final ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
 		@Override
 		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -134,10 +134,10 @@ public class HboxTextController {
 	 * Sets the childrens of VBox to VGrow ALWAYS
 	 */
 	private void setVGrowChildrens() {
-		for(Node child: boxNames.getChildren()) {
+		for(final Node child: boxNames.getChildren()) {
 			VBox.setVgrow(child, Priority.ALWAYS);
 		}
-		for(Node child: boxScore.getChildren()) {
+		for(final Node child: boxScore.getChildren()) {
 			VBox.setVgrow(child, Priority.ALWAYS);
 		}
 	}
@@ -187,7 +187,6 @@ public class HboxTextController {
 	 * @FXML initialize.
 	 */
 	public void initialize() {
-		load = new LoadLeaderBoardImpl();
 		populateLists();
 		createInterface();
 	}

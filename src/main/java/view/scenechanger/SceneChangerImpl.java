@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class SceneChangerImpl implements SceneChanger{
 	
-	private Stage stage;
+	private final Stage stage;
 	private SceneBuilder sceneBuild;
 	
 	public SceneChangerImpl() {

@@ -28,6 +28,7 @@ import model.roundenvironment.powerups.PowerUp.Type;
 
 /**
  * The Class LoadUtilities.
+ * @author Alessandro Becci
  */
 public class LoadUtilities {
 
@@ -62,7 +63,7 @@ public class LoadUtilities {
 	private final Gson serializator = new Gson();
 	
 	/** The file PowerUp. */
-	private File filePUp = new File(pathFilePUp);
+	private final File filePUp = new File(pathFilePUp);
 	
 	/**
 	 * Sets the alert exception.
@@ -165,7 +166,7 @@ public class LoadUtilities {
 	 * @param file the file
 	 * @return the int
 	 */
-	private int lineCounter(File file) {
+	private int lineCounter(final File file) {
 		int counter = 0;
 		try{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
