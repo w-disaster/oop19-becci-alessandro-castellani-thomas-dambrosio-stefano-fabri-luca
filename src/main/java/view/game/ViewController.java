@@ -61,7 +61,7 @@ public class ViewController{
     
     @FXML private MenuItem fullscreenMenuItem;
     
-    private ViewLogic logic;
+    private final ViewLogic logic;
     
     private Circle bluePlayer;
 	private Circle redPlayer;
@@ -69,9 +69,9 @@ public class ViewController{
 	private String player1;
 	private String player2;
 	
-	private List<Rectangle> verticalBarrierList;
-	private List<Rectangle> horizontalBarrierList;
-	private List<ImageView> powerUpList;
+	private final List<Rectangle> verticalBarrierList;
+	private final List<Rectangle> horizontalBarrierList;
+	private final List<ImageView> powerUpList;
 
 	public ViewController() {
 		this.logic = new ViewLogicImpl(this);
@@ -84,12 +84,12 @@ public class ViewController{
     	System.out.println("Initializing...");
     	
     	// Dialog setup
-    	Dialog<Pair<String, String>> dialog = new Dialog<>();
+    	final Dialog<Pair<String, String>> dialog = new Dialog<>();
     	dialog.setTitle("Quoridor2D");
     	dialog.setHeaderText("Choose your nicknames");
     	
     	// Dialog styling
-    	DialogPane dialogPane = dialog.getDialogPane();
+    	final DialogPane dialogPane = dialog.getDialogPane();
     	dialogPane.setStyle("-fx-background-color: #2B2D42");
 
     	// Set the icon 
@@ -97,22 +97,22 @@ public class ViewController{
     		(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
     	
     	// Layout
-    	ButtonType startButton = new ButtonType("Start", ButtonData.OK_DONE);
+    	final ButtonType startButton = new ButtonType("Start", ButtonData.OK_DONE);
     	dialog.getDialogPane().getButtonTypes().addAll(startButton, ButtonType.CANCEL);
     	
-    	GridPane dialogGrid = new GridPane();
+    	final GridPane dialogGrid = new GridPane();
     	dialogGrid.setHgap(10);
     	dialogGrid.setVgap(10);
     	dialogGrid.setPadding(new Insets(20, 150, 10, 10));
 
-    	TextField player1name = new TextField();
+    	final TextField player1name = new TextField();
     	player1name.setPromptText("Player 1");
-    	TextField player2name = new TextField();
+    	final TextField player2name = new TextField();
     	player2name.setPromptText("Player 2");
     	
-    	Label p1nickname = new Label("Nickname for player 1:");
+    	final Label p1nickname = new Label("Nickname for player 1:");
     	p1nickname.setTextFill(Color.WHITE);
-    	Label p2nickname = new Label("Nickname for player 2:");
+    	final Label p2nickname = new Label("Nickname for player 2:");
     	p2nickname.setTextFill(Color.WHITE);
     	
     	dialogGrid.add(p1nickname, 0, 0);
@@ -139,8 +139,8 @@ public class ViewController{
     	}
 
     	// Grid setup
-    	int numCols = 9;
-    	int numRows = 9;
+    	final int numCols = 9;
+    	final int numRows = 9;
     	
 	    for (int i = 0 ; i < numCols ; i++) {
 	        for (int j = 0; j < numRows; j++) {
@@ -173,7 +173,7 @@ public class ViewController{
      * @param position the position
      */
     private void addPane(Coordinate position) {
-        BorderPane pane = this.logic.addPaneLogic(position);
+    	final BorderPane pane = this.logic.addPaneLogic(position);
         pane.getStyleClass().add("GridBorderPane");
         this.grid.add(pane, position.getX(), position.getY());
     }
@@ -213,24 +213,24 @@ public class ViewController{
     		
     		@Override
     		public void run() {
-    			Double baseSize = grid.getWidth();
+    			final Double baseSize = grid.getWidth();
     					
     			// Players size
     			bluePlayer.setRadius(baseSize/28);
     			redPlayer.setRadius(baseSize/28);
 
     			// Barrier size
-				for (Rectangle b : verticalBarrierList) {
+				for (final Rectangle b : verticalBarrierList) {
 					b.setHeight(baseSize/11);				
 					b.setWidth(baseSize/70);					
 				}
-				for (Rectangle b : horizontalBarrierList) {
+				for (final Rectangle b : horizontalBarrierList) {
 					b.setHeight(baseSize/70);				
 					b.setWidth(baseSize/11);							
 				}
 				
 				// PowerUp size
-				for (ImageView powerUpIcon : powerUpList) {
+				for (final ImageView powerUpIcon : powerUpList) {
 					powerUpIcon.setFitHeight(baseSize/12);
 					powerUpIcon.setFitWidth(baseSize/12);						
 				}
@@ -244,7 +244,7 @@ public class ViewController{
 	 *
 	 * @param event the event that handles the click on the barrier
 	 */
-	public void barrierPlacement(MouseEvent event) {
+	public void barrierPlacement(final MouseEvent event) {
     	if (event.getSource().equals(player1vertical) || event.getSource().equals(player2vertical)) {
     		this.logic.setSelectedBarrier("vertical");
     	} else {
@@ -258,7 +258,7 @@ public class ViewController{
      * @param player the player
      * @param barriersNumber the barriers number
      */
-    public void updateBarriersNumber(String player, int barriersNumber) {
+    public void updateBarriersNumber(final String player, final int barriersNumber) {
     	if (player.equals(player1)) {
     		this.barriersNumber1.setText(String.valueOf(barriersNumber));
     	} else {
@@ -272,7 +272,7 @@ public class ViewController{
      * @param pane the pane
      * @param powerUpIcon the power up icon
      */
-    public void drawPowerUp(BorderPane pane, ImageView powerUpIcon) {
+    public void drawPowerUp(final BorderPane pane, final ImageView powerUpIcon) {
     	this.powerUpList.add(powerUpIcon);
     	this.setCorrectSize();
 		pane.setCenter(powerUpIcon);
@@ -283,7 +283,7 @@ public class ViewController{
      *
      * @param player the player
      */
-    public void changeSelectedLabel(String player) { 	
+    public void changeSelectedLabel(final String player) { 	
     	if (player.equals(player1)) {
     		label1.getStyleClass().clear();
     		label1.getStyleClass().add("SelectedLabel");   		
@@ -302,7 +302,7 @@ public class ViewController{
      *
      * @param text the text
      */
-    public void drawText(String text) {
+    public void drawText(final String text) {
     	this.textArea1.setText(text);
     	this.textArea2.setText(text);
     }
@@ -312,7 +312,7 @@ public class ViewController{
      *
      * @param text the text
      */
-    public void appendText(String text) {
+    public void appendText(final String text) {
     	this.textArea1.appendText(text);
     	this.textArea2.appendText(text);    	
     }
@@ -322,8 +322,8 @@ public class ViewController{
      *
      * @param winner the winner
      */
-    public void endRound(String winner) {
-       	Alert alert = new Alert(AlertType.INFORMATION);
+    public void endRound(final String winner) {
+    	final Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
     	alert.setHeaderText(winner + " won the round!");
     	alert.getDialogPane().setStyle("-fx-background-color: #2B2D42");
@@ -341,8 +341,8 @@ public class ViewController{
      *
      * @param winner the winner
      */
-    public void endGame(String winner) {
-    	Alert alert = new Alert(AlertType.INFORMATION);
+    public void endGame(final String winner) {
+    	final Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
     	alert.setHeaderText(winner + " won the game!\nDo you want to return to the main menu?");
     	
@@ -351,7 +351,7 @@ public class ViewController{
     	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
     	(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
 
-    	Optional<ButtonType> result = alert.showAndWait();
+    	final Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
 			this.returnToMainMenu();
     	} else {
@@ -364,7 +364,7 @@ public class ViewController{
      *
      * @return the horizontal barrier list
      */
-    public List<Rectangle> getHorizontalBarrierList() {
+    public final List<Rectangle> getHorizontalBarrierList() {
     	return this.horizontalBarrierList;
     }
     
@@ -373,7 +373,7 @@ public class ViewController{
      *
      * @return the vertical barrier list
      */
-    public List<Rectangle> getVerticalBarrierList() {
+    public final List<Rectangle> getVerticalBarrierList() {
     	return this.verticalBarrierList;
     }
     
@@ -382,7 +382,7 @@ public class ViewController{
      */
     @FXML
     public void goFullscreen() {
-    	Stage s = ((Stage) this.rootPane.getScene().getWindow());
+    	final Stage s = ((Stage) this.rootPane.getScene().getWindow());
     	if (s.isFullScreen()) {
     		s.setFullScreen(false);
     		this.fullscreenMenuItem.setText("Go Fullscreen");	
@@ -407,7 +407,7 @@ public class ViewController{
      */
     @FXML
     public void showLeaderboard() {
-    	SceneChanger sceneChange = new SceneChangerImpl();
+    	final SceneChanger sceneChange = new SceneChangerImpl();
     	sceneChange.change(ScenesItem.LEADERBOARD.get(), ScenesItem.LEADERBOARDTITLE.get());
     }
     
@@ -451,7 +451,7 @@ public class ViewController{
      */ 
     @FXML
     public void returnToMainMenu(){
-    	SceneChanger sceneChange = new SceneChangerImpl();
+    	final SceneChanger sceneChange = new SceneChangerImpl();
     	sceneChange.change(ScenesItem.MENU.get(), ScenesItem.MENUTITLE.get());
     }
     
@@ -462,5 +462,4 @@ public class ViewController{
      public void exitToDesktop() {
     	 System.exit(0);
      }
-
 }

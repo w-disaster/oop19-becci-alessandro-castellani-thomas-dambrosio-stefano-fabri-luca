@@ -1,6 +1,7 @@
 package view.game;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,16 +40,16 @@ public class ViewLogicImpl implements ViewLogic{
 	
 	private GameController controller;
 	
-	private ViewController view;
+	private final ViewController view;
 
-	private Map<Coordinate, BorderPane> gridMap;
+	private final Map<Coordinate, BorderPane> gridMap;
 
 	private Optional<Integer> selectedBarrier;
 
 	private String player1;
 	private String player2;
 
-	public ViewLogicImpl(ViewController viewController) {
+	public ViewLogicImpl(final ViewController viewController) {
 		this.view = viewController;
 		if (MenuController.gameStatus.equals(GameStatus.NORMAL)
 				|| MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
@@ -90,7 +91,7 @@ public class ViewLogicImpl implements ViewLogic{
 	 * 
 	 */
 	@Override
-	public void setPlayer(Optional<Pair<String, String>> result) {
+	public void setPlayer(final Optional<Pair<String, String>> result) {
 		// If you leave it empty it automatically set default nicknames
     	if (result.get().getKey().equals("")) {
     		this.player1 = "Player 1";
@@ -106,7 +107,7 @@ public class ViewLogicImpl implements ViewLogic{
     	
     	// Nicknames can't be the same
     	if (player1.equals(player2)) {
-    		Alert alert = new Alert(AlertType.ERROR);
+    		final Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Error");
     		alert.setHeaderText("ERROR");
     		alert.setContentText("You can't use the same name!");
@@ -123,8 +124,8 @@ public class ViewLogicImpl implements ViewLogic{
 	 * @return the pane to add to the grid
 	 */
 	@Override
-	public BorderPane addPaneLogic(Coordinate position) {
-		BorderPane pane = new BorderPane();
+	public BorderPane addPaneLogic(final Coordinate position) {
+		final BorderPane pane = new BorderPane();
         pane.setOnMouseClicked(e -> {
         	this.setUpClickHandler(position);
         });
@@ -139,7 +140,7 @@ public class ViewLogicImpl implements ViewLogic{
 	 * @param position the position in which the click handler will be setted
 	 */
 	@Override
-	public void setUpClickHandler(Coordinate position) {
+	public void setUpClickHandler(final Coordinate position) {
         //System.out.printf("Mouse clicked cell " + position.toString() + "\n");
         if (this.selectedBarrier.isEmpty()) {
         	this.controller.movePlayer(position);
@@ -164,7 +165,7 @@ public class ViewLogicImpl implements ViewLogic{
 	 * @param barriersP1 the barrier number of player 1
 	 * @param barriersP2 the barrier number of player 2
 	 */
-	public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2) {
+	public void setupGrid(final Coordinate player1pos, final Coordinate player2pos, int barriersP1, int barriersP2) {
 		this.clearGrid();
 		this.view.setPlayerInPane(this.gridMap.get(player1pos), this.player1);
 		this.view.setPlayerInPane(this.gridMap.get(player2pos), this.player2);
@@ -181,7 +182,7 @@ public class ViewLogicImpl implements ViewLogic{
 	 * @param barriersP2 the barrier number of player 2
 	 * @param barrierList the barrier list
 	 */
-	public void setupGrid(Coordinate player1pos, Coordinate player2pos, int barriersP1, int barriersP2, List<Barrier> barrierList) {
+	public void setupGrid(final Coordinate player1pos, final Coordinate player2pos, final int barriersP1, final int barriersP2, final List<Barrier> barrierList) {
 		this.setupGrid(player1pos, player2pos, barriersP1, barriersP2);
 		this.drawBarriersOnLoad(barrierList);
 	}
@@ -199,7 +200,7 @@ public class ViewLogicImpl implements ViewLogic{
      * @param position the position
      * @param player the player
      */
-    public void move(Coordinate position, String player) {
+    public void move(final Coordinate position, final String player) {
     	this.view.setPlayerInPane(this.gridMap.get(position), player);
     	this.drawTextLogic("move");
     }
@@ -210,7 +211,7 @@ public class ViewLogicImpl implements ViewLogic{
      * @param player the current player 
      */
     @Override
-    public void changeSelectedLabel(String player) {
+    public void changeSelectedLabel(final String player) {
     	this.view.changeSelectedLabel(player);
     }
     
@@ -219,7 +220,7 @@ public class ViewLogicImpl implements ViewLogic{
      *
      * @param type the selected barrier type, 
      */
-    public void setSelectedBarrier(String type) {
+    public void setSelectedBarrier(final String type) {
     	if (type.equals("vertical")) {
     		this.selectedBarrier = Optional.of(0);
     		this.drawTextLogic("verticalBarrier");
@@ -234,13 +235,13 @@ public class ViewLogicImpl implements ViewLogic{
      *
      * @param barrier the barrier to draw
      */
-    public void drawBarrier(Barrier barrier) {
-    	BorderPane selected = this.gridMap.get(barrier.getCoordinate());
+    public void drawBarrier(final Barrier barrier) {
+    	final BorderPane selected = this.gridMap.get(barrier.getCoordinate());
     	// barrier styling
-    	Rectangle verticalBarrier = new Rectangle();
+    	final Rectangle verticalBarrier = new Rectangle();
     	verticalBarrier.getStyleClass().add("Barrier");
     	verticalBarrier.setFill(Color.ORANGE);
-    	Rectangle horizontalBarrier = new Rectangle();
+    	final Rectangle horizontalBarrier = new Rectangle();
     	horizontalBarrier.getStyleClass().add("Barrier");
     	horizontalBarrier.setFill(Color.ORANGE);
     	
@@ -261,7 +262,7 @@ public class ViewLogicImpl implements ViewLogic{
      *
      * @param barrierList the barrier list to draw
      */
-    public void drawBarriersOnLoad(List<Barrier> barrierList) {
+    public void drawBarriersOnLoad(final List<Barrier> barrierList) {
     	for (Barrier barrier : barrierList) {
     		this.drawBarrier(barrier);
     	}
@@ -274,7 +275,7 @@ public class ViewLogicImpl implements ViewLogic{
      * @param barriersNumber the barriers number
      */
     @Override
-    public void updateBarriersNumber(String player, int barriersNumber) {
+    public void updateBarriersNumber(final String player, final int barriersNumber) {
     	this.view.updateBarriersNumber(player, barriersNumber);
     }
     
@@ -284,18 +285,16 @@ public class ViewLogicImpl implements ViewLogic{
      * @param powerUpsAsList the power ups as list
      */
     @Override
-    public void drawPowerUps(List<PowerUp> powerUpsAsList) {
-		for (PowerUp p : powerUpsAsList) {
+    public void drawPowerUps(final List<PowerUp> powerUpsAsList) {
+		for (final PowerUp p : powerUpsAsList) {
 			switch (p.getType()) {
 			case PLUS_ONE_MOVE:
-				System.out.println("Drawing powerUp Double Move in " + p.getCoordinate());
-				ImageView doubleMoveIcon = new ImageView(new Image(this.getClass()
+				final ImageView doubleMoveIcon = new ImageView(new Image(this.getClass()
 						.getResourceAsStream(ScenesItem.DOUBLEPUP.get())));
 				this.view.drawPowerUp(this.gridMap.get(p.getCoordinate()), doubleMoveIcon);
 				break;
 			case PLUS_ONE_BARRIER:
-				System.out.println("Drawing powerUp Plus One Barrier in " + p.getCoordinate());
-				ImageView plusOneBarrierIcon = new ImageView(new Image(this.getClass()
+				final ImageView plusOneBarrierIcon = new ImageView(new Image(this.getClass()
 						.getResourceAsStream(ScenesItem.BARRIERPUP.get())));
 				this.view.drawPowerUp(this.gridMap.get(p.getCoordinate()), plusOneBarrierIcon);
 				break;
@@ -310,8 +309,8 @@ public class ViewLogicImpl implements ViewLogic{
      *
      * @param p the powerUp to delete
      */
-    public void deletePowerUp(PowerUp p) {
-		List<Node> toRemove = this.gridMap.get(p.getCoordinate()).getChildren().stream()
+    public void deletePowerUp(final PowerUp p) {
+    	final List<Node> toRemove = this.gridMap.get(p.getCoordinate()).getChildren().stream()
 				.filter(e -> e.getClass().equals(ImageView.class))
 				.collect(Collectors.toList()); 
 		this.gridMap.get(p.getCoordinate()).getChildren().removeAll(toRemove);
@@ -323,7 +322,7 @@ public class ViewLogicImpl implements ViewLogic{
      *
      * @param winner the winner
      */
-    public void endRound(String winner) {
+    public void endRound(final String winner) {
     	this.view.endRound(winner);
     	this.controller.nextRound();
     }
@@ -333,7 +332,7 @@ public class ViewLogicImpl implements ViewLogic{
      *
      * @param winner the winner
      */
-    public void endGame(String winner) {
+    public void endGame(final String winner) {
     	this.view.endGame(winner);
     }
     
@@ -351,16 +350,17 @@ public class ViewLogicImpl implements ViewLogic{
 	 * @param textToDisplay the text to display
 	 */
 	@Override
-	public void drawTextLogic(String textToDisplay) {
-		String start = "- Benvenuto su Quoridor! \n";
-    	String moveTutorial = "- Clicca su una casella adiacente alla tua per muovere la pedina\n"
-    			+ "- Clicca su una barriera per posizionarla\n"
-    			+ "- Puoi saltare l'avversario quando e` di fronte a te\n";
-    	String barrierTutorial = "Per posizionare la barriera, clicca la casella dove vuoi posizionarla: \n"
-    			+ "- La barriera verticale sara` posizionata a destra e nella cassela in basso\n"
-    			+ "- La barriera orizzontale sara` piazzata in basso e nella casella a destra\n";
-    	String verticalBarrierSelected = "Barriera selezionata: Verticale\n\n";
-    	String horizontalBarrierSelected = "Barriera selezionata: Orizzontale\n\n";
+	public void drawTextLogic(final String textToDisplay) {
+    	final String start = "- Welcome to Quoridor! \n";
+    	final String moveTutorial = "- Click on a cell to move the player\n"
+    			+ "- Click on a barrier to place it\n"
+    			+ "- You can jump over the other player when he is in front of you\n";
+    	final String barrierTutorial = "To place a barrier, click on a cell: \n"
+    			+ "- The vertical barrier will be placed right and in the cell below\n"
+    			+ "- The horizontal barrier will be placed below and in the cell to the right\n";
+    	final String verticalBarrierSelected = "Selected barrier: Vertical\n\n";
+    	final String horizontalBarrierSelected = "Selected barrier: Horizontal\n\n";
+    	
     	switch(textToDisplay) {
     	case "start" :
     		this.view.drawText(start);
@@ -378,9 +378,7 @@ public class ViewLogicImpl implements ViewLogic{
     			this.view.appendText(barrierTutorial);		
     			break;
     		default :
-    			this.view.drawText(textToDisplay);
+    			break;
     	}		
 	}
-
-
 }
