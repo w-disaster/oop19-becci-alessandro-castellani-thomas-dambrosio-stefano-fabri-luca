@@ -72,20 +72,14 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 
 			@Override
 			public Iterator<RoundEnvironment> getIterator() {
-				if(fileExist) {
-					getData();
-					return iterator;
-				}
-				return null;
+				getData();
+				return iterator;
 			}
 
 			@Override
 			public Model<RoundEnvironment> getModel() {
-				if(fileExist) {
-					getData();
-					return model;
-				}
-				return null;
+				getData();
+				return model;
 			}
 
 			@Override
@@ -143,20 +137,14 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 
 			@Override
 			public Iterator<RoundPUpEnvironment> getIterator() {
-				if(fileExist) {
-					getData();
-					return iterator;
-				}
-				return null;
+				getData();
+				return iterator;
 			}
 
 			@Override
 			public Model<RoundPUpEnvironment> getModel() {
-				if(fileExist) {
-					getData();
-					return model;
-				}
-				return null;
+				getData();
+				return model;
 			}
 
 			@Override
