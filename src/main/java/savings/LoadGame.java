@@ -7,7 +7,10 @@ import model.roundenvironment.RoundEnvironment;
 
 public interface LoadGame<X extends RoundEnvironment> {
 	
-	
+	/**
+	 * Gets the data from file and reconstructs model
+	 */
+	public void getData();
 	/**
 	 * 
 	 * @return the iterator of the rounds of the game loaded
