@@ -49,7 +49,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	}
 	
 	@Override
-	public void movePlayer(Coordinate position) {
+	public void invokeMove(Coordinate position) {
 		for (PowerUp p : this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList()) {
 			if (p.getCoordinate().equals(position)) {
 				this.powerUpPlayer = Optional.of(new Pair<>(this.powerUpModel.getCurrentRoundEnvironment().getRoundPlayers()
@@ -85,7 +85,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	}
 	
 	@Override
-	public void placeBarrier(Coordinate position, Orientation orientation) {
+	public void invokePlace(Coordinate position, Orientation orientation) {
 		this.placer.placeBarrier(position, orientation);
 	}
 	

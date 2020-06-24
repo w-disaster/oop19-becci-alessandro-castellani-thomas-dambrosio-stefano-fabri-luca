@@ -143,14 +143,14 @@ public class ViewLogicImpl implements ViewLogic{
 	public void setUpClickHandler(final Coordinate position) {
         //System.out.printf("Mouse clicked cell " + position.toString() + "\n");
         if (this.selectedBarrier.isEmpty()) {
-        	this.controller.movePlayer(position);
+        	this.controller.invokeMove(position);
         } else {
         	if(this.selectedBarrier.get().equals(0)) {
-        		this.controller.placeBarrier(position, Orientation.VERTICAL);
+        		this.controller.invokePlace(position, Orientation.VERTICAL);
         		//System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
         		
         	} else {
-        		controller.placeBarrier(position, Orientation.HORIZONTAL);            		
+        		controller.invokePlace(position, Orientation.HORIZONTAL);            		
         		//System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.HORIZONTAL + "\n");
         	}
         	this.selectedBarrier = Optional.empty();
