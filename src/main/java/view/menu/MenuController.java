@@ -70,17 +70,18 @@ public class MenuController {
 		
 	};
 	
-	private gameType getGameType() {
+	private GameStatus getGameType() {
 		//if it's not setted, lets do a normal game
-		gameType type = gameType.NORMAL;
+		GameStatus type = GameStatus.NORMAL;
 		try{
 			BufferedReader reader = new BufferedReader(new FileReader(new File(PathSavings.GAMETYPE.getPath())));
 			Gson ser = new Gson();
-			type = ser.fromJson(reader.readLine(), gameType.class);
+			type = ser.fromJson(reader.readLine(), GameStatus.class);
 			reader.close();
 		} catch(Exception e) {
 			System.out.println("file not found");
 		}
+		System.out.println("returning " + type);
 		return type;
 	}
 		
@@ -131,7 +132,7 @@ public class MenuController {
 	 
 	 @FXML
 	 public void loadGameButtonPressHandler() {
-		 if(getGameType().equals(gameType.NORMAL)) {
+		 if(getGameType().equals(GameStatus.NORMAL)) {
 			 LoadGame<RoundEnvironment> loading = new LoadGameFactoryImpl().buildNormal();
 			 if(loading.saveExist()) { gameStatus = GameStatus.LOADNORMAL; } else { gameStatus = GameStatus.NORMAL; }
 		 }

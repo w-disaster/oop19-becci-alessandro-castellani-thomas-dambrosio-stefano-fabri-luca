@@ -22,7 +22,7 @@ import model.roundenvironment.powerups.RoundPowerUpsImpl;
 
 public class LoadGameFactoryImpl implements LoadGameFactory{
 	
-	private LoadUtilitiesImpl loadUtil = new LoadUtilitiesImpl();
+	private LoadUtilities loadUtil = new LoadUtilities();
 	
 	@Override
 	public LoadGame<RoundEnvironment> buildNormal() {
