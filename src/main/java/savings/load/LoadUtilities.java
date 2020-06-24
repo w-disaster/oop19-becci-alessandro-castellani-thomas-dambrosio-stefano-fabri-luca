@@ -81,7 +81,7 @@ public class LoadUtilities {
 	 *
 	 * @return the boolean
 	 */
-	Boolean fileExistNormal() {
+	protected Boolean fileExistNormal() {
 		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists() && fileGraph.exists()) {
 			return true;
 		}
@@ -95,7 +95,7 @@ public class LoadUtilities {
 	 *
 	 * @return the boolean
 	 */
-	Boolean fileExistPowerUp() {
+	protected Boolean fileExistPowerUp() {
 		boolean normal = fileExistNormal();
 		if(normal && filePUp.exists()) {
 			return true;
@@ -108,7 +108,7 @@ public class LoadUtilities {
 	 *
 	 * @return the current round and player
 	 */
-	Pair<Player, Integer> getCurrentRoundAndPlayer() {
+	protected Pair<Player, Integer> getCurrentRoundAndPlayer() {
 		Player currentPlayer = null;
 		int numRoundCurrent = -1;
 		try{
@@ -133,7 +133,7 @@ public class LoadUtilities {
 	 * @param numRound the num round
 	 * @return the players list
 	 */
-	List<Player> getPlayersList(final int numRound) {
+	protected List<Player> getPlayersList(final int numRound) {
 		List<Player> playersList = new ArrayList<>();
 		try{
 			BufferedReader readerModelPlayers = new BufferedReader(new FileReader(fileModelPlayers));
@@ -187,7 +187,7 @@ public class LoadUtilities {
 	 * @param numRound the num round
 	 * @return the barriers
 	 */
-	Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound){
+	protected Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound){
 		List<Barrier> barriers = new ArrayList<>();
 		List<Pair<Coordinate, Coordinate>> listEdges = new ArrayList<>();
 		try {
@@ -228,7 +228,7 @@ public class LoadUtilities {
 	 * @param numRound the num round
 	 * @return the power up list
 	 */
-	List<PowerUp> getPowerUpList(final int numRound){
+	protected List<PowerUp> getPowerUpList(final int numRound){
 		List<PowerUp> list = new ArrayList<>();
 		int numPowerUps = (lineCounter(filePUp)-1) / 2;
 		try {
