@@ -45,7 +45,7 @@ public class SaveLeaderBoard {
 			BufferedReader br = new BufferedReader(new FileReader(leaderBoard));
 			String line = null;
 			while ((line = br.readLine()) != null) {
-				if(line.split("//")[0].equals(winner)) {
+				if(line.split("//")[0].toLowerCase().equals(winner)) {
 					exist = true;
 					numVictories = line.split("//")[1];
 				}
@@ -66,7 +66,7 @@ public class SaveLeaderBoard {
 	        String line;
 
 	        while ((line = file.readLine()) != null) {
-	            if(line.split("//")[0].equals(winner)) {
+	            if(line.split("//")[0].toLowerCase().equals(winner)) {
 	            	line = winner + "//" + (Integer.parseInt(numVictories) + 1) ;
 	            }
 	            //if the line doesnt have to be modified, the inputBuffer takes the original one
@@ -89,7 +89,7 @@ public class SaveLeaderBoard {
 		//setting to true for append mode
 		try{
 			FileWriter fout = new FileWriter(pathFile, true);
-			fout.write(winner + "//" + Integer.toString(1) + System.lineSeparator());
+			fout.write(winner.toLowerCase() + "//" + Integer.toString(1) + System.lineSeparator());
 			fout.close();
 		}catch (Exception e) {
 			System.out.println("problems in reading file");
@@ -99,15 +99,13 @@ public class SaveLeaderBoard {
 	
 	public void updateLeaderBoard(final String winner) {
 		//updates the file in LeaderBoard
-		this.winner = winner;
+		this.winner = winner.toLowerCase();
 		try{
 			if(nameIsPresent()) {
-			//System.out.println("name is present");
-			updateNameVictories();
+				updateNameVictories();
 			}
 			else {
-			//System.out.println("we have to write the file with victory number 1");
-			writeNewName();
+				writeNewName();
 			}
 		}catch(Exception e) {
 			System.out.println("problems in reading files");

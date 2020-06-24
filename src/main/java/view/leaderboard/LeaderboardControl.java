@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import savings.load.LoadLeaderBoard;
 import savings.save.PathSavings;
-import view.menu.MenuController.GameStatus;
 import view.sceneChanger.SceneChanger;
 import view.sceneChanger.SceneChangerImpl;
 import view.sceneChanger.ScenesItem;

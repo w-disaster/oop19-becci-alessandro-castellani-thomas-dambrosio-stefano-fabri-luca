@@ -150,7 +150,6 @@ public class MenuController {
 		 File leaderBoard = new File(PathSavings.LEADERBOARD.getPath());
 		 if(!leaderBoard.exists()) {
 			 try{
-				 System.out.println("creating file");
 				 leaderBoard.createNewFile();
 			 } catch(Exception e) {
 				 System.out.println("cant create file");
