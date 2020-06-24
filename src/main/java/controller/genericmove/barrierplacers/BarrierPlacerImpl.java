@@ -65,7 +65,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	 * @param type
 	 * @return true if all checks return true
 	 */
-	protected boolean checkPlacement(final Coordinate position, final Orientation type) {
+	private boolean checkPlacement(final Coordinate position, final Orientation type) {
 		return this.isEmptyPosition(position, type) && this.enoughBarriers() && this.checkEdge(position) && this.noStall(position, type) ? true : false;
 	}
 

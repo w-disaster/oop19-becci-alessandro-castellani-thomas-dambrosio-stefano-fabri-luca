@@ -58,7 +58,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	 * @param playerPosition
 	 * @return list of positions where the player can move
 	 */
-	protected List<Coordinate> checkMove(final Coordinate playerPosition) {
+	private List<Coordinate> checkMove(final Coordinate playerPosition) {
 		final List<Coordinate> moves = new ArrayList<>();
 		final List<Coordinate> movesJump = new ArrayList<>();
 		//first i find where can the player normally go (adj and no walls)
