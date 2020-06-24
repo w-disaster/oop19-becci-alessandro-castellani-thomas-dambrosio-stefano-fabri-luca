@@ -74,19 +74,22 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 				System.out.println("Game Over!" + currentPlayer + " won!");
 				this.leaderboard.updateLeaderBoard(currentPlayer);
 				this.view.endGame(currentPlayer);
+			} else {
+				this.model.setCurrentRoundEnvironment(this.iterRounds.next());
+				this.view.endRound(currentPlayer);
 			}
-			this.model.setCurrentRoundEnvironment(this.iterRounds.next());
-			this.view.endRound(currentPlayer);
+			
 		} else {
 			System.out.println("All rounds finished, game over");
 			//now i check who won more rounds and set him winner of the game
-			Player p = this.model.getWinners().stream().peek(Player::getNickname)
-														.reduce(BinaryOperator.maxBy(
-																Comparator.comparingInt(o -> Collections.frequency(this.model.getWinners(), o))))
-														.orElse(null);
-			System.out.println("Game Over!" + p.getNickname() + " won!");
-			this.leaderboard.updateLeaderBoard(p.getNickname());
-			this.view.endGame(p.getNickname());
+			List<String> winnersNicknames = this.model.getWinners().stream().map(Player::getNickname).collect(Collectors.toList());
+			String winner = winnersNicknames.stream()
+			        							.reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(winnersNicknames, o1) - 
+			        									Collections.frequency(winnersNicknames, o2)))
+			        							.orElse(null);
+			System.out.println("Game Over!" + winner + " won!");
+			this.leaderboard.updateLeaderBoard(winner);
+			this.view.endGame(winner);
 		}
 	}
 	
