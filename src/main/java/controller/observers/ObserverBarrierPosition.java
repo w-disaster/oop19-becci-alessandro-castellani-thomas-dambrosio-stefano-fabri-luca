@@ -1,7 +1,6 @@
 package controller.observers;
 
 import model.roundenvironment.barriers.Barrier;
-import view.game.ViewController;
 import view.game.ViewLogic;
 
 public class ObserverBarrierPosition implements Observer {

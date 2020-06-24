@@ -1,7 +1,6 @@
 package controller.observers;
 
 import model.roundenvironment.coordinate.Coordinate;
-import view.game.ViewController;
 import view.game.ViewLogic;
 
 public class ObserverPlayerPosition implements Observer {
