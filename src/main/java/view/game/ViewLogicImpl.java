@@ -255,10 +255,13 @@ public class ViewLogicImpl implements ViewLogic{
     	this.setCorrectBarrierSize();
     }
     
+    /**
+     * Sets the correct barrier size.
+     */
     public void setCorrectBarrierSize() {
     	Platform.runLater(new Runnable() {
     		
-    		@Override
+		    @Override
     		public void run() {
 				Double dimensions = gridMap.get(new Coordinate(0,0)).getHeight()/10;
 				for (Rectangle b : verticalBarrierList) {
@@ -273,12 +276,23 @@ public class ViewLogicImpl implements ViewLogic{
     	});
     }
     
+    /**
+     * Draw barriers on load.
+     *
+     * @param barrierList the barrier list to draw
+     */
     public void drawBarriersOnLoad(List<Barrier> barrierList) {
     	for (Barrier barrier : barrierList) {
     		this.drawBarrier(barrier);
     	}
     }
     
+    /**
+     * Update barriers number.
+     *
+     * @param player the player
+     * @param barriersNumber the barriers number
+     */
     @Override
     public void updateBarriersNumber(String player, int barriersNumber) {
     	this.view.updateBarriersNumber(player, barriersNumber);
@@ -311,6 +325,11 @@ public class ViewLogicImpl implements ViewLogic{
 		}
     }
     
+    /**
+     * Delete power up.
+     *
+     * @param p the powerUp to delete
+     */
     public void deletePowerUp(PowerUp p) {
 		List<Node> toRemove = this.gridMap.get(p.getCoordinate()).getChildren().stream()
 				.filter(e -> e.getClass().equals(ImageView.class))
@@ -319,20 +338,38 @@ public class ViewLogicImpl implements ViewLogic{
     }
     
     
+    /**
+     * Calls the endRound method in view and also calls the controller method for changing round.
+     *
+     * @param winner the winner
+     */
     public void endRound(String winner) {
     	this.view.endRound(winner);
     	this.controller.nextRound();
     }
     
+    /**
+     * Calls the endGame method in view.
+     *
+     * @param winner the winner
+     */
     public void endGame(String winner) {
     	this.view.endGame(winner);
     }
     
+    /**
+     * Calls the saveGame method in controller.
+     */
     @Override
     public void saveGame() {
     	this.controller.saveGame();
     }
 
+	/**
+	 * Draw text in the textAreas by calling the respective method in view. 
+	 *
+	 * @param textToDisplay the text to display
+	 */
 	@Override
 	public void drawTextLogic(String textToDisplay) {
     	String moveTutorial = "- Benvenuto su Quoridor! \n- Clicca su una casella adiacente alla tua per muovere la pedina\n"
