@@ -5,8 +5,3 @@ out/
 .idea/
 # Ignored, as Gradle Buildship generates it on import / refresh
 .classpath
-
-/relazione/relazione.aux
-/relazione/relazione.log
-/relazione/relazione.synctex.gz
-/relazione/relazione.toc
