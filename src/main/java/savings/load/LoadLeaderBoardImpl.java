@@ -59,7 +59,7 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
-		listEntries.sort(((o1, o2) -> o2.getValue() - o1.getValue()));
+		listEntries.sort((o1, o2) -> o2.getValue() - o1.getValue());
 	}
 	
 	
