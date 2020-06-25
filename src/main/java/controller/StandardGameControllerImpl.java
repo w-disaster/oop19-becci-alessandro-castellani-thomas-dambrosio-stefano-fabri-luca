@@ -62,7 +62,10 @@ public class StandardGameControllerImpl implements StandardGameController {
 		this.placer.placeBarrier(position, orientation);
 	}
 	
-	public final void nextRound() {
+	/**
+	 * Invoke it to go to the next round.
+	 */
+	public void nextRound() {
 		final RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		final Player player1 = players.getPlayers().get(0);
 		final Player player2 = players.getPlayers().get(1);
@@ -72,12 +75,18 @@ public class StandardGameControllerImpl implements StandardGameController {
 		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
 	}
 	
-	public final void saveGame() {
+	/**
+	 * Invoke it to save the game.
+	 */
+	public void saveGame() {
 		final SaveGame saving = new SaveGameImpl<>(this.model);
 		saving.save();
 	}
 	
-	public final void loadGame() {
+	/**
+	 * Invoke it to load a saved game.
+	 */
+	public void loadGame() {
 		if (MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
 			final LoadGame<RoundEnvironment> loading = new LoadGameFactoryImpl().buildNormal();
 			this.model = loading.getModel();
