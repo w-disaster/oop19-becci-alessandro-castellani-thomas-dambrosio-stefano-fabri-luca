@@ -5,7 +5,6 @@ import model.roundenvironment.RoundPUpEnvironment;
 
 /**
  * A factory for creating LoadGame objects.
- * @author Alessandro Becci
  */
 public interface LoadGameFactory {
 
@@ -14,13 +13,13 @@ public interface LoadGameFactory {
 	 *
 	 * @return the load game
 	 */
-	public LoadGame<RoundEnvironment> buildNormal();
+	LoadGame<RoundEnvironment> buildNormal();
 	
 	/**
 	 * Builds a new Load Game for PowerUp Game.
 	 *
 	 * @return the load game
 	 */
-	public LoadGame<RoundPUpEnvironment> buildPowerup();
+	LoadGame<RoundPUpEnvironment> buildPowerup();
 	
 }
