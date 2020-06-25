@@ -12,7 +12,7 @@ private final ViewLogic view;
 	}
 	
 	@Override
-	public void update(final Object barrier, final String player) {
+    public final void update(final Object barrier, final String player) {
 		this.view.drawBarrier((Barrier) barrier);
 	}
 

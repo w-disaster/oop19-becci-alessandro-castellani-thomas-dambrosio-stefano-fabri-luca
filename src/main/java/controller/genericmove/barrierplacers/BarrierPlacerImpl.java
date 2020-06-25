@@ -1,11 +1,11 @@
 package controller.genericmove.barrierplacers;
 
-import java.util.*;
-
+import java.util.List;
+import java.util.Iterator;
 import controller.genericmove.GenericMove;
 import controller.observers.Observer;
 import controller.observers.ObserverBarrierPosition;
-import model.*;
+import model.Model;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.BarrierImpl;
 import model.roundenvironment.barriers.RoundBarriers;
@@ -35,7 +35,7 @@ public class BarrierPlacerImpl<X extends RoundEnvironment> extends GenericMove<X
 	}
 	
 	@Override
-	public void placeBarrier(final Coordinate position, final Orientation type) {
+    public final void placeBarrier(final Coordinate position, final Orientation type) {
 		this.newBarrierPosition = position;
 		this.newBarrierOrientation = type;
 		if (this.checkPlacement(this.newBarrierPosition, this.newBarrierOrientation)) {

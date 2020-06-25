@@ -11,11 +11,11 @@ import model.roundenvironment.powerups.PowerUp.Type;
  * @author Stefano
  */
 public class RoundPowerUpsImpl implements RoundPowerUps {
-	
-	private final List<PowerUp> powerUpList;
-	
+
+    private final List<PowerUp> powerUpList;
+
 	/**
-	 * Instantiates a new roundPowerUps implementation
+	 * Instantiates a new roundPowerUps implementation.
 	 */
 	public RoundPowerUpsImpl() {
 		this.powerUpList = new ArrayList<>();
@@ -25,7 +25,7 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 				i--;
 			} else {
 				this.powerUpList.add(p);
-			}				
+			}
 		}
 		for (int i = 0; i < MOVE_POWERUP_NUMBER; i++) {
 			PowerUp p = new PowerUpImpl(Type.PLUS_ONE_MOVE, Model.BOARD_DIMENSION);
@@ -33,10 +33,10 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 				i--;
 			} else {
 				this.powerUpList.add(p);
-			}				
+			}
 		}
 	}
-	
+
 	/**
 	 * Instantiates a new roundPowerUp given a powerUp list.
 	 *
@@ -45,7 +45,7 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 	public RoundPowerUpsImpl(final List<PowerUp> powerUpList) {
 		this.powerUpList = powerUpList;
 	}
-	
+
 	/**
 	 * Gets the power ups as list.
 	 *
@@ -62,8 +62,7 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 	 * @param p the powerUp
 	 */
 	@Override
-	public void remove(PowerUp p) {
+	public void remove(final PowerUp p) {
 		this.powerUpList.remove(p);
 	}
-
 }

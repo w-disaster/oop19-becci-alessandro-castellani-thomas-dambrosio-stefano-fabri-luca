@@ -161,7 +161,7 @@ public class HboxTextController {
 	 * Creates the Graphical Interface of LeaderBoard.
 	 */
 	private void createInterface() {
-		indexPage = LeaderboardControl.indexPage;
+		indexPage = LeaderboardControl.getIndexPage();
 		mapLabelsName.put(indexPage, createLabels().getKey());
 		mapLabelsScore.put(indexPage, createLabels().getValue());
 		if(mapLabelsName.get(indexPage).isEmpty()) {

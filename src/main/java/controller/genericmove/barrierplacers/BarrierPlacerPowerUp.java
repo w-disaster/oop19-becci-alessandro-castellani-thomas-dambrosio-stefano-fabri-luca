@@ -15,8 +15,8 @@ import view.game.ViewLogic;
  * @author Stefano
  */
 public class BarrierPlacerPowerUp<X extends RoundPUpEnvironment> extends BarrierPlacerImpl<RoundPUpEnvironment> {
-	
-	private Model<RoundPUpEnvironment> model;
+
+    private Model<RoundPUpEnvironment> model;
 	private Player currentPlayer;
 
 	/**
@@ -26,21 +26,19 @@ public class BarrierPlacerPowerUp<X extends RoundPUpEnvironment> extends Barrier
 	 * @param view the view
 	 * @param iterRounds the iterator of rounds
 	 */
-	public BarrierPlacerPowerUp(Model<RoundPUpEnvironment> model, ViewLogic view,
-			Iterator<RoundPUpEnvironment> iterRounds) {
+	public BarrierPlacerPowerUp(final Model<RoundPUpEnvironment> model, final ViewLogic view,
+		final Iterator<RoundPUpEnvironment> iterRounds) {
 		super(model, view, iterRounds);
 		this.model = model;
 		this.currentPlayer = this.model.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer();
 	}
-	
+
 	/**
 	 * Adds a barrier to the given player.
 	 *
 	 * @param player the player
 	 */
-	public void plusOneBarrier(Player player) {
-		player.setAvailableBarriers(this.currentPlayer.getAvailableBarriers()+1);
+	public void plusOneBarrier(final Player player) {
+		player.setAvailableBarriers(this.currentPlayer.getAvailableBarriers() + 1);
 	}
-
-
 }

@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import savings.load.LoadLeaderBoard;
 import savings.load.LoadLeaderBoardImpl;
+import savings.load.LoadUtilities;
 import savings.save.PathSavings;
 import view.scenechanger.SceneChanger;
 import view.scenechanger.SceneChangerImpl;
@@ -32,7 +33,6 @@ import view.scenechanger.ScenesItem;
 
 /**
  * The Class LeaderboardControl.
- * @author Alessandro Becci
  */
 public class LeaderboardControl {
 	
@@ -51,14 +51,16 @@ public class LeaderboardControl {
 	/** The clean button. */
 	@FXML private Button cleanButton;
 	
-	/** The hBox where the text stays */
+	/** The hBox where the text stays. */
 	private HBox hBoxText;
 	
 	/** The stage. */
 	private final Stage stage = Main.getStage();
 	
 	/** The index page. */
-	public static int indexPage;
+	private static int indexPage;
+	
+	private static final int BUTTONRESIZE = 40;
 	
 	/** The loadLeaderBoard. */
 	private final LoadLeaderBoard load = new LoadLeaderBoardImpl();
@@ -67,13 +69,12 @@ public class LeaderboardControl {
 	private final ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
 		@Override
-		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-			String styleButton = "-fx-font-size:" + newValue.doubleValue()/40 + ";" + "-fx-font-family:monospace;" + 
-					"-fx-background-color:#1A1B28;" + "-fx-text-fill: #FFFFFF;" + "-fx-border-color: white;";
+		public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
+			String styleButton = "-fx-font-size:" + newValue.doubleValue() / BUTTONRESIZE + ";" + "-fx-font-family:monospace;" 
+			        + "-fx-background-color:#1A1B28;" + "-fx-text-fill: #FFFFFF;" + "-fx-border-color: white;";
 				backMenuButton.setStyle(styleButton);
 				cleanButton.setStyle(styleButton);
 		}
-		
 	};
 	
 	/**
@@ -94,24 +95,27 @@ public class LeaderboardControl {
 	     alert.setContentText("Are you sure ?");
 	     alert.getDialogPane().setStyle("-fx-background-color: #2B2D42; -fx-fill: #FFFFFF;");
 	     // Set the icon 
-	     ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
-	   		(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
-	     
+	     ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(this.getClass().getResourceAsStream("/logo/logo.png")));
 	     ButtonType buttonTypeOne = new ButtonType("Yes");
 	     ButtonType buttonTypeTwo = new ButtonType("No");
 	     ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 	     alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
 		 Optional<ButtonType> result = alert.showAndWait();
-		 if (result.get() == buttonTypeOne){
+		 if (result.get() == buttonTypeOne) {
 			 delete = true;
 		 } else if (result.get() == buttonTypeTwo) {
 			 delete = false;
 		 } else {
 			 delete = false;
 		 }
-		if(delete) {
+		if (delete) {
 			File leaderBoardFile = new File(PathSavings.LEADERBOARD.getPath());
-			leaderBoardFile.delete();
+			try {
+			    leaderBoardFile.delete();
+			} catch (Exception e) {
+			    LoadUtilities.setUpAlertException();
+			    System.exit(1);
+			}
 			removeListener();
 			sceneChange.change(ScenesItem.MENU.get(), ScenesItem.MENUTITLE.get());
 		}
@@ -130,14 +134,13 @@ public class LeaderboardControl {
 	 *
 	 * @param pageIndex the page index
 	 */
-	private void loadTextBox(int pageIndex) {
+	private void loadTextBox(final int pageIndex) {
 		try {
-			
 			indexPage = pageIndex;
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ClassLoader.getSystemResource(ScenesItem.PAGLEADERBOARD.get()));
 			hBoxText = loader.load();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("An error occured");
@@ -153,7 +156,7 @@ public class LeaderboardControl {
 	 * @param pageIndex the page index
 	 * @return the node
 	 */
-	private Node createNewPage(int pageIndex) {
+	private Node createNewPage(final int pageIndex) {
 		loadTextBox(pageIndex);
 		return hBoxText;
 	}
@@ -170,18 +173,15 @@ public class LeaderboardControl {
 				setResizeEvents();
 				pag.setMaxPageIndicatorCount(load.getNumPages());
 				pag.setPageCount(load.getNumPages());
-				
 				pag.setCurrentPageIndex(1);
-				pag.setPageFactory(new Callback<Integer, Node>(){
+				pag.setPageFactory(new Callback<Integer, Node>() {
 					@Override
-					public Node call(Integer param) {
+					public Node call(final Integer param) {
 						return createNewPage(param);
 					}
 				});
-				
 			}
 
-			
 		});
 	}
 	
@@ -191,7 +191,8 @@ public class LeaderboardControl {
 	private void setResizeEvents() {
 		stage.widthProperty().addListener(changeListener);
 	}
-	
-	
-		
+
+    public static int getIndexPage() {
+        return indexPage;
+    }
 }

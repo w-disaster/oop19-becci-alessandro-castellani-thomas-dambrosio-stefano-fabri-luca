@@ -36,9 +36,9 @@ import view.scenechanger.ScenesItem;
  * @author Stefano
  */
 public class ViewLogicImpl implements ViewLogic{
-	
+
 	private GameController controller;
-	
+
 	private final ViewController view;
 
 	private final Map<Coordinate, BorderPane> gridMap;
@@ -52,20 +52,20 @@ public class ViewLogicImpl implements ViewLogic{
 		this.view = viewController;
 		if (MenuController.gameStatus.equals(GameStatus.NORMAL)
 				|| MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
-			this.controller = new StandardGameControllerImpl(this);						
+			this.controller = new StandardGameControllerImpl(this);
 		} else if (MenuController.gameStatus.equals(GameStatus.POWERUP)
 				|| MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
-			this.controller = new PowerUpGameControllerImpl(this);				
+			this.controller = new PowerUpGameControllerImpl(this);
 		}
     	this.gridMap = new HashMap<Coordinate, BorderPane>();
     	this.selectedBarrier = Optional.empty();
 	}
-	
+
 	/**
 	 * Starts the game in the controller.
 	 */
 	public void startGame() {
-	    switch(MenuController.gameStatus) {
+	    switch (MenuController.gameStatus) {
 		case LOADNORMAL:
 			this.controller.loadGame();
 			break;
@@ -73,16 +73,16 @@ public class ViewLogicImpl implements ViewLogic{
 			this.controller.loadGame();
 			break;
 		case NORMAL:
-			((StandardGameController) this.controller).newStandardGame(player1, player2);	    
+			((StandardGameController) this.controller).newStandardGame(player1, player2);
 			break;
 		case POWERUP:
-			((PowerUpGameController) this.controller).newPowerUpGame(player1, player2);	    	
+			((PowerUpGameController) this.controller).newPowerUpGame(player1, player2);
 			break;
 		default:
 			break;
 	    }
 	}
-	
+
 	/**
 	 * Set the players nicknames.
 	 * 
@@ -95,15 +95,15 @@ public class ViewLogicImpl implements ViewLogic{
     	if (result.get().getKey().equals("")) {
     		this.player1 = "Player 1";
     	} else {
-    		this.player1 = result.get().getKey();    		
+    		this.player1 = result.get().getKey();
     	}
-    	
+
     	if (result.get().getValue().equals("")) {
     		this.player2 = "Player 2";
     	} else {
-    		this.player2 = result.get().getValue();    		
+    		this.player2 = result.get().getValue();
     	}
-    	
+
     	// Nicknames can't be the same
     	if (player1.equals(player2)) {
     		final Alert alert = new Alert(AlertType.ERROR);
@@ -128,10 +128,9 @@ public class ViewLogicImpl implements ViewLogic{
         pane.setOnMouseClicked(e -> {
         	this.setUpClickHandler(position);
         });
-        this.gridMap.put(position, pane);        
-		return pane;
-	}
-	
+        this.gridMap.put(position, pane);
+        return pane;
+	}	
 
 	/**
 	 * Sets the up click handler.
@@ -140,38 +139,34 @@ public class ViewLogicImpl implements ViewLogic{
 	 */
 	@Override
 	public void setUpClickHandler(final Coordinate position) {
-        //System.out.printf("Mouse clicked cell " + position.toString() + "\n");
         if (this.selectedBarrier.isEmpty()) {
         	this.controller.invokeMove(position);
         } else {
-        	if(this.selectedBarrier.get().equals(0)) {
+        	if (this.selectedBarrier.get().equals(0)) {
         		this.controller.invokePlace(position, Orientation.VERTICAL);
-        		//System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.VERTICAL + "\n");
-        		
         	} else {
-        		controller.invokePlace(position, Orientation.HORIZONTAL);            		
-        		//System.out.printf("Barrier placement request: " + position.toString() + " Orientation: " + Orientation.HORIZONTAL + "\n");
+        		controller.invokePlace(position, Orientation.HORIZONTAL);
         	}
         	this.selectedBarrier = Optional.empty();
         }
 	}
-	
+
 	/**
-	 * Clears the grid and set player in the given coordinate, it also update barriers number
+	 * Clears the grid and set player in the given coordinate, it also update barriers number.
 	 *
 	 * @param player1pos the player 1 position
 	 * @param player2pos the player 2 position
 	 * @param barriersP1 the barrier number of player 1
 	 * @param barriersP2 the barrier number of player 2
 	 */
-	public void setupGrid(final Coordinate player1pos, final Coordinate player2pos, int barriersP1, int barriersP2) {
+	public void setupGrid(final Coordinate player1pos, final Coordinate player2pos, final int barriersP1, final int barriersP2) {
 		this.clearGrid();
 		this.view.setPlayerInPane(this.gridMap.get(player1pos), this.player1);
 		this.view.setPlayerInPane(this.gridMap.get(player2pos), this.player2);
 		this.view.updateBarriersNumber(player1, barriersP1);
 		this.view.updateBarriersNumber(player2, barriersP2);
 	}
-	
+
 	/**
 	 * Same as setup grid but with a list of barriers to draw in the grid.
 	 *
@@ -185,14 +180,14 @@ public class ViewLogicImpl implements ViewLogic{
 		this.setupGrid(player1pos, player2pos, barriersP1, barriersP2);
 		this.drawBarriersOnLoad(barrierList);
 	}
-	
+
 	/**
 	 * Clears the grid.
 	 */
 	private void clearGrid() {
 		this.gridMap.entrySet().forEach(e -> e.getValue().getChildren().remove(0, e.getValue().getChildren().size()));
 	}
-	
+
     /**
      * Move the player in the given position.
      *
@@ -203,7 +198,7 @@ public class ViewLogicImpl implements ViewLogic{
     	this.view.setPlayerInPane(this.gridMap.get(position), player);
     	this.drawTextLogic("move");
     }
-    
+
     /**
      * Change selected label.
      *
@@ -213,9 +208,9 @@ public class ViewLogicImpl implements ViewLogic{
     public void changeSelectedLabel(final String player) {
     	this.view.changeSelectedLabel(player);
     }
-    
+
     /**
-     * Sets the selected barrier, it is used to get which type of barrier has been clicked
+     * Sets the selected barrier, it is used to get which type of barrier has been clicked.
      *
      * @param type the selected barrier type, 
      */
@@ -228,7 +223,7 @@ public class ViewLogicImpl implements ViewLogic{
     		this.drawTextLogic("horizontalBarrier");
     	}
     }
-    
+
     /**
      * Draw a barrier.
      *
@@ -243,7 +238,7 @@ public class ViewLogicImpl implements ViewLogic{
     	final Rectangle horizontalBarrier = new Rectangle();
     	horizontalBarrier.getStyleClass().add("Barrier");
     	horizontalBarrier.setFill(Color.ORANGE);
-    	
+
     	if (barrier.getOrientation().equals(Orientation.HORIZONTAL)) {
     		selected.setBottom(horizontalBarrier);
     		BorderPane.setAlignment(horizontalBarrier, Pos.CENTER);
@@ -255,7 +250,7 @@ public class ViewLogicImpl implements ViewLogic{
     	}
     	this.view.setCorrectSize();
     }
-    
+
     /**
      * Draw barriers on load.
      *
@@ -266,7 +261,7 @@ public class ViewLogicImpl implements ViewLogic{
     		this.drawBarrier(barrier);
     	}
     }
-    
+
     /**
      * Update barriers number.
      *
@@ -277,7 +272,7 @@ public class ViewLogicImpl implements ViewLogic{
     public void updateBarriersNumber(final String player, final int barriersNumber) {
     	this.view.updateBarriersNumber(player, barriersNumber);
     }
-    
+
     /**
      * Draw power ups.
      *
@@ -302,7 +297,7 @@ public class ViewLogicImpl implements ViewLogic{
 			}
 		}
     }
-    
+
     /**
      * Delete power up.
      *
@@ -314,8 +309,7 @@ public class ViewLogicImpl implements ViewLogic{
 				.collect(Collectors.toList()); 
 		this.gridMap.get(p.getCoordinate()).getChildren().removeAll(toRemove);
     }
-    
-    
+
     /**
      * Calls the endRound method in view and also calls the controller method for changing round.
      *
@@ -325,7 +319,7 @@ public class ViewLogicImpl implements ViewLogic{
     	this.view.endRound(winner);
     	this.controller.nextRound();
     }
-    
+
     /**
      * Calls the endGame method in view.
      *
@@ -334,7 +328,7 @@ public class ViewLogicImpl implements ViewLogic{
     public void endGame(final String winner) {
     	this.view.endGame(winner);
     }
-    
+
     /**
      * Calls the saveGame method in controller.
      */
@@ -360,7 +354,7 @@ public class ViewLogicImpl implements ViewLogic{
     	final String verticalBarrierSelected = "Selected barrier: Vertical\n\n";
     	final String horizontalBarrierSelected = "Selected barrier: Horizontal\n\n";
     	final String badMove = "Bad move! Still your turn";
-    	switch(textToDisplay) {
+    	switch (textToDisplay) {
     	case "start" :
     		this.view.drawText(start);
     		this.view.appendText(moveTutorial);
@@ -370,16 +364,16 @@ public class ViewLogicImpl implements ViewLogic{
     		break;
     		case "verticalBarrier" :
     			this.view.drawText(verticalBarrierSelected);
-    			this.view.appendText(barrierTutorial);		
+    			this.view.appendText(barrierTutorial);
     			break;
     		case "horizontalBarrier" :
     			this.view.drawText(horizontalBarrierSelected);
-    			this.view.appendText(barrierTutorial);		
+    			this.view.appendText(barrierTutorial);
     			break;
     		case "badMove":
     			this.view.drawText(badMove);
     		default :
     			break;
-    	}		
+    	}
 	}
 }

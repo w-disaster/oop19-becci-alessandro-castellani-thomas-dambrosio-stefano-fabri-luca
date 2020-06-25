@@ -9,9 +9,11 @@ import java.util.List;
  */
 public interface RoundPowerUps {
 	
-	public static final int BARRIER_POWERUP_NUMBER = 3;
+	/** The barrier powerup number. */
+	int BARRIER_POWERUP_NUMBER = 3;
 	
-	public static final int MOVE_POWERUP_NUMBER = 3;
+	/** The move powerup number. */
+	int MOVE_POWERUP_NUMBER = 3;
 	
 	List<PowerUp> getPowerUpsAsList();
 	

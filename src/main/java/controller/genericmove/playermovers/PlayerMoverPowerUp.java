@@ -22,16 +22,15 @@ public class PlayerMoverPowerUp<X extends RoundPUpEnvironment> extends PlayerMov
 	 * @param view the view
 	 * @param iterRounds the iter rounds
 	 */
-	public PlayerMoverPowerUp(Model<RoundPUpEnvironment> model, ViewLogic view,
-			Iterator<RoundPUpEnvironment> iterRounds) {
+	public PlayerMoverPowerUp(final Model<RoundPUpEnvironment> model, final ViewLogic view,
+			final Iterator<RoundPUpEnvironment> iterRounds) {
 		super(model, view, iterRounds);
 	}
-	
+
 	/**
 	 * Double move powerUp.
 	 */
 	public void doubleMove() {
 		this.changeTurn();
 	}
-
 }

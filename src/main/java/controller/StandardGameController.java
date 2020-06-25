@@ -1,12 +1,14 @@
 package controller;
 
 /**
- * controller for standard games
- * 
- * @author Thomas
+ * Controller for standard games.
  */
 public interface StandardGameController extends GameController {
 
-	public void newStandardGame(String nicknamePlayer1, String nicknamePlayer2);
-	
+    /**
+     * @param nicknamePlayer1
+     * @param nicknamePlayer2
+     */
+    void newStandardGame(String nicknamePlayer1, String nicknamePlayer2);
+
 }

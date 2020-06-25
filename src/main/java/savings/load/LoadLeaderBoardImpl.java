@@ -13,9 +13,8 @@ import view.leaderboard.HboxTextController;
 
 /**
  * Class LoadLeaderBoardImpl.
- * @author Alessandro Becci
  */
-public class LoadLeaderBoardImpl implements LoadLeaderBoard{
+public class LoadLeaderBoardImpl implements LoadLeaderBoard {
 	
 	/** The list entries. */
 	private final List<Pair<String, Integer>> listEntries;
@@ -35,8 +34,8 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	/** The index to score. */
 	private final Map<Integer, List<Integer>> indexToScore;
 	
-	/** The num per pag. */
-	private final int NUM_PER_PAG = HboxTextController.NUM_ENTRIES_PAG;
+	/** The number of elements for page */
+	private final int num_per_pag = HboxTextController.NUM_ENTRIES_PAG;
 	
 	/**
 	 * Read file and sort.
@@ -68,9 +67,9 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	 * Calculate number pages.
 	 */
 	private void calculateNumberPages() {
-		Double numPagesDouble = (double)totalEntries / 3;
+		Double numPagesDouble = (double) totalEntries / 3;
 		numPages = numPagesDouble.intValue();
-		if(numPagesDouble - numPages != 0) {
+		if (numPagesDouble - numPages != 0) {
 			numPages += 1;
 		}
 	}
@@ -79,24 +78,24 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	 * Assign pages to entries.
 	 */
 	private void assignPagesToEntries() {
-		for(int i=0; i < numPages; i++) {
-			if(totalEntries >= NUM_PER_PAG) {
+		for (int i = 0; i < numPages; i++) {
+			if (totalEntries >= num_per_pag) {
 				//put NUM_PER_PAG ELEM IN PAGE i
 				List<String> players = new ArrayList<>();
 				List<Integer> scores = new ArrayList<>();
-				for(int k=0; k < NUM_PER_PAG; k++) {
+				for (int k = 0; k < num_per_pag; k++) {
 					players.add(listEntries.get(0).getKey());
 					scores.add(listEntries.get(0).getValue());
 					listEntries.remove(0);
 				}
 				indexToPlayer.put(i, players);
 				indexToScore.put(i, scores);
-				totalEntries -= NUM_PER_PAG;
+				totalEntries -= num_per_pag;
 			}
 			else {
 				List<String> players = new ArrayList<>();
 				List<Integer> scores = new ArrayList<>();
-				for(int k=0; k < totalEntries; k++) {
+				for (int k = 0; k < totalEntries; k++) {
 					//PUT totalEntries ELEM left in page i
 					players.add(listEntries.get(0).getKey());
 					scores.add(listEntries.get(0).getValue());
@@ -126,7 +125,7 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	 *
 	 * @return the index to player map
 	 */
-	public Map<Integer, List<String>> getIndexToPlayerMap(){
+	public Map<Integer, List<String>> getIndexToPlayerMap() {
 		return indexToPlayer;
 	}
 	
@@ -135,7 +134,7 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard{
 	 *
 	 * @return the index to score map
 	 */
-	public Map<Integer, List<Integer>> getIndexToScoreMap(){
+	public Map<Integer, List<Integer>> getIndexToScoreMap() {
 		return indexToScore;
 	}
 
