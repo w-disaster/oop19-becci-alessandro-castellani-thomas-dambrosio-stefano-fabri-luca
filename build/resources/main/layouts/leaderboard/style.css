@@ -3,3 +3,7 @@
 	Amaranth: #D90429;
 	Raisin: #1A1B28;
 }
+
+.title{
+	-fx-text-fill: purple;
+}
