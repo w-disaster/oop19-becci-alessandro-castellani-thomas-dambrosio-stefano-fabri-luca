@@ -12,10 +12,9 @@ import javafx.scene.control.Alert.AlertType;
 
 /**
  * This class creates a scene.
- * @author Alessandro Becci
  *
  */
-public class SceneBuilderImpl implements SceneBuilder{
+public class SceneBuilderImpl implements SceneBuilder {
 
 	/** The scene. */
 	private Scene scene;
@@ -47,8 +46,8 @@ public class SceneBuilderImpl implements SceneBuilder{
 	/**
 	 * Builds the Scene.
 	 */
-	private void build(){
-		try{
+	private void build() {
+		try { 
 			final Parent root = FXMLLoader.load(ClassLoader.getSystemResource(pathToFXML));
 			scene = new Scene(root, width, height);
 		} catch (Exception e) {
@@ -59,7 +58,6 @@ public class SceneBuilderImpl implements SceneBuilder{
 			alert.showAndWait();
 			System.exit(1);
 		}
-		
 	}
 	
 	/**
@@ -68,7 +66,7 @@ public class SceneBuilderImpl implements SceneBuilder{
 	 * @return the scene
 	 */
 	@Override
-	public Scene getScene(){
+	public Scene getScene() {
 		System.out.println("setted resolution to " + width + "x" + height);
 		build();
 		return scene;

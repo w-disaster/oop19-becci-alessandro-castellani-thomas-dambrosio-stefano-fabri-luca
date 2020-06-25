@@ -11,7 +11,7 @@ public interface SceneChanger {
 	 * @param pathToFXML the path to FXML
 	 * @param title the title
 	 */
-	public void change(final String pathToFXML, final String title);
+	void change(String pathToFXML, String title);
 
 	
 }

@@ -8,10 +8,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 /**
  * This class changes the Scene.
- * @author Alessandro Becci
  *
  */
-public class SceneChangerImpl implements SceneChanger{
+public class SceneChangerImpl implements SceneChanger {
 	
 	private final Stage stage;
 	private SceneBuilder sceneBuild;
@@ -25,7 +24,7 @@ public class SceneChangerImpl implements SceneChanger{
 	 * @param title
 	 */
 	private void setScene(final String title) {
-		try{
+		try {
 			stage.setTitle(title);
 			stage.setScene(sceneBuild.getScene());
 		    stage.sizeToScene();
@@ -40,7 +39,6 @@ public class SceneChangerImpl implements SceneChanger{
 			alert.showAndWait();
 			System.exit(1);
 		}
-		
 	}
 	
 	/**
@@ -50,7 +48,7 @@ public class SceneChangerImpl implements SceneChanger{
 	 */
 	@Override
 	public void change(final String pathToFXML, final String title) {
-		try{
+		try {
 			sceneBuild = new SceneBuilderImpl(pathToFXML);
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);

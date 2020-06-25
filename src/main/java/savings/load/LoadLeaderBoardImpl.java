@@ -35,7 +35,7 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard {
 	private final Map<Integer, List<Integer>> indexToScore;
 	
 	/** The number of elements for page */
-	private final int num_per_pag = HboxTextController.NUM_ENTRIES_PAG;
+	private final int numPerPag = HboxTextController.NUM_ENTRIES_PAG;
 	
 	/**
 	 * Read file and sort.
@@ -79,18 +79,18 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard {
 	 */
 	private void assignPagesToEntries() {
 		for (int i = 0; i < numPages; i++) {
-			if (totalEntries >= num_per_pag) {
+			if (totalEntries >= numPerPag) {
 				//put NUM_PER_PAG ELEM IN PAGE i
 				List<String> players = new ArrayList<>();
 				List<Integer> scores = new ArrayList<>();
-				for (int k = 0; k < num_per_pag; k++) {
+				for (int k = 0; k < numPerPag; k++) {
 					players.add(listEntries.get(0).getKey());
 					scores.add(listEntries.get(0).getValue());
 					listEntries.remove(0);
 				}
 				indexToPlayer.put(i, players);
 				indexToScore.put(i, scores);
-				totalEntries -= num_per_pag;
+				totalEntries -= numPerPag;
 			}
 			else {
 				List<String> players = new ArrayList<>();
