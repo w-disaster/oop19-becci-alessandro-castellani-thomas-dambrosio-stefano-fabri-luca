@@ -31,7 +31,6 @@ public class SceneChangerImpl implements SceneChanger {
 		    stage.show();
 		    stage.setMinWidth(stage.getWidth());
 		    stage.setMinHeight(stage.getHeight());
-		    stage.setResizable(true);
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
