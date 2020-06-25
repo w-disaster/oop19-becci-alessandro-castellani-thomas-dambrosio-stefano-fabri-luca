@@ -1,10 +1,13 @@
 package controller.genericmove;
 
-import java.util.*;
+import java.util.List;
+import java.util.Iterator;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-import model.*;
+import model.Model;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.barriers.Barrier.Orientation;
@@ -15,20 +18,18 @@ import savings.save.SaveLeaderBoard;
 import view.game.ViewLogic;
 
 /**
- * This class have methods that both BarrierPlacer and PlayerMover might need
- * 
- * @author Thomas
+ * @param <X>
  */
 public abstract class GenericMove<X extends RoundEnvironment> {
 
-	private final Model<X> model;
-	private final ViewLogic view;
-	private final SaveLeaderBoard leaderboard;
-	private final RoundPlayers players;
-	private final List<Player> turns;
-	private final Iterator<X> iterRounds;
-	
-	public GenericMove(final Model<X> model, final ViewLogic view, final Iterator<X> iterRounds) {
+    private final Model<X> model;
+    private final ViewLogic view;
+    private final SaveLeaderBoard leaderboard;
+    private final RoundPlayers players;
+    private final List<Player> turns;
+    private final Iterator<X> iterRounds;
+
+    public GenericMove(final Model<X> model, final ViewLogic view, final Iterator<X> iterRounds) {
 		this.model = model;
 		this.view = view;
 		this.leaderboard = new SaveLeaderBoard();
@@ -51,11 +52,11 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Method that changes the players turn
+	 * Method that changes the players turn.
 	 */
-	protected void changeTurn() {
+	protected final void changeTurn() {
 		final List<String> nicknames = List.copyOf(this.turns).stream().map(Player::getNickname).collect(Collectors.toList());
 		int index = nicknames.indexOf(this.players.getCurrentPlayer().getNickname());
 		if (index != this.turns.size() - 1) {
@@ -65,17 +66,18 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 		}
 	}
 	
-	/**
+	/*
 	 * Method that changes the game round
 	 */
-	protected void changeRound() {
+	protected final void changeRound() {
 		if (this.iterRounds.hasNext()) {
 			//i need to check if a player have already won so i don't pass to the next round
 			final String currentPlayer = this.players.getCurrentPlayer().getNickname();
 			long nWins = this.model.getWinners().stream().peek(Player::getNickname)
 													.filter(p -> p.getNickname().compareTo(currentPlayer) == 0)
 													.count();
-			if (nWins > this.model.getGameRoundEnvironments().size()/2) { //if the current player won half of the rounds he won the game
+			//if the current player won half of the rounds he won the game
+			if (nWins > this.model.getGameRoundEnvironments().size() / 2) {
 				System.out.println("Game Over!" + currentPlayer + " won!");
 				this.leaderboard.updateLeaderBoard(currentPlayer);
 				this.view.endGame(currentPlayer);
@@ -83,14 +85,14 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 				this.model.setCurrentRoundEnvironment(this.iterRounds.next());
 				this.view.endRound(currentPlayer);
 			}
-			
+
 		} else {
 			System.out.println("All rounds finished, game over");
 			//now i check who won more rounds and set him winner of the game
 			final List<String> winnersNicknames = this.model.getWinners().stream().map(Player::getNickname).collect(Collectors.toList());
 			final String winner = winnersNicknames.stream()
-			        							.reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(winnersNicknames, o1) - 
-			        									Collections.frequency(winnersNicknames, o2)))
+			        							.reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(winnersNicknames, o1)
+			        									- Collections.frequency(winnersNicknames, o2)))
 			        							.orElse(null);
 			System.out.println("Game Over!" + winner + " won!");
 			this.leaderboard.updateLeaderBoard(winner);
@@ -112,6 +114,7 @@ public abstract class GenericMove<X extends RoundEnvironment> {
 	}
 	
 	/**
+	 * @param currentPlayer
 	 * @return the player against the current player
 	 */
 	protected Optional<Player> getOtherPlayer(final Player currentPlayer) {

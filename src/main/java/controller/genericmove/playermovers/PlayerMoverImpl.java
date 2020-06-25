@@ -1,11 +1,14 @@
 package controller.genericmove.playermovers;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import controller.genericmove.GenericMove;
 import controller.observers.Observer;
 import controller.observers.ObserverPlayerPosition;
-import model.*;
+import model.Model;
 import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
@@ -34,7 +37,7 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 	}
 	
 	@Override
-	public void movePlayer(final Coordinate clickedPosition) {
+    public final void movePlayer(final Coordinate clickedPosition) {
 		this.playerPosition = this.players.getCurrentPlayer().getCoordinate();
 		//this.newPosition will be the final position (it may change while clickedPosition will remain the clicked position)
 		this.newPosition = new Coordinate(clickedPosition.getX(), clickedPosition.getY());
@@ -62,9 +65,9 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 		final List<Coordinate> moves = new ArrayList<>();
 		final List<Coordinate> movesJump = new ArrayList<>();
 		//first i find where can the player normally go (adj and no walls)
-		for (int y = 0; y < 9; y++) {
-			for (int x = 0; x < 9; x++) {
-				final Coordinate testCoord = new Coordinate(x,y);
+		for (int y = 0; y < Model.BOARD_DIMENSION; y++) {
+			for (int x = 0; x < Model.BOARD_DIMENSION; x++) {
+				final Coordinate testCoord = new Coordinate(x, y);
 				if (this.adjacent(playerPosition, testCoord)) {
 					moves.add(testCoord);
 				}
@@ -77,9 +80,9 @@ public class PlayerMoverImpl<X extends RoundEnvironment> extends GenericMove<X> 
 		}
 		//if he can jump i find the new positions
 		if (this.canJump(moves)) {
-			for (int y = 0; y < 9; y++) {
-				for (int x = 0; x < 9; x++) {
-					final Coordinate testCoord = new Coordinate(x,y);
+			for (int y = 0; y < Model.BOARD_DIMENSION; y++) {
+				for (int x = 0; x < Model.BOARD_DIMENSION; x++) {
+					final Coordinate testCoord = new Coordinate(x, y);
 					if (this.adjacent(this.getOtherPlayer(this.players.getCurrentPlayer()).get().getCoordinate(), testCoord)) {
 						movesJump.add(testCoord);
 					}

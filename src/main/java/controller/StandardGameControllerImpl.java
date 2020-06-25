@@ -1,13 +1,15 @@
 package controller;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Optional;
 
 import controller.genericmove.barrierplacers.BarrierPlacer;
 import controller.genericmove.barrierplacers.BarrierPlacerImpl;
 import controller.genericmove.playermovers.PlayerMover;
 import controller.genericmove.playermovers.PlayerMoverImpl;
 import javafx.util.Pair;
-import model.*;
+import model.Model;
+import model.ModelFactoryImpl;
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.barriers.Barrier.Orientation;
 import model.roundenvironment.coordinate.Coordinate;
@@ -33,9 +35,9 @@ public class StandardGameControllerImpl implements StandardGameController {
 		this.view = view;
 	}
 
-	public void newStandardGame(final String nicknamePlayer1, final String nicknamePlayer2) {
-		final Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, 0);
-		final Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
+	public final void newStandardGame(final String nicknamePlayer1, final String nicknamePlayer2) {
+		final Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION / 2, 0);
+		final Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION / 2, Model.BOARD_DIMENSION - 1);
 		this.view.setupGrid(player1Coordinate, player2Coordinate, 10, 10);
 		this.model = new ModelFactoryImpl().buildStandard(nicknamePlayer1, nicknamePlayer2);
 		this.iterRounds = this.model.getGameRoundEnvironments().iterator();
@@ -45,16 +47,16 @@ public class StandardGameControllerImpl implements StandardGameController {
 	}
 	
 	@Override
-	public void invokeMove(final Coordinate position) {
+    public final void invokeMove(final Coordinate position) {
 		this.mover.movePlayer(position);
 	}
 
 	@Override
-	public void invokePlace(final Coordinate position, final Orientation orientation) {
+    public final void invokePlace(final Coordinate position, final Orientation orientation) {
 		this.placer.placeBarrier(position, orientation);
 	}
 	
-	public void nextRound() {
+	public final void nextRound() {
 		final RoundPlayers players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		final Player player1 = players.getPlayers().get(0);
 		final Player player2 = players.getPlayers().get(1);
@@ -64,12 +66,12 @@ public class StandardGameControllerImpl implements StandardGameController {
 		this.view.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
 	}
 	
-	public void saveGame() {
+	public final void saveGame() {
 		final SaveGame saving = new SaveGameImpl<>(this.model);
 		saving.save();
 	}
 	
-	public void loadGame() {
+	public final void loadGame() {
 		if (MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
 			final LoadGame<RoundEnvironment> loading = new LoadGameFactoryImpl().buildNormal();
 			this.model = loading.getModel();
