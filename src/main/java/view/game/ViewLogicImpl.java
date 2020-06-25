@@ -50,22 +50,19 @@ public class ViewLogicImpl implements ViewLogic{
 
 	public ViewLogicImpl(final ViewController viewController) {
 		this.view = viewController;
-		if (MenuController.gameStatus.equals(GameStatus.NORMAL)
-				|| MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
+		if (MenuController.getGameStatus().equals(GameStatus.NORMAL)
+				|| MenuController.getGameStatus().equals(GameStatus.LOADNORMAL)) {
 			this.controller = new StandardGameControllerImpl(this);
-		} else if (MenuController.gameStatus.equals(GameStatus.POWERUP)
-				|| MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
+		} else if (MenuController.getGameStatus().equals(GameStatus.POWERUP)
+				|| MenuController.getGameStatus().equals(GameStatus.LOADPOWERUP)) {
 			this.controller = new PowerUpGameControllerImpl(this);
 		}
     	this.gridMap = new HashMap<Coordinate, BorderPane>();
     	this.selectedBarrier = Optional.empty();
 	}
 
-	/**
-	 * Starts the game in the controller.
-	 */
-	public void startGame() {
-	    switch (MenuController.gameStatus) {
+	public final void startGame() {
+	    switch (MenuController.getGameStatus()) {
 		case LOADNORMAL:
 			this.controller.loadGame();
 			break;
@@ -83,25 +80,19 @@ public class ViewLogicImpl implements ViewLogic{
 	    }
 	}
 
-	/**
-	 * Set the players nicknames.
-	 * 
-	 * @param Optional<Pair<String, String>> An optional containing a pair with nicknames
-	 * 
-	 */
 	@Override
-	public void setPlayer(final Optional<Pair<String, String>> result) {
+    public final void setPlayer(final Optional<Pair<String, String>> players) {
 		// If you leave it empty it automatically set default nicknames
-    	if (result.get().getKey().equals("")) {
+    	if (players.get().getKey().equals("")) {
     		this.player1 = "Player 1";
     	} else {
-    		this.player1 = result.get().getKey();
+    		this.player1 = players.get().getKey();
     	}
 
-    	if (result.get().getValue().equals("")) {
+    	if (players.get().getValue().equals("")) {
     		this.player2 = "Player 2";
     	} else {
-    		this.player2 = result.get().getValue();
+    		this.player2 = players.get().getValue();
     	}
 
     	// Nicknames can't be the same
@@ -116,14 +107,8 @@ public class ViewLogicImpl implements ViewLogic{
     	this.view.setNicknames(player1, player2);
 	}
 
-	/**
-	 * Adds the pane logic.
-	 *
-	 * @param position the position
-	 * @return the pane to add to the grid
-	 */
 	@Override
-	public BorderPane addPaneLogic(final Coordinate position) {
+    public final BorderPane addPaneLogic(final Coordinate position) {
 		final BorderPane pane = new BorderPane();
         pane.setOnMouseClicked(e -> {
         	this.setUpClickHandler(position);
@@ -132,13 +117,8 @@ public class ViewLogicImpl implements ViewLogic{
         return pane;
 	}	
 
-	/**
-	 * Sets the up click handler.
-	 *
-	 * @param position the position in which the click handler will be setted
-	 */
 	@Override
-	public void setUpClickHandler(final Coordinate position) {
+    public final void setUpClickHandler(final Coordinate position) {
         if (this.selectedBarrier.isEmpty()) {
         	this.controller.invokeMove(position);
         } else {
@@ -151,15 +131,7 @@ public class ViewLogicImpl implements ViewLogic{
         }
 	}
 
-	/**
-	 * Clears the grid and set player in the given coordinate, it also update barriers number.
-	 *
-	 * @param player1pos the player 1 position
-	 * @param player2pos the player 2 position
-	 * @param barriersP1 the barrier number of player 1
-	 * @param barriersP2 the barrier number of player 2
-	 */
-	public void setupGrid(final Coordinate player1pos, final Coordinate player2pos, final int barriersP1, final int barriersP2) {
+	public final void setupGrid(final Coordinate player1pos, final Coordinate player2pos, final int barriersP1, final int barriersP2) {
 		this.clearGrid();
 		this.view.setPlayerInPane(this.gridMap.get(player1pos), this.player1);
 		this.view.setPlayerInPane(this.gridMap.get(player2pos), this.player2);
@@ -167,16 +139,7 @@ public class ViewLogicImpl implements ViewLogic{
 		this.view.updateBarriersNumber(player2, barriersP2);
 	}
 
-	/**
-	 * Same as setup grid but with a list of barriers to draw in the grid.
-	 *
-	 * @param player1pos the player 1 position
-	 * @param player2pos the player 2 position
-	 * @param barriersP1 the barrier number of player 1
-	 * @param barriersP2 the barrier number of player 2
-	 * @param barrierList the barrier list
-	 */
-	public void setupGrid(final Coordinate player1pos, final Coordinate player2pos, final int barriersP1, final int barriersP2, final List<Barrier> barrierList) {
+	public final void setupGrid(final Coordinate player1pos, final Coordinate player2pos, final int barriersP1, final int barriersP2, final List<Barrier> barrierList) {
 		this.setupGrid(player1pos, player2pos, barriersP1, barriersP2);
 		this.drawBarriersOnLoad(barrierList);
 	}
@@ -188,33 +151,17 @@ public class ViewLogicImpl implements ViewLogic{
 		this.gridMap.entrySet().forEach(e -> e.getValue().getChildren().remove(0, e.getValue().getChildren().size()));
 	}
 
-    /**
-     * Move the player in the given position.
-     *
-     * @param position the position
-     * @param player the player
-     */
-    public void move(final Coordinate position, final String player) {
+    public final void move(final Coordinate position, final String player) {
     	this.view.setPlayerInPane(this.gridMap.get(position), player);
     	this.drawTextLogic("move");
     }
 
-    /**
-     * Change selected label.
-     *
-     * @param player the current player 
-     */
     @Override
-    public void changeSelectedLabel(final String player) {
+    public final void changeSelectedLabel(final String player) {
     	this.view.changeSelectedLabel(player);
     }
 
-    /**
-     * Sets the selected barrier, it is used to get which type of barrier has been clicked.
-     *
-     * @param type the selected barrier type, 
-     */
-    public void setSelectedBarrier(final String type) {
+    public final void setSelectedBarrier(final String type) {
     	if (type.equals("vertical")) {
     		this.selectedBarrier = Optional.of(0);
     		this.drawTextLogic("verticalBarrier");
@@ -224,12 +171,7 @@ public class ViewLogicImpl implements ViewLogic{
     	}
     }
 
-    /**
-     * Draw a barrier.
-     *
-     * @param barrier the barrier to draw
-     */
-    public void drawBarrier(final Barrier barrier) {
+    public final void drawBarrier(final Barrier barrier) {
     	final BorderPane selected = this.gridMap.get(barrier.getCoordinate());
     	// barrier styling
     	final Rectangle verticalBarrier = new Rectangle();
@@ -262,24 +204,13 @@ public class ViewLogicImpl implements ViewLogic{
     	}
     }
 
-    /**
-     * Update barriers number.
-     *
-     * @param player the player
-     * @param barriersNumber the barriers number
-     */
     @Override
-    public void updateBarriersNumber(final String player, final int barriersNumber) {
+    public final void updateBarriersNumber(final String player, final int barriersNumber) {
     	this.view.updateBarriersNumber(player, barriersNumber);
     }
 
-    /**
-     * Draw power ups.
-     *
-     * @param powerUpsAsList the power ups as list
-     */
     @Override
-    public void drawPowerUps(final List<PowerUp> powerUpsAsList) {
+    public final void drawPowerUps(final List<PowerUp> powerUpsAsList) {
 		for (final PowerUp p : powerUpsAsList) {
 			switch (p.getType()) {
 			case PLUS_ONE_MOVE:
@@ -298,52 +229,29 @@ public class ViewLogicImpl implements ViewLogic{
 		}
     }
 
-    /**
-     * Delete power up.
-     *
-     * @param p the powerUp to delete
-     */
-    public void deletePowerUp(final PowerUp p) {
+    public final void deletePowerUp(final PowerUp p) {
     	final List<Node> toRemove = this.gridMap.get(p.getCoordinate()).getChildren().stream()
 				.filter(e -> e.getClass().equals(ImageView.class))
 				.collect(Collectors.toList()); 
 		this.gridMap.get(p.getCoordinate()).getChildren().removeAll(toRemove);
     }
 
-    /**
-     * Calls the endRound method in view and also calls the controller method for changing round.
-     *
-     * @param winner the winner
-     */
-    public void endRound(final String winner) {
+    public final void endRound(final String winner) {
     	this.view.endRound(winner);
     	this.controller.nextRound();
     }
 
-    /**
-     * Calls the endGame method in view.
-     *
-     * @param winner the winner
-     */
-    public void endGame(final String winner) {
+    public final void endGame(final String winner) {
     	this.view.endGame(winner);
     }
 
-    /**
-     * Calls the saveGame method in controller.
-     */
     @Override
-    public void saveGame() {
+    public final void saveGame() {
     	this.controller.saveGame();
     }
 
-	/**
-	 * Draw text in the textAreas by calling the respective method in view. 
-	 *
-	 * @param textToDisplay the text to display
-	 */
 	@Override
-	public void drawTextLogic(final String textToDisplay) {
+    public final void drawTextLogic(final String textToDisplay) {
     	final String start = "- Welcome to Quoridor! \n";
     	final String moveTutorial = "- Click on a cell to move the player\n"
     			+ "- Click on a barrier to place it\n"

@@ -46,23 +46,13 @@ public class RoundPowerUpsImpl implements RoundPowerUps {
 		this.powerUpList = powerUpList;
 	}
 
-	/**
-	 * Gets the power ups as list.
-	 *
-	 * @return the list of powerUps
-	 */
 	@Override
 	public final List<PowerUp> getPowerUpsAsList() {
 		return this.powerUpList;
 	}
 
-	/**
-	 * Removes the given powerUp from the powerUp list.
-	 *
-	 * @param p the powerUp
-	 */
 	@Override
-	public void remove(final PowerUp p) {
+    public final void remove(final PowerUp p) {
 		this.powerUpList.remove(p);
 	}
 }

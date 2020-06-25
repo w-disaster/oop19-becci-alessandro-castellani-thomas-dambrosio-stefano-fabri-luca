@@ -7,7 +7,12 @@ import model.roundenvironment.powerups.RoundPowerUps;
  * @author Stefano
  */
 public interface RoundPUpEnvironment extends RoundEnvironment {
-	
-	public RoundPowerUps getRoundPowerUps();
-	
+
+    /**
+     * Gets the round powerUps.
+     *
+     * @return the round powerUps
+     */
+	RoundPowerUps getRoundPowerUps();
+
 }

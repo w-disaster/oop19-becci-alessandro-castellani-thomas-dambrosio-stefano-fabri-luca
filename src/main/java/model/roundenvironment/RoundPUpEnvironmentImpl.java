@@ -25,11 +25,6 @@ public class RoundPUpEnvironmentImpl extends RoundEnvironmentImpl implements Rou
 		this.roundPowerUps = roundPowerUps;
 	}
 
-	/**
-	 * Gets the round powerUps.
-	 *
-	 * @return the round powerUps
-	 */
 	@Override
 	public RoundPowerUps getRoundPowerUps() {
 		return this.roundPowerUps;

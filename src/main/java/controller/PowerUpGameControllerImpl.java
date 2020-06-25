@@ -45,12 +45,6 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.powerUpView = view;
 	}
 
-	/**
-	 * Starts a new powerUp game.
-	 *
-	 * @param nicknamePlayer1 the nickname for player 1
-	 * @param nicknamePlayer2 the nickname for player 2
-	 */
 	public void newPowerUpGame(final String nicknamePlayer1, final String nicknamePlayer2) {
 		final Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION / 2, 0);
 		final Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION / 2, Model.BOARD_DIMENSION - 1);
@@ -63,11 +57,6 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.placer = new BarrierPlacerPowerUp<>(this.powerUpModel, this.powerUpView, this.iterRounds);
 	}
 
-	/**
-	 * Make a player move in the clicked position, checks and eventually applies powerUps.
-	 *
-	 * @param position the position
-	 */
 	@Override
 	public void invokeMove(final Coordinate position) {
 		final Player movingPlayer = this.powerUpModel.getCurrentRoundEnvironment().getRoundPlayers().getCurrentPlayer();
@@ -110,20 +99,11 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		}
 	}
 
-	/**
-	 * Invoke placement of a barrier.
-	 *
-	 * @param position the position
-	 * @param orientation the orientation
-	 */
 	@Override
 	public void invokePlace(final Coordinate position, final Orientation orientation) {
 		this.placer.placeBarrier(position, orientation);
 	}
 
-	/**
-	 * Change environment to the next round.
-	 */
 	public void nextRound() {
 		final RoundPlayers players = this.powerUpModel.getCurrentRoundEnvironment().getRoundPlayers();
 		final Player player1 = players.getPlayers().get(0);
@@ -135,19 +115,13 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.powerUpView.drawPowerUps(this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList());
 	}
 
-	/**
-	 * Saves the game.
-	 */
 	public void saveGame() {
 		final SaveGame saving = new SaveGamePUp(this.powerUpModel);
 		saving.save();
 	}
 
-	/**
-	 * Loads the game.
-	 */
 	public void loadGame() {
-		if (MenuController.gameStatus.equals(GameStatus.LOADPOWERUP)) {
+		if (MenuController.getGameStatus().equals(GameStatus.LOADPOWERUP)) {
 			final LoadGame<RoundPUpEnvironment> loading = new LoadGameFactoryImpl().buildPowerup();
 			this.powerUpModel = loading.getModel();
 			this.iterRounds = loading.getIterator();

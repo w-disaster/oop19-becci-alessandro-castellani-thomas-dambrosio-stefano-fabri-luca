@@ -133,8 +133,8 @@ public class ViewController {
     	});
 
     	// Check if user clicked 'load game'
-    	if (MenuController.gameStatus.equals(GameStatus.NORMAL)
-    			|| MenuController.gameStatus.equals(GameStatus.POWERUP)) {
+    	if (MenuController.getGameStatus().equals(GameStatus.NORMAL)
+    			|| MenuController.getGameStatus().equals(GameStatus.POWERUP)) {
     		Optional<Pair<String, String>> result = dialog.showAndWait();
     		this.logic.setPlayer(result);
     	}

@@ -41,32 +41,17 @@ public class PowerUpImpl implements PowerUp {
 		this.type = type;
 	}
 
-	/**
-	 * Gets the type.
-	 *
-	 * @return the type
-	 */
 	@Override
-	public Type getType() {
+    public final Type getType() {
 		return this.type;
 	}
 
-	/**
-	 * Gets the coordinate.
-	 *
-	 * @return the coordinate
-	 */
 	@Override
-	public Coordinate getCoordinate() {
+    public final Coordinate getCoordinate() {
 		return this.coordinate;
 	}
 
-	/**
-	 * To string.
-	 *
-	 * @return the string
-	 */
-	public String toString() {
+	public final String toString() {
 		return "PowerUp type: " + this.getType() + "\nPowerUp Coordinate: " + this.getCoordinate() + "\n";
 	}
 }

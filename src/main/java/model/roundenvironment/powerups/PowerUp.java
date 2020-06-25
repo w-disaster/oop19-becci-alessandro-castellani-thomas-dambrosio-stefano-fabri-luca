@@ -16,7 +16,17 @@ public interface PowerUp{
 		CLIMB_A_BARRIER, PLUS_ONE_BARRIER, PLUS_ONE_MOVE
 	}
 	
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	Type getType();
 	
+	/**
+	 * Gets the coordinate.
+	 *
+	 * @return the coordinate
+	 */
 	Coordinate getCoordinate();
 }
