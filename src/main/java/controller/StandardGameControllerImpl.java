@@ -87,7 +87,7 @@ public class StandardGameControllerImpl implements StandardGameController {
 	 * Invoke it to load a saved game.
 	 */
 	public void loadGame() {
-		if (MenuController.gameStatus.equals(GameStatus.LOADNORMAL)) {
+		if (MenuController.getGameStatus().equals(GameStatus.LOADNORMAL)) {
 			final LoadGame<RoundEnvironment> loading = new LoadGameFactoryImpl().buildNormal();
 			this.model = loading.getModel();
 			this.iterRounds = loading.getIterator();
