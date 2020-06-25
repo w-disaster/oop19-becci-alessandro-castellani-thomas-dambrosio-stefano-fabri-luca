@@ -125,7 +125,7 @@ public class ViewLogicImpl implements ViewLogic{
         	if (this.selectedBarrier.get().equals(0)) {
         		this.controller.invokePlace(position, Orientation.VERTICAL);
         	} else {
-        		controller.invokePlace(position, Orientation.HORIZONTAL);
+        		this.controller.invokePlace(position, Orientation.HORIZONTAL);
         	}
         	this.selectedBarrier = Optional.empty();
         }
