@@ -32,5 +32,5 @@ http://quoridor.di.uoa.gr/rules.html
 * Castellani Thomas: logica del gioco;
 * Fabri Luca: realizzazione dei modelli di gioco.
 
-TODO list:
+[Link al file jar](https://bitbucket.org/w-disaster/oop19-becci-alessandro-castellani-thomas-dambrosio-stefano/raw/d536c647f6f5403ec56456e63a150e10fb795b77/oop19-becci-alessandro-castellani-thomas-dambrosio-stefano-all.jar)
 
