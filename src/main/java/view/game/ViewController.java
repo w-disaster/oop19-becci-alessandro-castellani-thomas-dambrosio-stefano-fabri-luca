@@ -26,6 +26,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import model.Model;
 import model.roundenvironment.coordinate.Coordinate;
 import view.menu.MenuController;
 import view.menu.MenuController.GameStatus;
@@ -140,11 +141,8 @@ public class ViewController {
     	}
 
     	// Grid setup
-    	final int numCols = 9;
-    	final int numRows = 9;
-
-	    for (int i = 0; i < numCols; i++) {
-	        for (int j = 0; j < numRows; j++) {
+	    for (int i = 0; i < Model.BOARD_DIMENSION; i++) {
+	        for (int j = 0; j < Model.BOARD_DIMENSION; j++) {
 	            this.addPane(new Coordinate(i, j));
 	        }
 	    }
