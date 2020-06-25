@@ -34,7 +34,7 @@ public class LoadLeaderBoardImpl implements LoadLeaderBoard {
 	/** The index to score. */
 	private final Map<Integer, List<Integer>> indexToScore;
 	
-	/** The number of elements for page */
+	/** The number of elements for page. */
 	private final int numPerPag = HboxTextController.NUM_ENTRIES_PAG;
 	
 	/**

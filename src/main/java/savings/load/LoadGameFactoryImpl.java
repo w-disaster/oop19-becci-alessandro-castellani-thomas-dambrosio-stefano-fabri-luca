@@ -22,9 +22,8 @@ import model.roundenvironment.powerups.RoundPowerUpsImpl;
 
 /**
  * The Class LoadGameFactoryImpl.
- * @author Alessandro Becci
  */
-public class LoadGameFactoryImpl implements LoadGameFactory{
+public class LoadGameFactoryImpl implements LoadGameFactory {
 	
 	private final LoadUtilities loadUtil = new LoadUtilities();
 	
@@ -47,24 +46,24 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 				try {
 					Pair<Player, Integer> currents = loadUtil.getCurrentRoundAndPlayer();
 					//now i have to get for each roundEnvironment the things i need
-					for(int i=0; i < 3; i++) {
+					for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
 						RoundPlayers players = new RoundPlayersImpl(loadUtil.getPlayersList(i));
 						RoundBarriers barriers = new RoundBarriersImpl(loadUtil.getBarriers(i).getX(), loadUtil.getBarriers(i).getY());
 						//set current player at the right round.
-						if(i==currents.getY()) {
+						if (i == currents.getY()) {
 							players.setCurrentPlayer(currents.getX());
 						}
-						RoundEnvironment environment = new RoundEnvironmentImpl(barriers,players);
+						RoundEnvironment environment = new RoundEnvironmentImpl(barriers, players);
 						roundEnvironments.add(environment);
 					}
 					//here i should create the model.
 					iterator = roundEnvironments.iterator();
 					iterator.next();
 					//set the iterator to the current round.
-					for(int i=0; i < currents.getY(); i++) {
+					for (int i = 0; i < currents.getY(); i++) {
 						iterator.next();
 					}
-				} catch(Exception e) {
+				} catch (Exception e) {
 					LoadUtilities.setUpAlertException();
 					System.exit(1);
 				}
@@ -87,7 +86,6 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 			public boolean saveExist() {
 				return fileExist;
 			}
-			
 		};
 	}
 
@@ -99,36 +97,35 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 	@Override
 	public LoadGame<RoundPUpEnvironment> buildPowerup() {
 		return new LoadGame<RoundPUpEnvironment>() {
-			
 			private Iterator<RoundPUpEnvironment> iterator;
 			private Model<RoundPUpEnvironment> model;
 			private boolean fileExist = loadUtil.fileExistPowerUp();
-			
+
 			@Override
 			public void getData() {
 				List<RoundPUpEnvironment> roundEnvironments = new ArrayList<>();
 				try {
 					Pair<Player, Integer> currents = loadUtil.getCurrentRoundAndPlayer();
 					//now i have to get for each roundEnvironment the things i need
-					for(int i=0; i < 3; i++) {
+					for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
 						RoundPlayers players = new RoundPlayersImpl(loadUtil.getPlayersList(i));
 						RoundBarriers barriers = new RoundBarriersImpl(loadUtil.getBarriers(i).getX(), loadUtil.getBarriers(i).getY());
 						RoundPowerUps powerUps = new RoundPowerUpsImpl(loadUtil.getPowerUpList(i));
 						//set current player at the right round.
-						if(i==currents.getY()) {
+						if (i == currents.getY()) {
 							players.setCurrentPlayer(currents.getX());
 						}
-						RoundPUpEnvironment environment = new RoundPUpEnvironmentImpl(barriers,players, powerUps);
+						RoundPUpEnvironment environment = new RoundPUpEnvironmentImpl(barriers, players, powerUps);
 						roundEnvironments.add(environment);
 					}
 					//setting iterator
 					iterator = roundEnvironments.iterator();
 					iterator.next();
 					//set the iterator to the current round.
-					for(int i=0; i < currents.getY(); i++) {
+					for (int i = 0; i < currents.getY(); i++) {
 						iterator.next();
 					}
-				} catch(Exception e) {
+				} catch (Exception e) {
 					LoadUtilities.setUpAlertException();
 					System.exit(1);
 				}
@@ -152,7 +149,6 @@ public class LoadGameFactoryImpl implements LoadGameFactory{
 			public boolean saveExist() {
 				return fileExist;
 			}
-			
 		};
 	}
 

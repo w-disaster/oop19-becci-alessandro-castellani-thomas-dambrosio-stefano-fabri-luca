@@ -13,7 +13,7 @@ import savings.load.LoadUtilities;
  */
 public class SaveLeaderBoardImpl implements SaveLeaderBoard {
 
-	/** The path of the directory. */
+    /** The path of the directory. */
 	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D";
 	
 	/** The path of the leaderboard file. */
