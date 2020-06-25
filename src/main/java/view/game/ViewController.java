@@ -42,34 +42,34 @@ import java.util.Optional;
  *
  * @author Stefano
  */
-public class ViewController{
-	
+public class ViewController {
+
     @FXML private BorderPane rootPane;
     @FXML private GridPane grid;
-    
+
     @FXML private Label label1;
     @FXML private Label label2;
     @FXML private TextArea textArea1;
     @FXML private TextArea textArea2;
-    
+
     @FXML private Rectangle player1vertical;
     @FXML private Rectangle player1horizontal;
     @FXML private Rectangle player2vertical;
     @FXML private Rectangle player2horizontal;
-    
+
     @FXML private Label barriersNumber1;
     @FXML private Label barriersNumber2;
-    
+
     @FXML private MenuItem fullscreenMenuItem;
-    
+
     private final ViewLogic logic;
-    
+
     private Circle bluePlayer;
-	private Circle redPlayer;
-	
-	private String player1;
+    private Circle redPlayer;
+
+    private String player1;
 	private String player2;
-	
+
 	private final List<Rectangle> verticalBarrierList;
 	private final List<Rectangle> horizontalBarrierList;
 	private final List<ImageView> powerUpList;
@@ -77,30 +77,30 @@ public class ViewController{
 	public ViewController() {
 		this.logic = new ViewLogicImpl(this);
 		this.verticalBarrierList = new ArrayList<>();
-		this.horizontalBarrierList= new ArrayList<>();
-		this.powerUpList= new ArrayList<>();
+		this.horizontalBarrierList = new ArrayList<>();
+		this.powerUpList = new ArrayList<>();
 	}
-	
-	public void initialize() {
+
+	public final void initialize() {
     	System.out.println("Initializing...");
-    	
+
     	// Dialog setup
     	final Dialog<Pair<String, String>> dialog = new Dialog<>();
     	dialog.setTitle("Quoridor2D");
     	dialog.setHeaderText("Choose your nicknames");
-    	
+
     	// Dialog styling
     	final DialogPane dialogPane = dialog.getDialogPane();
     	dialogPane.setStyle("-fx-background-color: #2B2D42");
 
     	// Set the icon 
-    	((Stage)dialog.getDialogPane().getScene().getWindow()).getIcons().add
-    		(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
-    	
+    	((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons()
+    	.add(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
+
     	// Layout
     	final ButtonType startButton = new ButtonType("Start", ButtonData.OK_DONE);
     	dialog.getDialogPane().getButtonTypes().addAll(startButton, ButtonType.CANCEL);
-    	
+
     	final GridPane dialogGrid = new GridPane();
     	dialogGrid.setHgap(10);
     	dialogGrid.setVgap(10);
@@ -110,12 +110,12 @@ public class ViewController{
     	player1name.setPromptText("Player 1");
     	final TextField player2name = new TextField();
     	player2name.setPromptText("Player 2");
-    	
+
     	final Label p1nickname = new Label("Nickname for player 1:");
     	p1nickname.setTextFill(Color.WHITE);
     	final Label p2nickname = new Label("Nickname for player 2:");
     	p2nickname.setTextFill(Color.WHITE);
-    	
+
     	dialogGrid.add(p1nickname, 0, 0);
     	dialogGrid.add(player1name, 1, 0);
     	dialogGrid.add(p2nickname, 0, 1);
@@ -126,12 +126,12 @@ public class ViewController{
     	// Takes the nicknames from the textFields
     	dialog.setResultConverter(dialogButton -> {
     	    if (dialogButton == startButton) {
-    	    	return new Pair<String, String>(player1name.getText(),player2name.getText());
+    	    	return new Pair<String, String>(player1name.getText(), player2name.getText());
     	    }
     	    System.exit(0);
     	    return null;
     	});
-    	
+
     	// Check if user clicked 'load game'
     	if (MenuController.gameStatus.equals(GameStatus.NORMAL)
     			|| MenuController.gameStatus.equals(GameStatus.POWERUP)) {
@@ -142,13 +142,13 @@ public class ViewController{
     	// Grid setup
     	final int numCols = 9;
     	final int numRows = 9;
-    	
-	    for (int i = 0 ; i < numCols ; i++) {
+
+	    for (int i = 0; i < numCols; i++) {
 	        for (int j = 0; j < numRows; j++) {
-	            this.addPane(new Coordinate(i,j));
+	            this.addPane(new Coordinate(i, j));
 	        }
 	    }
-	    
+
 	    // View styling
 	    bluePlayer = new Circle();
 	    redPlayer = new Circle();
@@ -159,44 +159,44 @@ public class ViewController{
 
 	    // Prints the tutorial
 	    this.logic.drawTextLogic("start");
-	    
+
 	    // Starts the game
 	    this.logic.startGame();
-	    
+
 	    //Sets the players name in labels
 	    label1.setText(player1);
 	    label2.setText(player2);
 	}
-    
+
     /**
      * Adds a BorderPane to the grid.
      *
      * @param position the position
      */
-    private void addPane(Coordinate position) {
+    private void addPane(final Coordinate position) {
     	final BorderPane pane = this.logic.addPaneLogic(position);
         pane.getStyleClass().add("GridBorderPane");
         this.grid.add(pane, position.getX(), position.getY());
     }
-    
+
     /**
      * Sets the nicknames.
      *
      * @param player1 the player 1 nickname
      * @param player2 the player 2 nickname
      */
-    public void setNicknames(String player1, String player2) {
+    public void setNicknames(final String player1, final String player2) {
     	this.player1 = player1;
     	this.player2 = player2;
     }
-    
+
     /**
      * Sets the player in center of the BorderPane.
      *
      * @param p the pane
      * @param player the player
      */
-    public void setPlayerInPane(BorderPane p, String player) {
+    public void setPlayerInPane(final BorderPane p, final String player) {
     	if (player.equals(player1)) {
     		p.setCenter(bluePlayer);
     	} else {
@@ -204,46 +204,46 @@ public class ViewController{
     	}
     	this.setCorrectSize();
     }
-    
+
     /**
      * Sets the correct size of all nodes.
      */
     public void setCorrectSize() {
-    	
+
     	// Runs after the initialize
     	Platform.runLater(new Runnable() {
-    		
+
     		@Override
     		public void run() {
     			final Double gridHeight = grid.getHeight();
     			final Double gridWidth = grid.getWidth();
-    					
+
     			// Players size
     			bluePlayer.setRadius(gridHeight/28);
     			redPlayer.setRadius(gridHeight/28);
 
     			// Barrier size
 				for (final Rectangle b : verticalBarrierList) {
-					b.setHeight(gridHeight/11);				
-					b.setWidth(gridWidth/70);					
+					b.setHeight(gridHeight/11);
+					b.setWidth(gridWidth/70);
 				}
 				for (final Rectangle b : horizontalBarrierList) {
-					b.setHeight(gridHeight/70);				
-					b.setWidth(gridWidth/11);							
+					b.setHeight(gridHeight/70);
+					b.setWidth(gridWidth/11);
 				}
-				
+
 				// PowerUp size
 				for (final ImageView powerUpIcon : powerUpList) {
 					powerUpIcon.setFitHeight(gridHeight/12);
-					powerUpIcon.setFitWidth(gridWidth/12);						
+					powerUpIcon.setFitWidth(gridWidth/12);
 				}
 			}
     	});
-		
+
 	}
-    
+
 	/**
-	 * Sets the selected barrier in the logic
+	 * Sets the selected barrier in the logic.
 	 *
 	 * @param event the event that handles the click on the barrier
 	 */
@@ -254,7 +254,7 @@ public class ViewController{
     		this.logic.setSelectedBarrier("horizontal");
     	}
     }
-    
+
     /**
      * Update barriers number in the labels.
      *
@@ -268,7 +268,7 @@ public class ViewController{
     		this.barriersNumber2.setText(String.valueOf(barriersNumber));
     	}
     }
-    
+
     /**
      * Draw power up.
      *
@@ -280,16 +280,16 @@ public class ViewController{
     	this.setCorrectSize();
 		pane.setCenter(powerUpIcon);
     }
-    
+
     /**
      * Change selected label.
      *
      * @param player the player
      */
-    public void changeSelectedLabel(final String player) { 	
+    public void changeSelectedLabel(final String player) {
     	if (player.equals(player1)) {
     		label1.getStyleClass().clear();
-    		label1.getStyleClass().add("SelectedLabel");   		
+    		label1.getStyleClass().add("SelectedLabel");
     		label2.getStyleClass().clear();
     		label2.getStyleClass().add("Label");
     	} else {
@@ -299,7 +299,7 @@ public class ViewController{
     		label1.getStyleClass().add("Label");
     	}
     }
-    
+
     /**
      * Draw text on the textAreas.
      *
@@ -309,7 +309,7 @@ public class ViewController{
     	this.textArea1.setText(text);
     	this.textArea2.setText(text);
     }
-    
+
     /**
      * Append text on the textAreas.
      *
@@ -317,11 +317,11 @@ public class ViewController{
      */
     public void appendText(final String text) {
     	this.textArea1.appendText(text);
-    	this.textArea2.appendText(text);    	
+    	this.textArea2.appendText(text);
     }
-    
+
     /**
-     * Shows an alert when changing round
+     * Shows an alert when changing round.
      *
      * @param winner the winner
      */
@@ -331,14 +331,13 @@ public class ViewController{
     	alert.setHeaderText(winner + " won the round!");
     	alert.getDialogPane().setStyle("-fx-background-color: #2B2D42");
 
-    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
-    		(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
-    	
+    	((Stage) alert.getDialogPane().getScene().getWindow()).getIcons()
+    	.add(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
+
     	alert.showAndWait();
-    	
 
     }
-    
+
     /**
      * Shows an alert when a player wins.
      *
@@ -348,11 +347,11 @@ public class ViewController{
     	final Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("We have a winner!");
     	alert.setHeaderText(winner + " won the game!\nDo you want to return to the main menu?");
-    	
+
     	alert.getDialogPane().setStyle("-fx-background-color: #2B2D42");
 
-    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add
-    	(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
+    	((Stage) alert.getDialogPane().getScene().getWindow()).getIcons()
+    	.add(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
 
     	final Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
@@ -361,7 +360,7 @@ public class ViewController{
     	    System.exit(0);
     	}
     }
-    
+
     /**
      * Gets the horizontal barrier list.
      *
@@ -370,7 +369,7 @@ public class ViewController{
     public final List<Rectangle> getHorizontalBarrierList() {
     	return this.horizontalBarrierList;
     }
-    
+
     /**
      * Gets the vertical barrier list.
      *
@@ -379,7 +378,7 @@ public class ViewController{
     public final List<Rectangle> getVerticalBarrierList() {
     	return this.verticalBarrierList;
     }
-    
+
     /**
      * Goes fullscreen or back depending by the stage.
      */
@@ -397,7 +396,7 @@ public class ViewController{
     	}
     	this.setCorrectSize();
     }
-    
+
     /**
      * Save and go to leaderboard.
      */
@@ -406,7 +405,7 @@ public class ViewController{
     	this.saveGame();
     	this.showLeaderboard();
     }
-    
+
     /**
      * Show leaderboard.
      */
@@ -415,7 +414,7 @@ public class ViewController{
     	final SceneChanger sceneChange = new SceneChangerImpl();
     	sceneChange.change(ScenesItem.LEADERBOARD.get(), ScenesItem.LEADERBOARDTITLE.get());
     }
-    
+
     /**
      * Show tutorials.
      */
@@ -423,7 +422,7 @@ public class ViewController{
     public void showTutorials() {
     	this.logic.drawTextLogic("start");
     }
-    
+
     /**
      * Save game.
      */
@@ -432,7 +431,7 @@ public class ViewController{
     	System.out.println("Saving game...");
     	this.logic.saveGame();
     }
-    
+
     /**
      * Save and return.
      */
@@ -450,16 +449,16 @@ public class ViewController{
     	this.saveGame();
     	this.exitToDesktop();
     }
-    
+
     /**
      * A method that handles the return to the main menu.
      */ 
     @FXML
-    public void returnToMainMenu(){
+    public void returnToMainMenu() {
     	final SceneChanger sceneChange = new SceneChangerImpl();
     	sceneChange.change(ScenesItem.MENU.get(), ScenesItem.MENUTITLE.get());
     }
-    
+
     /**
      * A method that handles the exit of the application.
      */
