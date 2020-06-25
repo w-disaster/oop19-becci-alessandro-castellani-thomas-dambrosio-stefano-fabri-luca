@@ -20,9 +20,8 @@ import view.menu.MenuController.GameStatus;
  * The Class SaveGameImpl.
  *
  * @param <X> the generic type
- * @author Alessandro Becci
  */
-public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
+public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame {
 	
 	/** The model. */
 	protected final Model<X> model;
@@ -43,7 +42,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	private File saveGraph;
 	
 	/** The path dir. */
-	private final String pathDir = PathSavings.DIRECTORY.getPath() ;
+	private final String pathDir = PathSavings.DIRECTORY.getPath();
 	
 	/** The path file players. */
 	private final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
@@ -64,23 +63,28 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	 * Creates the dir and files.
 	 */
 	private void createDirAndFiles() {
-		if(!dir.exists()) {
-			dir.mkdir();
+		if (!dir.exists()) {
+			try {
+			    dir.mkdir();
+			} catch (Exception e) {
+			    LoadUtilities.setUpAlertException();
+	            System.exit(1);
+			}
 		}
 		try {
-			if(!savePlayers.exists()) {
+			if (!savePlayers.exists()) {
 				savePlayers.createNewFile();
 			}
-			if(!saveModelCurrent.exists()) {
+			if (!saveModelCurrent.exists()) {
 				saveModelCurrent.createNewFile();
 			}
-			if(!saveBarriers.exists()) {
+			if (!saveBarriers.exists()) {
 				saveBarriers.createNewFile();
 			}
-			if(!saveGraph.exists()) {
+			if (!saveGraph.exists()) {
 				saveGraph.createNewFile();
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -94,14 +98,14 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	public SaveGameImpl(final Model<X> model) {
 		this.model = model;
 		serializator = new Gson();
-		try{
+		try {
 			dir = new File(pathDir);
 			savePlayers = new File(pathFilePlayers);
 			saveModelCurrent = new File(pathFileCurrent);
 			saveBarriers = new File(pathFileBarriers);
 			saveGraph = new File(pathFileGraph);
 			createDirAndFiles();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -114,8 +118,8 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	 * @param numRound the num round
 	 * @param currentPlayer the current player
 	 */
-	protected void saveCurrentPlayer(final int numRound, Player currentPlayer) {
-		try{
+	protected void saveCurrentPlayer(final int numRound, final Player currentPlayer) {
+		try {
 			BufferedWriter roundCurrentPlayer = new BufferedWriter(new FileWriter(saveModelCurrent));
 			roundCurrentPlayer.write(Integer.toString(numRound));
 			roundCurrentPlayer.newLine();
@@ -128,7 +132,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 			roundCurrentPlayer.write(serializator.toJson(currentPlayer.getFinishLine()));
 			roundCurrentPlayer.newLine();
 			roundCurrentPlayer.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -140,12 +144,12 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	 * @param numRound the num round
 	 * @param list the list of barriers
 	 */
-	protected void saveBarriers(final int numRound, List<Barrier> list) {
-		try{
+	protected void saveBarriers(final int numRound, final List<Barrier> list) {
+		try {
 			BufferedWriter roundBarriersWriter = new BufferedWriter(new FileWriter(saveBarriers));
 			roundBarriersWriter.write(Integer.toString(numRound));
 			roundBarriersWriter.newLine();
-			for(Barrier br : list) {
+			for (final Barrier br : list) {
 				roundBarriersWriter.write(serializator.toJson(br.getCoordinate()));
 				roundBarriersWriter.newLine();
 				roundBarriersWriter.write(serializator.toJson(br.getOrientation()));
@@ -154,7 +158,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 				roundBarriersWriter.newLine();
 			}
 			roundBarriersWriter.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -168,14 +172,14 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	protected void saveGraph(final Graph<Coordinate> graph) {
 		try {
 			BufferedWriter roundGraphWriter = new BufferedWriter(new FileWriter(saveGraph));
-			for(Pair<Coordinate, Coordinate> edge : graph.getEdges()) {
+			for (final Pair<Coordinate, Coordinate> edge : graph.getEdges()) {
 				roundGraphWriter.write(serializator.toJson(edge.getX()));
 				roundGraphWriter.newLine();
 				roundGraphWriter.write(serializator.toJson(edge.getY()));
 				roundGraphWriter.newLine();
 			}
 			roundGraphWriter.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -186,14 +190,14 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 	 */
 	private void writeGameType() {
 		File fileGameType = new File(PathSavings.GAMETYPE.getPath());
-		if(!fileGameType.exists()) {
+		if (!fileGameType.exists()) {
 			fileGameType.exists();
 		}
-		try{
+		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileGameType));
 			writer.write(serializator.toJson(GameStatus.NORMAL));
 			writer.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -206,16 +210,16 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame{
 		try {
 			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));
 			int numRound = -1;
-			for(RoundEnvironment env : model.getGameRoundEnvironments()) {
+			for (RoundEnvironment env : model.getGameRoundEnvironments()) {
 				numRound++;
-				if(env.getRoundPlayers().getCurrentPlayer() != null) {
+				if (env.getRoundPlayers().getCurrentPlayer() != null) {
 					saveCurrentPlayer(numRound, env.getRoundPlayers().getCurrentPlayer());
 					//i only care about current Barriers.
 					saveBarriers(numRound, env.getRoundBarriers().getBarriersAsList());
 					//i'll save the graph here.
 					saveGraph(env.getRoundBarriers().getBarriersAsGraph());
 				}
-				for(Player pl : env.getRoundPlayers().getPlayers()) {
+				for (final Player pl : env.getRoundPlayers().getPlayers()) {
 					roundPlayersWriter.write(serializator.toJson(pl.getNickname()));
 					roundPlayersWriter.newLine();
 					roundPlayersWriter.write(serializator.toJson(pl.getCoordinate()));

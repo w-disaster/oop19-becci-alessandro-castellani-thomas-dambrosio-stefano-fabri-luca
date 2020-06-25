@@ -10,12 +10,11 @@ import savings.load.LoadUtilities;
 
 /**
  * The Class SaveLeaderBoard.
- * @author Alessandro Becci
  */
 public class SaveLeaderBoard {
 
 	/** The path of the directory. */
-	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D" ;
+	private final String pathDir = System.getProperty("user.home") + File.separator + ".quoridor2D";
 	
 	/** The path of the leaderboard file. */
 	private final String pathFile = pathDir + File.separator + "leaderBoard";
@@ -36,14 +35,14 @@ public class SaveLeaderBoard {
 	 * If the directory or the files doesn't exist, they're created.
 	 */
 	private void createDirAndFile() {
-		if(!dir.exists()) {
+		if (!dir.exists()) {
 			dir.mkdir();
 		}
 		try {
-		if(!leaderBoard.exists()) {
+		if (!leaderBoard.exists()) {
 			leaderBoard.createNewFile();
 		}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -56,22 +55,21 @@ public class SaveLeaderBoard {
 	 */
 	private Boolean nameIsPresent() {
 		Boolean exist = false;
-		try{
+		try {
 			// Construct BufferedReader from FileReader
 			BufferedReader br = new BufferedReader(new FileReader(leaderBoard));
 			String line = null;
 			while ((line = br.readLine()) != null) {
-				if(line.split("//")[0].toLowerCase().equals(winner)) {
+				if (line.split("//")[0].toLowerCase().equals(winner)) {
 					exist = true;
 					numVictories = line.split("//")[1];
 				}
 			}
 			br.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
-		
 		return exist;
 	}
 	
@@ -86,8 +84,8 @@ public class SaveLeaderBoard {
 	        String line;
 
 	        while ((line = file.readLine()) != null) {
-	            if(line.split("//")[0].toLowerCase().equals(winner)) {
-	            	line = winner + "//" + (Integer.parseInt(numVictories) + 1) ;
+	            if (line.split("//")[0].toLowerCase().equals(winner)) {
+	            	line = winner + "//" + (Integer.parseInt(numVictories) + 1);
 	            }
 	            //saves the line in inputBuffer
 	            inputBuffer.append(line);
@@ -111,15 +109,14 @@ public class SaveLeaderBoard {
 	 */
 	private void writeNewName() {
 		//setting to true for append mode
-		try{
+		try {
 			FileWriter fout = new FileWriter(pathFile, true);
 			fout.write(winner.toLowerCase() + "//" + Integer.toString(1) + System.lineSeparator());
 			fout.close();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
-		
 	}
 	
 	/**
@@ -130,33 +127,31 @@ public class SaveLeaderBoard {
 	public void updateLeaderBoard(final String winner) {
 		//updates the file in LeaderBoard
 		this.winner = winner.toLowerCase();
-		try{
-			if(nameIsPresent()) {
+		try {
+			if (nameIsPresent()) {
 				updateNameVictories();
 			}
 			else {
 				writeNewName();
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
-		
 	}
 
 	/**
 	 * Instantiates a new SaveLeaderBoard.
 	 */
 	public SaveLeaderBoard() {
-		try{
+		try {
 			dir = new File(pathDir);
 			leaderBoard = new File(pathFile);
 			createDirAndFile();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
-		
 	}
 
 	

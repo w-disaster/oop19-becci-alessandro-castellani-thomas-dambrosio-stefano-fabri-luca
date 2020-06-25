@@ -16,9 +16,8 @@ import view.menu.MenuController.GameStatus;
 
 /**
  * The Class SaveGamePUp.
- * @author Alessandro Becci
  */
-public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements SaveGame{
+public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements SaveGame {
 	
 	/** The path power ups. */
 	private final String pathPowerUps;
@@ -31,7 +30,7 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 	 *
 	 * @param model the model
 	 */
-	public SaveGamePUp(Model<RoundPUpEnvironment> model) {
+	public SaveGamePUp(final Model<RoundPUpEnvironment> model) {
 		//other files are created
 		super(model);
 		pathPowerUps = PathSavings.POWERUPS.getPath();
@@ -44,10 +43,10 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 	 */
 	private void createFile() {
 		try {
-			if(!savePowerUps.exists()) {
+			if (!savePowerUps.exists()) {
 				savePowerUps.createNewFile();
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -64,14 +63,14 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 			BufferedWriter writerPUps = new BufferedWriter(new FileWriter(savePowerUps));
 			writerPUps.write(Integer.toString(numRound));
 			writerPUps.newLine();
-			for(PowerUp powerUp : list) {
+			for (final PowerUp powerUp : list) {
 				writerPUps.write(serializator.toJson(powerUp.getCoordinate()));
 				writerPUps.newLine();
 				writerPUps.write(serializator.toJson(powerUp.getType()));
 				writerPUps.newLine();
 			}
 			writerPUps.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -82,14 +81,14 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 	 */
 	private void writeGameType() {
 		File fileGameType = new File(PathSavings.GAMETYPE.getPath());
-		if(!fileGameType.exists()) {
+		if (!fileGameType.exists()) {
 			fileGameType.exists();
 		}
-		try{
+		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileGameType));
 			writer.write(serializator.toJson(GameStatus.POWERUP));
 			writer.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LoadUtilities.setUpAlertException();
 			System.exit(1);
 		}
@@ -103,9 +102,9 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 		try {
 			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));
 			int numRound = -1;
-			for(RoundPUpEnvironment env : model.getGameRoundEnvironments()) {
+			for (final RoundPUpEnvironment env : model.getGameRoundEnvironments()) {
 				numRound++;
-				if(env.getRoundPlayers().getCurrentPlayer() != null) {
+				if (env.getRoundPlayers().getCurrentPlayer() != null) {
 					saveCurrentPlayer(numRound, env.getRoundPlayers().getCurrentPlayer());
 					//i only care about current Barriers.
 					saveBarriers(numRound, env.getRoundBarriers().getBarriersAsList());
@@ -113,7 +112,7 @@ public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements Sa
 					saveGraph(env.getRoundBarriers().getBarriersAsGraph());
 					savePowerUps(numRound, env.getRoundPowerUps().getPowerUpsAsList());
 				}
-				for(Player pl : env.getRoundPlayers().getPlayers()) {
+				for (final Player pl : env.getRoundPlayers().getPlayers()) {
 					roundPlayersWriter.write(serializator.toJson(pl.getNickname()));
 					roundPlayersWriter.newLine();
 					roundPlayersWriter.write(serializator.toJson(pl.getCoordinate()));

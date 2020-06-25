@@ -28,79 +28,71 @@ import model.roundenvironment.powerups.PowerUp.Type;
 
 /**
  * The Class LoadUtilities.
- * @author Alessandro Becci
  */
 public class LoadUtilities {
 
-	/** The path file of the players. */
-	private final String pathFilePlayers= PathSavings.MODELPLAYERS.getPath();
-	
-	/** The path file of the current. */
-	private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
-	
-	/** The path file of the barriers. */
-	private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
-	
-	/** The path file of the graph. */
-	private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
-	
-	/** The path file PowerUp. */
-	private final String pathFilePUp = PathSavings.POWERUPS.getPath();
-	
-	/** The file of the model current. */
-	private final File fileModelCurrent = new File(pathFileCurrent);
-	
-	/** The file of the model players. */
-	private final File fileModelPlayers = new File(pathFilePlayers);
-	
-	/** The file of the model barriers. */
-	private final File fileModelBarriers = new File(pathFileBarriers);
-	
-	/** The file of the graph. */
-	private final File fileGraph = new File(pathFileGraph);
-	
-	/** The serializator. */
-	private final Gson serializator = new Gson();
-	
-	/** The file PowerUp. */
-	private final File filePUp = new File(pathFilePUp);
-	
-	/**
-	 * Sets the alert exception.
-	 */
-	public static void setUpAlertException() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error !!");
-		alert.setHeaderText("Error Dialog");
-		alert.setContentText("Ooops, there was an error in reading/writing files. Check your permissions.!");
-		alert.showAndWait();
-	}
-	
-	/**
-	 * Verifies if the normalGame file exist.
-	 *
-	 * @return the boolean
-	 */
-	protected Boolean fileExistNormal() {
-		if(fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists() && fileGraph.exists()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	/**
-	 * Verifies if the powerUpGame file exist.
-	 *
-	 * @return the boolean
-	 */
-	protected Boolean fileExistPowerUp() {
-		boolean normal = fileExistNormal();
-		if(normal && filePUp.exists()) {
-			return true;
-		}
-		return false;
+    /** The path file of the players. */
+    private final String pathFilePlayers = PathSavings.MODELPLAYERS.getPath();
+
+    /** The path file of the current. */
+    private final String pathFileCurrent = PathSavings.MODELCURRENT.getPath();
+
+    /** The path file of the barriers. */
+    private final String pathFileBarriers = PathSavings.MODELBARRIERS.getPath();
+
+    /** The path file of the graph. */
+    private final String pathFileGraph = PathSavings.BARRIERGRAPH.getPath();
+
+    /** The path file PowerUp. */
+    private final String pathFilePUp = PathSavings.POWERUPS.getPath();
+
+    /** The file of the model current. */
+    private final File fileModelCurrent = new File(pathFileCurrent);
+
+    /** The file of the model players. */
+    private final File fileModelPlayers = new File(pathFilePlayers);
+
+    /** The file of the model barriers. */
+    private final File fileModelBarriers = new File(pathFileBarriers);
+
+    /** The file of the graph. */
+    private final File fileGraph = new File(pathFileGraph);
+
+    /** The serializator. */
+    private final Gson serializator = new Gson();
+ 
+    /** The file PowerUp. */
+    private final File filePUp = new File(pathFilePUp);
+    /**
+     * Sets the alert exception.
+     */
+    public static void setUpAlertException() {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error !!");
+        alert.setHeaderText("Error Dialog");
+        alert.setContentText("Ooops, there was an error in reading/writing files. Check your permissions.!");
+        alert.showAndWait();
+    }
+
+    /**
+     * Verifies if the normalGame file exist.
+     *
+     * @return the boolean
+     */
+    protected Boolean fileExistNormal() {
+        return fileModelPlayers.exists() && fileModelCurrent.exists() && fileModelBarriers.exists() && fileGraph.exists();
+    }
+    /**
+     * Verifies if the powerUpGame file exist.
+     *
+     * @return the boolean
+     */
+    protected Boolean fileExistPowerUp() {
+        boolean normal = fileExistNormal();
+        if (normal && filePUp.exists()) {
+            return true;
+        }
+        return false;
 	}
 	
 	/**
@@ -111,16 +103,16 @@ public class LoadUtilities {
 	protected Pair<Player, Integer> getCurrentRoundAndPlayer() {
 		Player currentPlayer = null;
 		int numRoundCurrent = -1;
-		try{
+		try {
 			BufferedReader readerModelCurrent = new BufferedReader(new FileReader(fileModelCurrent));
 			numRoundCurrent = serializator.fromJson(readerModelCurrent.readLine(), Integer.class);
-			String nameCurrent = serializator.fromJson(readerModelCurrent.readLine(), String.class);
-			Coordinate coordCurrent = serializator.fromJson(readerModelCurrent.readLine(), Coordinate.class);
-			int barrLeftCurrent = serializator.fromJson(readerModelCurrent.readLine(), Integer.class);
-			int finish_current = serializator.fromJson(readerModelCurrent.readLine(), Integer.class);
-			currentPlayer = new PlayerImpl(nameCurrent, coordCurrent, barrLeftCurrent, finish_current);
+			final String nameCurrent = serializator.fromJson(readerModelCurrent.readLine(), String.class);
+			final Coordinate coordCurrent = serializator.fromJson(readerModelCurrent.readLine(), Coordinate.class);
+			final int barrLeftCurrent = serializator.fromJson(readerModelCurrent.readLine(), Integer.class);
+			final int finishCurrent = serializator.fromJson(readerModelCurrent.readLine(), Integer.class);
+			currentPlayer = new PlayerImpl(nameCurrent, coordCurrent, barrLeftCurrent, finishCurrent);
 			readerModelCurrent.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			setUpAlertException();
 			System.exit(1);
 		}
@@ -135,10 +127,10 @@ public class LoadUtilities {
 	 */
 	protected List<Player> getPlayersList(final int numRound) {
 		List<Player> playersList = new ArrayList<>();
-		try{
+		try {
 			BufferedReader readerModelPlayers = new BufferedReader(new FileReader(fileModelPlayers));
 			//i need to go at the right round given the numRound
-			for(int i=0; i < (numRound * 8); i++) {
+			for (int i = 0; i < (numRound * 8); i++) {
 				readerModelPlayers.readLine();
 			}
 			String player1 = serializator.fromJson(readerModelPlayers.readLine(), String.class);
@@ -153,7 +145,7 @@ public class LoadUtilities {
 			playersList.add(new PlayerImpl(player1, coord1, barrLeft1, finish1));
 			playersList.add(new PlayerImpl(player2, coord2, barrLeft2, finish2));
 			readerModelPlayers.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			setUpAlertException();
 			System.exit(1);
 		}
@@ -168,13 +160,13 @@ public class LoadUtilities {
 	 */
 	private int lineCounter(final File file) {
 		int counter = 0;
-		try{
+		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
-			while(reader.readLine() != null) {
+			while (reader.readLine() != null) {
 				counter++;
 			}
 			reader.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			setUpAlertException();
 			System.exit(1);
 		}
@@ -187,17 +179,17 @@ public class LoadUtilities {
 	 * @param numRound the num round
 	 * @return the barriers
 	 */
-	protected Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound){
+	protected Pair<List<Barrier>, Graph<Coordinate>> getBarriers(final int numRound) {
 		List<Barrier> barriers = new ArrayList<>();
 		List<Pair<Coordinate, Coordinate>> listEdges = new ArrayList<>();
 		try {
 			BufferedReader readerModelBarriers = new BufferedReader(new FileReader(fileModelBarriers));
-			if(Integer.parseInt(readerModelBarriers.readLine()) != numRound){
+			if (Integer.parseInt(readerModelBarriers.readLine()) != numRound){
 				readerModelBarriers.close();
 				return new Pair<>(barriers, new BarriersGraph<>(Model.BOARD_DIMENSION));
 			}
 			else {
-				for(int k = 0; k < (lineCounter(fileModelBarriers) - 1) / 3; k++) {
+				for (int k = 0; k < (lineCounter(fileModelBarriers) - 1) / 3; k++) {
 					Coordinate coord = serializator.fromJson(readerModelBarriers.readLine(), Coordinate.class);
 					Orientation type = serializator.fromJson(readerModelBarriers.readLine(), Orientation.class);
 					Piece piece = serializator.fromJson(readerModelBarriers.readLine(), Piece.class);
@@ -205,17 +197,17 @@ public class LoadUtilities {
 				}
 				BufferedReader readerGraph = new BufferedReader(new FileReader(fileGraph));
 				int numberOfCoords = (lineCounter(fileGraph) / 2) + 1;
-				for(int i = 0; i < numberOfCoords; i++) {
+				for (int i = 0; i < numberOfCoords; i++) {
 					Pair<Coordinate, Coordinate> coord = new Pair<>(serializator.fromJson(readerGraph.readLine(), Coordinate.class),
 							serializator.fromJson(readerGraph.readLine(), Coordinate.class));
-					if(coord.getX()!=null) {
+					if (coord.getX() != null) {
 						listEdges.add(coord);
 					}
 				}
 				readerGraph.close();
 			}
 			readerModelBarriers.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			setUpAlertException();
 			System.exit(1);
 		}
@@ -228,22 +220,22 @@ public class LoadUtilities {
 	 * @param numRound the num round
 	 * @return the power up list
 	 */
-	protected List<PowerUp> getPowerUpList(final int numRound){
+	protected List<PowerUp> getPowerUpList(final int numRound) {
 		List<PowerUp> list = new ArrayList<>();
-		int numPowerUps = (lineCounter(filePUp)-1) / 2;
+		int numPowerUps = (lineCounter(filePUp) - 1) / 2;
 		try {
 			BufferedReader readerPUp = new BufferedReader(new FileReader(filePUp));
-			if(Integer.parseInt(readerPUp.readLine()) != numRound) {
+			if (Integer.parseInt(readerPUp.readLine()) != numRound) {
 				readerPUp.close();
 				return list;
 			}
-			for(int i = 0; i < numPowerUps; i++) {
+			for (int i = 0; i < numPowerUps; i++) {
 				Coordinate coord = serializator.fromJson(readerPUp.readLine(), Coordinate.class);
 				Type type = serializator.fromJson(readerPUp.readLine(), Type.class);
 				list.add(new PowerUpImpl(coord, type));
 			}
 			readerPUp.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			setUpAlertException();
 			System.exit(1);
 		}
