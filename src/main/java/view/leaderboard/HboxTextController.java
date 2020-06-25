@@ -75,26 +75,31 @@ public class HboxTextController {
 	private final Map<Integer, List<Label>> mapLabelsScore = new HashMap<>();
 	
 	/** The Constant NUM_ENTRIES_PAG. */
-	public final static int NUM_ENTRIES_PAG = 3;
+	public static final int NUM_ENTRIES_PAG = 3;
+	
+	private final int labelsResize = 45;
+	
+	private final int borderLabelResize = 100;
+	
+	private final int namesResize = 22;
 	
 	/** The ChangeListener. */
 	private final ChangeListener<Number> changeListener = new ChangeListener<Number>() {
 
 		@Override
-		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-			String styleLabels = "-fx-font-size:" + newValue.doubleValue()/45 + ";" + "-fx-font-family:monospace;" + 
-					"-fx-border-color:#D90429;-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius: 15.0;"; 
-					String styleNamesScore = "-fx-font-size:" + newValue.doubleValue()/22 + ";" + "-fx-text-fill: #FFFFFF;" + 
-					 "-fx-border-color: #1A1B28;" + "-fx-border-width:" + newValue.doubleValue()/100 + "px; -fx-border-radius:15.0;" +
-							"-fx-font-family: Serif";
+		public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
+			String styleLabels = "-fx-font-size:" + newValue.doubleValue() / labelsResize + ";" + "-fx-font-family:monospace;" 
+		+ "-fx-border-color:#D90429;-fx-border-width:" + newValue.doubleValue() / borderLabelResize + "px; -fx-border-radius: 15.0;"; 
+					String styleNamesScore = "-fx-font-size:" + newValue.doubleValue() / namesResize + ";" + "-fx-text-fill: #FFFFFF;" 
+					        + "-fx-border-color: #1A1B28;" + "-fx-border-width:" + newValue.doubleValue() / borderLabelResize + "px; -fx-border-radius:15.0;"
+							+ "-fx-font-family: Serif";
 					title1.setStyle(styleNamesScore);
 					title2.setStyle(styleNamesScore);
-					for(int i=0; i < mapLabelsName.get(indexPage).size(); i++) {
+					for (int i = 0; i < mapLabelsName.get(indexPage).size(); i++) {
 						mapLabelsName.get(indexPage).get(i).setStyle(styleLabels);
 						mapLabelsScore.get(indexPage).get(i).setStyle(styleLabels);
 					}
 		}
-		
 	};
 	
 	/**
@@ -113,11 +118,11 @@ public class HboxTextController {
 	private Pair<List<Label>, List<Label>> createLabels() {
 		List<Label> listLabelsName = new ArrayList<Label>();
 		List<Label> listLabelsScore = new ArrayList<Label>();
-		if(indexPageToPlayer.isEmpty()) {
+		if (indexPageToPlayer.isEmpty()) {
 			indexPageToPlayer.put(indexPage, Collections.emptyList());
 			return new Pair<>(Collections.emptyList(), Collections.emptyList());
 		}
-		for(int i=0; i < indexPageToPlayer.get(indexPage).size(); i++) {
+		for (int i = 0; i < indexPageToPlayer.get(indexPage).size(); i++) {
 			Label labelName = new Label(indexPageToPlayer.get(indexPage).get(i));
 			Label labelScore = new Label(Integer.toString(indexPageToScore.get(indexPage).get(i)));
 			labelName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -134,10 +139,10 @@ public class HboxTextController {
 	 * Sets the childrens of VBox to VGrow ALWAYS
 	 */
 	private void setVGrowChildrens() {
-		for(final Node child: boxNames.getChildren()) {
+		for (final Node child: boxNames.getChildren()) {
 			VBox.setVgrow(child, Priority.ALWAYS);
 		}
-		for(final Node child: boxScore.getChildren()) {
+		for (final Node child: boxScore.getChildren()) {
 			VBox.setVgrow(child, Priority.ALWAYS);
 		}
 	}
@@ -147,10 +152,10 @@ public class HboxTextController {
 	 */
 	private void fillBoxes() {
 		int numItems = indexPageToPlayer.get(indexPage).size();
-		for(int i=0; i < numItems; i++) {
+		for (int i = 0; i < numItems; i++) {
 			boxNames.getChildren().add(mapLabelsName.get(indexPage).get(i));
 			boxScore.getChildren().add(mapLabelsScore.get(indexPage).get(i));
-			if(i != NUM_ENTRIES_PAG-1) {
+			if (i != NUM_ENTRIES_PAG - 1) {
 				boxNames.getChildren().add(new Region());
 				boxScore.getChildren().add(new Region());
 			}
@@ -164,7 +169,7 @@ public class HboxTextController {
 		indexPage = LeaderboardControl.getIndexPage();
 		mapLabelsName.put(indexPage, createLabels().getKey());
 		mapLabelsScore.put(indexPage, createLabels().getValue());
-		if(mapLabelsName.get(indexPage).isEmpty()) {
+		if (mapLabelsName.get(indexPage).isEmpty()) {
 			// Dialog setup
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Empty Leaderboard");
@@ -172,7 +177,7 @@ public class HboxTextController {
 			alert.setContentText("You wanna get back to menu?");
 
 			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK){
+			if (result.get() == ButtonType.OK) {
 			    sceneChange.change("layouts/menu/MainMenu.fxml", "Menu");
 			} else {
 				System.exit(0);
@@ -196,8 +201,8 @@ public class HboxTextController {
 	 */
 	public void setListener() {
 		stage.widthProperty().addListener(changeListener);
-		stage.setWidth(stage.getWidth()+1);
-		stage.setWidth(stage.getWidth()-1);
+		stage.setWidth(stage.getWidth() + 1);
+		stage.setWidth(stage.getWidth() - 1);
 	}
 	
 }

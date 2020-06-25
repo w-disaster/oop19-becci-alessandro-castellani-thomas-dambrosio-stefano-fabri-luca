@@ -60,7 +60,7 @@ public class LeaderboardControl {
 	/** The index page. */
 	private static int indexPage;
 	
-	private static final int BUTTONRESIZE = 40;
+	private final int buttonResize = 40;
 	
 	/** The loadLeaderBoard. */
 	private final LoadLeaderBoard load = new LoadLeaderBoardImpl();
@@ -70,7 +70,7 @@ public class LeaderboardControl {
 
 		@Override
 		public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
-			String styleButton = "-fx-font-size:" + newValue.doubleValue() / BUTTONRESIZE + ";" + "-fx-font-family:monospace;" 
+			String styleButton = "-fx-font-size:" + newValue.doubleValue() / buttonResize + ";" + "-fx-font-family:monospace;" 
 			        + "-fx-background-color:#1A1B28;" + "-fx-text-fill: #FFFFFF;" + "-fx-border-color: white;";
 				backMenuButton.setStyle(styleButton);
 				cleanButton.setStyle(styleButton);
