@@ -1,12 +1,12 @@
-/bin/
-/config/
-/gradle/wrapper/
-.classpath
-.project
 .gradle/
-.settings/
+build/
+bin/
+out/
+.idea/
+# Ignored, as Gradle Buildship generates it on import / refresh
+.classpath
+
 /relazione/relazione.aux
 /relazione/relazione.log
 /relazione/relazione.synctex.gz
 /relazione/relazione.toc
-/build/
