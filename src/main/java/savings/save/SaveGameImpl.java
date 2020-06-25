@@ -91,6 +91,24 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame {
 	}
 	
 	/**
+     * Saves GameType.
+     */
+    private void writeGameType() {
+        File fileGameType = new File(PathSavings.GAMETYPE.getPath());
+        if (!fileGameType.exists()) {
+            fileGameType.exists();
+        }
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileGameType));
+            writer.write(serializator.toJson(GameStatus.NORMAL));
+            writer.close();
+        } catch (Exception e) {
+            LoadUtilities.setUpAlertException();
+            System.exit(1);
+        }
+    }
+	
+	/**
 	 * Instantiates a new SaveGameImpl.
 	 *
 	 * @param model the model
@@ -185,23 +203,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame {
 		}
 	}
 	
-	/**
-	 * Saves GameType.
-	 */
-	private void writeGameType() {
-		File fileGameType = new File(PathSavings.GAMETYPE.getPath());
-		if (!fileGameType.exists()) {
-			fileGameType.exists();
-		}
-		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(fileGameType));
-			writer.write(serializator.toJson(GameStatus.NORMAL));
-			writer.close();
-		} catch (Exception e) {
-			LoadUtilities.setUpAlertException();
-			System.exit(1);
-		}
-	}
+	
 	
 	/**
 	 * Saves all the game.
@@ -210,7 +212,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame {
 		try {
 			BufferedWriter roundPlayersWriter = new BufferedWriter(new FileWriter(savePlayers));
 			int numRound = -1;
-			for (RoundEnvironment env : model.getGameRoundEnvironments()) {
+			for (final RoundEnvironment env : model.getGameRoundEnvironments()) {
 				numRound++;
 				if (env.getRoundPlayers().getCurrentPlayer() != null) {
 					saveCurrentPlayer(numRound, env.getRoundPlayers().getCurrentPlayer());

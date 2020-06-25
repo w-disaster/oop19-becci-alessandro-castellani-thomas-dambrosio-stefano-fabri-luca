@@ -15,6 +15,7 @@ import model.roundenvironment.coordinate.Coordinate;
 import model.roundenvironment.players.Player;
 import model.roundenvironment.players.RoundPlayers;
 import savings.save.SaveLeaderBoard;
+import savings.save.SaveLeaderBoardImpl;
 import view.game.ViewLogic;
 
 /**
@@ -32,7 +33,7 @@ public abstract class GenericMove<X extends RoundEnvironment> {
     public GenericMove(final Model<X> model, final ViewLogic view, final Iterator<X> iterRounds) {
 		this.model = model;
 		this.view = view;
-		this.leaderboard = new SaveLeaderBoard();
+		this.leaderboard = new SaveLeaderBoardImpl();
 		this.iterRounds = iterRounds;
 		this.players = this.model.getCurrentRoundEnvironment().getRoundPlayers();
 		this.turns = this.players.getPlayers();
