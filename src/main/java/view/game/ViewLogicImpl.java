@@ -261,7 +261,6 @@ public class ViewLogicImpl implements ViewLogic{
     			+ "- The horizontal barrier will be placed below and in the cell to the right\n";
     	final String verticalBarrierSelected = "Selected barrier: Vertical\n\n";
     	final String horizontalBarrierSelected = "Selected barrier: Horizontal\n\n";
-    	final String badMove = "Bad move! Still your turn";
     	switch (textToDisplay) {
     	case "start" :
     		this.view.drawText(start);
@@ -270,16 +269,14 @@ public class ViewLogicImpl implements ViewLogic{
     	case "move" :
     		this.view.drawText(moveTutorial);
     		break;
-    		case "verticalBarrier" :
+		case "verticalBarrier" :
     			this.view.drawText(verticalBarrierSelected);
     			this.view.appendText(barrierTutorial);
     			break;
-    		case "horizontalBarrier" :
+		case "horizontalBarrier" :
     			this.view.drawText(horizontalBarrierSelected);
     			this.view.appendText(barrierTutorial);
     			break;
-    		case "badMove":
-    			this.view.drawText(badMove);
     		default :
     			break;
     	}

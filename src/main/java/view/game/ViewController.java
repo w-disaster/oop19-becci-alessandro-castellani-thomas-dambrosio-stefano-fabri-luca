@@ -207,7 +207,7 @@ public class ViewController {
      * Sets the correct size of all nodes.
      */
     public void setCorrectSize() {
-
+        //((Stage) this.rootPane.getScene().getWindow()).setResizable(false);
     	// Runs after the initialize
     	Platform.runLater(new Runnable() {
 
@@ -237,7 +237,7 @@ public class ViewController {
 				}
 			}
     	});
-
+    	
 	}
 
 	/**
@@ -352,7 +352,7 @@ public class ViewController {
     	.add(new Image(this.getClass().getResourceAsStream(ScenesItem.LOGO.get())));
 
     	final Optional<ButtonType> result = alert.showAndWait();
-    	if (result.get() == ButtonType.OK){
+    	if (result.get() == ButtonType.OK) {
 			this.returnToMainMenu();
     	} else {
     	    System.exit(0);
