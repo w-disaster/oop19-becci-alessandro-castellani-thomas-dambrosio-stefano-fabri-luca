@@ -26,10 +26,9 @@ import view.menu.MenuController.GameStatus;
  * The implementation for PowerUpGameControllerImpl.
  * 
  * @author Stefano
- * 
  */
 public class PowerUpGameControllerImpl extends StandardGameControllerImpl implements PowerUpGameController {
-	
+
 	private Model<RoundPUpEnvironment> powerUpModel;
 	private ViewLogic powerUpView;
 	private Iterator<RoundPUpEnvironment> iterRounds;
@@ -41,7 +40,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	 *
 	 * @param view the view controller
 	 */
-	public PowerUpGameControllerImpl(ViewLogic view) {
+	public PowerUpGameControllerImpl(final ViewLogic view) {
 		super(view);
 		this.powerUpView = view;
 	}
@@ -53,8 +52,8 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	 * @param nicknamePlayer2 the nickname for player 2
 	 */
 	public void newPowerUpGame(final String nicknamePlayer1, final String nicknamePlayer2) {
-		final Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, 0);
-		final Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
+		final Coordinate player1Coordinate = new Coordinate(Model.BOARD_DIMENSION / 2, 0);
+		final Coordinate player2Coordinate = new Coordinate(Model.BOARD_DIMENSION / 2, Model.BOARD_DIMENSION - 1);
 		this.powerUpModel = new ModelFactoryImpl().buildWithPowerUps(nicknamePlayer1, nicknamePlayer2);
 		this.powerUpView.setupGrid(player1Coordinate, player2Coordinate, 10, 10);
 		this.powerUpView.drawPowerUps(this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList());
@@ -63,7 +62,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.mover = new PlayerMoverPowerUp<>(this.powerUpModel, this.powerUpView, this.iterRounds);
 		this.placer = new BarrierPlacerPowerUp<>(this.powerUpModel, this.powerUpView, this.iterRounds);
 	}
-	
+
 	/**
 	 * Make a player move in the clicked position, checks and eventually applies powerUps.
 	 *
@@ -85,14 +84,14 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 			}
 		}	
 	}
-	
+
 	/**
 	 * Apply the given powerUp to the given player.
 	 *
 	 * @param player the player
 	 * @param powerUp the powerUp
 	 */
-	private void applyPowerUp(Player player, PowerUp powerUp) {
+	private void applyPowerUp(final Player player, final PowerUp powerUp) {
 		switch (powerUp.getType()) {
 		case PLUS_ONE_MOVE:
 			this.mover.doubleMove();
@@ -109,9 +108,8 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		default:
 			break;
 		}
-		
 	}
-	
+
 	/**
 	 * Invoke placement of a barrier.
 	 *
@@ -122,7 +120,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 	public void invokePlace(final Coordinate position, final Orientation orientation) {
 		this.placer.placeBarrier(position, orientation);
 	}
-	
+
 	/**
 	 * Change environment to the next round.
 	 */
@@ -136,7 +134,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.powerUpView.setupGrid(player1.getCoordinate(), player2.getCoordinate(), player1.getAvailableBarriers(), player2.getAvailableBarriers()); //reset grid
 		this.powerUpView.drawPowerUps(this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList());
 	}
-	
+
 	/**
 	 * Saves the game.
 	 */
@@ -144,7 +142,7 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		final SaveGame saving = new SaveGamePUp(this.powerUpModel);
 		saving.save();
 	}
-	
+
 	/**
 	 * Loads the game.
 	 */
@@ -169,4 +167,3 @@ public class PowerUpGameControllerImpl extends StandardGameControllerImpl implem
 		this.powerUpView.drawPowerUps(this.powerUpModel.getCurrentRoundEnvironment().getRoundPowerUps().getPowerUpsAsList());
 	}
 }
-
