@@ -23,7 +23,7 @@ public final class Main extends Application {
     private static Stage stage;
 
     private void setStage(final Stage stage) {
-        this.stage = stage;
+        Main.stage = stage;
     }
 
     @Override
