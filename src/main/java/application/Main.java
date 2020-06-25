@@ -17,20 +17,25 @@ public final class Main extends Application {
 	
 	//if your screen is 1920x1080, scaling by 1.5 mean that the application will be 1280x720
     public final static double SCALING_RATE = 1.5;
-    
+
     private SceneChanger sceneChange;
-    public static Stage STAGE;
+    private static volatile Stage stage;
+
+    private void setStage(final Stage stage) {
+        Main.stage = stage;
+    }
 
     @Override
     public void start(final Stage stage) throws Exception {
-    	Main.STAGE = stage;
+    	setStage(stage);
     	sceneChange = new SceneChangerImpl();
     	sceneChange.change(ScenesItem.MENU.get(), ScenesItem.MENUTITLE.get());
     	stage.getIcons().add((new Image(this.getClass().getResourceAsStream("/logo/logo.png"))));
     }
-    
-    
-    
+
+    public static Stage getStage() {
+        return Main.stage;
+    }
     /**
      * 
      * @param args unused

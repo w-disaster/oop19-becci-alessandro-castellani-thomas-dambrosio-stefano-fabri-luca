@@ -51,7 +51,7 @@ public class MenuController {
 	}
 	public static GameStatus gameStatus;
 	private final SceneChanger sceneChange = new SceneChangerImpl();
-	private final Stage stage = Main.STAGE;
+	private final Stage stage = Main.getStage();
 	
 	//I need this changeListener for setting labels and buttons size while resizing.
 	private ChangeListener<Number> changeListener = new ChangeListener<Number>() {

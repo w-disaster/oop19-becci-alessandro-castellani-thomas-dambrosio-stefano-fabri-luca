@@ -55,7 +55,7 @@ public class LeaderboardControl {
 	private HBox hBoxText;
 	
 	/** The stage. */
-	private final Stage stage = Main.STAGE;
+	private final Stage stage = Main.getStage();
 	
 	/** The index page. */
 	public static int indexPage;

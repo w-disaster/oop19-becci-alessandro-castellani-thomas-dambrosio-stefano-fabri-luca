@@ -17,7 +17,7 @@ public class SceneChangerImpl implements SceneChanger{
 	private SceneBuilder sceneBuild;
 	
 	public SceneChangerImpl() {
-		stage = Main.STAGE;
+		stage = Main.getStage();
 	}
 	
 	/**

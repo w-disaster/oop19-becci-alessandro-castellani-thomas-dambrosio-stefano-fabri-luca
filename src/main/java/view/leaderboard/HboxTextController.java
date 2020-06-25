@@ -54,7 +54,7 @@ public class HboxTextController {
 	private final SceneChanger sceneChange = new SceneChangerImpl();
 	
 	/** The stage. */
-	private final Stage stage = Main.STAGE;
+	private final Stage stage = Main.getStage();
 	
 	/** The loader of LeaderBoard. */
 	private final LoadLeaderBoard load = new LoadLeaderBoardImpl();
