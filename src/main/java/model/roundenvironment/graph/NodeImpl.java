@@ -3,7 +3,7 @@ package model.roundenvironment.graph;
 import model.roundenvironment.coordinate.Coordinate;
 
 /**
- * The NodeImpl class
+ * The NodeImpl class.
  * @author luca
  *
  */
@@ -13,7 +13,7 @@ public class NodeImpl implements Node {
 	private Colour colour;
 	
 	/**
-	 * Instantiates a new Node
+	 * Instantiates a new Node.
 	 * @param coordinate
 	 * @param colour
 	 */

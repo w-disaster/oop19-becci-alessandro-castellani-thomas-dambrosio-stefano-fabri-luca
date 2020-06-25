@@ -1,12 +1,13 @@
 package model;
-import java.util.List;
 
+import java.util.List;
 import model.roundenvironment.RoundEnvironment;
-import model.roundenvironment.players.*;
+import model.roundenvironment.players.Player;
 
 /**
- * An interface that describes Quoridor game model. It contains the environments, each one respectively of a specific round,
- * the current round and the partial winners collected until the current one.
+ * An interface that describes Quoridor game model. It contains the environments, 
+ * each one respectively of a specific round, the current round and the partial winners 
+ * collected until the current one.
  * 
  * @author luca
  *

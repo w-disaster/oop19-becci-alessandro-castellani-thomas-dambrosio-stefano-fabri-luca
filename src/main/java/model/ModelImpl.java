@@ -9,7 +9,7 @@ import model.roundenvironment.players.Player;
  *
  * @param <X> the generic type
  */
-public class ModelImpl<X extends RoundEnvironment> implements Model<X>{
+public class ModelImpl<X extends RoundEnvironment> implements Model<X> {
 
 	private List<X> gameRoundEnvironments;
 	private int boardDimension;
@@ -17,7 +17,7 @@ public class ModelImpl<X extends RoundEnvironment> implements Model<X>{
 	private List<Player> winners;
 	
 	/**
-	 * ModelImpl object from fields
+	 * ModelImpl object from fields.
 	 * @param gameRoundEnvironments
 	 * @param boardDimension
 	 * @param currentRoundEnvironment

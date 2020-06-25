@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-
 import model.roundenvironment.RoundEnvironment;
 import model.roundenvironment.RoundPUpEnvironment;
 
@@ -37,5 +36,5 @@ public interface ModelFactory {
 	 * @return the model
 	 */
 	<X extends RoundEnvironment> Model<X> buildFromExisting(List<X> roundEnvironments, int boardDimension);
-		
+	
 }

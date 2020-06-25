@@ -1,4 +1,4 @@
-package model;
+ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,60 +35,62 @@ public class ModelFactoryImpl implements ModelFactory {
 	 * @param nickname2 the nickname 2
 	 * @return the pair
 	 */
-	private static Pair<RoundBarriers, RoundPlayers> commonEnvironmentsObjects(String nickname1, String nickname2){
-		Coordinate coordinate1 = new Coordinate(Model.BOARD_DIMENSION/2, 0);
-		Coordinate coordinate2 = new Coordinate(Model.BOARD_DIMENSION/2, Model.BOARD_DIMENSION - 1);
-				
-		List<Player> playersList = Stream.of(new PlayerImpl(nickname1, coordinate1, Player.DEFAULT_BARRIERS_NUMBER, Model.BOARD_DIMENSION - 1),  
+	private static Pair<RoundBarriers, RoundPlayers> commonEnvironmentsObjects(final String nickname1, final String nickname2) {
+		Coordinate coordinate1 = new Coordinate(Model.BOARD_DIMENSION / 2, 0);
+		Coordinate coordinate2 = new Coordinate(Model.BOARD_DIMENSION / 2, Model.BOARD_DIMENSION - 1);
+
+		List<Player> playersList = Stream.of(new PlayerImpl(nickname1, coordinate1, Player.DEFAULT_BARRIERS_NUMBER, Model.BOARD_DIMENSION - 1), 
 				new PlayerImpl(nickname2, coordinate2, Player.DEFAULT_BARRIERS_NUMBER, 0))
 				.collect(Collectors.toList());
-		
+
 		RoundBarriers barriers = new RoundBarriersImpl(Model.BOARD_DIMENSION);
 		RoundPlayers players = new RoundPlayersImpl(playersList);
-		
+
 		return new Pair<>(barriers, players);
 	}
 
 	@Override
-	public Model<RoundEnvironment> buildStandard(String nickname1, String nickname2) {
+    public Model<RoundEnvironment> buildStandard(final String nickname1, final String nickname2) {
 		List<RoundEnvironment> roundEnvironments = new ArrayList<>();
-		
+
 		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
 			Pair<RoundBarriers, RoundPlayers> roundObjects = commonEnvironmentsObjects(nickname1, nickname2);
 			RoundEnvironment environment = new RoundEnvironmentImpl(roundObjects.getX(), roundObjects.getY());
 			roundEnvironments.add(environment);
 		}
-		
+
 		return new ModelImpl<>(roundEnvironments, Model.BOARD_DIMENSION, roundEnvironments.get(0), new ArrayList<>());
 	}
 	
-	public Model<RoundPUpEnvironment> buildWithPowerUps(String nickname1, String nickname2) {
+	@Override
+	public Model<RoundPUpEnvironment> buildWithPowerUps(final String nickname1, final String nickname2) {
 		List<RoundPUpEnvironment> roundPowerUpEnvironments = new ArrayList<>();
-		
+
 		for (int i = 0; i < Model.NUMBER_OF_ROUNDS; i++) {
 			Pair<RoundBarriers, RoundPlayers> roundObjects = commonEnvironmentsObjects(nickname1, nickname2);
 			RoundPowerUps roundPowerUps = new RoundPowerUpsImpl();
 			RoundPUpEnvironment powerUpEnvironment = new RoundPUpEnvironmentImpl(roundObjects.getX(), roundObjects.getY(), roundPowerUps);
 			roundPowerUpEnvironments.add(powerUpEnvironment);
 		}
-		
+
 		return new ModelImpl<>(roundPowerUpEnvironments, Model.BOARD_DIMENSION, roundPowerUpEnvironments.get(0), new ArrayList<>());
 	}
 	
-	public <X extends RoundEnvironment> Model<X> buildFromExisting(List<X> roundEnvironments, int boardDimension){
+	@Override
+	public <X extends RoundEnvironment> Model<X> buildFromExisting(final List<X> roundEnvironments, final int boardDimension){
 		Map<X, Optional<Player>> map = new HashMap<>();
 		X currentRoundEnvironment = null;
-		
+
 		List<Player> winners = new ArrayList<>();
-		for(X x : roundEnvironments) {
+		for (X x : roundEnvironments) {
 			List<Player> l = x.getRoundPlayers().getPlayers().stream()
 					.filter(p -> p.isWinner())
 					.collect(Collectors.toList());
-			if(l.size() > 0) {
+			if (l.size() > 0) {
 				winners.addAll(l);
 				map.put(x, Optional.of(l.get(0)));
 			} else {
-				if(currentRoundEnvironment == null) {
+				if (currentRoundEnvironment == null) {
 					currentRoundEnvironment = x;
 				}
 				map.put(x, Optional.empty());

@@ -3,7 +3,7 @@ package model.roundenvironment.players;
 import java.util.List;
 
 /**
- * Round players class
+ * Round players class.
  * @author luca
  *
  */
@@ -13,7 +13,7 @@ public class RoundPlayersImpl implements RoundPlayers {
 	private List<Player> players;
 	
 	/**
-	 * Round players from existing players
+	 * Round players from existing players.
 	 * @param players
 	 */
 	public RoundPlayersImpl(final List<Player> players) {

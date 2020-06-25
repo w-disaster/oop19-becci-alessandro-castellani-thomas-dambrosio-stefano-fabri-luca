@@ -3,7 +3,7 @@ package model.roundenvironment.barriers;
 import model.roundenvironment.coordinate.Coordinate;
 
 /**
- * The BarrierImpl class
+ * The BarrierImpl class.
  * @author luca
  *
  */
@@ -14,7 +14,7 @@ public class BarrierImpl implements Barrier {
 	private Piece piece;
 	
 	/**
-	 * Instantiates a new barrier
+	 * Instantiates a new barrier.
 	 * @param coordinate
 	 * @param type
 	 * @param piece

@@ -3,7 +3,7 @@ package model.roundenvironment.graph;
 import model.roundenvironment.coordinate.Coordinate;
 
 /**
- * Node to compute BFS
+ * Node to compute BFS.
  * @author luca
  *
  */

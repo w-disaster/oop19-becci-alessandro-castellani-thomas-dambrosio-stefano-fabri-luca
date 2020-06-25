@@ -3,11 +3,11 @@ package model.roundenvironment.players;
 import model.roundenvironment.coordinate.Coordinate;
 
 /**
- * Class that models a game player
+ * Class that models a game player.
  * @author luca
  *
  */
-public class PlayerImpl implements Player{
+public class PlayerImpl implements Player {
 	
 	private String nickname;
 	private Coordinate coordinate;
@@ -15,7 +15,7 @@ public class PlayerImpl implements Player{
 	private int finishLine;
 	
 	/**
-	 * game player
+	 * game player.
 	 * @param nickname
 	 * @param coordinate
 	 * @param availableBarriers
@@ -52,7 +52,7 @@ public class PlayerImpl implements Player{
 	public Coordinate getCoordinate() {
 		return this.coordinate;
 	}
-		
+
 	@Override
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;

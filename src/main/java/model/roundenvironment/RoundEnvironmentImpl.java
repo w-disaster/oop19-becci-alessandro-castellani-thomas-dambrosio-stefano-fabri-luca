@@ -4,7 +4,7 @@ import model.roundenvironment.barriers.RoundBarriers;
 import model.roundenvironment.players.RoundPlayers;
 
 /**
- * Class of a standard round environment
+ * Class of a standard round environment.
  * @author luca
  *
  */
@@ -14,7 +14,7 @@ public class RoundEnvironmentImpl implements RoundEnvironment {
 	private RoundPlayers roundPlayers;
 	
 	/**
-	 * Round environment from existing barriers and players
+	 * Round environment from existing barriers and players.
 	 * @param roundBarriers
 	 * @param roundPlayers
 	 */

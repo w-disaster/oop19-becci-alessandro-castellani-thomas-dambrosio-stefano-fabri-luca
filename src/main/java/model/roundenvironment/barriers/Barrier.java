@@ -9,12 +9,12 @@ import model.roundenvironment.coordinate.Coordinate;
  */
 public interface Barrier {
 
-	/**
-	 * Orientation of the barrier.
-	 *
-	 * @author luca
-	 */
-	public enum Orientation {
+    /**
+     * Orientation of the barrier.
+     *
+     * @author luca
+     */
+    public enum Orientation {
 		HORIZONTAL, VERTICAL
 	}
 	

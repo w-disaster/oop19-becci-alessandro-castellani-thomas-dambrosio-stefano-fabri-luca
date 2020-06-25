@@ -3,7 +3,8 @@ package model.roundenvironment;
 import model.roundenvironment.players.RoundPlayers;
 
 /**
- * This interface models the round environment for the standard or custom game that not contains power ups.
+ * This interface models the round environment for the standard or custom game that not 
+ * contains power ups.
  * @author luca
  *
  */

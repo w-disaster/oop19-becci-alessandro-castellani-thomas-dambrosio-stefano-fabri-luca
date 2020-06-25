@@ -4,25 +4,25 @@ package model.roundenvironment.coordinate;
  * Class concern to a pair of two objects.
  * @author luca
  *
- * @param <X>
- * @param <Y>
+ * @param <X> the generic type
+ * @param <Y> the generic type
  */
 public class Pair<X, Y> {
-	
-	private X x;
-	private Y y;
-	
-	public Pair(final X x, final Y y) {
-		super();
-		this.x = x;
-		this.y = y;
-	}
-	
-	public X getX() {
+
+    private X x;
+    private Y y;
+
+    public Pair(final X x, final Y y) {
+        super();
+        this.x = x;
+        this.y = y;
+    }
+
+    public X getX() {
 		return this.x;
 	}
-	
-	public Y getY() {
+
+    public Y getY() {
 		return this.y;
 	}
 	
@@ -43,6 +43,7 @@ public class Pair<X, Y> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		Pair other = (Pair) obj;
 		if (x == null) {
 			if (other.x != null)

@@ -3,7 +3,7 @@ package model.roundenvironment.powerups;
 import java.util.List;
 
 /**
- * The Interface models the powerUps in a round
+ * The Interface models the powerUps in a round.
  * 
  * @author Stefano
  */
