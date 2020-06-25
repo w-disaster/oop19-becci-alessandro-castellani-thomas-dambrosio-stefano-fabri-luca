@@ -207,12 +207,12 @@ public class ViewController {
      * Sets the correct size of all nodes.
      */
     public void setCorrectSize() {
-        //((Stage) this.rootPane.getScene().getWindow()).setResizable(false);
     	// Runs after the initialize
     	Platform.runLater(new Runnable() {
 
     		@Override
     		public void run() {
+    		    ((Stage) rootPane.getScene().getWindow()).setResizable(false);
     			final Double gridHeight = grid.getHeight();
     			final Double gridWidth = grid.getWidth();
 
