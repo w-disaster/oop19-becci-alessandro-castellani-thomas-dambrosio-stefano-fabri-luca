@@ -100,7 +100,7 @@ public interface ViewLogic {
      * @param player the player
      * @param barriersNumber the barriers number
      */
-	void updateBarriersNumber(String nickname, int availableBarriers);
+	void updateBarriersNumber(String player, int barriersNumber);
 
     /**
      * Draw power ups.
