@@ -17,7 +17,7 @@ import view.menu.MenuController.GameStatus;
 /**
  * The Class SaveGamePUp.
  */
-public class SaveGamePUp extends SaveGameImpl<RoundPUpEnvironment> implements SaveGame {
+public class SaveGamePUp extends SaveGameNormal<RoundPUpEnvironment> implements SaveGame {
 	
 	/** The path power ups. */
 	private final String pathPowerUps;

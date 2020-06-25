@@ -21,7 +21,7 @@ import view.menu.MenuController.GameStatus;
  *
  * @param <X> the generic type
  */
-public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame {
+public class SaveGameNormal<X extends RoundEnvironment> implements SaveGame {
 	
 	/** The model. */
 	protected final Model<X> model;
@@ -113,7 +113,7 @@ public class SaveGameImpl<X extends RoundEnvironment> implements SaveGame {
 	 *
 	 * @param model the model
 	 */
-	public SaveGameImpl(final Model<X> model) {
+	public SaveGameNormal(final Model<X> model) {
 		this.model = model;
 		serializator = new Gson();
 		try {

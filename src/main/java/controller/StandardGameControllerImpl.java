@@ -18,7 +18,7 @@ import model.roundenvironment.players.RoundPlayers;
 import savings.load.LoadGame;
 import savings.load.LoadGameFactoryImpl;
 import savings.save.SaveGame;
-import savings.save.SaveGameImpl;
+import savings.save.SaveGameNormal;
 import view.game.ViewLogic;
 import view.menu.MenuController;
 import view.menu.MenuController.GameStatus;
@@ -79,7 +79,7 @@ public class StandardGameControllerImpl implements StandardGameController {
 	 * Invoke it to save the game.
 	 */
 	public void saveGame() {
-		final SaveGame saving = new SaveGameImpl<>(this.model);
+		final SaveGame saving = new SaveGameNormal<>(this.model);
 		saving.save();
 	}
 	
