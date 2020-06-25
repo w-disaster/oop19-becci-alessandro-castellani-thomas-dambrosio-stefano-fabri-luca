@@ -46,13 +46,19 @@ public class StandardGameControllerImpl implements StandardGameController {
 		this.placer = new BarrierPlacerImpl<RoundEnvironment>(this.model, this.view, this.iterRounds);
 	}
 	
+	/**
+	 * Invokes PlayerMover move.
+	 */
 	@Override
-    public final void invokeMove(final Coordinate position) {
+    public void invokeMove(final Coordinate position) {
 		this.mover.movePlayer(position);
 	}
 
+	/**
+	 * Invokes BarrierPlacer place.
+	 */
 	@Override
-    public final void invokePlace(final Coordinate position, final Orientation orientation) {
+    public void invokePlace(final Coordinate position, final Orientation orientation) {
 		this.placer.placeBarrier(position, orientation);
 	}
 	
