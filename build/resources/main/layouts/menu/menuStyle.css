@@ -1,6 +1,6 @@
 
 .root{
-	-fx-background: #2B2D42;
+	-fx-background-color: #2B2D42;
 	Amaranth: #D90429;
 	Raisin: #1A1B28;
 }
@@ -34,12 +34,6 @@
 	-fx-background-color: Raisin;
 }
 
-.bottomButton{
-	-fx-font-family: 'monospace';
-	-fx-font-size: 30;
-	-fx-text-fill: black;
-	-fx-background-color: white;
-}
 
 
 
